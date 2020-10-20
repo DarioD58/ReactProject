@@ -81,7 +81,8 @@ CREATE TABLE PRIJAVA
   datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL,
   status_prijava VARCHAR(20),
   PRIMARY KEY (id_prijava),
-  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime)
+  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
+  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
 );
 
 CREATE TABLE GRUPA

@@ -1,0 +1,339 @@
+[33mcommit 4c19056b68c41be1107479e73f5dab9407bab582[m[33m ([m[1;36mHEAD -> [m[1;32mdevdoc[m[33m, [m[1;31morigin/devdoc[m[33m)[m
+Author: Katarina Dolić <kd51182@fer.hr>
+Date:   Wed Oct 21 16:24:54 2020 +0000
+
+    Replace Login.asta
+
+[33mcommit c1590876c258ba227082a99b0b8c58ce6910977d[m
+Author: Katarina Dolić <kd51182@fer.hr>
+Date:   Wed Oct 21 16:23:50 2020 +0000
+
+    Replace login_sekvencijski.PNG
+
+[33mcommit fc4ec69075c9f6f5c13af57392878a5794fcfd4c[m
+Author: Katarina Dolić <kd51182@fer.hr>
+Date:   Wed Oct 21 15:40:58 2020 +0000
+
+    Upload New File
+
+[33mcommit 5af76c8a1f9d65fe09fcf15b091ec13b7f53430b[m
+Author: Katarina Dolić <kd51182@fer.hr>
+Date:   Wed Oct 21 15:33:10 2020 +0000
+
+    Upload New File - sekvencijski, login
+
+[33mcommit 68748e8499ee30de816419accb894add7509b0a6[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 15:32:58 2020 +0000
+
+    UC19-UC24
+
+[33mcommit d80908336b8b07bb5374760ff01f76ecb856785b[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 15:32:33 2020 +0000
+
+    UC19-UC24
+
+[33mcommit d88780b919019110c72182b014d1ada954533885[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:47:19 2020 +0200
+
+    Revert "UC 19-24"
+    
+    This reverts commit 88295695efa12845bf402102f7319b297c05bc8d.
+
+[33mcommit 96009aef51850bb2f561fbd759bf4eab220d38d3[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:47:15 2020 +0200
+
+    Revert "uc19-24"
+    
+    This reverts commit f6aa3832af0810e413c58d08c7870ecd909b4d21.
+
+[33mcommit 1c83a489be8a89be3c3e90a73eceb256ecd90619[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:47:11 2020 +0200
+
+    Revert "Upload New File"
+    
+    This reverts commit e8cf0b37ec84b7ca86133625850aa7cc2f159f08.
+
+[33mcommit 1d821c036dcce8f4724e22a65bb492b900e44f2c[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:47:06 2020 +0200
+
+    Revert "Upload New File"
+    
+    This reverts commit fd58632f623d3476718e780d8b2997a9f63840f0.
+
+[33mcommit 52d813524479bff44384798a3c54040ed26eb27d[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:46:55 2020 +0200
+
+    Revert "Upload New File"
+    
+    This reverts commit d41303ec5282c3779e6b76099b17e60d6aa0de0d.
+
+[33mcommit 922ca8d86f94cb59f14b21a0d54a2007b476d2e7[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:45:17 2020 +0200
+
+    Revert "Upload New File"
+    
+    This reverts commit 41bae159a291326925da24465c59b746684a8b71.
+
+[33mcommit e99e96e83d907ddd6adf934faa19b8c19c80030e[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 16:42:04 2020 +0200
+
+    Revert "Upload New File"
+    
+    This reverts commit 4fdbe51ede2e02aa7a25e94d812f7c7e183a6fc0.
+
+[33mcommit 4fdbe51ede2e02aa7a25e94d812f7c7e183a6fc0[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:27:28 2020 +0000
+
+    Upload New File
+
+[33mcommit 41bae159a291326925da24465c59b746684a8b71[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:27:09 2020 +0000
+
+    Upload New File
+
+[33mcommit d41303ec5282c3779e6b76099b17e60d6aa0de0d[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:26:57 2020 +0000
+
+    Upload New File
+
+[33mcommit fd58632f623d3476718e780d8b2997a9f63840f0[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:26:38 2020 +0000
+
+    Upload New File
+
+[33mcommit e8cf0b37ec84b7ca86133625850aa7cc2f159f08[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:26:20 2020 +0000
+
+    Upload New File
+
+[33mcommit f6aa3832af0810e413c58d08c7870ecd909b4d21[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:22:13 2020 +0000
+
+    uc19-24
+
+[33mcommit 88295695efa12845bf402102f7319b297c05bc8d[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Wed Oct 21 12:17:39 2020 +0000
+
+    UC 19-24
+
+[33mcommit 68d56c4ed51991d0998512046afeebafdffddea3[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 21 09:05:06 2020 +0200
+
+    Pregled unesenih obrazaca uporabe
+
+[33mcommit 541e31f011d858b5e45aba08cc77dca4910a5aa7[m
+Author: unknown <dekovic.dario@gmail.com>
+Date:   Wed Oct 21 02:41:37 2020 +0200
+
+    Napisani UC7-UC12
+
+[33mcommit b985400ace92b760a77e9e2aacf3a6ef48956cdb[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Tue Oct 20 16:04:16 2020 +0200
+
+    Popunjeni obrasci uporabe UC31-UC40
+
+[33mcommit 6ec7504928cf2d23381bb29fc187c74333755f18[m[33m ([m[1;31morigin/develop[m[33m)[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Tue Oct 20 10:39:16 2020 +0200
+
+    Dodan popis obrazaca uporabe
+
+[33mcommit 93a12ce4bcb62cc1dbfcc56b41836e04312fd8a1[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Tue Oct 20 10:38:35 2020 +0200
+
+    Dodan popis obrazaca uporabe
+
+[33mcommit 4ffe0b9a645e8685ccc7183346524b38662663cc[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 14 18:56:33 2020 +0200
+
+    Brisanje mape IzvrsniKod
+
+[33mcommit 6701e7935bcaf3cae7f20e0e046e3aa25e04ed27[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 14 18:56:02 2020 +0200
+
+    Nadogradnja baze
+
+[33mcommit 08501680b02578dd9ee64c61399e228fd2f1e38e[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Tue Oct 13 16:35:10 2020 +0200
+
+    "Popravljeno par gramatičkih grešaka"
+
+[33mcommit 5fde89552ec12d1e736a9f5a8b52d3b3c36a7a38[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Tue Oct 13 12:25:02 2020 +0200
+
+    "Promjene na dokumentaciji, testiranje Latex-a"
+
+[33mcommit a85bf722cc39cc94b9d4c60660faab9d69b598a0[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Tue Oct 13 12:22:13 2020 +0200
+
+    Dodane .sql ekstenzije
+
+[33mcommit 9b4b572e008fa90caaf576dc5e5e9d8b3671b41a[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:02:43 2020 +0000
+
+    Upload New File
+
+[33mcommit 25acd939d23962388748d0777c80d4b60ffbd7de[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:02:23 2020 +0000
+
+    Upload New File
+
+[33mcommit a2cecfbb740e2af6c06aa2d54b16039fd1d046b9[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:02:07 2020 +0000
+
+    Upload New File
+
+[33mcommit 3fc4aef32a8c95c56f3bd6b4d77079690cf90718[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:01:50 2020 +0000
+
+    Upload New File
+
+[33mcommit f55044113d6fc21a0095b03a642c273f2ae19337[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:01:37 2020 +0000
+
+    Delete Specifikacija_programske_potpore.tex
+
+[33mcommit 6b14bb131c6ca2cdd8c89720859694b2b8e6ff21[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:01:27 2020 +0000
+
+    Delete PROGI_ProjektnaDokumentacija_v6.tex
+
+[33mcommit 41dcd107ee151d6441f8828cea815979025602ce[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:01:20 2020 +0000
+
+    Delete Opis_projektnog_zadatka.tex
+
+[33mcommit 19fcb7ea82d638f62ecf14368eccca929b47f7a5[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:01:14 2020 +0000
+
+    Delete Dnevnik_promjena_dokumentacije.tex
+
+[33mcommit 21ba033178dc8e3f3e77d27615387cc07ebd29ac[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:00:38 2020 +0000
+
+    Add new directory
+
+[33mcommit 6525d60b718f777779fae9146ec3e7c800d8cb42[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:00:28 2020 +0000
+
+    Upload New File
+
+[33mcommit 6d1415b041ec7cabf83cdffa632a9ac9be351ce2[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 19:00:00 2020 +0000
+
+    Upload New File
+
+[33mcommit 41d6002a399ee7e4bd02b55bf0d3557184e38fa6[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 18:59:41 2020 +0000
+
+    Upload New File
+
+[33mcommit ebe85f2ef6b7e55a6cdf63750e2773878e906f36[m
+Merge: 80d2e6e b54641b
+Author: tin.vickovic <tv51584@fer.hr>
+Date:   Mon Oct 12 20:58:18 2020 +0200
+
+    Merge branch 'master' of https://gitlab.com/dstrunjak/fantasticfourplusthree into master
+
+[33mcommit 80d2e6ee46928ffb98a8dc9084e3da35faa86d8b[m
+Author: tin.vickovic <tv51584@fer.hr>
+Date:   Mon Oct 12 20:57:54 2020 +0200
+
+    Dodan kostur seeda za popunjavanje baze podataka
+
+[33mcommit b54641b31fec96a476236f57765ca00414034442[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 18:57:34 2020 +0000
+
+    Upload New File
+
+[33mcommit 98fdb14b656d5b1336ae271672fe5cfaffe4aad3[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 18:53:42 2020 +0000
+
+    Delete PROGI_ProjektnaDokumentacija_v6.tex
+
+[33mcommit 47740d72764a55bb7f94f3c4827ff046fe040454[m
+Author: Leo Došen <ld50831@fer.hr>
+Date:   Mon Oct 12 18:51:46 2020 +0000
+
+    Upload New File
+
+[33mcommit 257f085877ed52d8a6539c5d2080b7e355434abf[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Mon Oct 12 16:03:34 2020 +0200
+
+    Nadograden SQL za stvaranje baze
+
+[33mcommit 6a86f1439e7ad4d21284328a2148c2d7b612be4d[m
+Merge: 667b36a 24fe00a
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Mon Oct 12 15:56:50 2020 +0200
+
+    Merge branch 'master' of gitlab.com:dstrunjak/fantasticfourplusthree into master
+
+[33mcommit 667b36a1c5552b10ff850c8e12a0f2c0a9371449[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Mon Oct 12 15:51:41 2020 +0200
+
+    Entity-relation model unaprijedene baze
+
+[33mcommit 24fe00a5358806d4b2ee982eeda08c489729ad83[m
+Author: tin.vickovic <tv51584@fer.hr>
+Date:   Wed Oct 7 20:16:41 2020 +0200
+
+    Dodan kostur koda za SQL
+
+[33mcommit aa6d3701e586f43213112beee5118d579b5e335b[m
+Author: tin.vickovic <tv51584@fer.hr>
+Date:   Wed Oct 7 20:14:47 2020 +0200
+
+    Objavljen SQL kostur
+
+[33mcommit 20d180ad4a8cd42f68c2e87a58c7e9cd885f3f32[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 7 19:27:57 2020 +0200
+
+    Dodavanje foldera
+
+[33mcommit 299d520afb2c318b8d6f18fb035ba43e91e29e0e[m
+Author: Dario Strunjak <dario.strunjak@fer.hr>
+Date:   Wed Oct 7 19:15:30 2020 +0200
+
+    Prvi commit, zadatak i dnevnik

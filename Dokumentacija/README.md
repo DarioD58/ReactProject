@@ -1,1 +1,1 @@
-Mapa za svu dokumentaciju projekta
+Mapa za dokumentaciju projekta

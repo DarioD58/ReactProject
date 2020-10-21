@@ -675,69 +675,79 @@
 					\noindent \underbar{\textbf{UC19 - Brisanje registriranog korisnika}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: } Organizator
+						\item  \textbf{Cilj:} Brisanje registriranog korisnika i svih njegovih podataka iz baze podataka
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav, registrirani korisnici postoji u sustavu
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju "Upravljanje"
+							\item Korisnik odabire kamp za koji želi obrisati registriranog korisnika
+							\item Korisnik odabire opciju "Korisnici"
+							\item Korisnik odabire korisnika kojeg želi obrisati 
+							\item Korisnik odabire opciju "Obriši"
+							\item Korisnik odabire opciju "Potvrdi"
+							\item Baza podataka se ažurira
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Korisnik odustaje od brisanja računa
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika da korisnik neće biti obrisan
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-							
-						\end{packed_item}
 					\end{packed_item}
 					
 					\noindent \underbar{\textbf{UC20 - Unos aktivnosti}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: Organizator
+						\item  \textbf{Cilj:} Unos nove aktivnosti u sustav
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju "Upravljanje"
+							\item Korisnik odabire kamp za koji želi unijeti novu aktivnost
+							\item Korisnik odabire opciju "Aktivnosti"
+							\item Korisnik odabire opciju "Unos aktivnosti"
+							\item Korisnik upisuje podatke koji definiraju aktivnost
+							\item Korisnik odabire opciju "Potvrdi"
+							\item Baza podataka se ažurira
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Aktivnost koju je korisnik unio već postoji u sustavu
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika da aktivnost već postoji u sustavu
+								\item Korisnik mijenja podatke ili odustaje od unosa aktivnosti u sustav
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+							\item[2.b] Korisnik nije unio sve potrebne podatke za definiciju aktivnosti
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o podatcima koje mora unijeti
+								\item Korisnik unosi podatke ili odustaje od unosa aktivnosti u sustav
+								
+							\end{packed_enum}
+							\item[3.a] Korisnik odustaje od unosa aktivnosti
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika da aktivnosti neće biti unesena u sustav
+								
+							\end{packed_enum}
 							
 						\end{packed_item}
 					\end{packed_item}
@@ -745,69 +755,65 @@
 					\noindent \underbar{\textbf{UC21 - Pregled aktivnosti}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: Organizator
+						\item  \textbf{Cilj:} Pregled aktivnosti u sustavu
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav, aktivnosti postoje u sustavu
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju "Upravljanje"
+							\item Korisnik odabire kamp za koji želi pregledati aktivnosti
+							\item Korisnik odabire opciju "Aktivnosti"
+							\item Sustav prikazuje aktivnosti
 						\end{packed_enum}
-						
-						\item  \textbf{Opis mogućih odstupanja:}
-						
-						\item[] \begin{packed_item}
-							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[] \begin{packed_enum}
-								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
-								
-							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-							
-						\end{packed_item}
 					\end{packed_item}
 				
 					\noindent \underbar{\textbf{UC22 - Uređivanje aktivnosti}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: Organizator
+						\item  \textbf{Cilj:} Uređivanje aktivnosti u sustavu
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav, aktivnosti postoje u sustavu
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju "Upravljanje"
+							\item Korisnik odabire kamp za koji želi urediti aktivnost
+							\item Korisnik odabire opciju "Aktivnosti"
+							\item Korisnik odabire aktivnost koju želi urediti
+							\item Korisnik mijenja podatke odabrane aktivnosti
+							\item Korisnik odabire opciju "Potvrdi"
+							\item Baza podataka se ažurira
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Aktivnost koju je korisnik unio već postoji u sustavu
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika da aktivnost već postoji u sustavu
+								\item Korisnik mijenja podatke ili odustaje od uređivanja aktivnosti 
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+							\item[2.b] Korisnik nije unio sve potrebne podatke za definiciju aktivnosti
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o podatcima koje mora unijeti
+								\item Korisnik unosi podatke ili odustaje od uređivanja aktivnosti 
+								
+							\end{packed_enum}
+							\item[3.a] Korisnik odustaje od uređivanja aktivnosti
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika da promjene na aktivnosti neće biti unesene u sustav
+								
+							\end{packed_enum}
 							
 						\end{packed_item}
 					\end{packed_item}
@@ -815,70 +821,80 @@
 					\noindent \underbar{\textbf{UC23 - Brisanje aktivnosti}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: Organizator
+						\item  \textbf{Cilj:} Brisanje aktivnosti u sustavu
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav, aktivnosti postoje u sustavu
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju "Upravljanje"
+							\item Korisnik odabire kamp za koji želi obrisati aktivnost
+							\item Korisnik odabire opciju "Aktivnosti"
+							\item Korisnik odabire aktivnost koju želi obrisati
+							\item Korisnik odabire opciju "Obriši"
+							\item Korisnik odabire opciju "Potvrdi"
+							\item Baza podataka se ažurira
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Korisnik odustaje od brisanja aktivnosti
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika da aktivnost neće biti obrisana
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-							
 						\end{packed_item}
 					\end{packed_item}
 					
 					\noindent \underbar{\textbf{UC24 - Unos grupe}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: Organizator
+						\item  \textbf{Cilj:} Unos nove grupe u sustav
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju "Upravljanje"
+							\item Korisnik odabire kamp za koji želi unijeti grupu
+							\item Korisnik odabire opciju "Grupe"
+							\item Korisnik odabire opciju "Unos grupe"
+							\item Korisnik upisuje podatke za definiciju grupe te može pridružiti proizvoljan broj sudionika 
+							\item Korisnik odabire opciju "Potvrdi"
+							\item Baza podataka se ažurira
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Grupa koju je korisnik unio već postoji u sustavu
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika da grupa već postoji u sustavu
+								\item Korisnik mijenja podatke ili odustaje od unosa grupe u sustav 
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-							
+							\item[2.b] Korisnik nije unio sve potrebne podatke za definiciju grupe
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o podatcima koje mora unijeti
+								\item Korisnik unosi podatke ili odustaje od unosa grupe u sustav
+								
+							\end{packed_enum}
+							\item[3.a] Korisnik odustaje od unosa grupe
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika da grupa neće biti unesena u sustav
+								
+							\end{packed_enum}
 						\end{packed_item}
 					\end{packed_item}
 					

@@ -104,7 +104,7 @@
 						\item \textbf{Glavni sudionik: } Korisnik
 						\item  \textbf{Cilj:} Pregled informacija o kampu
 						\item  \textbf{Sudionici:} Neregistrirani korisnik
-						\item  \textbf{Preduvjet:} Korisnik je na naslovnoj stranici
+						\item  \textbf{Preduvjet:} Informacije o kampu postoje u bazi podataka
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
@@ -113,7 +113,6 @@
 							
 						\end{packed_enum}
 						
-						\item  \textbf{Opis mogućih odstupanja:} /
 						
 					\end{packed_item}
 					
@@ -145,9 +144,8 @@
 							\item[4.a] Organizator odbija prijavu
 							\item[] \begin{packed_enum}
 								
-								\item[2.a] Korisnik bira opciju "Povratak na naslovnu stranicu"
-								\item[4.a] Odustani od daljnjih koraka i obavijesti korisnika da je prijava odbijena mailom
-							
+								\item[1.] Korisnika se mailom obavještava da je prijava odbijena
+							\end{packed_enum}
 						\end{packed_item}
 					\end{packed_item}
 					
@@ -156,8 +154,8 @@
 						
 						\item \textbf{Glavni sudionik: }Korisnik
 						\item  \textbf{Cilj:} Registracija u sustav
-						\item  \textbf{Sudionici:} Korisnik, baza podataka
-						\item  \textbf{Preduvjet:} Korisnik neregistriran
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik neregistriran i poslao je svoju prijavu
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
@@ -197,7 +195,8 @@
 							\item[] \begin{packed_enum}
 								
 								\item Obavijesti korisnika da su podatci neispravni
-
+							\end{packed_enum}
+						\end{packed_item}
 					\end{packed_item}
 				
 					\noindent \underbar{\textbf{UC5 - Pregled osobnih podataka}}
@@ -205,7 +204,7 @@
 						
 						\item \textbf{Glavni sudionik: }Korisnik
 						\item  \textbf{Cilj:} Omogućiti korisniku pregled vlastitih osobnih podataka
-						\item  \textbf{Sudionici:} Baza podataka, Prijavljeni korisnik
+						\item  \textbf{Sudionici:} Baza podataka
 						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
 						\item  \textbf{Opis osnovnog tijeka:}
 						
@@ -222,7 +221,7 @@
 						
 						\item \textbf{Glavni sudionik: }Korisnik
 						\item  \textbf{Cilj:} Omogućiti korisniku izmjenu neispravnih osobnih podataka
-						\item  \textbf{Sudionici:} Baza podataka, Prijavljeni korisnik
+						\item  \textbf{Sudionici:} Baza podataka
 						\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
 						\item  \textbf{Opis osnovnog tijeka:}
 						
@@ -230,7 +229,7 @@
 							
 							\item Korisnik bira opciju "Moj profil"
 							\item Korisnik bira opciju "Izmjena podataka"
-							\item Korisnik mjenja podatke
+							\item Korisnik mijenja podatke
 							\item Korisnik bira opciju "Potvrdi izmjene"
 							\item Ažuriranje baze podataka
 						\end{packed_enum}
@@ -243,7 +242,7 @@
 							\item[] \begin{packed_enum}
 								
 								\item Korisnik odabire opciju "Odustani"
-							
+							\end{packed_enum}
 						\end{packed_item}
 					\end{packed_item}
 				

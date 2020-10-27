@@ -799,11 +799,11 @@
 						\end{packed_item}
 					\end{packed_item}
 					
-					\noindent \underbar{\textbf{UC24 - Unos grupe}}
+					\noindent \underbar{\textbf{UC24 - Unos grupa}}
 					\begin{packed_item}
 						
 						\item \textbf{Glavni sudionik: }Organizator
-						\item  \textbf{Cilj:} Unos nove grupe u sustav
+						\item  \textbf{Cilj:} Unos grupa u sustav
 						\item  \textbf{Sudionici:} Baza podataka
 						\item  \textbf{Preduvjet:} Organizator je prijavljen u sustav
 						\item  \textbf{Opis osnovnog tijeka:}
@@ -814,8 +814,8 @@
 							\item Organizator odabire opciju "Upravljanje"
 							\item Organizator odabire kamp za koji želi unijeti grupu
 							\item Organizator odabire opciju "Grupe"
-							\item Organizator odabire opciju "Unos grupe"
-							\item Organizator upisuje podatke za definiciju grupe te može pridružiti proizvoljan broj sudionika 
+							\item Organizator odabire opciju "Unos grupa"
+							\item Organizator upisuje broj grupa koje želi stvoriti
 							\item Organizator odabire opciju "Potvrdi"
 							\item Baza podataka se ažurira
 						\end{packed_enum}
@@ -824,28 +824,13 @@
 						
 						\item[] \begin{packed_item}
 							
-							\item[3.a] Organizator odustaje od unosa grupe
+							\item[4.a] Organizator odustaje od unosa grupa
 							\item[] \begin{packed_enum}
 								
-								\item Sustav obavještava organizatora da grupa neće biti unesena u sustav
+								\item Sustav obavještava organizatora da grupe neće biti unesene u sustav
 								
 							\end{packed_enum}
 							
-							\item[6.a] Grupa koju je organizator unio već postoji u sustavu
-							\item[] \begin{packed_enum}
-								
-								\item Sustav obavještava organizatora da grupa već postoji u sustavu
-								\item Korisnik mijenja podatke ili odustaje od unosa grupe u sustav 
-								
-								
-							\end{packed_enum}
-							\item[6.b] Organizator nije unio sve potrebne podatke za definiciju grupe
-							\item[] \begin{packed_enum}
-								
-								\item Sustav obavještava organizatora o podatcima koje mora unijeti
-								\item Organizator unosi podatke ili odustaje od unosa grupe u sustav
-								
-							\end{packed_enum}
 							
 						\end{packed_item}
 					\end{packed_item}
@@ -1332,29 +1317,58 @@
 							\end{packed_enum}
 						\end{packed_item}
 					\end{packed_item}
-				
+			\eject	
 							
 			\subsubsection{Dijagrami obrazaca uporabe}
+				
 				\begin{figure}[H]
-					\centerline{\includegraphics[width=\columnwidth, height=0.9\textheight]{slike/UC_organizator.png}}
-					\caption{Dijagram obrasca uporabe, funkcionalnost organizatora}
-					\label{fig}
+				\centerline{\includegraphics[width=\textwidth]{slike/UC_sudionik.png}}
+				\caption{Dijagram obrasca uporabe, funkcionalnosti sudionika}
+				\label{fig:ucSudionik}
 				\end{figure}
+			
+				\begin{figure}[H]
+					\centerline{\includegraphics[width=\textwidth]{slike/UC_animator.png}}
+					\caption{Dijagram obrasca uporabe, funkcionalnosti animatora}
+					\label{fig:ucAnimator}
+				\end{figure}
+		
+				\begin{figure}[H]
+					\centerline{\includegraphics[width=\textwidth, height=0.9\textheight]{slike/UC_organizator.png}}
+					\caption{Dijagram obrasca uporabe, funkcionalnosti organizatora}
+					\label{fig:ucOrganizator}
+				\end{figure}
+			
+			
 			\eject		
 				
 			\subsection{Sekvencijski dijagrami}
 				
-				\textbf{\textit{dio 1. revizije}}\\
+				\textbf{Obrazac uporabe UC36 - Prihvaćanje ili odbijanje prijave}
 				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+				
+				\noindent Organizator nakon odabira opcije "Upravljanje" odabire opciju "Prijave".Poslužitelj dohvaća popis prijava iz baze podataka i ukoliko prijave postoje, prikazuje ih organizatoru. Organizator filtrira prijave kako bi vidio neobrađene, aktivne prijave. Poslužitelj dohvaća filtrirane prijave iz baze podataka i ukoliko takve prijave postoje, prikazuje ih organizatoru.Organizator odabire prijavu i obrađuje ju, prihvaća ju ili odbija. Nakon što organizator potvrdi svoju odluku, poslužitelj bazi podataka šalje ažurirane podatke. Kotisniku čija je prijava obrađena šalje se e-mail obavijest sa statusom njegove prijave i daljnjim uputama.
+				\begin{figure}[H]
+					\centerline{\includegraphics[width=\linewidth]{slike/Sekvencijski_dijagram_UC36.png}}
+					\caption{Sekvencijski dijagram za UC36}
+					\label{fig:sekvencijskiUC36}
+				\end{figure}
 				\eject
+				
+			
+			
+				
+				
 	
 		\section{Ostali zahtjevi}
-		
-			\textbf{\textit{dio 1. revizije}}\\
-		 
-			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
 			 
-			 
-			 
-	
+			 \begin{packed_item}
+			 \item Sustav treba biti implementiran kao web aplikacija koristeći objektno-orijentiranu paradigmu
+			 \item Sustav treba omogućiti rad više korisnika u stvarnom vremenu
+			 \item Korisničko sučelje i sustav moraju podržavati hrvatsku abecedu (dijakritičke znakove) pri unosu i prikazu tekstualnog sadržaja
+			 \item  Neispravno korištenje korisničkog sučelja ne smije narušiti funkcionalnost i rad sustava
+			 \item Izvršavanje dijela programa u kojem se pristupa bazi podataka ne smije trajati duže od nekoliko sekundi
+			 \item Sustav treba biti jednostavan za korištenje, korisnici se moraju znati koristiti sučeljem bez opširnih uputa
+			 \item Nadogradnja sustava ne smije narušavati postojeće funkcionalnosti sustava
+			\end{packed_item}
+		\eject

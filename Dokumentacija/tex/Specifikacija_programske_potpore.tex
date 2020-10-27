@@ -457,7 +457,7 @@
 							
 							\item Sudionik odabire opciju "Pregled grupe"
 							\item Prikazuju se podatci o korisnikovoj grupi i animatorima
-							\item Klikom na gumb "Izlaz" izlazi se iz pregleda
+							\item Prikazuju se podatci o korisnikovoj grupi i animatorima
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
@@ -1343,10 +1343,12 @@
 			\eject		
 				
 			\subsection{Sekvencijski dijagrami}
-			
+
 				\textbf{Obrazac uporabe UC4 - Prijava u sustav}
-		
+
 				\noindent Korisnik odabire opciju "Prijava u sustav" i upisuje svoje korisničko ime i lozinku u za to predviđena polja, zatim odabire opciju "U redu". Sustav provjerava postoji li ta kombinacija korisničkog imena i lozinke u bazi podataka. Ako postoji, korisnik se prijavljuje u sustav i nastavlja na stranicu "Moj Kamp". Ako ne postoji, sustav vraća grešku i korisnik ostaje na istoj stranici.
+
+						
 				\begin{figure}[H]
 					\centerline{\includegraphics[width=\linewidth]{slike/Sekvencijski_dijagram_UC4.png}}
 					\caption{Sekvencijski dijagram za UC4}
@@ -1356,16 +1358,12 @@
 				
 				\noindent\textbf{Obrazac uporabe UC36 - Prihvaćanje ili odbijanje prijave}
 					
-				\noindent Organizator nakon odabira opcije "Upravljanje" odabire opciju "Prijave".Poslužitelj dohvaća popis prijava iz baze podataka i ukoliko prijave postoje, prikazuje ih organizatoru. Organizator filtrira prijave kako bi vidio neobrađene, aktivne prijave. Poslužitelj dohvaća filtrirane prijave iz baze podataka i ukoliko takve prijave postoje, prikazuje ih organizatoru.Organizator odabire prijavu i obrađuje ju, prihvaća ju ili odbija. Nakon što organizator potvrdi svoju odluku, poslužitelj bazi podataka šalje ažurirane podatke. Kotisniku čija je prijava obrađena šalje se e-mail obavijest sa statusom njegove prijave i daljnjim uputama.
+				\noindent Organizator nakon odabira opcije "Upravljanje" odabire opciju "Prijave".Poslužitelj dohvaća popis prijava iz baze podataka i ukoliko prijave postoje, prikazuje ih organizatoru. Organizator filtrira prijave kako bi vidio neobrađene, aktivne prijave. Poslužitelj dohvaća filtrirane prijave iz baze podataka i ukoliko takve prijave postoje, prikazuje ih organizatoru.Organizator odabire prijavu i obrađuje ju, prihvaća ju ili odbija. Nakon što organizator potvrdi svoju odluku, poslužitelj bazi podataka šalje ažurirane podatke. Korisniku čija je prijava obrađena šalje se e-mail obavijest sa statusom njegove prijave i daljnjim uputama.
 				\begin{figure}[H]
 					\centerline{\includegraphics[width=\linewidth]{slike/Sekvencijski_dijagram_UC36.png}}
 					\caption{Sekvencijski dijagram za UC36}
 					\label{fig:sekvencijskiUC36}
 				\end{figure}
-			
-			
-		
-			
 				\eject
 				
 			
@@ -1380,7 +1378,6 @@
 			 \item Sustav treba omogućiti rad više korisnika u stvarnom vremenu
 			 \item Korisničko sučelje i sustav moraju podržavati hrvatsku abecedu (dijakritičke znakove) pri unosu i prikazu tekstualnog sadržaja
 			 \item  Neispravno korištenje korisničkog sučelja ne smije narušiti funkcionalnost i rad sustava
-
 			 \item Izvršavanje dijela programa u kojem se pristupa bazi podataka ne smije trajati duže od nekoliko sekundi
 			 \item Sustav treba biti jednostavan za korištenje, korisnici se moraju znati koristiti sučeljem bez opširnih uputa
 			 \item Nadogradnja sustava ne smije narušavati postojeće funkcionalnosti sustava

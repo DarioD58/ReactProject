@@ -1343,16 +1343,29 @@
 			\eject		
 				
 			\subsection{Sekvencijski dijagrami}
+			
+				\textbf{Obrazac uporabe UC4 - Prijava u sustav}
+		
+				\noindent Korisnik odabire opciju "Prijava u sustav" i upisuje svoje korisničko ime i lozinku u za to predviđena polja, zatim odabire opciju "U redu". Sustav provjerava postoji li ta kombinacija korisničkog imena i lozinke u bazi podataka. Ako postoji, korisnik se prijavljuje u sustav i nastavlja na stranicu "Moj Kamp". Ako ne postoji, sustav vraća grešku i korisnik ostaje na istoj stranici.
+				\begin{figure}[H]
+					\centerline{\includegraphics[width=\linewidth]{slike/Sekvencijski_dijagram_UC4.png}}
+					\caption{Sekvencijski dijagram za UC4}
+					\label{fig:sekvencijskiUC4}
+				\end{figure}
+				\eject
 				
-				\textbf{Obrazac uporabe UC36 - Prihvaćanje ili odbijanje prijave}
-				
-				
+				\noindent\textbf{Obrazac uporabe UC36 - Prihvaćanje ili odbijanje prijave}
+					
 				\noindent Organizator nakon odabira opcije "Upravljanje" odabire opciju "Prijave".Poslužitelj dohvaća popis prijava iz baze podataka i ukoliko prijave postoje, prikazuje ih organizatoru. Organizator filtrira prijave kako bi vidio neobrađene, aktivne prijave. Poslužitelj dohvaća filtrirane prijave iz baze podataka i ukoliko takve prijave postoje, prikazuje ih organizatoru.Organizator odabire prijavu i obrađuje ju, prihvaća ju ili odbija. Nakon što organizator potvrdi svoju odluku, poslužitelj bazi podataka šalje ažurirane podatke. Kotisniku čija je prijava obrađena šalje se e-mail obavijest sa statusom njegove prijave i daljnjim uputama.
 				\begin{figure}[H]
 					\centerline{\includegraphics[width=\linewidth]{slike/Sekvencijski_dijagram_UC36.png}}
 					\caption{Sekvencijski dijagram za UC36}
 					\label{fig:sekvencijskiUC36}
 				\end{figure}
+			
+			
+		
+			
 				\eject
 				
 			

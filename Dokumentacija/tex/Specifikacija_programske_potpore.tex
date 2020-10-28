@@ -1346,7 +1346,7 @@
 			\subsection{Sekvencijski dijagrami}
 			
 
-				\textbf{Obrazac uporabe UC4 - Prijava u sustav}
+				\noindent\textbf{Obrazac uporabe UC4 - Prijava u sustav}
 
 				\noindent Korisnik odabire opciju "Prijava u sustav" i upisuje svoje korisničko ime i lozinku u za to predviđena polja, zatim odabire opciju "U redu". Sustav provjerava postoji li ta kombinacija korisničkog imena i lozinke u bazi podataka. Ako postoji, korisnik se prijavljuje u sustav i nastavlja na stranicu "Moj Kamp". Ako ne postoji, sustav vraća grešku i korisnik ostaje na istoj stranici.
 
@@ -1361,9 +1361,7 @@
 				
 				\textbf{Obrazac uporabe UC18 - Uređivanje registriranog korisnika}
 				
-				\noindent  Organizator odabire opciju "Pregled korisnka". Web aplikacija šalje upit bazi podataka o registriranim korisnicima te ih prikazuje organizatoru.
-				Organizator odabire korisnika. Zatim odabire korisnika kojeg želi odabrat, te web aplikacija preko baze podataka prikazuje podatke o odabranom korisniku koje je moguće izmijeniti. Ako organizator ne promijeni ni jedan podatak prikazat će mu se prigodna poruka. Ako oragnizator promijeni podatke ali ne stisne gumb "Spremi" prikazat će mu se  prigodna poruka. Ukoliko organizator promijeni podatke i spremi ih prikazat će mu se poruka uspješnog mijenjajna podataka.  
-				
+				\noindent Organizator odabire opciju "Pregled korisnika". Poslužitelj iz baze podataka dohvaća podatke o registriranim korisnicima te ih prikazuje organizatoru. Organizator odabire korisnika čije podatke želi urediti. Poslužitelj prikazuje podatke o odabranom korisniku koje je moguće izmijeniti. Ako organizator ne promijeni niti jedan podatak, prikazat će mu se prigodna poruka. Ako organizator promijeni podatke ali ne odabere opciju "Spremi" prikazat će mu se prigodna poruka. Ukoliko organizator promijeni podatke i spremi ih, prikazat će mu se poruka uspješnog uređivanja podataka.  
 				
 				\begin{figure}[H]
 					\centerline{\includegraphics[width=\linewidth]{slike/Sekvencijski_dijagram_UC18.png}}

@@ -19,7 +19,7 @@
 			
 			\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Za potrebe našeg sustava koristit ćemo relacijsku bazu podataka koja svojom strukturom olakšava modeliranje stvarnog svijeta. Gradivna jedinka baze je relacija, odnosno tablica koja je definirana svojim imenom i skupom atributa. Zadaća baze podataka je brza i jednostavna pohrana, izmjena i dohvat podataka za daljnju obradu. Baza podataka ove aplikacije sastoji se od sljedećih entiteta:}
+		Za potrebe našeg sustava koristit ćemo relacijsku bazu podataka koja svojom strukturom olakšava modeliranje stvarnog svijeta. Gradivna jedinka baze je relacija, odnosno tablica koja je definirana svojim imenom i skupom atributa. Zadaća baze podataka je brza i jednostavna pohrana, izmjena i dohvat podataka za daljnju obradu. Baza podataka ove aplikacije sastoji se od sljedećih entiteta:
 		\begin{packed_item}
 			\item Korisnik
 			\item Sudionik
@@ -37,7 +37,7 @@
 			\subsection{Opis tablica}
 			
 
-				\textit{\textbf{Korisnik}	Ovaj entitet sadržava sve važne informacije o korisniku aplikacije. Sadrži atribute: korisnicko\_ime, lozinka, email, ime, prezime, status. Ovaj entitet u vezi je One-to-One s entitetom Sudionik preko atributa korisnicko\_ime, u vezi One-to-One s entitetom Animator preko atributa korisnicko\_ime, u vezi One-to-One s entitetom Organizator preko atributa korisnicko\_ime, te u vezi One-to-One s entitetom Prijava preko atributa korisnicko\_ime.}
+				\textbf{Korisnik}	Ovaj entitet sadržava sve važne informacije o korisniku aplikacije. Sadrži atribute: korisnicko\_ime, lozinka, email, ime, prezime, status. Ovaj entitet u vezi je \textit{One-to-One} s entitetom Sudionik preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Animator preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Organizator preko atributa korisnicko\_ime, te u vezi \textit{One-to-One} s entitetom Prijava preko atributa korisnicko\_ime.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -60,7 +60,7 @@
 					
 				\end{longtabu}
 			
-				\textit{\textbf{Sudionik}	Ovaj entitet sadržava sve važne informacije vezane za sudionika u kampu. Sadrži atribute: korisnicko\_ime\_sudionik, br\_tel\_sudionik, datum\_i\_god\_rod\_sudionik, br\_tel\_odg\_osobe, motivacijsko\_pismo\_sudionik, id\_grupa. Ovaj entitet je u One-to-Many vezi s entitetom Sudionik\_ocjena\_aktivnosti preko atributa korisnicko\_ime\_sudionik, u vezi Many-to-one s entitetom Grupa preko atributa id\_grupa, te u vezi One-to-One  s entitetom Korisnik preko atributa korisnicko\_ime\_sudionik.}
+				\noindent\textbf{Sudionik}	Ovaj entitet sadržava sve važne informacije vezane za sudionika u kampu. Sadrži atribute: korisnicko\_ime\_sudionik, br\_tel\_sudionik, datum\_i\_god\_rod\_sudionik, br\_tel\_odg\_osobe, motivacijsko\_pismo\_sudionik, id\_grupa. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Sudionik\_ocjena\_aktivnosti preko atributa korisnicko\_ime\_sudionik, u vezi \textit{Many-to-one} s entitetom Grupa preko atributa id\_grupa, te u vezi \textit{One-to-One}  s entitetom Korisnik preko atributa korisnicko\_ime\_sudionik.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -83,7 +83,7 @@
 					
 				\end{longtabu}
 			
-				\textit{\textbf{Animator}	Ovaj entitet sadržava sve važne informacije vezane za animatora u kampu. Sadrži atribute: korisnicko\_ime\_animator, br\_tel\_animator, datum\_i\_god\_rod\_animator, motivacijsko\_pismo\_animator. Ovaj entitet je u One-to-One vezi s entitetom Korisnik preko atributa korisnicko\_ime\_animatora, u vezi Many-to-One s entitetom Raspored preko atributa korisnicko\_ime\_animator, te u vezi One-to-Many s entitetom Animator\_ocjena\_aktivnosti preko atributa korisnicko\_ime\_animator.}
+				\textbf{Animator}	Ovaj entitet sadržava sve važne informacije vezane za animatora u kampu. Sadrži atribute: korisnicko\_ime\_animator, br\_tel\_animator, datum\_i\_god\_rod\_animator, motivacijsko\_pismo\_animator. Ovaj entitet je u \textit{One-to-One} vezi s entitetom Korisnik preko atributa korisnicko\_ime\_animatora, u vezi \textit{Many-to-One} s entitetom Raspored preko atributa korisnicko\_ime\_animator, te u vezi \textit{One-to-Many} s entitetom Animator\_ocjena\_aktivnosti preko atributa korisnicko\_ime\_animator.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -104,7 +104,7 @@
 					
 				\end{longtabu}
 			
-				\textit{\textbf{Organizator}	Ovaj entitet sadrži sve važne informacije vezane za organizatora kampa. Sadrži atribut: korisnicko\_ime\_organizator. Ovaj entitet je u One-to-One vezi s entitetom Korisnik preko atributa korisnicko\_ime\_organizator.}
+				\textbf{Organizator}	Ovaj entitet sadrži sve važne informacije vezane za organizatora kampa. Sadrži atribut: korisnicko\_ime\_organizator. Ovaj entitet je u \textit{One-to-One} vezi s entitetom Korisnik preko atributa korisnicko\_ime\_organizator.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -123,7 +123,7 @@
 					
 				\end{longtabu}
 			
-				\textit{\textbf{Prijava}	Ovaj entitet sadrži sve važne informacije vezane o prijavama na kamp. Sadrži atribute: id\_prijava, korisnicko\_ime, datum\_i\_vrijeme\_prijave, status\_prijava. Ovaj entitet je u One-to-One vezi s entitetom Korisnik preko atributa korisnicko\_ime.}
+				\textbf{Prijava}	Ovaj entitet sadrži sve važne informacije vezane o prijavama na kamp. Sadrži atribute: id\_prijava, korisnicko\_ime, datum\_i\_vrijeme\_prijave, status\_prijava. Ovaj entitet je u \textit{One-to-One} vezi s entitetom Korisnik preko atributa korisnicko\_ime.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -144,7 +144,7 @@
 					
 				\end{longtabu}
 			
-				\textit{\textbf{Grupa}	Ovaj entitet sadrži sve važne informacije o grupama na kampu. Sadrži atribute: id\_grupa, ime\_grupa. Ovaj entitet je u One-to-Many vezi s entitetom Sudionik preko atributa id\_grupa, te u vezi Many-to-One s entitetom Raspored preko atributa id\_grupa.}
+				\textbf{Grupa}	Ovaj entitet sadrži sve važne informacije o grupama na kampu. Sadrži atribute: id\_grupa, ime\_grupa. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Sudionik preko atributa id\_grupa, te u vezi \textit{Many-to-One} s entitetom Raspored preko atributa id\_grupa.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -162,7 +162,7 @@
 					
 				\end{longtabu}
 			
-				\textit{\textbf{Raspored}	Ovaj entitet sadrži sve važne informacije vezane za raspored kampa. Sadrži atribute: id\_grupa, id\_aktivnost, datum\_i\_vrijeme\_izvrsavanja, korisnicko\_ime\_animator. Ovaj entitet je u One-to-Many vezi s entitetom Grupa preko atributa id\_grupa, Many-to-Many vezi s entitetom Animator preko atributa korisnicko\_ime\_animator, te u vezi One-to-Many s entitetom Aktivnost preko atributa id\_aktivnost.   }
+				\textbf{Raspored}	Ovaj entitet sadrži sve važne informacije vezane za raspored kampa. Sadrži atribute: id\_grupa, id\_aktivnost, datum\_i\_vrijeme\_izvrsavanja, korisnicko\_ime\_animator. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Grupa preko atributa id\_grupa, \textit{Many-to-Many] vezi s entitetom Animator preko atributa korisnicko\_ime\_animator, te u vezi \textit{One-to-Many} s entitetom Aktivnost preko atributa id\_aktivnost.   
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					

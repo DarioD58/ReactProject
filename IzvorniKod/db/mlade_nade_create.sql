@@ -1,7 +1,4 @@
---dodati da je svaki id tipa SERIAL, za datum i vrijeme izvodenja dodati tip TIMESTAMP(0)
-
---ekstenzija za kriptiranje lozinke korisnika
-CREATE EXTENSION pgcrypto;
+CREATE DATABASE kampAdmin;
 
 
 CREATE TABLE KAMP
@@ -54,7 +51,6 @@ CREATE TABLE SUDIONIK
   korisnicko_ime_sudionik VARCHAR(50) NOT NULL,
   datum_i_god_rod_sudionik DATE NOT NULL,
   br_tel_sudionik VARCHAR(20) NOT NULL,
-  motivacijsko_pismo_sudionik VARCHAR(3000) NOT NULL,
   br_tel_odg_osobe VARCHAR(20) NOT NULL,
   id_grupa INT,
   PRIMARY KEY (korisnicko_ime_sudionik),
@@ -68,7 +64,6 @@ CREATE TABLE ANIMATOR
   korisnicko_ime_animator VARCHAR(50) NOT NULL,
   datum_i_god_rod_animator DATE NOT NULL,
   br_tel_animator VARCHAR(20) NOT NULL,
-  motivacijsko_pismo_animator VARCHAR(3000) NOT NULL,
   PRIMARY KEY (korisnicko_ime_animator),
   FOREIGN KEY (korisnicko_ime_animator) REFERENCES KORISNIK(korisnicko_ime),
   UNIQUE (br_tel_animator)
@@ -80,6 +75,7 @@ CREATE TABLE PRIJAVA
   korisnicko_ime VARCHAR(50) NOT NULL,
   datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL,
   status_prijava VARCHAR(20),
+  motivacijsko_pismo VARCHAR(3000) NOT NULL,
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_prijava),

@@ -1,6 +1,5 @@
 CREATE DATABASE kampAdmin;
 
-
 CREATE TABLE KAMP
 (
   ime_kamp VARCHAR(50) NOT NULL,

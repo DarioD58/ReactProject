@@ -1,59 +1,68 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 function Login() {
 
     const [state, setState] = React.useState({
-        ime: "",
-        prezime: "",
-        email: "",
-        brtel: "",
-        dob: "",
-        pismo: ""
+        korime: "",
+        lozinka: ""
     });
 
+    let history = useHistory();
+
     const onSubmit = (e) => {
-        e.preventDefault();
+        let objekt = JSON.stringify(state);
+        console.log(objekt)
         fetch("http://localhost:8080/test", {
             method: 'POST',
-            body: JSON.stringify(state)
-        }).then((response) => {
-            console.log(response)
+            headers: {"Content-type": "application/json"},
+            body: objekt
+        })
+        .then((response) => {
+            history.push('/');
+        }).catch((response) => {
+            console.log("Error")
+            setState(prevState => ({
+                ...prevState,
+                korime: "",
+                lozinka: ""
+            }))
         });
+        e.preventDefault();
     }
 
     const onChange = (e) => {
-        const {id , value} = e.target   
+        let {id , value} = e.target 
+        id = e.target.name  
         setState(prevState => ({
             ...prevState,
             [id] : value
         }))
-        console.log(id, value)
+    }
+
+    const handleReset = (e) => {
+        setState(prevState => ({
+            ...prevState,
+            korime: "",
+            lozinka: ""
+        }))
     }
 
 
     return (
         <form  onSubmit={onSubmit}>
-            <label className="text-body" for="ime">Ime: </label>
+            <label className="text-body" for="korime">Korisničko ime: </label>
             <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             type="text" name="ime" placeholder="Ime" size="50"/>
-            <label className="text-body" for="prezime">Prezime: </label>
+             required type="text" name="korime" value = {state.korime}
+              placeholder="aanic" size="50"/>
+            <label className="text-body" for="lozinka">Lozinka: </label>
             <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             type="text" name="prezime" placeholder="Prezime" size="50"/>
-            <label className="text-body" for="email">Email: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
-             type="email" name="email" placeholder="ivica@email.com" size="50"/>
-            <label className="text-body" for="brtel">Broj telefona: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             type="number" name="brtel" placeholder="0999999999" size="50"/>
-            <label className="text-body" for="dob">Datum rođenja: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             type="date" name="dob" size="50"/>
-            <label className="text-body" for="pismo">Motivacijsko pismo: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             type="text" name="pismo" placeholder="Motivacija..." size="50"/>
+             required type="password" name="lozinka" value={state.lozinka}
+              placeholder="xxxxxxx" size="50"/>
             <input className="bg-dark text-white"
              type="submit" name="submit" placeholder="Submit" />
-            <input className="bg-dark text-white" type="reset" name="res" placeholder="Reset" />
+            <input className="bg-dark text-white" onClick={handleReset}
+             type="reset" name="res" placeholder="Reset" />
         </form>
     );
   }

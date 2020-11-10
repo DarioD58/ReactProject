@@ -34,6 +34,8 @@ module.exports = class Sudionik extends Korisnik {
         return noviSudionik
     }
 	
+
+
 }
 //implementacije funkcija
 dbGetSudionikByName = async (korisnicko_ime) => {}

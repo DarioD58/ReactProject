@@ -10,6 +10,7 @@ CREATE TABLE KAMP
   pocetak_prijava_animatora DATE NOT NULL,
   kraj_prijava_animatora DATE NOT NULL,
   broj_grupa INT,
+  status SMALLINT,
   PRIMARY KEY (datum_odrzavanja_kamp, ime_kamp)
 );
 
@@ -33,7 +34,7 @@ CREATE TABLE KORISNIK
   email VARCHAR(50) NOT NULL,
   ime VARCHAR(50) NOT NULL,
   prezime VARCHAR(100) NOT NULL,
-  status VARCHAR(50),
+  status VARCHAR(20),
   PRIMARY KEY (korisnicko_ime),
   UNIQUE (email)
 );

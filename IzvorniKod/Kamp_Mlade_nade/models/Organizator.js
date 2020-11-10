@@ -1,5 +1,4 @@
-const db = require('../db')
-const Korisnik = require('./Korisnik')
+const db = require('../db');
 
 // razred Organizator - predstavlja organizatora kampa - admin
 module.exports = class Organizator extends Korisnik{

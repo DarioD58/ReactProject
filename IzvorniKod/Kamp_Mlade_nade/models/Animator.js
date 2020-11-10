@@ -1,4 +1,4 @@
-const db = require('../db')
+const db = require('../db');
 
 //razred Animator - predstavlja jednog animatora kampa
 module.exports = class Animator extends Korisnik {

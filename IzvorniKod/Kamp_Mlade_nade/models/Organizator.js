@@ -1,4 +1,5 @@
 const db = require('../db');
+const Korisnik = require('../models/Korisnik');
 
 // razred Organizator - predstavlja organizatora kampa - admin
 module.exports = class Organizator extends Korisnik{
@@ -10,6 +11,10 @@ module.exports = class Organizator extends Korisnik{
 
         //implementacije funkcija
 
+
+    static async fetchOrganizatorkByUsername(username){
+        Korisnik.fetchKorisnikByUsername(username);
+    }   
 }
 
 //implementacije funkcija

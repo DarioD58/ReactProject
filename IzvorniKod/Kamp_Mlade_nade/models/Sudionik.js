@@ -1,4 +1,5 @@
-const db = require('../db')
+const db = require('../db');
+const Korisnik = require('../models/Korisnik');
 
 //razred Sudionik - predstavlja jednog sudionika kampa
 module.exports = class Sudionik extends Korisnik {
@@ -14,6 +15,10 @@ module.exports = class Sudionik extends Korisnik {
         this.id_grupa = undefined;
     }
     //implementacije funkcija
+
+    static async fetchSudionikByUsername(username){
+
+    }
 
 }
 //implementacije funkcija

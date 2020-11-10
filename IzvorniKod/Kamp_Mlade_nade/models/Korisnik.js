@@ -20,6 +20,25 @@ module.exports = class Korisnik {
     treba ih implementirati za svakog od korisnika:
         organizator, animator, sudionik.
     */
+
+    // dohvaća korisnika s predanim imenom iz baze, ako postoji
+    static async fetchKorisnikByUsername(username){
+        
+    }
+
+    // Provjerava postoji li korisnik
+    isPersisted() {
+        return this.korisnicko_ime !== undefined;
+    }
+
+    // Provjerava lozinku
+    checkPass(lozinka){
+        return this.lozinka ? this.lozinka == lozinka : false;
+    }
+
+    getStatus(){
+        return this.status;
+    }
     
 }
 

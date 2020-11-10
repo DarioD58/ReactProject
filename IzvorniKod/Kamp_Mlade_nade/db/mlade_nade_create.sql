@@ -1,10 +1,11 @@
-CREATE DATABASE kampAdmin;
+--CREATE DATABASE kampAdmin;
+SET DATESTYLE TO German;
 
 CREATE TABLE KAMP
 (
   ime_kamp VARCHAR(50) NOT NULL,
   datum_odrzavanja_kamp DATE NOT NULL,
-  trajanje_(dan/a) INT NOT NULL,
+  trajanje_d INT NOT NULL,
   pocetak_prijava_sudionika DATE NOT NULL,
   kraj_prijava_sudionika DATE NOT NULL,
   pocetak_prijava_animatora DATE NOT NULL,
@@ -19,12 +20,19 @@ CREATE TABLE AKTIVNOST
   id_aktivnost SERIAL NOT NULL,
   ime_aktivnost VARCHAR(100) NOT NULL,
   opis_aktivnost VARCHAR(500) NOT NULL,
-  trajanje_aktivnost_(sat/i) INT NOT NULL,
+  trajanje_aktivnost_h INT NOT NULL,
   tip_aktivnost VARCHAR(20) NOT NULL,
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_aktivnost),
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
+);
+
+CREATE TABLE GRUPA
+(
+  ime_grupa VARCHAR(50) NOT NULL,
+  id_grupa SERIAL,
+  PRIMARY KEY (id_grupa)
 );
 
 CREATE TABLE KORISNIK
@@ -80,17 +88,10 @@ CREATE TABLE PRIJAVA
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_prijava),
-  PRIMARY KEY (id_prijava),
   FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
 );
 
-CREATE TABLE GRUPA
-(
-  ime_grupa VARCHAR(50) NOT NULL,
-  id_grupa  NOT NULL,
-  PRIMARY KEY (id_grupa)
-);
 
 CREATE TABLE RASPORED
 (

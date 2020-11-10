@@ -17,13 +17,12 @@ module.exports = class Kamp {
             this.broj_grupa = undefined;
         }
 
-        /* dohvaća kamp iz baze
-            ako je neki kamp aktivan, vraća njega
-            inače vraća kamp čiji je početak najbliži 
-            trenutnom datumu
+        /* Iz baze dohvaća kamp (ili kampove)
+            čiji je status=1 (aktivan kamp),
+            ako takav ne postoji, vraća kamp
+            čiji je početak najbliži trenutnom datumu
         */
-         
-        static async fetchCamp(){
+        static async fetchActiveOrUpcoming(){
 
         }
 }

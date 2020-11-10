@@ -1,4 +1,5 @@
 const db = require('../db');
+const Korisnik = require('../models/Korisnik');
 
 //razred Animator - predstavlja jednog animatora kampa
 module.exports = class Animator extends Korisnik {
@@ -15,6 +16,10 @@ module.exports = class Animator extends Korisnik {
     }
 
     //implementacije funkcija
+
+    static async fetchAnimatorkByUsername(username){
+        
+    }
 }
 
 //implementacije funkcija

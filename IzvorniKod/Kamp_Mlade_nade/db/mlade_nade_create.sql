@@ -107,9 +107,9 @@ CREATE TABLE RASPORED
 );
 
 CREATE TABLE SESSION (
-    sid varchar NOT NULL COLLATE "default",
-    sess json NOT NULL,
-    expire timestamp(6) NOT NULL
+    sid VARCHAR NOT NULL ,
+    sess JSON NOT NULL,
+    expire TIMESTAMPTZ(6) NOT NULL
   )
   WITH (OIDS=FALSE);
 

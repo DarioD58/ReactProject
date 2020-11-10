@@ -15,6 +15,16 @@ module.exports = class Organizator extends Korisnik{
     static async fetchOrganizatorkByUsername(username){
         Korisnik.fetchKorisnikByUsername(username);
     }   
+
+    isPersisted() {
+        return this.korisnicko_ime !== undefined;
+    }
+
+    // Provjerava lozinku
+    checkPass(lozinka){
+        return this.lozinka ? this.lozinka == lozinka : false;
+    }
+
 }
 
 //implementacije funkcija

@@ -16,8 +16,28 @@ module.exports = class Sudionik extends Korisnik {
     }
     //implementacije funkcija
 
-    static async fetchSudionikByUsername(username){
+    static async fetchSudionikByUsername(korisnicko_ime){
+        let results = await dbGetUserByName(korisnicko_ime)
+        let noviSudionik = new Sudionik()
 
+        if( results.length > 0 ) {
+            noviSudionik = new Sudionik(results[0].br_tel, results[0].datum_i_god_rod, 
+                results[0].motivacijsko_pismo)
+            noviSudionik.id_grupa = results[0].id_grupa
+        }
+        return noviSudionik
+    }
+	
+	isPersisted() {
+        return this.korisnicko_ime !== undefined;
+    }
+	
+	 checkPassword(password) {
+        return this.password ? this.password == password : false
+    }
+	
+	getIdGrupa(){
+        return this.id_grupa;
     }
 
 }

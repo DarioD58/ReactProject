@@ -27,16 +27,18 @@ module.exports = class Korisnik {
         let noviKorisnik = new Korisnik()
 
         if( results.length > 0 ) {
-            noviKorisnik = new Korisnik(results[0].korisnicko_ime, results[0].ime, 
-                results[0].prezime, results[0].email, results[0].lozinka, results[0].status)
+            noviKorisnik = new Korisnik(results[0].korisnicko_ime, results[0].lozinka, results[0].ime, 
+                results[0].prezime, results[0].email, results[0].status)
         }
         return noviKorisnik;
     }
 
+
     // dodaje password za korisnika koji se registrira
     async registerUser(password){
-        this.lozinka = password;
         //dodati pozivanje funkcije za update baze
+        dbSetUserPassword(this, password);
+
     }
 
     // Provjerava postoji li korisnik
@@ -50,9 +52,9 @@ module.exports = class Korisnik {
     }
 
     //pohrana korisnika u bazu podataka kod registracije
-    async persist() {
+    async addNewUser() {
         try {
-            let korisnickoIme = await dbNovi Korisnik(this)
+            let korisnickoIme = await dbAddNewUser(this)
             this.korisnicko_ime = korisnickoIme
         } catch(err) {
             console.log("ERROR persisting user data: " + JSON.stringify(this))
@@ -60,9 +62,6 @@ module.exports = class Korisnik {
         }
     }
 
-    getStatus(){
-        return this.status;
-    }
     
 }
 
@@ -70,3 +69,5 @@ module.exports = class Korisnik {
 funkcije dodavanje i dohvaćanja podataka korisnika iz baze
 u njima se pišu upiti
 */
+dbSetUserPassword = async (korisnik, password) => {}
+dbAddNewUser = async (korisnik) => {}

@@ -26,6 +26,12 @@ module.exports = class Korisnik {
         
     }
 
+    // dodaje password za korisnika koji se registrira
+    async registerUser(password){
+        this.lozinka = password;
+        //dodati pozivanje funkcije za update baze
+    }
+
     // Provjerava postoji li korisnik
     isPersisted() {
         return this.korisnicko_ime !== undefined;

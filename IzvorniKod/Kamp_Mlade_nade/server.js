@@ -11,7 +11,7 @@ const pgSession = require('connect-pg-simple')(session)
 const homeRouter = require('./routes/home.routes');
 const loginRouter = require('./routes/login.routes');
 const logoutRouter = require('./routes/logout.routes');
-const applicationRouter = require('./routes/application.routes');
+const applyRouter = require('./routes/apply.routes');
 const registerRouter = require('./routes/register.routes');
 
 //middleware - dekodiranje parametara
@@ -37,7 +37,7 @@ app.use(session({
 app.use('/', homeRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/application', applicationRouter);
+app.use('/apply', applyRouter);
 app.use('/register', registerRouter);
 
 

@@ -50,9 +50,6 @@ module.exports = class Kamp {
             return kamp;
         }
 
-        getDatumOdrzavanja (){
-            return this.datum_odrzavanja;
-        }
 }
 
 dbGetActiveCamp = async () => {

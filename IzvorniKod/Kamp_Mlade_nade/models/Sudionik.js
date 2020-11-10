@@ -21,20 +21,17 @@ module.exports = class Sudionik extends Korisnik {
         let noviSudionik = new Sudionik()
 
         if( results.length > 0 ) {
-            noviSudionik = new Sudionik(results[0].br_tel, results[0].datum_i_god_rod, 
+            noviSudionik = new Sudionik(results[0].korisnicko_ime, results[0].lozinka, results[0].email,
+                results.ime, results[0].prezime, results[0].status,
+                results[0].br_tel, results[0].datum_i_god_rod, results[0].br_tel_odg_osobe,
                 results[0].motivacijsko_pismo)
+
             noviSudionik.id_grupa = results[0].id_grupa
         }
         return noviSudionik
     }
 	
-	isPersisted() {
-        return this.korisnicko_ime !== undefined;
-    }
 	
-	 checkPassword(password) {
-        return this.password ? this.password == password : false
-    }
 	
 	getIdGrupa(){
         return this.id_grupa;

@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const cors = require("cors");
 const path = require('path');
@@ -40,7 +40,8 @@ app.use('/logout', logoutRouter);
 app.use('/application', applicationRouter);
 app.use('/register', registerRouter);
 
+
 var port = 5000;
 app.listen(port, () => {
-    console.log("server has started on port ${port}");
+    console.log("server has started on port " + port);
 })

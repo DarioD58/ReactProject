@@ -1,10 +1,11 @@
 --CREATE DATABASE kampAdmin;
 SET DATESTYLE TO German;
-
+SET TIME ZONE LOCAL;
 CREATE TABLE KAMP
 (
   ime_kamp VARCHAR(50) NOT NULL,
-  datum_odrzavanja_kamp DATE NOT NULL,
+  datum_odrzavanja_kamp TIMESTAMPTZ(0) NOT NULL,
+  email_kamp VARCHAR(50),
   trajanje_d INT NOT NULL,
   pocetak_prijava_sudionika DATE NOT NULL,
   kraj_prijava_sudionika DATE NOT NULL,
@@ -105,12 +106,12 @@ CREATE TABLE RASPORED
   FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa)
 );
 
-CREATE TABLE SJEDNICA
-(
-  id_sjednica VARCHAR NOT NULL,
-  podatci JSON NOT NULL,
-  rok_trajanja TIMESTAMP(0) NOT NULL
-);
+CREATE TABLE SESSION (
+    sid varchar NOT NULL COLLATE "default",
+    sess json NOT NULL,
+    expire timestamp(6) NOT NULL
+  )
+  WITH (OIDS=FALSE);
 
 CREATE TABLE animator_ocjena_aktivnosti
 (

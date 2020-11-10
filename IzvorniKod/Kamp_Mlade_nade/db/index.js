@@ -1,5 +1,4 @@
 const {Pool} = require('pg');
-
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -7,7 +6,6 @@ const pool = new Pool({
     password: 'bazepodataka', //svatko svoju sifru za sada
     port: 5432,
 });
-
 module.exports = {
     query: (text, params) => {
         const start = Date.now();

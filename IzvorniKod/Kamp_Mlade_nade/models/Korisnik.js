@@ -23,26 +23,25 @@ module.exports = class Korisnik {
 
     // dohvaća korisnika s predanim imenom iz baze, ako postoji
     static async fetchKorisnikByUsername(username){
-        let results = await dbGetUserByUsername(korisnicko_ime)
+        let results = await dbGetKorisnikByUsername(username)
         let noviKorisnik = new Korisnik()
 
         if( results.length > 0 ) {
-            noviKorisnik = new Korisnik(results[0].korisnicko_ime, results[0].lozinka, results[0].ime, 
-                results[0].prezime, results[0].email, results[0].status)
+            noviKorisnik = new Korisnik(results[0].korisnicko_ime, results[0].lozinka, results[0].email, results[0].ime, 
+                results[0].prezime, results[0].status)
         }
         return noviKorisnik;
     }
 
 
     // dodaje password za korisnika koji se registrira
-    async registerUser(password){
+    async registerKorisnik(password){
         //dodati pozivanje funkcije za update baze
-        dbSetUserPassword(this.korisnicko_ime, password);
+        dbSetKorisnikPassword(this.korisnicko_ime, password);
 
     }
 
-    // Provjerava postoji li korisnik
-    isPersisted() {
+    isPersisted(){
         return this.korisnicko_ime !== undefined;
     }
 
@@ -52,9 +51,9 @@ module.exports = class Korisnik {
     }
 
     //pohrana korisnika u bazu podataka kod registracije
-    async addNewUser() {
+    async addNewKorisnik() {
         try {
-            let korisnickoIme = await dbAddNewUser(this);
+            let korisnickoIme = await dbAddNewKorisnik(this);
             this.korisnicko_ime = korisnickoIme;
         } catch(err) {
             console.log("ERROR persisting user data: " + JSON.stringify(this))
@@ -69,9 +68,9 @@ module.exports = class Korisnik {
 funkcije dodavanje i dohvaćanja podataka korisnika iz baze
 u njima se pišu upiti
 */
-dbGetUserByUsername = async (korisnicko_ime) => {
-    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, email, status
-    FROM korisnik WHERE korisnicko_ime = ` + korisnicko_ime;
+dbGetKorisnikByUsername = async (username) => {
+    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, email, status 
+    FROM korisnik WHERE korisnicko_ime LIKE '` + username + `'`;
     try {
         const result = await db.query(sql, []);
         return result.rows;
@@ -80,7 +79,7 @@ dbGetUserByUsername = async (korisnicko_ime) => {
         throw err
     }
 }
-dbSetUserPassword = async (korisnicko_ime, password) => {
+dbSetKorisnikPassword = async (korisnicko_ime, password) => {
     const sql = "UPDATE TABLE korisnik SET lozinka = '" + password + "' WHERE korisnicko_ime = " + korisnicko_ime;
     try {
         const result = await db.query(sql, []);
@@ -90,7 +89,7 @@ dbSetUserPassword = async (korisnicko_ime, password) => {
         throw err
     }
 }
-dbAddNewUser = async (korisnik) => {
+dbAddNewKorisnik = async (korisnik) => {
     const sql = "INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status) VALUES ('" +
         korisnik.korisnicko_ime + "', '" + korisnik.lozinka + "', '" + korisnik.email + "', '" + 
         korisnik.ime + "', '" + korisnik.prezime + "', '" + korisnik.status + "') RETURNING korisnicko_ime";

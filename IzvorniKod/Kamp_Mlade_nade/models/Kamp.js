@@ -39,7 +39,7 @@ module.exports = class Kamp {
         }
 
         static async fetchUpcoming(){
-            results = await dbGetUpcomingCamp();
+            let results = await dbGetUpcomingCamp();
             let kamp = new Kamp();
 
             if(results.length > 0 ){
@@ -49,7 +49,7 @@ module.exports = class Kamp {
                     results[0].status, results[0].email_kamp);
             }
 
-            return kamp
+            return kamp;
         }
 
 }
@@ -61,10 +61,10 @@ dbGetActiveCamp = async () => {
     status, email_kamp FROM kamp WHERE status = 1`;
     try {
         const result = await db.query(sql, []);
-        return result.rows[0];
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 };
 
@@ -76,9 +76,9 @@ dbGetUpcomingCamp = async () => {
     FROM kamp WHERE datum_odrzavanja_kamp = (SELECT MIN(datum_odrzavanja_kamp) FROM kamp WHERE datum_odrzavanja_kamp > CURRENT_TIMESTAMP(0))`;
     try {
         const result = await db.query(sql, []);
-        return result.rows[0];
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 };

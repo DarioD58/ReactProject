@@ -6,7 +6,7 @@ module.exports = class Sudionik extends Korisnik {
 
     //konstruktor
     constructor(korisnicko_ime, lozinka, email, ime, prezime, status,
-        br_tel, datum_i_god_rod, br_tel_odg_osobe, motivacijsko_pismo){
+        br_tel, datum_i_god_rod, br_tel_odg_osobe){
         super(korisnicko_ime, lozinka, email, ime, prezime, status);
         this.br_tel = br_tel;
         this.datum_i_god_rod = datum_i_god_rod;
@@ -55,7 +55,7 @@ dbAddNewSudionik = async (sudionik) => {
     sudionik.korisnicko_ime + "', '" + sudionik.br_tel + "', '" + sudionik.datum_i_god_rod + "', '" + 
     sudionik.br_tel_odg_osobe + "', '" + sudionik.motivacijsko_pismo + "') RETURNING korisnicko_ime_sudionik";
     try {
-        await sudionik.addNewUser();
+        await sudionik.addNewKorisnik();
         const result = await db.query(sql, []);
         return result.rows[0].korisnicko_ime_sudionik;
     } catch (err) {

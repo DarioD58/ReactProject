@@ -61,7 +61,7 @@ dbGetActiveCamp = async () => {
     status, email_kamp FROM kamp WHERE status = 1`;
     try {
         const result = await db.query(sql, []);
-        return result.rows;
+        return result.rows[0];
     } catch (err) {
         console.log(err);
         throw err
@@ -73,10 +73,10 @@ dbGetUpcomingCamp = async () => {
     trajanje_d, pocetak_prijava_sudionika, kraj_prijava_sudionika, 
     pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa,
     status, email_kamp
-    FROM kamp WHERE datum_odrzavanja_kamp - '`;
+    FROM kamp WHERE datum_odrzavanja_kamp = (SELECT MIN(datum_odrzavanja_kamp) FROM kamp WHERE datum_odrzavanja_kamp > CURRENT_TIMESTAMP(0))`;
     try {
         const result = await db.query(sql, []);
-        return result.rows;
+        return result.rows[0];
     } catch (err) {
         console.log(err);
         throw err

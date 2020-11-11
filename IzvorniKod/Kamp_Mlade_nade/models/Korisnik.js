@@ -23,7 +23,7 @@ module.exports = class Korisnik {
 
     // dohvaća korisnika s predanim imenom iz baze, ako postoji
     static async fetchKorisnikByUsername(username){
-        let results = await dbGetUserByName(korisnicko_ime)
+        let results = await dbGetUserByUsername(korisnicko_ime)
         let noviKorisnik = new Korisnik()
 
         if( results.length > 0 ) {
@@ -37,7 +37,7 @@ module.exports = class Korisnik {
     // dodaje password za korisnika koji se registrira
     async registerUser(password){
         //dodati pozivanje funkcije za update baze
-        dbSetUserPassword(this, password);
+        dbSetUserPassword(this.korisnicko_ime, password);
 
     }
 
@@ -54,8 +54,8 @@ module.exports = class Korisnik {
     //pohrana korisnika u bazu podataka kod registracije
     async addNewUser() {
         try {
-            let korisnickoIme = await dbAddNewUser(this)
-            this.korisnicko_ime = korisnickoIme
+            let korisnickoIme = await dbAddNewUser(this);
+            this.korisnicko_ime = korisnickoIme;
         } catch(err) {
             console.log("ERROR persisting user data: " + JSON.stringify(this))
             throw err
@@ -69,5 +69,36 @@ module.exports = class Korisnik {
 funkcije dodavanje i dohvaćanja podataka korisnika iz baze
 u njima se pišu upiti
 */
-dbSetUserPassword = async (korisnik, password) => {}
-dbAddNewUser = async (korisnik) => {}
+dbGetUserByUsername = async (korisnicko_ime) => {
+    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, email, status
+    FROM korisnik WHERE korisnicko_ime = ` + korisnicko_ime;
+    try {
+        const result = await db.query(sql, []);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+dbSetUserPassword = async (korisnicko_ime, password) => {
+    const sql = "UPDATE TABLE korisnik SET lozinka = '" + password + "' WHERE korisnicko_ime = " + korisnicko_ime;
+    try {
+        const result = await db.query(sql, []);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+dbAddNewUser = async (korisnik) => {
+    const sql = "INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status) VALUES ('" +
+        korisnik.korisnicko_ime + "', '" + korisnik.lozinka + "', '" + korisnik.email + "', '" + 
+        korisnik.ime + "', '" + korisnik.prezime + "', '" + korisnik.status + "') RETURNING korisnicko_ime";
+    try {
+        const result = await db.query(sql, []);
+        return result.rows[0].korisnicko_ime;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}

@@ -70,9 +70,9 @@ u njima se pišu upiti
 */
 dbGetKorisnikByUsername = async (username) => {
     const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, email, status 
-    FROM korisnik WHERE korisnicko_ime LIKE '` + username + `'`;
+    FROM korisnik WHERE korisnicko_ime LIKE $1`;
     try {
-        const result = await db.query(sql, []);
+        const result = await db.query(sql, [username]);
         return result.rows;
     } catch (err) {
         console.log(err);
@@ -80,9 +80,9 @@ dbGetKorisnikByUsername = async (username) => {
     }
 }
 dbSetKorisnikPassword = async (korisnicko_ime, password) => {
-    const sql = "UPDATE TABLE korisnik SET lozinka = '" + password + "' WHERE korisnicko_ime = " + korisnicko_ime;
+    const sql = "UPDATE TABLE korisnik SET lozinka = $1 WHERE korisnicko_ime = $2";
     try {
-        const result = await db.query(sql, []);
+        const result = await db.query(sql, [password, korisnicko_ime]);
         return result.rows;
     } catch (err) {
         console.log(err);
@@ -90,11 +90,11 @@ dbSetKorisnikPassword = async (korisnicko_ime, password) => {
     }
 }
 dbAddNewKorisnik = async (korisnik) => {
-    const sql = "INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status) VALUES ('" +
-        korisnik.korisnicko_ime + "', '" + korisnik.lozinka + "', '" + korisnik.email + "', '" + 
-        korisnik.ime + "', '" + korisnik.prezime + "', '" + korisnik.status + "') RETURNING korisnicko_ime";
+    const sql = `INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status)
+     VALUES ($1, $2, $3, $4, $5, $6) RETURNING korisnicko_ime`;
     try {
-        const result = await db.query(sql, []);
+        const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
+             korisnik.ime, korisnik.prezime, korisnik.status]);
         return result.rows[0].korisnicko_ime;
     } catch (err) {
         console.log(err);

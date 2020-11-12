@@ -36,7 +36,11 @@ class RegisterController extends Controller {
 let register = new RegisterController();
 router.post("/", async (req, res, next) => {
     let data = JSON.parse( await register.post(req, res, next));
-    res.json(data);
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
 });
 
 module.exports = router;

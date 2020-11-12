@@ -22,11 +22,10 @@ module.exports = class Organizator extends Korisnik{
 
 //implementacije funkcija
 dbAddNewOrganizator = async (organizator) => {
-    const sql = "INSERT INTO organizator (korisnicko_ime_organizator) VALUES ('" +
-        organizator.korisnicko_ime + "') RETURNING korisnicko_ime_organizator";
+    const sql = "INSERT INTO organizator (korisnicko_ime_organizator) VALUES ($1) RETURNING korisnicko_ime_organizator";
     try {
-        await organizator.addNewUser();
-        const result = await db.query(sql, []);
+        await organizator.addNewKorisnik();
+        const result = await db.query(sql, [organizator.korisnicko_ime]);
         return result.rows[0].korisnicko_ime_organizator;
     } catch (error) {
         console.log(err);

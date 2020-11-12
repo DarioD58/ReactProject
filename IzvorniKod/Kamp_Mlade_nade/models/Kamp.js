@@ -8,7 +8,7 @@ module.exports = class Kamp {
     constructor(ime_kamp, datum_odrzavanja_kamp, trajanje, pocetak_prijava_sudionika,
         kraj_prijava_sudionika, pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa, status, email_kamp){
             this.ime_kamp = ime_kamp;
-            this.datum_odrzavanja = datum_odrzavanja_kamp;
+            this.datum_odrzavanja_kamp = datum_odrzavanja_kamp;
             this.trajanje = trajanje;
             this.pocetak_prijava_sudionika = pocetak_prijava_sudionika;
             this.kraj_prijava_sudionika = kraj_prijava_sudionika;
@@ -24,6 +24,12 @@ module.exports = class Kamp {
             ako takav ne postoji, vraća kamp
             čiji je početak najbliži trenutnom datumu
         */
+
+        static async fetchByNameAndDate(){
+
+
+        }
+        
         static async fetchActive(){
 
             let results = await dbGetActiveCamp();
@@ -81,4 +87,8 @@ dbGetUpcomingCamp = async () => {
         console.log(err);
         throw err;
     }
+};
+
+dbFetchByNameAndDate = async(ime_kamp, datum_odrzavanja) => {
+
 };

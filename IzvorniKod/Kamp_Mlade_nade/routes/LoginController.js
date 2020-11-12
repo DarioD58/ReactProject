@@ -25,6 +25,8 @@ class LoginController extends Controller{
                     userStatus : status,
                     userName : req.body.korime
                 });
+            } else {
+                throw new Error();
             }
             
           
@@ -38,8 +40,12 @@ class LoginController extends Controller{
 let login = new LoginController();
 
 router.post("/", async (req, res, next) => {
-    let data = JSON.parse(await login.post(req, res, next));
-    res.json(data);
+    let data = JSON.parse( await login.post(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
 });
 
 module.exports = router;

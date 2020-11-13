@@ -14,12 +14,13 @@ module.exports = class Aktivnost {
             this.kamp = kamp; // Kamp
         }
 
-        // vraća
+        // vraća tip Number
         async addNewAktivnost(){
             this.id_aktivnost = await dbAddNewAktivnost(this);
             return this.id_aktivnost;
         }
 
+        // vraća tip Aktivnost[]
         static async fetchAll(kamp){
             let results = await dbGetAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
             let aktivnosti = [];

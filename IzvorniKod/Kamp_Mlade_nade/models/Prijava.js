@@ -15,11 +15,13 @@ module.exports = class Prijava {
         this.kamp = kamp;   // Kamp
     }
 
+    // vraca String
     async addNewPrijava() {
         this.id_prijava = await dbAddNewPrijava(this);
         return this.id_prijava;
     }
-
+    
+    // vraca String ili null
     static async checkPrijavaForUsername(korIme){
         return await dbCheckPrijavaForUsername(korIme);
     }

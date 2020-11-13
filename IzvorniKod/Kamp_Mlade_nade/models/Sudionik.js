@@ -15,10 +15,12 @@ module.exports = class Sudionik extends Korisnik {
     }
     //implementacije funkcija
 
+    // vraca String
     async addNewSudionik() {
         return await dbAddNewSudionik(this);
     }
 
+    // vraca Sudionik
     static async fetchSudionikByUsername(korisnicko_ime){
         let results = await dbGetSudionikByUsername(korisnicko_ime);
         let noviSudionik = new Sudionik();

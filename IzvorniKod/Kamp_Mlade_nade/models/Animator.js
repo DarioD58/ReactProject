@@ -15,10 +15,13 @@ module.exports = class Animator extends Korisnik {
     }
 
     //implementacije funkcija
+
+    // vraća String
     async addNewAnimator() {
         return await dbAddNewAnimator(this);
     }
 
+    // vraća Animator
     static async fetchAnimatorByUsername(username){
 		let results = await dbGetAnimatorByUsername(korisnicko_ime)
         let noviAnimator = new Animator()

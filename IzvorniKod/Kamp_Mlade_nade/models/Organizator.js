@@ -10,12 +10,15 @@ module.exports = class Organizator extends Korisnik {
     }
 
     //implementacije funkcija
+    // vraca String
     async addNewOrganizator() {
         return await dbAddNewOrganizator(this);
     }
-        
+    
+    // vraca Organizator
     static async fetchOrganizatorkByUsername(username){
-        return await Korisnik.fetchKorisnikByUsername(username);
+        let korisnik = await Korisnik.fetchKorisnikByUsername(username);
+        return new Organizator(korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email, korisnik.ime, korisnik.prezime, korisnik.status);
     }   
 
 }

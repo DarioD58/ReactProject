@@ -22,6 +22,7 @@ module.exports = class Korisnik {
     */
 
     // dohvaća korisnika s predanim imenom iz baze, ako postoji
+    // vraca Korisnik
     static async fetchKorisnikByUsername(username){
         let results = await dbGetKorisnikByUsername(username)
         let noviKorisnik = new Korisnik()
@@ -35,29 +36,34 @@ module.exports = class Korisnik {
 
 
     // dodaje password za korisnika koji se registrira
+    // void
     async registerKorisnik(password){
         //dodati pozivanje funkcije za update baze
         dbSetKorisnikPassword(this.korisnicko_ime, password);
 
     }
 
+    // vraca Boolean
     isPersisted(){
         return this.korisnicko_ime !== undefined;
     }
 
     // Provjerava lozinku
+    // vraca Boolean
     checkPass(lozinka){
         return this.lozinka ? this.lozinka == lozinka : false;
     }
 
     //pohrana korisnika u bazu podataka kod registracije
+    // vraca String
     async addNewKorisnik() {
         try {
             let korisnickoIme = await dbAddNewKorisnik(this);
             this.korisnicko_ime = korisnickoIme;
+            return this.korisnickoIme;
         } catch(err) {
             console.log("ERROR persisting user data: " + JSON.stringify(this))
-            throw err
+            throw err;
         }
     }
 

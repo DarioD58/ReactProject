@@ -30,6 +30,7 @@ module.exports = class Kamp {
 
         }
         
+        // vraca Kamp
         static async fetchActive(){
 
             let results = await dbGetActiveCamp();
@@ -44,6 +45,7 @@ module.exports = class Kamp {
             return kamp;
         }
 
+        // vraca Kamp
         static async fetchUpcoming(){
             let results = await dbGetUpcomingCamp();
             let kamp = new Kamp();

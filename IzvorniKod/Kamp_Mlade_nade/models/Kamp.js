@@ -7,16 +7,16 @@ module.exports = class Kamp {
     // konstruktor
     constructor(ime_kamp, datum_odrzavanja_kamp, trajanje, pocetak_prijava_sudionika,
         kraj_prijava_sudionika, pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa, status, email_kamp){
-            this.ime_kamp = ime_kamp;
-            this.datum_odrzavanja_kamp = datum_odrzavanja_kamp;
-            this.trajanje = trajanje;
-            this.pocetak_prijava_sudionika = pocetak_prijava_sudionika;
-            this.kraj_prijava_sudionika = kraj_prijava_sudionika;
-            this.pocetak_prijava_animatora = pocetak_prijava_animatora;
-            this.kraj_prijava_animatora = kraj_prijava_animatora;
-            this.broj_grupa = broj_grupa;
-            this.status = status;
-            this.email_kamp = email_kamp;
+            this.ime_kamp = ime_kamp;   // string
+            this.datum_odrzavanja_kamp = datum_odrzavanja_kamp; // Date
+            this.trajanje = trajanje; // number
+            this.pocetak_prijava_sudionika = pocetak_prijava_sudionika; // Date
+            this.kraj_prijava_sudionika = kraj_prijava_sudionika;   // Date
+            this.pocetak_prijava_animatora = pocetak_prijava_animatora; // Date
+            this.kraj_prijava_animatora = kraj_prijava_animatora;   // Date
+            this.broj_grupa = broj_grupa;   // number
+            this.status = status;   // number
+            this.email_kamp = email_kamp;   // string
         }
 
         /* Iz baze dohvaća kamp (ili kampove)

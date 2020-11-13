@@ -8,10 +8,10 @@ module.exports = class Animator extends Korisnik {
     constructor(korisnicko_ime, lozinka, email, ime, prezime, status,
         br_tel, datum_i_god_rod){
         super(korisnicko_ime, lozinka, email, ime, prezime, status);
-        this.br_tel = br_tel;
-        this.datum_i_god_rod = datum_i_god_rod;
-        this.br_tel_odg_osobe = br_tel_odg_osobe;
-        this.id_grupa = undefined;
+        this.br_tel = br_tel;   // string
+        this.datum_i_god_rod = datum_i_god_rod; // Date
+        this.br_tel_odg_osobe = br_tel_odg_osobe; // string
+        this.id_grupa = undefined;  // number
     }
 
     //implementacije funkcija

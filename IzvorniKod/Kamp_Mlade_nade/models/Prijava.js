@@ -8,11 +8,11 @@ module.exports = class Prijava {
 
     // konstruktor
     constructor(korisnik, motivacijsko_pismo, status_prijava, kamp){
-        this.id_prijava = undefined;
-        this.korisnik = korisnik;
-        this.motivacijsko_pismo = motivacijsko_pismo;
-        this.status_prijava = status_prijava;
-        this.kamp = kamp;
+        this.id_prijava = undefined;    // number
+        this.korisnik = korisnik;   // Korisnik
+        this.motivacijsko_pismo = motivacijsko_pismo;   // string
+        this.status_prijava = status_prijava;   // string
+        this.kamp = kamp;   // Kamp
     }
 
     async addNewPrijava() {

@@ -6,12 +6,12 @@ module.exports = class Korisnik {
 
     //konstruktor korisnika
     constructor(korisnicko_ime, lozinka, email, ime, prezime, status){
-        this.korisnicko_ime = korisnicko_ime;
-        this.lozinka = lozinka;
-        this.email = email;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.status = status;
+        this.korisnicko_ime = korisnicko_ime;  // string
+        this.lozinka = lozinka; // string
+        this.email = email; // string
+        this.ime = ime; // string
+        this.prezime = prezime; // string
+        this.status = status;   // string
     }
 
     /*

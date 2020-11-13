@@ -6,14 +6,15 @@ const Kamp = require('./Kamp');
 module.exports = class Aktivnost {
         constructor(ime_aktivnost, opis_aktivnost,
             trajanje_aktivnost_h, tip_aktivnost, kamp) {
-            this.id_aktivnost = undefined;
-            this.ime_aktivnost = ime_aktivnost;
-            this.opis_aktivnost = opis_aktivnost;
-            this.trajanje_aktivnost_h = trajanje_aktivnost_h;
-            this.tip_aktivnost = tip_aktivnost;
-            this.kamp = kamp;
+            this.id_aktivnost = undefined;  // number
+            this.ime_aktivnost = ime_aktivnost;   // string
+            this.opis_aktivnost = opis_aktivnost;   // string
+            this.trajanje_aktivnost_h = trajanje_aktivnost_h;   // number
+            this.tip_aktivnost = tip_aktivnost; // string
+            this.kamp = kamp; // Kamp
         }
 
+        // vraća
         async addNewAktivnost(){
             this.id_aktivnost = await dbAddNewAktivnost(this);
             return this.id_aktivnost;

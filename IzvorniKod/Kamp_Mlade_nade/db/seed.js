@@ -3,7 +3,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'kampAdmin',
-    password: 'bazepodataka', //svatko svoju sifru za sebe
+    password: 'baze5842', //svatko svoju sifru za sebe
     port: 5432,
 });
 //kod za kreiranje baze kampova
@@ -127,7 +127,7 @@ const create_users = `CREATE TABLE KORISNIK (
   PRIMARY KEY (korisnicko_ime),
   UNIQUE (email)
 )`;
-const insert_users = `INSERT INTO "KORISNIK" (korisnicko_ime,lozinka,email,ime,prezime,status) VALUES
+/*const insert_users = `INSERT INTO "KORISNIK" (korisnicko_ime,lozinka,email,ime,prezime,status) VALUES
 ('Carlos Carey','BSR06JBP0LT','non.cursus@odiotristiquepharetra.edu','Virginia','Sears','K'),
 ('Rhiannon Austin','ZHK48AVM1JF','Pellentesque@orciquislectus.edu','Phoebe','Knight','K'),
 ('Jenette Jimenez','VFJ33HSM8DI','Cras.lorem@adipiscingelitEtiam.edu','Unity','Goff','K'),
@@ -227,4 +227,4 @@ const insert_users = `INSERT INTO "KORISNIK" (korisnicko_ime,lozinka,email,ime,p
 ('Abbot Vincent','SHA59PZR5CQ','ultrices@etultrices.co.uk','Maggy','Floyd','O'),
 ('Hu Osborn','XTZ40TVY0QN','mauris.sit.amet@tinciduntDonec.co.uk','Paloma','Lynch','O'),
 ('Lewis Horn','OUB59XGV2IG','nunc.ac.mattis@nequenon.co.uk','Lee','Frye','O'),
-('Cally Lane','DMY32CXP3BL','diam.Proin@ametmassaQuisque.com','Tana','Banks','O')`;
+('Cally Lane','DMY32CXP3BL','diam.Proin@ametmassaQuisque.com','Tana','Banks','O')`;*/

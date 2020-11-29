@@ -6,6 +6,7 @@ const { fetchSudionikByUsername } = require('../models/Sudionik');
 
 router.post("/", async (req, res, next) => {
     let loginData = req.body;
+    console.log(loginData);
     try {
         /*
         let userStatus = "";

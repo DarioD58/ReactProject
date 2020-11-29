@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 router.post("/", async (req, res, next) => {
+    console.log(req.body);
     if(req.body.lozinka != req.body.lozinka2){
         res.json("Nemoguće se dogodilo");
     }

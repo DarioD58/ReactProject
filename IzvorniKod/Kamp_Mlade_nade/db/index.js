@@ -3,7 +3,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'kampAdmin',
-    password: 'bazepodataka', //svatko svoju sifru za sada
+    password: 'baze5842', //svatko svoju sifru za sada
     port: 5432,
 });
 module.exports = {

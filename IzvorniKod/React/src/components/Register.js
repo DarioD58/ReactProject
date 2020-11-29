@@ -15,7 +15,7 @@ function Register() {
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
         console.log(objekt)
-        fetch("http://localhost:8080/test", {
+        fetch("http://localhost:5000/register", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

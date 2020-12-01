@@ -27,11 +27,11 @@ module.exports = class Aktivnost {
 
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
+                    let aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
                         results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, kamp);
                     
                     this.id_aktivnost = results[i].id_aktivnost;
-                    aktivnost.push(aktivnost);
+                    aktivnosti.push(aktivnost);
                 }
             }         
             return aktivnosti;

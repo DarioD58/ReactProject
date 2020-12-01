@@ -13,15 +13,15 @@ class HomeController extends Controller {
     async get(req, res, next) {
         try{
             let kamp = await Kamp.fetchActive();
-            if(kamp.status == 1){
-                let aktivnosti = await Aktivnost.fetchAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+            if(kamp.status != undefined){
+                let aktivnosti = await Aktivnost.fetchAll(kamp);
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
                     aktivnosti : aktivnosti
                 });
             } else {
                 let kamp = await Kamp.fetchUpcoming();
-                let aktivnosti = await Aktivnost.fetchAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+                let aktivnosti = await Aktivnost.fetchAll(kamp);
                 let timer = new Date(kamp.datum_odrzavanja_kamp); // za sad podržavamo jedan aktivni kamp
                
                 return JSON.stringify({

@@ -236,18 +236,18 @@ const insert_users = `INSERT INTO KORISNIK (korisnicko_ime,lozinka,email,ime,pre
 ('Lewis Horn','OUB59XGV2IG','nunc.ac.mattis@nequenon.co.uk','Lee','Frye','O'),
 ('Cally Lane','DMY32CXP3BL','diam.Proin@ametmassaQuisque.com','Tana','Banks','O')`;
 
-const insert_activities = `INSERT INTO AKTIVNOST (id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost) VALUES
-('1', 'Dorucak', 'Dorucak za samoposluznim stolom', '1'),
-('2', 'Rucak', 'Rucak za samoposluznim stolom', '1'),
-('3', 'Vecera', 'Vecera bez samoposluznog stola', '1'),
-('4', 'Tjelovjezba', 'Razgibavanje za zdravo tijelo', '0.5'),
-('5', 'Boks', 'Razvoj kompetitivnog duha', '1'),
-('6', 'Programiranje na 100 metara', 'Ispisivanje SQL upita u jednom redu', '1.5'),
-('7', 'Zbor', 'Iskaljivanje frustracija', '1'),
-('8', 'Kulinarstvo', 'Prehranjivanje gladnih programera', '1.5'),
-('9', 'Gradanski Odgoj', 'Ucenje o programerskoj etici', '2'),
-('10', 'C# u vis', 'Najdulja klasa pobjeduje', '2'),
-('11', 'Razbijanje tipkovnice', 'Na kraju dana, svi smo mi isti', '2')`;
+const insert_activities = `INSERT INTO AKTIVNOST (id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, datum_odrzavanja_kamp, ime_kamp) VALUES
+('1', 'Dorucak', 'Dorucak za samoposluznim stolom', '1', 'Jelo', '2020-01-01', 'Mali FER-ovci'),
+('2', 'Rucak', 'Rucak za samoposluznim stolom', '1','Jelo', '2020-01-01', 'Mali FER-ovci'),
+('3', 'Vecera', 'Vecera bez samoposluznog stola', '1','Jelo', '2020-01-01', 'Mali FER-ovci'),
+('4', 'Tjelovjezba', 'Razgibavanje za zdravo tijelo', '0.5' 'Vjezba', '2020-10-10', 'Programerske Glave'),
+('5', 'Boks', 'Razvoj kompetitivnog duha', '1', 'Vjezba', '2020-10-10', 'Programerske Glave'),
+('6', 'Programiranje na 100 metara', 'Ispisivanje SQL upita u jednom redu', '1.5', 'Vjezba', '2020-11-05', 'Programerske Glave'),
+('7', 'Zbor', 'Iskaljivanje frustracija', '1', 'Vjezba', '2021-11-01', 'Programerske Glave'),
+('8', 'Kulinarstvo', 'Prehranjivanje gladnih programera', '1.5', 'Kuhanje', '2021-11-10', 'Mlade Nade Slavonije'),
+('9', 'Gradanski Odgoj', 'Ucenje o programerskoj etici', '2', 'Ucenje', '2019-12-10', 'Mlade Nade Slavonije'),
+('10', 'C# u vis', 'Najdulja klasa pobjeduje', '2', 'Ucenje', '2021-12-10', 'Mlade Nade Slavonije'),
+('11', 'Razbijanje tipkovnice', 'Na kraju dana, svi smo mi isti', '2', 'Ucenje', '2021-06-12', 'Mlade Nade Slavonije')`;
 
 const insert_applications = `INSERT INTO PRIJAVA (id_prijava, korisnicko_ime, datum_i_vrijeme_prijava, status_prijava) VALUES
 ('1', 'Carlos Carey', '2020-12-23', 'poslana'),

@@ -51,6 +51,7 @@ class ApplyController extends Controller {
             let korisnik = await Korisnik.fetchKorisnikByUsername(korisnicko_ime);
             let kamp = await Kamp.fetchUpcoming();
             let prijava = new Prijava(korisnik, req.body.pismo, "neobrađena", kamp);
+            console.log(prijava);
             
             let id = await prijava.addNewPrijava();
             

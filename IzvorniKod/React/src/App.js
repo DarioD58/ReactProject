@@ -16,11 +16,44 @@ import Register from './components/Register'
 
 
 function App() {
+  const [kamp, setKamp] = React.useState({
+    ime: "",
+    aktivnost: "",
+    vrijeme: ""
+  });
+
+  const [session, setSession] = React.useState({
+    isLoggedIn: true
+  });
+
+  React.useEffect(() => {
+    // GET request using fetch inside useEffect React hook
+    fetch('http://localhost:5000/')
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data)
+      setKamp(prevKamp => ({
+        ...prevKamp,
+        ime: data.nadolazeci_kamp,
+        aktivnost: data.aktivnost,
+        vrijeme: data.pocetak_kamp
+    }))
+    });
+  }, []);
+
+  React.useEffect(() => {
+    sessionStorage.setItem("isLoggedIn", session.isLoggedIn)
+    console.log(sessionStorage.getItem("isLoggedIn"))
+    setSession(() => ({
+      isLoggedIn: sessionStorage.getItem("isLoggedIn")
+    }));
+  }, [session.isLoggedIn]);
+
   return (
     <BrowserRouter>
     <div className="App">
       <Sidebar />
-      <Header />
+      <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
       <div className="everything">
         <Route exact path='/login'>
           <Login />
@@ -33,7 +66,7 @@ function App() {
         </Route>
         <Route exact path='/'>
           <NotButton />
-          <Countdown />
+          <Countdown vrijeme = {kamp.vrijeme} />
           <Calendar />
         </Route>
       </div>

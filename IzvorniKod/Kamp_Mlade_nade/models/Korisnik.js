@@ -80,7 +80,7 @@ dbGetKorisnikByUsername = async (username) => {
     }
 }
 dbSetKorisnikPassword = async (korisnicko_ime, password) => {
-    const sql = "UPDATE TABLE korisnik SET lozinka = $1 WHERE korisnicko_ime = $2";
+    const sql = `UPDATE korisnik SET lozinka = $1 WHERE korisnicko_ime LIKE $2`;
     try {
         const result = await db.query(sql, [password, korisnicko_ime]);
         return result.rows;

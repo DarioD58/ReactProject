@@ -3,7 +3,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'kampAdmin',
-    password: 'bazepodataka', //svatko svoju sifru za sebe
+    password: 'baze5842', //svatko svoju sifru za sebe
     port: 5432,
 });
 //kod za kreiranje baze kampova
@@ -76,6 +76,7 @@ const create_entries = `CREATE TABLE PRIJAVA (
   status_prijava VARCHAR(20),
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
+  motivacijsko_pismo VARCHAR(3000) NOT NULL,
   PRIMARY KEY (id_prijava),
   FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
@@ -235,7 +236,7 @@ const insert_users = `INSERT INTO "KORISNIK" (korisnicko_ime,lozinka,email,ime,p
 ('Lewis Horn','OUB59XGV2IG','nunc.ac.mattis@nequenon.co.uk','Lee','Frye','O'),
 ('Cally Lane','DMY32CXP3BL','diam.Proin@ametmassaQuisque.com','Tana','Banks','O')`;
 
-const insert_activities = 'INSERT INTO "AKTIVNOST" (id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost) VALUES
+const insert_activities = `INSERT INTO "AKTIVNOST" (id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost) VALUES
 ('1', 'Dorucak', 'Dorucak za samoposluznim stolom', '1'),
 ('2', 'Rucak', 'Rucak za samoposluznim stolom', '1'),
 ('3', 'Vecera', 'Vecera bez samoposluznog stola', '1'),

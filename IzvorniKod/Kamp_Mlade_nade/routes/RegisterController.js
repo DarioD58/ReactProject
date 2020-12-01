@@ -12,22 +12,26 @@ class RegisterController extends Controller {
         if(req.body.lozinka != req.body.lozinka2){
             return JSON.stringify({error: "Nemoguće se dogodilo"});
         }
-    
+        console.log(req.body)
         try {
-            let user = fetchKorisnikByUsername(req.body.korime);
+            let user = await fetchKorisnikByUsername(req.body.korime);
+            console.log(user);
             if(req.body.korime == user.korisnicko_ime){
-                if(user.status != "sudionik" || user.status != "animator") throw new Error();
-                
+                if(user.status != "sudionik" && user.status != "animator") throw new Error();
+                console.log(req.body.lozinka)
                 // registrira korisnika u bazu
-                user.registerUser(lozinka);
-                
+                await user.registerKorisnik(req.body.lozinka);
+                console.log("Tu sam")
                 req.session.userStatus = user.status;
                 req.session.userName = req.body.korime;
             
-                res.json("Prijavljen novi " + user.status + " " + req.body.korime);
+                return JSON.stringify({
+                    korisnicko_ime: req.body.korime,
+                    status: user.status
+                });
             }
         } catch (error) {
-            res.json("Korisnik s korisničkim imenom " + req.body.korime + " ne postoji.");
+            return JSON.stringify({error: "Korisnik s korisničkim imenom " + req.body.korime + " ne postoji."});
         }
       
     }

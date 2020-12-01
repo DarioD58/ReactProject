@@ -13,7 +13,7 @@ class HomeController extends Controller {
     async get(req, res, next) {
         try{
             let kamp = await Kamp.fetchActive();
-            if(kamp.ime_kamp != null){
+            if(kamp.status == 1){
                 let aktivnosti = await Aktivnost.fetchAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
@@ -22,7 +22,7 @@ class HomeController extends Controller {
             } else {
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
-                let timer = new Date(kamp.datum_odrzavanja); // za sad podržavamo jedan aktivni kamp
+                let timer = new Date(kamp.datum_odrzavanja_kamp); // za sad podržavamo jedan aktivni kamp
                
                 return JSON.stringify({
                     nadolazeci_kamp : kamp.ime_kamp,
@@ -42,6 +42,7 @@ class HomeController extends Controller {
 let home = new HomeController();
 router.get("/", async (req, res, next) => {
     let data = JSON.parse(await home.get(req, res, next));
+    console.log(data)
     if(data.error != null){
         res.status(404).json(data);
     } else{

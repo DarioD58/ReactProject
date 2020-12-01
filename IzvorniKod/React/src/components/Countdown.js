@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState} from 'react';
 
 
-function Countdown() {
+function Countdown(props) {
 
     const [timerDays, setTimerDays] = useState('00');
     const [timerHours, setTimerHours] = useState('00');
@@ -10,8 +10,8 @@ function Countdown() {
 
     let interval = useRef();
 
-    const startTimer = () => {
-        const countdownDate = new Date('December 25, 2020 00:00:00').getTime();
+    const startTimer = async () => {
+        const countdownDate = new Date(props.vrijeme).getTime();
 
         interval = setInterval(() => {
             const now = new Date().getTime();
@@ -34,8 +34,8 @@ function Countdown() {
         }, 1000);
     };
 
-    useEffect(() => {
-        startTimer();
+    useEffect(async () => {
+        await startTimer();
         return () => {
             clearInterval(interval.current);
         };

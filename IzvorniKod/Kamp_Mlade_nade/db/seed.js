@@ -127,6 +127,12 @@ const create_users = `CREATE TABLE KORISNIK (
   PRIMARY KEY (korisnicko_ime),
   UNIQUE (email)
 )`;
+
+const insert_camps = 'INSERT INTO "KAMP" (ime_kamp, datum_odrzavanja_kamp, trajanje, pocetak_prijava_sudionika, kraj_prijava_sudionika, pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa) VALUES
+('Mlade Nade Slavonije', '2020-12-01', '21', '2020-11-01', '2020-11-15', '2020-10-01', '2020-11-15', '20'),
+('Programerske Glave', '2021-01-14', '14', '2020-12-31', '2021-01-07', '2020-11-15', '2021-01-13', '15'),
+('Mali FER-ovci', '2021-03-15', '7', '2020-11-30', '2021-02-01', '2020-10-10', '2021-02-01', '50')';
+
 const insert_users = `INSERT INTO "KORISNIK" (korisnicko_ime,lozinka,email,ime,prezime,status) VALUES
 ('Carlos Carey','BSR06JBP0LT','non.cursus@odiotristiquepharetra.edu','Virginia','Sears','K'),
 ('Rhiannon Austin','ZHK48AVM1JF','Pellentesque@orciquislectus.edu','Phoebe','Knight','K'),
@@ -240,4 +246,56 @@ const insert_activities = 'INSERT INTO "AKTIVNOST" (id_aktivnost, ime_aktivnost,
 ('8', 'Kulinarstvo', 'Prehranjivanje gladnih programera', '1.5'),
 ('9', 'Gradanski Odgoj', 'Ucenje o programerskoj etici', '2'),
 ('10', 'C# u vis', 'Najdulja klasa pobjeduje', '2'),
-('11', 'Razbijanje tipkovnice', 'Na kraju dana, svi smo mi isti', '2')'
+('11', 'Razbijanje tipkovnice', 'Na kraju dana, svi smo mi isti', '2')';
+
+const insert_applications = 'INSERT INTO "PRIJAVA" (id_prijava, korisnicko_ime, datum_i_vrijeme_prijava, status_prijava) VALUES
+('1', 'tvidovic', '2020-12-23', 'poslana'),
+('2', 'mmatijevic', '2021-02-11', 'poslana'),
+('3', 'tdudmovic', '2020-11-30', 'prihvacena'),
+('4', 'rtorkovic', '2021-01-13', 'odbijena'),
+('5', 'asantijevic', '2021-02-24', 'odbijena')';
+
+const insert_groups = 'INSERT INTO "GRUPA" (ime_grupa, id_grupa) VALUES
+('Banditosi', '1'),
+('FER Gang', '2'),
+('Cassandra Najbolja', '3'),
+('Ce Sarp', '4'),
+('Yeet', '5'),
+('Jarun', '6'),
+('110 Posto', '7'),
+('Tehnicari', '8'),
+('Vodovodna Jedinica', '9'),
+('Progi Projekt', '10')';
+
+const insert_schedule = 'INSERT INTO "RASPORED" (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa, korisnicko_ime_animator) VALUES
+('2020-12-01T13:00:00+00:00','2','8','tdorusic'),
+('2021-01-08T12:00:00+00:00','5','5','mkarlovic'),
+('2021-02-17T13:00:00+00:00','4','4','tdorusic'),
+('2021-01-06T18:00:00+00:00','2','4','pdamjanic'),
+('2021-03-02T15:00:00+00:00','1','3','mkarlovic'),
+('2020-10-13T18:00:00+00:00','8','1','pdamjanic'),
+('2020-12-05T15:00:00+00:00','7','9','tdorusic'),
+('2021-01-11T15:00:00+00:00','4','10','pdamjanic'),
+('2021-01-19T09:00:00+00:00','2','5','mkarlovic'),
+('2021-02-06T17:00:00+00:00','10','1','tdorusic'),
+('2021-03-14T17:00:00+00:00','4','8','pdamjanic')';
+
+const insert_session = 'INSERT INTO "SJEDNICA" (id_sjednica, podaci, rok_trajanja) VALUES
+('1', '', '2021-03-02T15:00:00+00:00'),
+('2', '', '2020-12-12T19:00:00+00:00'),
+('3', '', '2021-01-02T21:00:00+00:00'),
+('4', '', '2021-02-22T22:00:00+00:00')';
+
+const insert_animator_ocjena_aktivnosti = 'INSERT INTO "animator_ocjena_aktivnosti"(korisnicko_ime_animator, id_aktivnost, ocjena_animator, dojam_animator) VALUES
+('tdorusic', '3', '5', 'Skroz solidna organizacija'),
+('tdorusic', '7', '2', 'Skoro sam umro'),
+('mkarlovic', '9', '4', 'Nedovoljno soli za moj ukus'),
+('pdamjanic', '3', '5', 'Bilo nam je genijalno'),
+('pdamjanic', '6', '1', 'Bilo nam je suprotno od genijalnog')';
+
+const insert_sudionik_ocjena_aktivnosti =  'INSERT INTO "sudionik_ocjena_aktivnosti"(korisnicko_ime_sudionik, id_aktivnost, ocjena_sudionik, dojam_sudionik) VALUES
+('tvidovic', '4', '3', 'Imam osjecaj da me animator ne voli'),
+('mmatijevic', '1', '1', 'Uspio sam si zapaliti prste'),
+('tdudmovic', '4', '5', 'Predobro, s obzirom da nemam pojma sto se dogada'),
+('rtorkovic', '6', '5', 'Bilo nam je genijalno'),
+('asantijevic', '7', '1', 'Bilo nam je suprotno od genijalnog')';

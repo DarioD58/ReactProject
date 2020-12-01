@@ -181,3 +181,23 @@ section p:first-child, .timer div:last-child span{
     color: #ffffff;
   }
   /* SIDEBAR CSS DONE */
+
+  /* aktivnosti css */
+  .activites{
+    background-color: #343a40;
+    width: 50rem;
+    padding: 1em;
+    margin: 10px;
+    text-align: center;
+    font-size: 1.25em;
+    border-radius: 50px;
+  }
+  
+  .activity-header{
+    font-size: 2rem;
+    color: rgb(3, 3, 3);
+  }
+
+  .activity-table{
+    width: 100%;
+  }

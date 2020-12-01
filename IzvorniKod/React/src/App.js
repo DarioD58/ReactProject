@@ -11,6 +11,8 @@ import 'react-calendar/dist/Calendar.css'
 import Sidebar from './components/Sidebar';
 import Apply from './components/Apply'
 import Register from './components/Register'
+import Activities from './components/Activities';
+import Activity from './components/Activity';
 
 
 
@@ -64,10 +66,15 @@ function App() {
         <Route exact path='/application'>
           <Apply />
         </Route>
+        <Route exact path='/calendar'>
+          <Calendar />
+        </Route>
+        <Route exact path='/activities'>
+          <Activities activities = {kamp.aktivnost} />
+        </Route>
         <Route exact path='/'>
           <NotButton />
           <Countdown vrijeme = {kamp.vrijeme} />
-          <Calendar />
         </Route>
       </div>
       <Footer />

@@ -39,7 +39,6 @@ module.exports = class Aktivnost {
         
 
 
-
 }
 
 dbAddNewAktivnost = async (aktivnost) =>  {

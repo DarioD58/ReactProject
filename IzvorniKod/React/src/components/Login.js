@@ -19,6 +19,8 @@ function Login() {
             body: objekt
         })
         .then((response) => {
+            sessionStorage.setItem("isLoggedIn", true);
+            console.log(sessionStorage.getItem("isLoggedIn"))
             history.push('/');
         }).catch((response) => {
             console.log("Error")

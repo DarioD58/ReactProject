@@ -6,12 +6,12 @@ module.exports = class Korisnik {
 
     //konstruktor korisnika
     constructor(korisnicko_ime, lozinka, email, ime, prezime, status){
-        this.korisnicko_ime = korisnicko_ime;
-        this.lozinka = lozinka;
-        this.email = email;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.status = status;
+        this.korisnicko_ime = korisnicko_ime;  // string
+        this.lozinka = lozinka; // string
+        this.email = email; // string
+        this.ime = ime; // string
+        this.prezime = prezime; // string
+        this.status = status;   // string
     }
 
     /*
@@ -23,26 +23,25 @@ module.exports = class Korisnik {
 
     // dohvaća korisnika s predanim imenom iz baze, ako postoji
     static async fetchKorisnikByUsername(username){
-        let results = await dbGetUserByName(korisnicko_ime)
+        let results = await dbGetKorisnikByUsername(username)
         let noviKorisnik = new Korisnik()
 
         if( results.length > 0 ) {
-            noviKorisnik = new Korisnik(results[0].korisnicko_ime, results[0].lozinka, results[0].ime, 
-                results[0].prezime, results[0].email, results[0].status)
+            noviKorisnik = new Korisnik(results[0].korisnicko_ime, results[0].lozinka, results[0].email, results[0].ime, 
+                results[0].prezime, results[0].status)
         }
         return noviKorisnik;
     }
 
 
     // dodaje password za korisnika koji se registrira
-    async registerUser(password){
+    async registerKorisnik(password){
         //dodati pozivanje funkcije za update baze
-        dbSetUserPassword(this, password);
+        dbSetKorisnikPassword(this.korisnicko_ime, password);
 
     }
 
-    // Provjerava postoji li korisnik
-    isPersisted() {
+    isPersisted(){
         return this.korisnicko_ime !== undefined;
     }
 
@@ -52,10 +51,10 @@ module.exports = class Korisnik {
     }
 
     //pohrana korisnika u bazu podataka kod registracije
-    async addNewUser() {
+    async addNewKorisnik() {
         try {
-            let korisnickoIme = await dbAddNewUser(this)
-            this.korisnicko_ime = korisnickoIme
+            let korisnickoIme = await dbAddNewKorisnik(this);
+            this.korisnicko_ime = korisnickoIme;
         } catch(err) {
             console.log("ERROR persisting user data: " + JSON.stringify(this))
             throw err
@@ -69,5 +68,36 @@ module.exports = class Korisnik {
 funkcije dodavanje i dohvaćanja podataka korisnika iz baze
 u njima se pišu upiti
 */
-dbSetUserPassword = async (korisnik, password) => {}
-dbAddNewUser = async (korisnik) => {}
+dbGetKorisnikByUsername = async (username) => {
+    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, email, status 
+    FROM korisnik WHERE korisnicko_ime LIKE $1`;
+    try {
+        const result = await db.query(sql, [username]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+dbSetKorisnikPassword = async (korisnicko_ime, password) => {
+    const sql = `UPDATE korisnik SET lozinka = $1 WHERE korisnicko_ime LIKE $2`;
+    try {
+        const result = await db.query(sql, [password, korisnicko_ime]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+dbAddNewKorisnik = async (korisnik) => {
+    const sql = `INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status)
+     VALUES ($1, $2, $3, $4, $5, $6) RETURNING korisnicko_ime`;
+    try {
+        const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
+             korisnik.ime, korisnik.prezime, korisnik.status]);
+        return result.rows[0].korisnicko_ime;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}

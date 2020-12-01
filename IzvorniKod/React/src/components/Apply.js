@@ -9,7 +9,8 @@ function Apply() {
         email: "",
         brtel: "",
         dob: "",
-        pismo: ""
+        pismo: "",
+        status: "sudionik"
     });
 
     let history = useHistory();
@@ -33,7 +34,8 @@ function Apply() {
                 email: "",
                 brtel: "",
                 dob: "",
-                pismo: ""
+                pismo: "", 
+                status: ""
             }))
         });
         e.preventDefault();
@@ -56,7 +58,8 @@ function Apply() {
             email: "",
             brtel: "",
             dob: "",
-            pismo: "" 
+            pismo: "",
+            status: "sudionik" 
         }))
     }
 
@@ -87,6 +90,12 @@ function Apply() {
             <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
              type="text" name="pismo" value={state.pismo}
              placeholder="Motivacija..." size="50"/>
+            <label className="text-body" for="sudionik">Sudionik: </label>
+            <input className="bg-dark pt-3 pb-3 text-white" id='sudionik' onChange={onChange}
+             required type="radio" name="status" checked value="sudionik"/>
+             <label className="text-body" for="animator">Animator: </label>
+            <input className="bg-dark pt-3 pb-3 text-white" id='animator' onChange={onChange}
+             required type="radio" name="status" value="animator"/>
             <input className="bg-dark text-white"
              type="submit" name="submit" placeholder="Submit" />
             <input className="bg-dark text-white" onClick={handleReset}

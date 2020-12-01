@@ -1,21 +1,17 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
-const path = require('path');
-const pg = require('pg')
-const db = require('./db')
-const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session)
+const db = require('./db');
+const pg = require('pg');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
 //middleware - ruteri
-const homeRouter = require('./routes/home.routes');
-const loginRouter = require('./routes/login.routes');
-const logoutRouter = require('./routes/logout.routes');
-const applyRouter = require('./routes/apply.routes');
-const registerRouter = require('./routes/register.routes');
-
-//middleware - dekodiranje parametara
-app.use(express.static(path.join(__dirname, 'public')));
+const HomeController = require('./routes/HomeController');
+const LoginController = require('./routes/LoginController');
+const LogoutController = require('./routes/LogoutController');
+const ApplyController = require('./routes/ApplyController');
+const RegisterController = require('./routes/RegisterController');
 
 //middleware
 app.use(cors());
@@ -34,11 +30,11 @@ app.use(session({
 
 
 //definicija ruta
-app.use('/', homeRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
-app.use('/apply', applyRouter);
-app.use('/register', registerRouter);
+app.use('/', HomeController);
+app.use('/login', LoginController);
+app.use('/logout', LogoutController);
+app.use('/apply', ApplyController);
+app.use('/register', RegisterController);
 
 
 var port = 5000;

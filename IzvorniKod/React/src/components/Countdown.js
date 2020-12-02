@@ -26,10 +26,12 @@ function Countdown(props) {
                 //stop times
                 clearInterval(interval.current);
             } else {
-                setTimerDays(days);
-                setTimerHours(hours);
-                setTimerMinutes(minutes);
-                setTimerSeconds(seconds);
+                if(!isNaN(days) && !isNaN(hours) && !isNaN(minutes) && !isNaN(seconds)){
+                    setTimerDays(days);
+                    setTimerHours(hours);
+                    setTimerMinutes(minutes);
+                    setTimerSeconds(seconds);
+                }
             }
         }, 1000);
     };

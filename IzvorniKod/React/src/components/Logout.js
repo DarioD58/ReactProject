@@ -5,8 +5,16 @@ function Logout(){
     let history = useHistory();
 
     const handleLogout = () => {
-        sessionStorage.setItem("isLoggedIn", false)
-        history.push('/');
+        fetch('http://localhost:5000/logout')
+        .then((response) => {
+            localStorage.setItem("isLoggedIn", false);
+            localStorage.setItem("user", undefined);
+            localStorage.setItem("role", undefined);
+            history.push('/');
+            window.location.reload();
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     return (

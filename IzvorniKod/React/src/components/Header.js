@@ -2,11 +2,8 @@ import React from 'react';
 import Logout from './Logout'
 
 function Header(props) {
-  React.useEffect(()=>{
-    console.log(props.logged);
-  }, [props.logged]);
 
-  if(props.logged === true){
+  if(props.logged == 'true'){
     return (
         <header id="header" className="container-fluid bg-dark pt-3 pb-3">
           <img src=".\slike\logo.png" alt="Slika kampa" className="rounded-circle mx-auto d-block"/>

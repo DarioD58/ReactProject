@@ -12,10 +12,9 @@ class RegisterController extends Controller {
         if(req.body.lozinka != req.body.lozinka2){
             return JSON.stringify({error: "Nemoguće se dogodilo"});
         }
-        console.log(req.body)
+
         try {
             let user = await fetchKorisnikByUsername(req.body.korime);
-            console.log(user);
             if(req.body.korime == user.korisnicko_ime){
                 if(user.status != "sudionik" && user.status != "animator") throw new Error();
                 console.log(req.body.lozinka)

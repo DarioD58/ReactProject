@@ -45,7 +45,7 @@ dbCheckPrijavaForUsername = async (korIme) => {
     const sql = `SELECT id_prijava FROM prijava WHERE korisnicko_ime = $1`;
     try {
         const result = await db.query(sql, [korIme]);
-        return result.rows;
+        return result.rows[0];
     } catch (err) {
         console.log(err);
         throw err

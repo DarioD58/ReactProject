@@ -10,8 +10,6 @@ module.exports = class Animator extends Korisnik {
         super(korisnicko_ime, lozinka, email, ime, prezime, status);
         this.br_tel = br_tel;   // string
         this.datum_i_god_rod = datum_i_god_rod; // Date
-        this.br_tel_odg_osobe = br_tel_odg_osobe; // string
-        this.id_grupa = undefined;  // number
     }
 
     //implementacije funkcija
@@ -30,8 +28,6 @@ module.exports = class Animator extends Korisnik {
             noviAnimator = new Animator(results[0].korisnicko_ime, results[0].lozinka, 
                 results[0].email, results[0].ime, results[0].prezime, results[0].status,
                 results[0].br_tel_animator, results[0].datum_i_god_rod_animator);
-            
-            noviAnimator.id_grupa = results[0].id_grupa;
         }
         return noviAnimator;
     }
@@ -42,12 +38,12 @@ module.exports = class Animator extends Korisnik {
 //implementacije funkcija
 dbAddNewAnimator = async (animator) => {
     const sql = `INSERT INTO animator (korisnicko_ime_animator, br_tel_animator, datum_i_god_rod_animator) 
-    VALUES ($1, $2, $3, $4) RETURNING korisnicko_ime_sudionik`;
+    VALUES ($1, $2, $3) RETURNING korisnicko_ime_animator`;
     try {
-        await sudionik.addNewUser();
-        const result = await db.query(sql, [sudionik.korisnicko_ime, sudionik.br_tel,
-             sudionik.datum_i_god_rod, sudionik.br_tel_odg_osobe]);
-        return result.rows[0].korisnicko_ime_sudionik;
+        await animator.addNewKorisnik();
+        const result = await db.query(sql, [animator.korisnicko_ime, animator.br_tel,
+             animator.datum_i_god_rod]);
+        return result.rows[0].korisnicko_ime_animator;
     } catch (err) {
         console.log(err);
         throw err;

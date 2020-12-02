@@ -18,18 +18,27 @@ function Login() {
             headers: {"Content-type": "application/json"},
             body: objekt
         })
-        .then((response) => {
-            sessionStorage.setItem("isLoggedIn", true);
-            console.log(sessionStorage.getItem("isLoggedIn"))
+        .then((response) => response.json()
+        )
+        .then((res) => {
+            if(res.error != undefined){
+                throw new Error(res.error);
+            }
+            console.log(res);
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("user", res.userName);
+            localStorage.setItem("role", res.userStatus);
             history.push('/');
-        }).catch((response) => {
-            console.log("Error")
+            window.location.reload();
+        }).catch((error) => {
+            console.log(error);
             setState(prevState => ({
                 ...prevState,
                 korime: "",
                 lozinka: ""
             }))
         });
+
         e.preventDefault();
     }
 

@@ -12,7 +12,7 @@ import Sidebar from './components/Sidebar';
 import Apply from './components/Apply'
 import Register from './components/Register'
 import Activities from './components/Activities';
-import Activity from './components/Activity';
+
 
 
 
@@ -20,15 +20,21 @@ import Activity from './components/Activity';
 function App() {
   const [kamp, setKamp] = React.useState({
     ime: "",
-    aktivnost: "",
     vrijeme: ""
   });
 
+  const [activity, setActivity] = React.useState([]);
+
   const [session, setSession] = React.useState({
-    isLoggedIn: true
+    isLoggedIn: ''
   });
 
   React.useEffect(() => {
+    if(localStorage.getItem('isLoggedIn') === true){
+      setSession(() => ({
+        isLoggedIn: localStorage.getItem('isLoggedIn')
+      }))
+    }
     // GET request using fetch inside useEffect React hook
     fetch('http://localhost:5000/')
     .then(response => response.json())
@@ -37,24 +43,57 @@ function App() {
       setKamp(prevKamp => ({
         ...prevKamp,
         ime: data.nadolazeci_kamp,
-        aktivnost: data.aktivnost,
         vrijeme: data.pocetak_kamp
     }))
+    setActivity(
+      ...activity,
+      data.aktivnosti
+    );
+    console.log(activity);
     });
   }, []);
 
   React.useEffect(() => {
-    sessionStorage.setItem("isLoggedIn", session.isLoggedIn)
-    console.log(sessionStorage.getItem("isLoggedIn"))
     setSession(() => ({
-      isLoggedIn: sessionStorage.getItem("isLoggedIn")
+      isLoggedIn: localStorage.getItem("isLoggedIn")
     }));
   }, [session.isLoggedIn]);
 
+  if(localStorage.getItem('isLoggedIn') == 'true'){
+    return (
+      <BrowserRouter>
+      <div className="App">
+        <Sidebar logged={session.isLoggedIn}/>
+        <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
+        <div className="everything">
+          <Route exact path='/login'>
+            <Login />
+          </Route>
+          <Route exact path='/register'>
+            <Register />
+          </Route>
+          <Route exact path='/application'>
+            <Apply />
+          </Route>
+          <Route exact path='/calendar'>
+            <Calendar />
+          </Route>
+          <Route exact path='/activities'>
+            <Activities activities = {activity} />
+          </Route>
+          <Route exact path='/'>
+            <Countdown vrijeme = {kamp.vrijeme} />
+          </Route>
+        </div>
+        <Footer />
+      </div>
+      </BrowserRouter>
+    );
+  }
   return (
     <BrowserRouter>
     <div className="App">
-      <Sidebar />
+      <Sidebar logged={session.isLoggedIn}/>
       <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
       <div className="everything">
         <Route exact path='/login'>

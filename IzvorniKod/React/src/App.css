@@ -198,6 +198,8 @@ section p:first-child, .timer div:last-child span{
     color: rgb(3, 3, 3);
   }
 
-  .activity-table{
+  .aktivnosti{
     width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
   }

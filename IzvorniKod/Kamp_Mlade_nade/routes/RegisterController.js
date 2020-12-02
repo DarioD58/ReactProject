@@ -21,7 +21,6 @@ class RegisterController extends Controller {
                 console.log(req.body.lozinka)
                 // registrira korisnika u bazu
                 await user.registerKorisnik(req.body.lozinka);
-                console.log("Tu sam")
                 req.session.userStatus = user.status;
                 req.session.userName = req.body.korime;
             

@@ -18,7 +18,7 @@ function Logout(){
     }
 
     return (
-        <button className='text-black' onClick={handleLogout}>Odjavi se!</button>
+        <button className='text-black' onClick={handleLogout}>Odjavi se</button>
     );
 }
 

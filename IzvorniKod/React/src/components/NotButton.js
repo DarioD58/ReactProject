@@ -7,7 +7,7 @@ function NotButton(){
             <Link to='/application'>
                 <div className="login-not-button text-light">Registriraj se</div>
             </Link>
-            <div className="text-light center text-center">Već si registriran <Link to='login'>prijavi se!</Link></div>
+            <div className="text-light center text-center">Već si registriran, <Link className='text-white' to='login'><u>prijavi se!</u></Link></div>
         </div>
     );
 }

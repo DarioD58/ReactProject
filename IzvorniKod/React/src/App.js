@@ -78,11 +78,9 @@ function App() {
           <Route exact path='/calendar'>
             <Calendar />
           </Route>
-          <Route exact path='/activities'>
-            <Activities activities = {activity} />
-          </Route>
           <Route exact path='/'>
             <Countdown vrijeme = {kamp.vrijeme} />
+            <Activities activities = {activity} />
           </Route>
         </div>
         <Footer />
@@ -108,12 +106,10 @@ function App() {
         <Route exact path='/calendar'>
           <Calendar />
         </Route>
-        <Route exact path='/activities'>
-          <Activities activities = {kamp.aktivnost} />
-        </Route>
         <Route exact path='/'>
           <NotButton />
           <Countdown vrijeme = {kamp.vrijeme} />
+          <Activities activities = {activity} />
         </Route>
       </div>
       <Footer />

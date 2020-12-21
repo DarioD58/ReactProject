@@ -20,11 +20,6 @@ export default props => {
         <p className="menu-item">
           Kontakt
         </p>
-        <Link to='/activities'>
-        <p className="menu-item">
-          Aktivnosti kampa
-        </p>
-        </Link>
         <Link to='/calendar'>
         <p calssName="menu-item">
           Kalendar

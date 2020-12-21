@@ -20,8 +20,17 @@ function Register() {
             headers: {"Content-type": "application/json"},
             body: objekt
         })
-        .then((response) => {
+        .then((response) => response.json()
+        )
+        .then((res) => {
+            if(res.error != undefined){
+                throw new Error(res.error);
+            }
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("user", res.userName);
+            localStorage.setItem("role", res.userStatus);
             history.push('/');
+            window.location.reload();
         }).catch((response) => {
             console.log("Error")
             setState(prevState => ({
@@ -76,15 +85,15 @@ function Register() {
 
     return (
         <form  onSubmit={onSubmit}>
-            <label className="text-body" for="ime">Korisničko ime: </label>
+            <label className="text-white" for="ime">Korisničko ime: </label>
             <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
              required type="text" name="korime" value={state.korime}
               placeholder="aanic" size="50"/>
-            <label className="text-body" for="lozinka">Lozinka: </label>
+            <label className="text-white" for="lozinka">Lozinka: </label>
             <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
              required type="password" value={state.lozinka}
               name="lozinka" size="50"/>
-            <label className="text-body" for="lozinka2">Ponovi lozinku: </label>
+            <label className="text-white" for="lozinka2">Ponovi lozinku: </label>
             <input className="bg-dark pt-3 pb-3 text-white" onChange={onPassChange}
              required type="password" value={state.lozinka2}
               name="lozinka2" size="50"/>

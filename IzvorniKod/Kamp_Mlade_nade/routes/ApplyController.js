@@ -27,7 +27,7 @@ class ApplyController extends Controller {
                 if(postojeciSudionik.korisnicko_ime !== undefined) return JSON.stringify({error : "Prijava nije moguća za postojećeg sudionika."});
                 
                 let sudionik = new Sudionik(korisnicko_ime, null, req.body.email, req.body.ime, req.body.prezime, req.body.status,
-                    req.body.br_tel, req.body.DOB, req.body.br_tel_odg_osobe != null ? req.body.br_tel_odg_osobe : null);
+                    req.body.brtel, req.body.dob, req.body.br_tel_odg_osobe != null ? req.body.br_tel_odg_osobe : null);
                 
                 sudionik.addNewSudionik();
                 
@@ -37,7 +37,7 @@ class ApplyController extends Controller {
                 if(postojeciAnimator.korisnicko_ime !== undefined) return JSON.stringify({error : "Prijava nije moguća za postojećeg animatora."});
                 
                 let animator = new Animator(korisnicko_ime, null, req.body.email, req.body.ime, req.body.prezime, req.body.status,
-                    req.body.br_tel, req.body.DOB);
+                    req.body.brtel, req.body.dob);
     
                 animator.addNewAnimator();
             } 

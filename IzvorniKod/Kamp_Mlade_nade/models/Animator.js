@@ -41,6 +41,7 @@ dbAddNewAnimator = async (animator) => {
     VALUES ($1, $2, $3) RETURNING korisnicko_ime_animator`;
     try {
         await animator.addNewKorisnik();
+        console.log("Dodajem novog animatora")
         const result = await db.query(sql, [animator.korisnicko_ime, animator.br_tel,
              animator.datum_i_god_rod]);
         return result.rows[0].korisnicko_ime_animator;

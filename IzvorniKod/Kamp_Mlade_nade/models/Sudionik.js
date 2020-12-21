@@ -57,6 +57,7 @@ dbAddNewSudionik = async (sudionik) => {
      VALUES ($1, $2, $3, $4) RETURNING korisnicko_ime_sudionik`;
     try {
         await sudionik.addNewKorisnik();
+        console.log("Dodajem novog sudionika")
         const result = await db.query(sql, [sudionik.korisnicko_ime, sudionik.br_tel, 
             sudionik.datum_i_god_rod, sudionik.br_tel_odg_osobe]);
         return result.rows[0].korisnicko_ime_sudionik;

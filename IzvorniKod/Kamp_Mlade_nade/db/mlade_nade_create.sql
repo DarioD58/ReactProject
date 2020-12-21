@@ -61,7 +61,7 @@ CREATE TABLE SUDIONIK
   korisnicko_ime_sudionik VARCHAR(50) NOT NULL,
   datum_i_god_rod_sudionik DATE NOT NULL,
   br_tel_sudionik VARCHAR(20) NOT NULL,
-  br_tel_odg_osobe VARCHAR(20) NOT NULL,
+  br_tel_odg_osobe VARCHAR(20),
   id_grupa INT,
   PRIMARY KEY (korisnicko_ime_sudionik),
   FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime),

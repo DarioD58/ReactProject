@@ -17,7 +17,6 @@ const RegisterController = require('./routes/RegisterController');
 app.use(cors());
 app.use(express.json());
 
-
 //middleware - sjednice
 app.use(session({
     secret: "Kamp Mlade nade",

@@ -51,7 +51,7 @@ module.exports = class Korisnik {
     // Provjerava lozinku
     // vraca Boolean
     checkPass(lozinka){
-        return this.lozinka ? this.lozinka == lozinka : false;
+        return this.lozinka ? this.lozinka == lozinka && lozinka != null : false;
     }
 
     //pohrana korisnika u bazu podataka kod registracije
@@ -99,6 +99,7 @@ dbAddNewKorisnik = async (korisnik) => {
     const sql = `INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status)
      VALUES ($1, $2, $3, $4, $5, $6) RETURNING korisnicko_ime`;
     try {
+        console.log("Dodajem novog korisnika");
         const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
              korisnik.ime, korisnik.prezime, korisnik.status]);
         return result.rows[0].korisnicko_ime;

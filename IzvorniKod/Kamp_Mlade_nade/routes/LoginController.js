@@ -17,9 +17,6 @@ class LoginController extends Controller{
             let korisnik = await Korisnik.fetchKorisnikByUsername(loginData.korime);
             if(korisnik.isPersisted() && korisnik.checkPass(loginData.lozinka)){
                 let status = korisnik.status;
-    
-                req.session.userStatus = status;
-                req.session.userName = req.body.korime;
                 
                 return JSON.stringify({
                     userStatus : status,
@@ -44,6 +41,7 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
+        res.cookie("userData", data);
         res.json(data);
     }
 });

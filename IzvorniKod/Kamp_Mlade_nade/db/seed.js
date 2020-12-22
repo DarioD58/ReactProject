@@ -92,13 +92,8 @@ const create_schedules = `CREATE TABLE RASPORED (
   FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost),
   FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa)
 )`;
-//kod za kreiranje sjednica
-const create_sessions = `CREATE TABLE SESSION (
-    sid VARCHAR NOT NULL,
-    sess JSON NOT NULL,
-    expire TIMESTAMPTZ(6) NOT NULL
-  )
-  WITH (OIDS=FALSE)`;
+
+
 const create_animator_ocjena_aktivnosti = `CREATE TABLE animator_ocjena_aktivnosti (
   korisnicko_ime_animator VARCHAR(50) NOT NULL,
   id_aktivnost INT NOT NULL,

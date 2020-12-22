@@ -66,6 +66,10 @@ module.exports = class Korisnik {
             throw err;
         }
     }
+	
+	async removeKorisnik(username){
+		dbDeleteKorisnik(username);
+	}
 
     
 }
@@ -103,6 +107,18 @@ dbAddNewKorisnik = async (korisnik) => {
         const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
              korisnik.ime, korisnik.prezime, korisnik.status]);
         return result.rows[0].korisnicko_ime;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+
+//brisanje korisnika iz bp
+dbDeleteKorisnik = async (korisnicko_ime) => {
+    const sql = `DELETE FROM korisnik WHERE korisnicko_ime = '$1'`;
+    try {
+        const result = await db.query(sql, [korisnicko_ime]);
+        return result.rows;
     } catch (err) {
         console.log(err);
         throw err

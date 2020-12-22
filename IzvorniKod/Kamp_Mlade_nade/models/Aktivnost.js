@@ -45,6 +45,11 @@ module.exports = class Aktivnost {
             this.datum_odrzavanja_kamp, this.ime_kamp);
         }
 
+        //delete
+        async removeAktivnost(ime_aktivnost){
+		dbDeleteAktivnost(ime_aktivnost);
+	}
+
 
 }
 
@@ -52,6 +57,11 @@ dbAddNewAktivnost = async (aktivnost) =>  {
 
 
 };
+
+dbAddNewAktivnost = async () =>{
+
+
+}
 
 dbGetAll = async (ime_kamp, datum_odrzavanja_kamp) => {
     const sql = `SELECT ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
@@ -79,7 +89,15 @@ datum_odrzavanja_kamp, ime_kamp) =>{
     }
 }
 
-dbAddNewAktivnost = async () =>{
 
 
+dbDeleteAktivnost = async (ime_aktivnost) => {
+    const sql = `DELETE FROM aktivnost WHERE ime_aktivnost LIKE $1`;
+    try {
+		console.log("Brisem aktivnost")
+        const result = await db.query(sql, ime_aktivnost);
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
 }

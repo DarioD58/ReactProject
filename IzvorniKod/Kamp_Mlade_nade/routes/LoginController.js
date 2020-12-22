@@ -5,6 +5,7 @@ const Korisnik = require('../models/Korisnik');
 const { fetchOrganizatorkByUsername } = require('../models/Organizator');
 const { fetchSudionikByUsername } = require('../models/Sudionik');
 const Controller = require('./Controller');
+const cookie = require('cookie');
 
 class LoginController extends Controller{
     constructor(){
@@ -41,7 +42,7 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
-        res.cookie("userData", data);
+        res.setHeader('Set-Cookie', cookie.serialize('user', JSON.stringify(data), {httpOnly: true,maxAge: 60*60}));
         res.json(data);
     }
 });

@@ -32,7 +32,10 @@ module.exports = class Animator extends Korisnik {
         return noviAnimator;
     }
 
-
+    //dohvati sve
+    async getAnimatorAll(){
+		 dbAnimatorGetAll();
+	}
 }
 
 //implementacije funkcija
@@ -57,6 +60,18 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
     try {
         const result = await db.query(sql, [korisnicko_ime]);
         return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+
+//dohvati sve animatore
+dbAnimatorGetAll = async() =>{
+	const sql = `SELECT * FROM animator`;
+	try {
+        const result = await db.query([animator.korisnicko_ime, animator.lozinka, animator.email, animator.ime, animator.prezime, animator.status, animator.br_tel, animator.datum_i_god_rod]);
+        return result.rows[0].korisnicko_ime_animator;
     } catch (err) {
         console.log(err);
         throw err

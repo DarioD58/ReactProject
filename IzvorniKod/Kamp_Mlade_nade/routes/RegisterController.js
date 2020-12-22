@@ -20,8 +20,6 @@ class RegisterController extends Controller {
                 console.log(req.body.lozinka)
                 // registrira korisnika u bazu
                 await user.registerKorisnik(req.body.lozinka);
-                req.session.userStatus = user.status;
-                req.session.userName = req.body.korime;
             
                 return JSON.stringify({
                     korisnicko_ime: req.body.korime,

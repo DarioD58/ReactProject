@@ -21,6 +21,13 @@ module.exports = class Organizator extends Korisnik {
         return new Organizator(korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email, korisnik.ime, korisnik.prezime, korisnik.status);
     }   
 
+    static async checkOrganizator(username, status){
+        if(status != 'organizator') return false;
+
+        let organizator = await this.fetchOrganizatorkByUsername(username);
+        if(organizator.korisnicko_ime == username) return true;
+    }
+
 }
 
 //implementacije funkcija

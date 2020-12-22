@@ -5,6 +5,7 @@ const Korisnik = require('../models/Korisnik');
 const { fetchOrganizatorkByUsername } = require('../models/Organizator');
 const { fetchSudionikByUsername } = require('../models/Sudionik');
 const Controller = require('./Controller');
+const cookie = require('cookie');
 
 class LoginController extends Controller{
     constructor(){
@@ -17,9 +18,6 @@ class LoginController extends Controller{
             let korisnik = await Korisnik.fetchKorisnikByUsername(loginData.korime);
             if(korisnik.isPersisted() && korisnik.checkPass(loginData.lozinka)){
                 let status = korisnik.status;
-    
-                req.session.userStatus = status;
-                req.session.userName = req.body.korime;
                 
                 return JSON.stringify({
                     userStatus : status,
@@ -44,6 +42,7 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
+        res.setHeader('Set-Cookie', cookie.serialize('user', JSON.stringify(data), {httpOnly: true,maxAge: 60*60}));
         res.json(data);
     }
 });

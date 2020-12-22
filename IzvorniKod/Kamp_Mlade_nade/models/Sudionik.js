@@ -35,8 +35,10 @@ module.exports = class Sudionik extends Korisnik {
         return noviSudionik;
     }
 	
-
-
+    //dohvati sve
+    async sudionikGetAll(){
+        dbSudionikGetAll();
+    }
 }
 //implementacije funkcija
 dbGetSudionikByUsername = async (korisnicko_ime) => {
@@ -64,5 +66,17 @@ dbAddNewSudionik = async (sudionik) => {
     } catch (err) {
         console.log(err);
         throw err;
+    }
+}
+
+dbSudionikGetAll = async() =>{
+	const sql = `SELECT * FROM sudionik`;
+	try {
+        const result = await db.query([sudionik.korisnicko_ime, sudionik.lozinka, sudionik.email, sudionik.ime, 
+        sudionik.prezime, sudionik.status, sudionik.br_tel, sudionik.datum_i_god_rod, sudionik.br_tel_odg_osobe]);
+        return result.rows[0].korisnicko_ime_sudionik;
+    } catch (err) {
+        console.log(err);
+        throw err
     }
 }

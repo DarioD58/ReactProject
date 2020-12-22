@@ -106,32 +106,25 @@ CREATE TABLE RASPORED
   FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa)
 );
 
-CREATE TABLE SESSION (
-    sid VARCHAR NOT NULL,
-    sess JSON NOT NULL,
-    expire TIMESTAMPTZ(6) NOT NULL,
-    PRIMARY KEY (sid)
-  )
-  WITH (OIDS=FALSE);
-
-CREATE TABLE animator_ocjena_aktivnosti
+CREATE TABLE ocjena_aktivnosti
 (
-  korisnicko_ime_animator VARCHAR(50) NOT NULL,
-  id_aktivnost INT NOT NULL,
-  ocjena_animator INT NOT NULL,
-  dojam_animator VARCHAR(500) NOT NULL,
-  PRIMARY KEY (korisnicko_ime_animator),
-  FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator),
-  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost)
+  ocjena INT NOT NULL,
+  dojam VARCHAR(500) NOT NULL,
+  id_aktivnost  NOT NULL,
+  korisnicko_ime VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_aktivnost, korisnicko_ime),
+  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost),
+  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime)
 );
 
-CREATE TABLE sudionik_ocjena_aktivnosti
+CREATE TABLE ukupni_dojam
 (
-  korisnicko_ime_sudionik VARCHAR(50) NOT NULL,
-  id_aktivnost INT NOT NULL,
-  ocjena_sudionik INT NOT NULL,
-  dojam_sudionik VARCHAR(500) NOT NULL,
-  PRIMARY KEY (korisnicko_ime_sudionik),
-  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES SUDIONIK(korisnicko_ime_sudionik),
-  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost)
+  ocjena INT NOT NULL,
+  dojam VARCHAR(500) NOT NULL,
+  korisnicko_ime VARCHAR(50) NOT NULL,
+  datum_odrzavanja_kamp DATE NOT NULL,
+  ime_kamp VARCHAR(50) NOT NULL,
+  PRIMARY KEY (korisnicko_ime, datum_odrzavanja_kamp, ime_kamp),
+  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
+  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
 );

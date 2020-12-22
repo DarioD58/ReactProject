@@ -8,21 +8,14 @@ class LogoutController extends Controller {
     }
 
     async get(req, res, next) {
-        if(req.session.userStatus != undefined && req.session.userName != undefined){
-        /*req.session.userStatus = undefined;
-        req.session.userName = undefined;*/
-        return JSON.stringify({status : "Korisnik uspješno odjavljen"});
-        } else {
-            return JSON.stringify({Message_from_space : "Hello Wonderer"});
-        }
+    return JSON.stringify({status : "Korisnik uspješno odjavljen"});
     }
 }
 
 let logout = new LogoutController();
 router.get("/", async (req, res, next) => {
     let data = JSON.parse(await logout.get(req, res, next));
-    req.session.userStatus = undefined;
-    req.session.userName = undefined;
+    res.clearCookie("user");
     res.json(data);
 });
 

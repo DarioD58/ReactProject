@@ -43,30 +43,35 @@ class PrijavaController extends Controller {
         let applicationInfo = req.body;
         let id = applicationInfo.id_prijava;
         let status = applicationInfo.status_prijava;
-        let userName = applicationInfo.userName;
+        let userName = applicationInfo.korime;
         
         let korisnik = await Korisnik.fetchKorisnikByUsername(userName); 
         //Prijava.changeStatusPrijava(id, status);
 
-        let email = 'nettie.hoppe32@ethereal.email'; 
+        //
+
+        let sender = 'omari.altenwerth@ethereal.email';
+        let senderPas = 'yxU6T2Wqe4mqtpG9KK';
+
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-                user: email, // generated ethereal user
-                pass: 'TJjEN9Q25yTgc4mRuM', // generated ethereal password
+                user: sender, // generated ethereal user
+                pass: senderPas, // generated ethereal password
             },
         });
-        
+
         let msg = {
             from: '"Kamp Mlade nade" <kamp@mladenade.com>', // sender address
-            //to: `${korisnik.email}`, // list of receivers
-            to: email,
+            to: `${korisnik.ime} ${korisnik.prezime} ${korisnik.email}`, // list of receivers
+            //to: email,
             subject: "Kamp Mlade nade - prijava", // Subject line
             text: "", // plain text body
-        }
+        } 
+
 
         try {
             if(status == "prihvaćena"){

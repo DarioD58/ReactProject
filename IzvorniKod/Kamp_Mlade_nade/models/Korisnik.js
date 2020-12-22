@@ -67,11 +67,14 @@ module.exports = class Korisnik {
         }
     }
 	
-	async removeKorisnik(username){
+	//brisanje i update podataka
+    async removeKorisnik(username){
 		dbDeleteKorisnik(username);
 	}
 
-    
+    async updateKorisnik(username){
+		dbUpdateKorisnik(username, this.lozinka, this.email, this.ime, this.prezime);
+	} 
 }
 
 /*
@@ -124,3 +127,14 @@ dbDeleteKorisnik = async (korisnicko_ime) => {
         throw err
     }
 }
+
+//update podataka
+dbUpdateKorisnik(korisnicko_ime, lozinka, email, ime, prezime){
+	const sql = `UPDATE korisnik SET lozinka, SET email, SET ime, SET prezime WHERE korisnicko_ime LIKE $1`;
+	 try {
+        const result = await db.query(sql, korisnicko_ime);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }

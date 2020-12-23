@@ -39,7 +39,6 @@ function App() {
     fetch('http://localhost:5000/')
     .then(response => response.json())
     .then((data) => {
-      console.log(data)
       setKamp(prevKamp => ({
         ...prevKamp,
         ime: data.nadolazeci_kamp,
@@ -49,7 +48,6 @@ function App() {
       ...activity,
       data.aktivnosti
     );
-    console.log(activity);
     });
   }, []);
 

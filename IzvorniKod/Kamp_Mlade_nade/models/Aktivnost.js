@@ -23,8 +23,7 @@ module.exports = class Aktivnost {
 
         // vraća tip Aktivnost[]
         static async fetchAll(kamp){
-
-            let results = await dbGetAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+            let results = await dbGetAllAktivnosti(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
             let aktivnosti = [];
 
             if( results.length > 0 ) {
@@ -63,7 +62,7 @@ dbAddNewAktivnost = async () =>{
 
 }
 
-dbGetAll = async (ime_kamp, datum_odrzavanja_kamp) => {
+dbGetAllAktivnosti = async (ime_kamp, datum_odrzavanja_kamp) => {
     const sql = `SELECT ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM aktivnost WHERE ime_kamp LIKE $1 AND datum_odrzavanja_kamp = $2`;
     try {

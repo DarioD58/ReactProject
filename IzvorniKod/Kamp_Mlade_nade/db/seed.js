@@ -3,7 +3,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'kampAdmin',
-    password: 'baze5842', //svatko svoju sifru za sebe
+    password: 'bazepodatka', //svatko svoju sifru za sebe
     port: 5432,
 });
 //kod za kreiranje baze kampova

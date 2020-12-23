@@ -1,7 +1,10 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import {useCookies} from "react-cookie"
 
 function Login() {
+
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     const [state, setState] = React.useState({
         korime: "",
@@ -24,7 +27,6 @@ function Login() {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
-            console.log(res);
             localStorage.setItem("isLoggedIn", true);
             localStorage.setItem("user", res.userName);
             localStorage.setItem("role", res.userStatus);

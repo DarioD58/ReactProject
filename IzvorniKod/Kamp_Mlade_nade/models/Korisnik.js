@@ -152,8 +152,7 @@ dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
 dbGetAll = async() =>{
 	const sql = `SELECT * FROM korisnik`;
 	try {
-        const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
-             korisnik.ime, korisnik.prezime, korisnik.status]);
+        const result = await db.query(sql);
         return result.rows[0].korisnicko_ime;
     } catch (err) {
         console.log(err);

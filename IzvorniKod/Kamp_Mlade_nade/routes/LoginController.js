@@ -42,7 +42,8 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
-        res.setHeader('Set-Cookie', cookie.serialize('user', JSON.stringify(data), {httpOnly: true,maxAge: 60*60}));
+       // res.setHeader('Set-Cookie', cookie.serialize('user', JSON.stringify(data), {httpOnly: true, maxAge: 60*60}));
+        res.cookie("user", JSON.stringify(data), { httpOnly : true, maxAge: 60*60});
         res.json(data);
     }
 });

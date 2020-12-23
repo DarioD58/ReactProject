@@ -13,12 +13,13 @@ class PrijavaController extends Controller {
     }
 
     async activeApplications(req, res, next){
-        let cookies = cookie.parse(req.headers.cookie || '');
-        let user = JSON.parse(cookies.user);
-        let userName = user.userName;
+        //let cookies = cookie.parse(req.headers.cookie || '');
+    /*     let cookies = JSON.parse(req.cookies);
+        console.log(cookies); */
+        let user = JSON.parse(req.cookies.user);
     
         try {
-            if(! await Organizator.checkOrganizator(userName)) throw new Error();
+            if(! await Organizator.checkOrganizator(user.userName, user.userStatus)) throw new Error();
 
             // testno
             let prijave = {
@@ -43,18 +44,15 @@ class PrijavaController extends Controller {
         let applicationInfo = req.body;
         let id = applicationInfo.id_prijava;
         let status = applicationInfo.status_prijava;
-        let userName = applicationInfo.korime;
+        let userName = applicationInfo.kor_ime;
         
         let korisnik = await Korisnik.fetchKorisnikByUsername(userName); 
         //Prijava.changeStatusPrijava(id, status);
 
         //
 
-        let sender = 'omari.altenwerth@ethereal.email';
-        let senderPas = 'yxU6T2Wqe4mqtpG9KK';
-
         // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
+/*         let transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             secure: false, // true for 465, false for other ports
@@ -62,10 +60,18 @@ class PrijavaController extends Controller {
                 user: sender, // generated ethereal user
                 pass: senderPas, // generated ethereal password
             },
-        });
+        }); */
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'mladenade.kamp@gmail.com',
+              pass: 'ProgiProjektMladeNade'
+            }
+          });
 
         let msg = {
-            from: '"Kamp Mlade nade" <kamp@mladenade.com>', // sender address
+            from: '"Kamp Mlade nade" <mladenade.kamp@gmail.com>', // sender address
             to: `${korisnik.ime} ${korisnik.prezime} ${korisnik.email}`, // list of receivers
             //to: email,
             subject: "Kamp Mlade nade - prijava", // Subject line
@@ -77,13 +83,17 @@ class PrijavaController extends Controller {
             if(status == "prihvaćena"){
                 msg.text = `Pozdrav ${korisnik.ime}, \n
                 Vaša prijava je ${status}! 
-                Vaše korisničko ime je ${korisnik.korisnicko_ime}. \n 
+                Vaše korisničko ime je ${korisnik.korisnicko_ime}. 
                 Dovršite Vašu registraciju na poveznici.\n
+                Vaš Kamp Mlade nade \n
                 http://${req.hostname}:3000/register`;
                 await transporter.sendMail(msg);
                 
             } else if(status == "odbijena"){
-                msg.text = `Pozdrav ${korisnik.ime}, \n Vaša prijava je nažalost ${status}. Pokušajte se prijaviti na sljedeći kamp.`;
+                msg.text = `Pozdrav ${korisnik.ime}, \n 
+                Vaša prijava je nažalost ${status}. 
+                Pokušajte se prijaviti na sljedeći kamp. \n
+                Vaš Kamp Mlade nade`;
                 await transporter.sendMail(msg);
             } else {
                 throw new Error();

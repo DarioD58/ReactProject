@@ -94,7 +94,7 @@ datum_odrzavanja_kamp, ime_kamp) =>{
 dbDeleteAktivnost = async (ime_aktivnost) => {
     const sql = `DELETE FROM aktivnost WHERE ime_aktivnost LIKE $1`;
     try {
-		console.log("Brisem aktivnost")
+		//console.log("Brisem aktivnost")
         const result = await db.query(sql, ime_aktivnost);
     } catch (err) {
         console.log(err);

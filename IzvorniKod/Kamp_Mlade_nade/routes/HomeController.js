@@ -23,7 +23,7 @@ class HomeController extends Controller {
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAll(kamp);
                 let timer = new Date(kamp.datum_odrzavanja_kamp); // za sad podržavamo jedan aktivni kamp
-               
+                
                 return JSON.stringify({
                     nadolazeci_kamp : kamp.ime_kamp,
                     pocetak_kamp : timer.toString(),

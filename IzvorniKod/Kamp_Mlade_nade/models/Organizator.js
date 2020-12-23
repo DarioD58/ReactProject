@@ -25,7 +25,9 @@ module.exports = class Organizator extends Korisnik {
         if(status != 'organizator') return false;
 
         let organizator = await this.fetchOrganizatorkByUsername(username);
-        if(organizator.korisnicko_ime == username) return true;
+        if(organizator.korisnicko_ime != username) return false;
+
+        return true;
     }
 
 }

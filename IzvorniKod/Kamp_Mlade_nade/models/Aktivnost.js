@@ -75,6 +75,7 @@ dbGetAllAktivnosti = async (ime_kamp, datum_odrzavanja_kamp) => {
 }
 
 //update aktivnosti
+// nije dobro modeliran UPDATE upit! 
 dbUpdateAktivnost = async (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, 
 datum_odrzavanja_kamp, ime_kamp) =>{
 	const sql = `UPDATE aktivnost SET opis_aktivnost, SET trajanje_aktivnost_h,

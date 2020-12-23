@@ -137,6 +137,7 @@ dbDeleteKorisnik = async (korisnicko_ime) => {
 }
 
 //update podataka
+// nije dobro modeliran UPDATE upit!
 dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
 	const sql = `UPDATE korisnik SET lozinka, SET email, SET ime, SET prezime WHERE korisnicko_ime LIKE $1`;
 	 try {
@@ -149,6 +150,7 @@ dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
 }
 
 //dohvat svih korisnika
+// rezultat upita se ne obrađuje dobro. Opet pogledati kako se dohvacaju sve aktivnosti!
 dbGetAll = async() =>{
 	const sql = `SELECT * FROM korisnik`;
 	try {

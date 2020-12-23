@@ -24,8 +24,8 @@ CREATE TABLE AKTIVNOST
   opis_aktivnost VARCHAR(500) NOT NULL,
   trajanje_aktivnost_h INT NOT NULL,
   tip_aktivnost VARCHAR(20) NOT NULL,
-  datum_odrzavanja_kamp TIMESTAMPTZ(0) NOT NULL,
-  ime_kamp VARCHAR(50) NOT NULL,
+  datum_odrzavanja_kamp TIMESTAMPTZ(0) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  ime_kamp VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (id_aktivnost),
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
 );
@@ -51,18 +51,18 @@ CREATE TABLE KORISNIK
 
 CREATE TABLE ORGANIZATOR
 (
-  korisnicko_ime_organizator VARCHAR(50) NOT NULL,
+  korisnicko_ime_organizator VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (korisnicko_ime_organizator),
   FOREIGN KEY (korisnicko_ime_organizator) REFERENCES KORISNIK(korisnicko_ime)
 );
 
 CREATE TABLE SUDIONIK
 (
-  korisnicko_ime_sudionik VARCHAR(50) NOT NULL,
+  korisnicko_ime_sudionik VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   datum_i_god_rod_sudionik DATE NOT NULL,
   br_tel_sudionik VARCHAR(20) NOT NULL,
   br_tel_odg_osobe VARCHAR(20),
-  id_grupa INT,
+  id_grupa INT ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (korisnicko_ime_sudionik),
   FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime),
   FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa),
@@ -71,7 +71,7 @@ CREATE TABLE SUDIONIK
 
 CREATE TABLE ANIMATOR
 (
-  korisnicko_ime_animator VARCHAR(50) NOT NULL,
+  korisnicko_ime_animator VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   datum_i_god_rod_animator DATE NOT NULL,
   br_tel_animator VARCHAR(20) NOT NULL,
   PRIMARY KEY (korisnicko_ime_animator),
@@ -82,11 +82,11 @@ CREATE TABLE ANIMATOR
 CREATE TABLE PRIJAVA
 (
   id_prijava SERIAL NOT NULL,
-  korisnicko_ime VARCHAR(50) NOT NULL,
+  korisnicko_ime VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   datum_i_vrijeme_prijava TIMESTAMPTZ(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   status_prijava VARCHAR(20),
-  datum_odrzavanja_kamp TIMESTAMPTZ(0) NOT NULL,
-  ime_kamp VARCHAR(50) NOT NULL,
+  datum_odrzavanja_kamp TIMESTAMPTZ(0) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  ime_kamp VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   motivacijsko_pismo VARCHAR(3000) NOT NULL,
   PRIMARY KEY (id_prijava),
   FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
@@ -97,9 +97,9 @@ CREATE TABLE PRIJAVA
 CREATE TABLE RASPORED
 (
   datum_i_vrijeme_izvrsavanja TIMESTAMPTZ(0) NOT NULL,
-  id_aktivnost INT NOT NULL,
-  id_grupa INT NOT NULL,
-  korisnicko_ime_animator VARCHAR(50) NOT NULL,
+  id_aktivnost INT NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  id_grupa INT NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  korisnicko_ime_animator VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa),
   FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator),
   FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost),
@@ -110,8 +110,8 @@ CREATE TABLE ocjena_aktivnosti
 (
   ocjena INT NOT NULL,
   dojam VARCHAR(500) NOT NULL,
-  id_aktivnost  NOT NULL,
-  korisnicko_ime VARCHAR(50) NOT NULL,
+  id_aktivnost  NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  korisnicko_ime VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (id_aktivnost, korisnicko_ime),
   FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost),
   FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime)
@@ -121,9 +121,9 @@ CREATE TABLE ukupni_dojam
 (
   ocjena INT NOT NULL,
   dojam VARCHAR(500) NOT NULL,
-  korisnicko_ime VARCHAR(50) NOT NULL,
-  datum_odrzavanja_kamp DATE NOT NULL,
-  ime_kamp VARCHAR(50) NOT NULL,
+  korisnicko_ime VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  datum_odrzavanja_kamp DATE NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+  ime_kamp VARCHAR(50) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (korisnicko_ime, datum_odrzavanja_kamp, ime_kamp),
   FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)

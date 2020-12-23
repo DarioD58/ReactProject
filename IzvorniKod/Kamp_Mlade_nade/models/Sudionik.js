@@ -69,6 +69,7 @@ dbAddNewSudionik = async (sudionik) => {
     }
 }
 
+// Niti ovo nije dobro. Pogledati dohvat svih aktivnosti
 dbSudionikGetAll = async() =>{
 	const sql = `SELECT * FROM sudionik`;
 	try {

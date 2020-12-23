@@ -67,6 +67,7 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
 }
 
 //dohvati sve animatore
+// nije dobro - pogledati u aktivnosti kako se dohvacaju sve aktivnosti
 dbAnimatorGetAll = async() =>{
 	const sql = `SELECT * FROM animator`;
 	try {

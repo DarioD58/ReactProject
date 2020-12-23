@@ -36,7 +36,7 @@ module.exports = class Sudionik extends Korisnik {
     }
 	
     //dohvati sve
-    astatic async fetchAll(username){
+    static async fetchAll(username){
             let results = await dbSudionikGetAll(korisnicko_ime);
             let sudionici = [];
 

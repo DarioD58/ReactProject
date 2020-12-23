@@ -21,7 +21,8 @@ function Login() {
             headers: {"Content-type": "application/json"},
             body: objekt
         })
-        .then((response) => response.json()
+        .then((response) => 
+            response.json()
         )
         .then((res) => {
             if(res.error != undefined){

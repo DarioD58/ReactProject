@@ -12,6 +12,7 @@ import Sidebar from './components/Sidebar';
 import Apply from './components/Apply'
 import Register from './components/Register'
 import Activities from './components/Activities';
+import AddCamp from './components/AddCamp';
 
 
 
@@ -64,6 +65,9 @@ function App() {
         <Sidebar logged={session.isLoggedIn}/>
         <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
         <div className="everything">
+          <Route exact path='/makecamp'>
+            <AddCamp />
+          </Route>
           <Route exact path='/login'>
             <Login />
           </Route>
@@ -92,6 +96,9 @@ function App() {
       <Sidebar logged={session.isLoggedIn}/>
       <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
       <div className="everything">
+        <Route exact path='/makecamp'>
+            <AddCamp />
+        </Route>
         <Route exact path='/login'>
           <Login />
         </Route>

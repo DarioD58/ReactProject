@@ -35,7 +35,7 @@ module.exports = class Animator extends Korisnik {
     //dohvati sve
     
 	static async fetchAll(username){
-            let results = await dbAnimatorGetAllGetAll(korisnicko_ime);
+            let results = await dbAnimatorGetAll(korisnicko_ime);
             let animatori = [];
 
             if( results.length > 0 ) {

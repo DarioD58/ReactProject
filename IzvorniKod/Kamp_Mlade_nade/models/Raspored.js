@@ -9,4 +9,6 @@ module.exports = class Raspored {
         this.datum_i_vrijeme = datum_i_vrijeme;   // Date
         this.korisnicko_ime_animator = korisnicko_ime_animator;  // string
     }   
+
+    // implementacija generičkih funkcionalnost za dohvat, uređivanje, brisanje...
 }

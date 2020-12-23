@@ -46,7 +46,8 @@ class PrijavaController extends Controller {
         let status = applicationInfo.status_prijava;
         let userName = applicationInfo.kor_ime;
         
-        let korisnik = await Korisnik.fetchKorisnikByUsername(userName); 
+        let korisnik = await Korisnik.fetchKorisnikByUsername(userName);
+        let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
         //Prijava.changeStatusPrijava(id, status);
 
         //
@@ -65,8 +66,8 @@ class PrijavaController extends Controller {
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'mladenade.kamp@gmail.com',
-              pass: 'ProgiProjektMladeNade'
+              user: kamp.email,
+              pass: kamp.lozinka
             }
           });
 
@@ -81,8 +82,8 @@ class PrijavaController extends Controller {
 
         try {
             if(status == "prihvaćena"){
-                msg.text = `Pozdrav ${korisnik.ime}, \n
-                Vaša prijava je ${status}! 
+                msg.text = `Pozdrav ${korisnik.ime},\n
+                Vaša prijava je ${status}!
                 Vaše korisničko ime je ${korisnik.korisnicko_ime}. 
                 Dovršite Vašu registraciju na poveznici.\n
                 Vaš Kamp Mlade nade \n

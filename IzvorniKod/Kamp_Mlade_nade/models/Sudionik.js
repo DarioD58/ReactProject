@@ -42,7 +42,7 @@ module.exports = class Sudionik extends Korisnik {
 
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    let sudionik = new Aktivnost(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+                    let sudionik = new Sudionik(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
 												 result[i].prezime, result[i].status, result[i].br_tel, 
                                                  result[i].datum_i_god_rod, result[i].br_tel_odg_osobe);
                     this.id_sudionik = results[i].id_sudionik;

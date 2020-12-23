@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Activity(props){
-    console.log(props.activity)
     const {ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h} = props.activity;
     return (
         <div className='aktivnosti'>

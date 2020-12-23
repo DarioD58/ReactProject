@@ -4,7 +4,6 @@ import Activity from './Activity';
 
 function Activities(props){
     const activities = props.activities;
-    console.log(activities)
     /*const activities = [
         {id_aktivnost:1, ime_aktivnost:'Dorucak', opis_aktivnost:'Dorucak za samoposluznim stolom', trajanje_aktivnost_h:1, tip_aktivnosti: 'nesto'},
         {id_aktivnost:2, ime_aktivnost:'Rucak', opis_aktivnost:'Rucak za samoposluznim stolom', trajanje_aktivnost_h:1, tip_aktivnosti:''},

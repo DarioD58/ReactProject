@@ -40,7 +40,7 @@ module.exports = class Animator extends Korisnik {
 
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    let animator = new Aktivnost(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
 												 result[i].prezime, result[i].status, result[i].br_tel, 
                                                  result[i].datum_i_god_rod);
                     this.id_animator= results[i].id_animator;

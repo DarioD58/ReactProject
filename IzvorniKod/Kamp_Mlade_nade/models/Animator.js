@@ -82,7 +82,7 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
 //dohvati sve animatore
 dbAnimatorGetAll = async (korisnicko_ime) => {
     const sql = `SELECT lozinka, email, ime, prezime, status,
-        br_tel, datum_i_god_rod FROM animator WHERE ime_kamp LIKE $1`;
+        br_tel, datum_i_god_rod FROM animator WHERE korisnicko_ime LIKE $1`;
     try {
         const result = await db.query(sql, korisnicko_ime);
         return result.rows;

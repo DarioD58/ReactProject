@@ -22,7 +22,7 @@ module.exports = class Aktivnost {
         }
 
         // vraća tip Aktivnost[]
-        static async fetchAll(kamp){
+        static async fetchAllAktivnost(kamp){
             let results = await dbGetAllAktivnosti(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
             let aktivnosti = [];
 
@@ -77,7 +77,7 @@ dbGetAllAktivnosti = async (ime_kamp, datum_odrzavanja_kamp) => {
 //update aktivnosti
 // nije dobro modeliran UPDATE upit! 
 dbUpdateAktivnost = async (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, 
-datum_odrzavanja_kamp, ime_kamp) =>{
+datum_odrzavanja_kamp, ime_kamp) => {
 	const sql = `UPDATE aktivnost SET opis_aktivnost, SET trajanje_aktivnost_h,
     SET tip_aktivnost, SET datum_odrzavanja_kamp, SET ime_kamp WHERE ime_aktivnosti LIKE $1`;
 	 try {

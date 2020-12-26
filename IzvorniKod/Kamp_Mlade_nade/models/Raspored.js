@@ -15,7 +15,7 @@ module.exports = class Raspored {
 	// implementacija generičkih funkcionalnost za dohvat, uređivanje, brisanje...
 	async addToRaspored() {
         try {
-            let idAktivnosti = await dbAddNewKorisnik(this);
+            let idAktivnosti = await dbAddNewKorisnik(this);// ??
             this.id_aktivnost = idAktivnosti;
             return this.idAktivnosti;
         } catch(err) {
@@ -39,7 +39,7 @@ module.exports = class Raspored {
 	
  
 dbAddToRaspored = async (aktivnost) => {
-    const sql = `INSERT INTO raspored (id_aktivnost,id_grupa, datum_i_vrijeme, korisnicko_ime_animator)
+    const sql = `INSERT INTO raspored (id_aktivnost, id_grupa, datum_i_vrijeme, korisnicko_ime_animator)
      VALUES ($1, $2, $3, $4) RETURNING id_aktivnost`;
     try {
         console.log("Dodajem novu aktivnost");

@@ -14,18 +14,18 @@ class HomeController extends Controller {
         try{
             let kamp = await Kamp.fetchActive();
             if(kamp.status != undefined){
-                let aktivnosti = await Aktivnost.fetchAll(kamp);
+                let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
                     aktivnosti : aktivnosti
                 });
             } else {
                 let kamp = await Kamp.fetchUpcoming();
-                let aktivnosti = await Aktivnost.fetchAll(kamp);
+                let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                 let timer = new Date(kamp.datum_odrzavanja_kamp); // za sad podržavamo jedan aktivni kamp
                 
                 return JSON.stringify({
-                    nadolazeci_kamp : kamp.ime_kamp,
+                    kamp : kamp.ime_kamp,
                     pocetak_kamp : timer.toString(),
                     aktivnosti : aktivnosti
                 });

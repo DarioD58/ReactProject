@@ -16,10 +16,10 @@ class PrijavaController extends Controller {
         //let cookies = cookie.parse(req.headers.cookie || '');
     /*     let cookies = JSON.parse(req.cookies);
         console.log(cookies); */
-        let user = JSON.parse(req.cookies.user);
+        let korisnik = JSON.parse(req.cookies.korisnik);
     
         try {
-            if(! await Organizator.checkOrganizator(user.userName, user.userStatus)) throw new Error();
+            if(! await Organizator.checkOrganizator(korisnik.korisnickoIme, korisnik.statusKorisnik)) throw new Error();
 
             // testno
             let prijave = {
@@ -27,7 +27,7 @@ class PrijavaController extends Controller {
                 druga : "Druga prijava",
                 treca : "Jos jedna prijava"
             }
-            //let prijave = await Prijava.fetchActive();
+            //let prijave = await Prijava.fetchActivePrijava();
             return JSON.stringify({
                 prijave : prijave
             });
@@ -41,12 +41,12 @@ class PrijavaController extends Controller {
 
 
     async processApplication(req, res, next){
-        let applicationInfo = req.body;
-        let id = applicationInfo.id_prijava;
-        let status = applicationInfo.status_prijava;
-        let userName = applicationInfo.kor_ime;
+        let prijavaInfo = req.body;
+        let id = prijavaInfo.id_prijava;
+        let status = prijavaInfo.status_prijava;
+        let korisnickoIme = prijavaInfo.kor_ime;
         
-        let korisnik = await Korisnik.fetchKorisnikByUsername(userName);
+        let korisnik = await Korisnik.fetchKorisnikByUsername(korisnckoIme);
         let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
         //Prijava.changeStatusPrijava(id, status);
 
@@ -107,7 +107,7 @@ class PrijavaController extends Controller {
 
 
         return JSON.stringify({
-            userName : userName,
+            korisnickoIme : korisnickoIme,
             status_prijava : status
         });
     }

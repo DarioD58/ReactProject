@@ -20,8 +20,8 @@ class LoginController extends Controller{
                 let status = korisnik.status;
                 
                 return JSON.stringify({
-                    userStatus : status,
-                    userName : req.body.korime
+                    statusKorisnik : status,
+                    korisnickoIme : req.body.korime
                 });
             } else {
                 throw new Error();
@@ -43,7 +43,7 @@ router.post("/", async (req, res, next) => {
         res.status(400).json(data);
     } else {
        // res.setHeader('Set-Cookie', cookie.serialize('user', JSON.stringify(data), {httpOnly: true, maxAge: 60*60}));
-        res.cookie("user", JSON.stringify(data), { httpOnly : true, maxAge: 60*60});
+        res.cookie("korisnik", JSON.stringify(data), { httpOnly : true, maxAge: 60*60});
         res.json(data);
     }
 });

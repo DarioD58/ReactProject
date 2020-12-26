@@ -36,8 +36,8 @@ module.exports = class Sudionik extends Korisnik {
     }
 	
     //dohvati sve
-    static async fetchAll(username){
-            let results = await dbSudionikGetAll(korisnicko_ime);
+    static async fetchAllSudionik(){
+            let results = await dbSudionikGetAll();
             let sudionici = [];
 
             if( results.length > 0 ) {
@@ -45,8 +45,8 @@ module.exports = class Sudionik extends Korisnik {
                     let sudionik = new Sudionik(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
 												 result[i].prezime, result[i].status, result[i].br_tel, 
                                                  result[i].datum_i_god_rod, result[i].br_tel_odg_osobe);
-                    this.id_sudionik = results[i].id_sudionik;
-                    sudionici.push(sudionici);
+                    //this.id_sudionik = results[i].id_sudionik; id_sudionik ne postoji!
+                    sudionici.push(sudionik);
                 }
             }         
             return sudionici;
@@ -82,11 +82,12 @@ dbAddNewSudionik = async (sudionik) => {
 }
 
 // Niti ovo nije dobro. Pogledati dohvat svih aktivnosti
-dbSudionikGetAll = async(korisnicko_ime) =>{
-    const sql = `SELECT lozinka, email, ime, prezime, status,
-        br_tel, datum_i_god_rod, br_tel_odg_osobe FROM sudionik WHERE korisnicko_ime LIKE $1`;
+dbSudionikGetAll = async() =>{
+    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
+    br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe, id_grupa
+    FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime`;
     try {
-        const result = await db.query(sql, korisnicko_ime);
+        const result = await db.query(sql);
         return result.rows;
     } catch (err) {
         console.log(err);

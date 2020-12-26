@@ -13,6 +13,7 @@ const LogoutController = require('./routes/LogoutController');
 const ApplyController = require('./routes/ApplyController');
 const RegisterController = require('./routes/RegisterController');
 const PrijavaController = require('./routes/PrijavaController');
+const GrupaController = require('./routes/GrupaController');
 
 // middleware
 app.use(cors());
@@ -28,6 +29,7 @@ app.use('/logout', LogoutController);
 app.use('/apply', ApplyController);
 app.use('/register', RegisterController);
 app.use('/prijave', PrijavaController);
+app.use('/grupe', PrijavaController);
 
 // pokreni server
 var port = 5000;

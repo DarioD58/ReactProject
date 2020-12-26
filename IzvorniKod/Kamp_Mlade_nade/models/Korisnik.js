@@ -77,9 +77,20 @@ module.exports = class Korisnik {
 	}
 	
 	//dohvati sve korisnike
-	async getAll(){
-		dbGetAll();
-	}
+	static async fetchAll(username){
+            let results = await dbGetAll(korisnicko_ime);
+            let korisnici = [];
+
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let korisnik = new Korisnik(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+												 result[i].prezime, result[i].status);
+                    this.id_korisnik= results[i].id_korisnik;
+                    korisnici.push(korisnici);
+                }
+            }         
+            return korisnici;
+        }
 
     
 }
@@ -137,9 +148,9 @@ dbDeleteKorisnik = async (korisnicko_ime) => {
 }
 
 //update podataka
-// nije dobro modeliran UPDATE upit!
+//update upit
 dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
-	const sql = `UPDATE korisnik SET lozinka, SET email, SET ime, SET prezime WHERE korisnicko_ime LIKE $1`;
+	const sql = `UPDATE korisnik SET lozinka = '$1', email = '$2', ime = '$3', prezime='$4' WHERE korisnicko_ime LIKE $5`;
 	 try {
         const result = await db.query(sql, korisnicko_ime);
         return result.rows;
@@ -151,14 +162,14 @@ dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
 
 //dohvat svih korisnika
 // rezultat upita se ne obrađuje dobro. Opet pogledati kako se dohvacaju sve aktivnosti!
-dbGetAll = async() =>{
-	const sql = `SELECT * FROM korisnik`;
-	try {
-        const result = await db.query(sql);
-        return result.rows[0].korisnicko_ime;
+dbGetAll = async (korisnicko_ime) => {
+    const sql = `SELECT lozinka, email, ime, prezime, status FROM korisnik WHERE korisnicko_ime LIKE $1`;
+    try {
+        const result = await db.query(sql, korisnicko_ime);
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 

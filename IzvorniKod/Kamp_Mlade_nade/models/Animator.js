@@ -33,9 +33,22 @@ module.exports = class Animator extends Korisnik {
     }
 
     //dohvati sve
-    async getAnimatorAll(){
-		 dbAnimatorGetAll();
-	}
+    
+	static async fetchAll(username){
+            let results = await dbAnimatorGetAll(korisnicko_ime);
+            let animatori = [];
+
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+												 result[i].prezime, result[i].status, result[i].br_tel, 
+                                                 result[i].datum_i_god_rod);
+                    this.id_animator= results[i].id_animator;
+                    animatori.push(animatori);
+                }
+            }         
+            return animatori;
+        }
 }
 
 //implementacije funkcija
@@ -67,14 +80,14 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
 }
 
 //dohvati sve animatore
-// nije dobro - pogledati u aktivnosti kako se dohvacaju sve aktivnosti
-dbAnimatorGetAll = async() =>{
-	const sql = `SELECT * FROM animator`;
-	try {
-        const result = await db.query([animator.korisnicko_ime, animator.lozinka, animator.email, animator.ime, animator.prezime, animator.status, animator.br_tel, animator.datum_i_god_rod]);
-        return result.rows[0].korisnicko_ime_animator;
+dbAnimatorGetAll = async (korisnicko_ime) => {
+    const sql = `SELECT lozinka, email, ime, prezime, status,
+        br_tel, datum_i_god_rod FROM animator WHERE korisnicko_ime LIKE $1`;
+    try {
+        const result = await db.query(sql, korisnicko_ime);
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }

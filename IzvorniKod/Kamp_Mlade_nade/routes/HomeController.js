@@ -40,6 +40,7 @@ class HomeController extends Controller {
 }
 
 let home = new HomeController();
+
 router.get("/", async (req, res, next) => {
     let data = JSON.parse(await home.get(req, res, next));
     if(data.error != null){

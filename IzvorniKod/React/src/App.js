@@ -26,16 +26,9 @@ function App() {
 
   const [activity, setActivity] = React.useState([]);
 
-  const [session, setSession] = React.useState({
-    isLoggedIn: ''
-  });
+  const [session, setSession] = React.useState(localStorage.getItem('isLoggedIn'));
 
   React.useEffect(() => {
-    if(localStorage.getItem('isLoggedIn') === true){
-      setSession(() => ({
-        isLoggedIn: localStorage.getItem('isLoggedIn')
-      }))
-    }
     // GET request using fetch inside useEffect React hook
     fetch('http://localhost:5000/')
     .then(response => response.json())
@@ -52,24 +45,19 @@ function App() {
     });
   }, []);
 
-  React.useEffect(() => {
-    setSession(() => ({
-      isLoggedIn: localStorage.getItem("isLoggedIn")
-    }));
-  }, [session.isLoggedIn]);
-
-  if(localStorage.getItem('isLoggedIn') == 'true'){
+  if(session === 'true'){
+    console.log('True')
     return (
       <BrowserRouter>
       <div className="App">
-        <Sidebar logged={session.isLoggedIn}/>
-        <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
+        <Sidebar logged={session}/>
+        <Header ime = {kamp.ime} logged={session}/>
         <div className="everything">
           <Route exact path='/makecamp'>
             <AddCamp />
           </Route>
           <Route exact path='/login'>
-            <Login />
+            <Login setSession={setSession}/>
           </Route>
           <Route exact path='/register'>
             <Register />
@@ -90,17 +78,19 @@ function App() {
       </BrowserRouter>
     );
   }
+
+  console.log('False')
   return (
     <BrowserRouter>
     <div className="App">
-      <Sidebar logged={session.isLoggedIn}/>
-      <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
+      <Sidebar logged={session}/>
+      <Header ime = {kamp.ime} logged={session}/>
       <div className="everything">
         <Route exact path='/makecamp'>
             <AddCamp />
         </Route>
         <Route exact path='/login'>
-          <Login />
+          <Login setSession={setSession}/>
         </Route>
         <Route exact path='/register'>
           <Register />

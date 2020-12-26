@@ -1,17 +1,16 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
-import {useCookies} from "react-cookie"
+import {Redirect, withRouter} from "react-router-dom";
 
-function Login() {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+function Login(props) {
 
     const [state, setState] = React.useState({
         korime: "",
         lozinka: ""
     });
 
-    let history = useHistory();
+    const [logged, setLogged] = React.useState('false')
+
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
@@ -31,8 +30,10 @@ function Login() {
             localStorage.setItem("isLoggedIn", true);
             localStorage.setItem("user", res.userName);
             localStorage.setItem("role", res.userStatus);
-            history.push('/');
-            window.location.reload();
+            setLogged('true')
+            props.setSession(logged)
+            props.history.push('/')
+            window.location.reload()
         }).catch((error) => {
             console.log(error);
             setState(prevState => ({
@@ -62,7 +63,6 @@ function Login() {
         }))
     }
 
-
     return (
         <form  onSubmit={onSubmit}>
             <label className="text-white" for="korime">Korisničko ime: </label>
@@ -81,4 +81,4 @@ function Login() {
     );
   }
   
-  export default Login;
+  export default withRouter(Login);

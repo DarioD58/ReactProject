@@ -47,9 +47,13 @@ class GrupaController extends Controller {
 
         try {
             await Grupa.createGroups(brojGrupa);
+
+            return JSON.stringify({
+                poruka : `Uspješno stvoreno ${brojGrupa} sudionika u grupe!`
+            });
             
         } catch (error) {
-            return JSON.stringify({error: "Greška"});
+            return JSON.stringify({error: "Greška pri stvaranju grupa"});
         }
       
     }

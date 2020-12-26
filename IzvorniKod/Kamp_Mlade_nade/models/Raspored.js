@@ -25,7 +25,7 @@ module.exports = class Raspored {
     }
 
     async static setDefaultActivities(){
-
+        
     }
 	
 	async updateInRaspored(id_aktivnost){

@@ -35,7 +35,7 @@ function App() {
     .then((data) => {
       setKamp(prevKamp => ({
         ...prevKamp,
-        ime: data.nadolazeci_kamp,
+        ime: data.kamp,
         vrijeme: data.pocetak_kamp
     }))
     setActivity(

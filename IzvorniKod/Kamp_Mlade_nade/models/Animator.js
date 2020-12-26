@@ -34,17 +34,17 @@ module.exports = class Animator extends Korisnik {
 
     //dohvati sve
     
-	static async fetchAll(username){
-            let results = await dbAnimatorGetAll(korisnicko_ime);
+	static async fetchAllAnimator(username){
+            let results = await dbAnimatorGetAll();
             let animatori = [];
 
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
 												 result[i].prezime, result[i].status, result[i].br_tel, 
                                                  result[i].datum_i_god_rod);
-                    this.id_animator= results[i].id_animator;
-                    animatori.push(animatori);
+                    //this.id_animator= results[i].id_animator; id_animator ne postoji!
+                    animatori.push(animator);
                 }
             }         
             return animatori;
@@ -80,11 +80,12 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
 }
 
 //dohvati sve animatore
-dbAnimatorGetAll = async (korisnicko_ime) => {
-    const sql = `SELECT lozinka, email, ime, prezime, status,
-        br_tel, datum_i_god_rod FROM animator WHERE korisnicko_ime LIKE $1`;
+dbAnimatorGetAll = async () => {
+    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
+    br_tel_animator, datum_i_god_rod_animator
+    FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime`;
     try {
-        const result = await db.query(sql, korisnicko_ime);
+        const result = await db.query(sql);
         return result.rows;
     } catch (err) {
         console.log(err);

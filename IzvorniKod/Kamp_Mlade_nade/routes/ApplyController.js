@@ -68,6 +68,7 @@ class ApplyController extends Controller {
     }
 
 }
+
 apply = new ApplyController();
 
 router.post("/", [body('email').isEmail()], async (req, res, next) => {

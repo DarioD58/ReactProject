@@ -1,4 +1,3 @@
-const { response } = require('express');
 const express = require('express');
 const Aktivnost = require('../models/Aktivnost');
 const router = express.Router();

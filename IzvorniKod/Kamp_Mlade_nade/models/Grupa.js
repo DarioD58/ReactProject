@@ -24,7 +24,7 @@ module.exports = class Grupa {
     // metoda za razvrstavanje sudionika u željeni broj grupa
     static async createGroups(brojGrupa){
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
-        
+        // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
     }
 

@@ -23,6 +23,10 @@ module.exports = class Raspored {
             throw err;
         }
     }
+
+    async static setDefaultActivities(){
+
+    }
 	
 	async updateInRaspored(id_aktivnost){
 		dbUpdateInRaspored (this.id_grupa, id_aktivnost,this.datum_i_vrijeme, this.korisnicko_ime_animator);
@@ -75,7 +79,7 @@ dbDeleteFromRaspored = async (id_aktivnost) => {
 }
 
 dbDeleteRaspored = async () =>{
-	const sql = `TRUNCATE TABLE raspored`;
+	const sql = `DELETE FROM raspored`;
 	try {
         const result = await db.query(sql, id_aktivnost);
     } catch (err) {

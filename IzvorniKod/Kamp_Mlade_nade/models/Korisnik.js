@@ -150,7 +150,7 @@ dbDeleteKorisnik = async (korisnicko_ime) => {
 //update podataka
 //update upit
 dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
-	const sql = `UPDATE korisnik SET lozinka = '$1', email = '$2', ime = '$3', prezime='$4' WHERE korisnicko_ime LIKE $5`;
+	const sql = `UPDATE korisnik SET lozinka = $1, email = $2, ime = $3, prezime = $4 WHERE korisnicko_ime LIKE $5 RETURNING korisnicko_ime`;
 	 try {
         const result = await db.query(sql, [lozinka, email, ime, prezime, korisnicko_ime]);
         return result.rows;

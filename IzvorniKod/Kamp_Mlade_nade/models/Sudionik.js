@@ -50,7 +50,9 @@ module.exports = class Sudionik extends Korisnik {
                 }
             }         
             return sudionici;
-        }
+    }
+
+    
 }
 //implementacije funkcija
 dbGetSudionikByUsername = async (korisnicko_ime) => {

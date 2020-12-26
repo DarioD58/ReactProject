@@ -1,23 +1,23 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-function AddCamp() {
+function Apply() {
 
     const [state, setState] = React.useState({
-        ime_kamp: "",
-        datum_odrzavanja: "",
+        ime: "",
+        prezime: "",
         email: "",
-        pocetak_prijava_sud: "",
-        kraj_prijava_sud: "",
-        pocetak_prijava_anim: "",
-        kraj_prijava_anim: ""
+        brtel: "",
+        dob: "",
+        pismo: "",
+        status: "sudionik"
     });
 
     let history = useHistory();
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("http://localhost:5000/kamp/create", {
+        fetch("http://localhost:5000/apply", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt
@@ -33,13 +33,13 @@ function AddCamp() {
             console.log(response)
             setState(prevState => ({
                 ...prevState,
-                ime_kamp: "",
-                datum_odrzavanja: "",
+                ime: "",
+                prezime: "",
                 email: "",
-                pocetak_prijava_sud: "",
-                kraj_prijava_sud: "",
-                pocetak_prijava_anim: "", 
-                kraj_prijava_anim: ""
+                brtel: "",
+                dob: "",
+                pismo: "", 
+                status: ""
             }))
         });
         e.preventDefault();
@@ -57,48 +57,50 @@ function AddCamp() {
     const handleReset = (e) => {
         setState(prevState => ({
             ...prevState,
-            ime_kamp: "",
-            datum_odrzavanja: "",
+            ime: "",
+            prezime: "",
             email: "",
-            pocetak_prijava_sud: "",
-            kraj_prijava_sud: "",
-            pocetak_prijava_anim: "",
-            kraj_prijava_anim: "" 
+            brtel: "",
+            dob: "",
+            pismo: "",
+            status: "sudionik" 
         }))
     }
 
 
     return (
-        <div>
-            <h1 className="naslovi text-white">Novi kamp</h1>
+        <div className='everything'>
             <form  onSubmit={onSubmit}>
-                <label className="text-white" for="ime_kamp">Ime kampa: </label>
+                <label className="text-white" for="ime">Ime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                required type="text" name="ime_kamp" value={state.ime_kamp}
-                placeholder="ime_kamp" size="50"/>
-                <label className="text-white" for="datum_odrzavanja">Datum održavanja: </label>
+                required type="text" name="ime" value={state.ime}
+                placeholder="Ime" size="50"/>
+                <label className="text-white" for="prezime">Prezime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                required type="text" name="datum_odrzavanja" value={state.datum_odrzavanja}
-                placeholder="datum_odrzavanja" size="50"/>
+                required type="text" name="prezime" value={state.prezime}
+                placeholder="Prezime" size="50"/>
                 <label className="text-white" for="email">Email: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="email" name="email" value={state.email}
                 placeholder="ivica@email.com" size="50"/>
-                <label className="text-white" for="pocetak_prijava_sud">Početak prijava sudionika: </label>
+                <label className="text-white" for="brtel">Broj telefona: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                required type="date" name="pocetak_prijava_sud" value={state.pocetak_prijava_sud}
+                required type="text" name="brtel" value={state.brtel}
                 placeholder="0999999999" size="50"/>
-                <label className="text-white" for="kraj_prijava_sud">Kraj prijava sudionika: </label>
+                <label className="text-white" for="dob">Datum rođenja: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                required type="date" value={state.kraj_prijava_sud}
-                name="kraj_prijava_sud" size="50"/>
-                <label className="text-white" for="pocetak_prijava_anim">Početak prijava animatora: </label>
+                required type="date" value={state.dob}
+                name="dob" size="50"/>
+                <label className="text-white" for="pismo">Motivacijsko pismo: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                type="date" name="pocetak_prijava_anim" value={state.pocetak_prijava_anim}
+                type="text" name="pismo" value={state.pismo}
                 placeholder="Motivacija..." size="50"/>
-                <label className="text-white" for="sudionik">Kraj prijava animatora: </label>
+                <label className="text-white" for="sudionik">Sudionik: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" id='sudionik' onChange={onChange}
-                required type="date" name="kraj_prijava_anim" checked value="sudionik"/>
+                required type="radio" name="status" checked value="sudionik"/>
+                <label className="text-white" for="animator">Animator: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" id='animator' onChange={onChange}
+                required type="radio" name="status" value="animator"/>
                 <input className="bg-dark text-white"
                 type="submit" name="submit" placeholder="Submit" />
                 <input className="bg-dark text-white" onClick={handleReset}
@@ -108,4 +110,4 @@ function AddCamp() {
     );
   }
   
-  export default AddCamp;
+  export default Apply;

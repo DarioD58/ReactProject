@@ -64,20 +64,22 @@ function Login(props) {
     }
 
     return (
-        <form  onSubmit={onSubmit}>
-            <label className="text-white" for="korime">Korisničko ime: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             required type="text" name="korime" value = {state.korime}
-              placeholder="aanic" size="50"/>
-            <label className="text-white" for="lozinka">Lozinka: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             required type="password" name="lozinka" value={state.lozinka}
-              placeholder="**********" size="50"/>
-            <input className="bg-dark text-white"
-             type="submit" name="submit" placeholder="Submit" />
-            <input className="bg-dark text-white" onClick={handleReset}
-             type="reset" name="res" placeholder="Reset" />
-        </form>
+        <div className='everything'>
+            <form  onSubmit={onSubmit}>
+                <label className="text-white" for="korime">Korisničko ime: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
+                required type="text" name="korime" value = {state.korime}
+                placeholder="aanic" size="50"/>
+                <label className="text-white" for="lozinka">Lozinka: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
+                required type="password" name="lozinka" value={state.lozinka}
+                placeholder="**********" size="50"/>
+                <input className="bg-dark text-white"
+                type="submit" name="submit" placeholder="Submit" />
+                <input className="bg-dark text-white" onClick={handleReset}
+                type="reset" name="res" placeholder="Reset" />
+            </form>
+        </div>
     );
   }
   

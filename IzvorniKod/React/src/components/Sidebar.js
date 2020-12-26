@@ -14,23 +14,17 @@ export default props => {
         </Link>
         <Link to='/makecamp'>
           <p className="menu-item">
-            Dodaj novi kamp
+            Stvori novi kamp
+          </p>
+        </Link>
+        <Link to='/makeactivity'>
+          <p className="menu-item">
+            Stvori novu aktivnost
           </p>
         </Link>
         <p className="menu-item">
           Moj profil
         </p>
-        <p className="menu-item">
-          Moja grupa
-        </p>
-        <p className="menu-item">
-          Kontakt
-        </p>
-        <Link to='/calendar'>
-        <p calssName="menu-item">
-          Kalendar
-        </p>
-        </Link>
       </Menu>
     );
   } else if(props.logged == 'true'){
@@ -50,11 +44,6 @@ export default props => {
         <p className="menu-item">
           Kontakt
         </p>
-        <Link to='/calendar'>
-        <p calssName="menu-item">
-          Kalendar
-        </p>
-        </Link>
       </Menu>
     );
   }

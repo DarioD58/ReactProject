@@ -30,7 +30,7 @@ const create_activities = `CREATE TABLE AKTIVNOST (
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_aktivnost),
-  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
+  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 //kod za kreiranje grupa
 const create_groups = `CREATE TABLE GRUPA (
@@ -42,7 +42,7 @@ const create_groups = `CREATE TABLE GRUPA (
 const create_organizers = `CREATE TABLE ORGANIZATOR (
   korisnicko_ime_organizator VARCHAR(50) NOT NULL,
   PRIMARY KEY (korisnicko_ime_organizator),
-  FOREIGN KEY (korisnicko_ime_organizator) REFERENCES KORISNIK(korisnicko_ime)
+  FOREIGN KEY (korisnicko_ime_organizator) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE
 );`
 //kod za kreiranje sudionika
 const create_participators = `CREATE TABLE SUDIONIK
@@ -54,8 +54,8 @@ const create_participators = `CREATE TABLE SUDIONIK
   br_tel_odg_osobe VARCHAR(20) NOT NULL,
   id_grupa INT,
   PRIMARY KEY (korisnicko_ime_sudionik),
-  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime),
-  FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa),
+  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa) ON UPDATE CASCADE ON DELETE CASCADE,
   UNIQUE (br_tel_sudionik)
 )`;
 //kod za kreiranje animatora
@@ -65,7 +65,7 @@ const create_animators = `CREATE TABLE ANIMATOR (
   br_tel_animator VARCHAR(20) NOT NULL,
   motivacijsko_pismo_animator VARCHAR(3000) NOT NULL,
   PRIMARY KEY (korisnicko_ime_animator),
-  FOREIGN KEY (korisnicko_ime_animator) REFERENCES KORISNIK(korisnicko_ime),
+  FOREIGN KEY (korisnicko_ime_animator) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
   UNIQUE (br_tel_animator)
 )`;
 //kod za kreiranje prijava
@@ -78,8 +78,8 @@ const create_entries = `CREATE TABLE PRIJAVA (
   ime_kamp VARCHAR(50) NOT NULL,
   motivacijsko_pismo VARCHAR(3000) NOT NULL,
   PRIMARY KEY (id_prijava),
-  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime),
-  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp)
+  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 //kod za kreiranje rasporeda
 const create_schedules = `CREATE TABLE RASPORED (
@@ -88,9 +88,9 @@ const create_schedules = `CREATE TABLE RASPORED (
   id_grupa INT NOT NULL,
   korisnicko_ime_animator VARCHAR(50) NOT NULL,
   PRIMARY KEY (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa),
-  FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator),
-  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost),
-  FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa)
+  FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 
 
@@ -100,8 +100,8 @@ const create_animator_ocjena_aktivnosti = `CREATE TABLE animator_ocjena_aktivnos
   ocjena_animator INT NOT NULL,
   dojam_animator VARCHAR(500) NOT NULL,
   PRIMARY KEY (korisnicko_ime_animator),
-  FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator),
-  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost)
+  FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 const  create_sudionik_ocjena_aktivnosti = `CREATE TABLE sudionik_ocjena_aktivnosti (
   korisnicko_ime_sudionik VARCHAR(50) NOT NULL,
@@ -109,8 +109,8 @@ const  create_sudionik_ocjena_aktivnosti = `CREATE TABLE sudionik_ocjena_aktivno
   ocjena_sudionik INT NOT NULL,
   dojam_sudionik VARCHAR(500) NOT NULL,
   PRIMARY KEY (korisnicko_ime_sudionik),
-  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES SUDIONIK(korisnicko_ime_sudionik),
-  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost)
+  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES SUDIONIK(korisnicko_ime_sudionik) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 //kod za kreiranje i popunjavanje baze korisnika
 const create_users = `CREATE TABLE KORISNIK (

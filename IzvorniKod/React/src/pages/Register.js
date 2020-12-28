@@ -27,8 +27,8 @@ function Register() {
                 throw new Error(res.error);
             }
             localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("user", res.userName);
-            localStorage.setItem("role", res.userStatus);
+            localStorage.setItem("user", res.korisnickoIme);
+            localStorage.setItem("role", res.statusKorisnik);
             history.push('/');
             window.location.reload();
         }).catch((response) => {

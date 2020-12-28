@@ -28,8 +28,8 @@ function Login(props) {
                 throw new Error(res.error);
             }
             localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("user", res.userName);
-            localStorage.setItem("role", res.userStatus);
+            localStorage.setItem("user", res.korisnickoIme);
+            localStorage.setItem("role", res.statusKorisnik);
             setLogged('true')
             props.setSession(logged)
             props.history.push('/')

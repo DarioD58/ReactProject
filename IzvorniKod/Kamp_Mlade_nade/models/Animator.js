@@ -20,8 +20,8 @@ module.exports = class Animator extends Korisnik {
     }
 
     // vraća Animator
-    static async fetchAnimatorByUsername(username){
-		let results = await dbGetAnimatorByUsername(korisnicko_ime)
+    static async fetchAnimatorByUsername(korisnicko_ime){
+		let results = await dbGetAnimatorByUsername(korisnicko_ime);
         let noviAnimator = new Animator()
 
         if( results.length > 0 ) {
@@ -57,7 +57,7 @@ dbAddNewAnimator = async (animator) => {
     VALUES ($1, $2, $3) RETURNING korisnicko_ime_animator`;
     try {
         await animator.addNewKorisnik();
-        //console.log("Dodajem novog animatora")
+        console.log("Dodajem novog animatora");
         const result = await db.query(sql, [animator.korisnicko_ime, animator.br_tel,
              animator.datum_i_god_rod]);
         return result.rows[0].korisnicko_ime_animator;

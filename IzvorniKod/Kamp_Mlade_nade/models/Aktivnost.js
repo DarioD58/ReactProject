@@ -104,8 +104,7 @@ dbGetAllAktivnosti = async (ime_kamp, datum_odrzavanja_kamp) => {
 }
 
 //update aktivnosti
-dbUpdateAktivnost = async (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, 
-    datum_odrzavanja_kamp, ime_kamp) => {
+dbUpdateAktivnost = async (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, datum_odrzavanja_kamp, ime_kamp) => {
 	const sql = `UPDATE aktivnost SET ime_aktivnost = $1, opis_aktivnost = $2, trajanje_aktivnost_h = $3,
      tip_aktivnost = $4 WHERE ime_aktivnosti LIKE $1 RETURNING id_aktivnost`;
 	 try {

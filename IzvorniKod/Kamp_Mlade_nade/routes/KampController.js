@@ -1,5 +1,4 @@
 const express = require('express');
-const Aktivnost = require('../models/Aktivnost');
 const router = express.Router();
 const Kamp = require('../models/Kamp');
 const Controller = require('./Controller');

@@ -22,8 +22,8 @@ class RegisterController extends Controller {
                 await user.registerKorisnik(req.body.lozinka);
             
                 return JSON.stringify({
-                    korisnicko_ime: req.body.korime,
-                    status: user.status
+                    korisnickoIme: req.body.korime,
+                    statusKorisnik: user.status
                 });
             }
         } catch (error) {

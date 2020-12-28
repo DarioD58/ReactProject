@@ -16,6 +16,7 @@ class HomeController extends Controller {
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
+                    email: kamp.email_kamp,
                     aktivnosti : aktivnosti
                 });
             } else {
@@ -25,6 +26,10 @@ class HomeController extends Controller {
                 
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
+                    pocetak_prijava_sud: kamp.pocetak_prijava_sudionika,
+                    kraj_prijava_sud : kamp.kraj_prijava_sudionika,
+                    pocetak_prijava_anim : kamp.pocetak_prijava_animatora,
+                    kraj_prijava_anim : kamp.kraj_prijava_animatora,
                     pocetak_kamp : timer.toString(),
                     aktivnosti : aktivnosti
                 });

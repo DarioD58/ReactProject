@@ -19,7 +19,7 @@ class ApplyController extends Controller {
 
         let korisnicko_ime = req.body.ime.toLowerCase().substring(0, 1) + req.body.prezime.toLowerCase();
         korisnicko_ime = this.replaceLocalChars(korisnicko_ime);
-        
+
         try {
             if(req.body.status == "sudionik"){
                 let postojeciSudionik = await Sudionik.fetchSudionikByUsername(korisnicko_ime);
@@ -29,17 +29,18 @@ class ApplyController extends Controller {
                 let sudionik = new Sudionik(korisnicko_ime, null, req.body.email, req.body.ime, req.body.prezime, req.body.status,
                     req.body.brtel, req.body.dob, req.body.br_tel_odg_osobe != null ? req.body.br_tel_odg_osobe : null);
                 
-                sudionik.addNewSudionik();
+                await sudionik.addNewSudionik();
                 
-            } else if(req.body.status = "animator"){
+            } else if(req.body.status == "animator"){
                 let postojeciAnimator = await Animator.fetchAnimatorByUsername(korisnicko_ime);
-                
+
                 if(postojeciAnimator.korisnicko_ime !== undefined) return JSON.stringify({error : "Prijava nije moguća za postojećeg animatora."});
                 
                 let animator = new Animator(korisnicko_ime, null, req.body.email, req.body.ime, req.body.prezime, req.body.status,
                     req.body.brtel, req.body.dob);
     
-                animator.addNewAnimator();
+                let username = await animator.addNewAnimator();
+                console.log(username);
             } 
 
             
@@ -51,8 +52,6 @@ class ApplyController extends Controller {
             let korisnik = await Korisnik.fetchKorisnikByUsername(korisnicko_ime);
             let kamp = await Kamp.fetchUpcoming();
             let prijava = new Prijava(korisnik, req.body.pismo, "neobrađena", kamp);
-            
-            //console.log(prijava);
             
             let id = await prijava.addNewPrijava();
             

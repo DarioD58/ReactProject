@@ -15,6 +15,7 @@ const RegisterController = require('./routes/RegisterController');
 const PrijavaController = require('./routes/PrijavaController');
 const GrupaController = require('./routes/GrupaController');
 const KampController = require('./routes/KampController');
+const AktivnostController = require('./routes/AktivnostController');
 
 // middleware
 app.use(cors());
@@ -32,6 +33,7 @@ app.use('/register', RegisterController);
 app.use('/prijave', PrijavaController);
 app.use('/grupe', GrupaController);
 app.use('/kamp', KampController);
+app.use('/aktivnost', AktivnostController);
 
 
 // pokreni server

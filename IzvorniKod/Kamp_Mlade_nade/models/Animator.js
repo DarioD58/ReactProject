@@ -42,7 +42,7 @@ module.exports = class Animator extends Korisnik {
         let noviAnimator = new Animator()
 
         if( results.length > 0 ) {
-            noviAnimator = new Animator(results[0].korisnicko_ime, results[0].lozinka, 
+            noviAnimator = new Animator(results[0].korisnicko_ime, results[0].lozinka,
                 results[0].email, results[0].ime, results[0].prezime, results[0].status,
                 results[0].br_tel_animator, results[0].datum_i_god_rod_animator);
         }
@@ -50,6 +50,24 @@ module.exports = class Animator extends Korisnik {
     }
 
     //dohvati sve
+<<<<<<< HEAD
+
+	static async fetchAllAnimator(username){
+            let results = await dbAnimatorGetAll();
+            let animatori = [];
+
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
+												 result[i].prezime, result[i].status, result[i].br_tel,
+                                                 result[i].datum_i_god_rod);
+                    //this.id_animator= results[i].id_animator; id_animator ne postoji!
+                    animatori.push(animator);
+                }
+            }
+            return animatori;
+        }
+=======
     
 	static async fetchAllAnimator(){
         let results = await dbAnimatorGetAll();
@@ -66,11 +84,12 @@ module.exports = class Animator extends Korisnik {
         }         
         return animatori;
     }
+>>>>>>> 96b81c35230a580238ce09861c17cfabed89b1fa
 }
 
 //implementacije funkcija
 dbAddNewAnimator = async (animator) => {
-    const sql = `INSERT INTO animator (korisnicko_ime_animator, br_tel_animator, datum_i_god_rod_animator) 
+    const sql = `INSERT INTO animator (korisnicko_ime_animator, br_tel_animator, datum_i_god_rod_animator)
     VALUES ($1, $2, $3) RETURNING korisnicko_ime_animator`;
     try {
         await animator.addNewKorisnik();
@@ -92,7 +111,7 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
         return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 

@@ -12,7 +12,15 @@ module.exports = class Grupa {
 
     // dohvaća sve grupe
     static async fetchAllGrupa(){
-
+      let results = await dbGetAllGrupa();
+      let grupe = [];
+      if (results.length > 0){
+        for(let i = 0; i < results.length; i++){
+          let grupa = new Grupa(results[i].id_grupa, results[i].ime_grupa);
+          grupe.push(grupa);
+        }
+      }
+      return grupe;
     }
 
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
@@ -31,7 +39,16 @@ module.exports = class Grupa {
 }
 
 dbGetAllGrupa = async () => {
-
+ const sql = 'SELECT * FROM GRUPA';
+ try{
+   await grupa.fetchAllGrupa();
+   //console.log("Dohvat svih grupa")
+   const result = await db.query(sql, [grupa.id_grupa, grupa.ime_grupa]);
+   return result.rows;
+ } catch(err) {
+    console.log(err);
+    throw err;
+ }
 }
 
 dbGetAllMembers = async () => {

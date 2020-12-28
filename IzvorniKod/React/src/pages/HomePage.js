@@ -9,14 +9,18 @@ function HomePage(props) {
       return (
         <div className='everything'>
             <Countdown vrijeme = {props.vrijeme} />
-            <Activities activities = {props.activity} />
         </div>
         );
     }
     return (
         <div className='everything'>
             <NotButton />
-            <Countdown vrijeme = {props.vrijeme} />
+            <div>
+              <h2 className='text-center general-text'>{props.ime}</h2>
+              <p className='text-center general-text'>Najbolji kamp počinje</p>
+              <hr className='general-text'/>
+              <p className='text-center general-text'>{props.vrijeme}</p>
+            </div>
             <Activities activities = {props.activity} />
         </div>
     );

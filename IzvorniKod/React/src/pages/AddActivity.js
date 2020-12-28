@@ -6,9 +6,14 @@ function AddActivity() {
     const [state, setState] = React.useState({
         ime: "",
         opis: "",
-        tip: "",
+        tip: "1",
+        br_grupa: 1,
         trajanje: "",
     });
+
+    const [disabled, setDisabled] = React.useState({
+        isDisabled: true
+    })
 
     let history = useHistory();
 
@@ -31,9 +36,10 @@ function AddActivity() {
             console.log(response)
             setState(prevState => ({
                 ...prevState,
-                ime_aktivnost: "",
-                opis_aktivnost: "",
-                kategorija: "",
+                ime: "",
+                opis: "",
+                tip: "",
+                br_grupa: "",
                 trajanje: "",
             }))
         });
@@ -52,11 +58,42 @@ function AddActivity() {
     const handleReset = (e) => {
         setState(prevState => ({
             ...prevState,
-            ime_aktivnost: "",
-            opis_aktivnost: "",
-            kategorija: "",
+            ime: "",
+            opis: "",
+            tip: "",
+            br_grupa: "",
             trajanje: "",
         }))
+    }
+
+    const onChangeSelect = (e) => {
+        let {id , value} = e.target 
+        id = e.target.name  
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+        if(value === "1"){
+            setDisabled(() => ({
+                isDisabled: true
+            }))
+            setState(prevState => ({
+                ...prevState,
+                br_grupa: 1
+            }))
+        } else if(value === "svi"){
+            setDisabled(() => ({
+                isDisabled: true
+            }))            
+            setState(prevState => ({
+            ...prevState,
+            br_grupa: 0
+            }))
+        } else {
+            setDisabled(() => ({
+                isDisabled: false
+            }))  
+        }       
     }
 
     if(localStorage.getItem('role') !== 'organizator'){
@@ -65,21 +102,27 @@ function AddActivity() {
 
     return (
         <div className='everything'>
-            <h1 className="naslovi text-white">Nova aktivnost</h1>
+            <h1 className="naslovi general-text">Nova aktivnost</h1>
             <form  onSubmit={onSubmit}>
-                <label className="text-white" for="ime_aktivnost">Ime aktivnosti: </label>
+                <label className="general-text" for="ime">Ime aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                required type="text" name="ime_aktivnost" value={state.ime_aktivnost}
+                required type="text" name="ime" value={state.ime}
                 placeholder="Ručak" size="50"/>
-                <label className="text-white" for="opis_aktivnost">Opis aktivnosti: </label>
+                <label className="general-text" for="opis">Opis aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-                required type="text" name="opis_aktivnost" value={state.opis_aktivnost}
+                required type="text" name="opis" value={state.opis}
                 placeholder="Opis..." size="50"/>
-                <label className="text-white" for="kategorija">Tip aktivnosti: </label>
+                <label className="general-text" for="tip">Tip aktivnosti: </label>
+                <select className="bg-dark pt-3 pb-3 text-white" onChange={onChangeSelect} name="tip" value={state.tip}>
+                    <option value="1">Sudjeluje 1 grupa</option>
+                    <option value="N">Sudjeluje N grupa</option>
+                    <option value="max N">Sudjeuje maksimalno N grupa</option>
+                    <option value="svi">Sudjeluju sve grupe</option>
+                </select>
+                <label className="general-text" for="br_grupa">Broj grupa: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
-                required type="text" name="kategorija" value={state.kategorija}
-                placeholder="Obrok" size="50"/>
-                <label className="text-white" for="trajanje">Trajanje aktivnosti u satima: </label>
+                required type="number" name="br_grupa" value={state.br_grupa} disabled={disabled.isDisabled} min="1" size="50"/>
+                <label className="general-text" for="trajanje">Trajanje aktivnosti u satima: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="text" name="trajanje" value={state.trajanje}
                 placeholder="0" size="50"/>

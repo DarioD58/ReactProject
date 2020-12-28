@@ -48,7 +48,7 @@ function Countdown(props) {
             <section className="timer">
                 <div>
                     <span className="mdi mdi-calendar-clock"></span>
-                    <h2 className="text-white">Odbrojavanje do početka kampa!</h2>
+                    <h2 className="general-text">Odbrojavanje do početka kampa!</h2>
                 </div>
                 <div className="countdown-font-color">
                     <section>

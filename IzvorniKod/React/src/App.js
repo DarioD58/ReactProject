@@ -47,7 +47,7 @@ function App() {
       <Header ime = {kamp.ime} logged={session}/>
       <Switch>
         <Route exact path='/'>
-          <HomePage logged={session} vrijeme={kamp.vrijeme} activity={activity} />
+          <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} activity={activity} />
         </Route>
         <Route exact path='/makecamp'>
             <AddCamp />

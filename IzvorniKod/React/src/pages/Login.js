@@ -16,6 +16,7 @@ function Login(props) {
         let objekt = JSON.stringify(state);
         console.log(objekt)
         fetch("http://localhost:5000/login", {
+            credentials: 'same-origin',
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt
@@ -24,6 +25,7 @@ function Login(props) {
             response.json()
         )
         .then((res) => {
+            console.log(res)
             if(res.error != undefined){
                 throw new Error(res.error);
             }
@@ -66,11 +68,11 @@ function Login(props) {
     return (
         <div className='everything'>
             <form  onSubmit={onSubmit}>
-                <label className="text-white" for="korime">Korisničko ime: </label>
+                <label className="general-text" for="korime">Korisničko ime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="korime" value = {state.korime}
                 placeholder="aanic" size="50"/>
-                <label className="text-white" for="lozinka">Lozinka: </label>
+                <label className="general-text" for="lozinka">Lozinka: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="password" name="lozinka" value={state.lozinka}
                 placeholder="**********" size="50"/>

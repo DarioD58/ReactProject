@@ -33,9 +33,22 @@ module.exports = class Animator extends Korisnik {
     }
 
     //dohvati sve
-    async getAnimatorAll(){
-		 dbAnimatorGetAll();
-	}
+    
+	static async fetchAllAnimator(username){
+            let results = await dbAnimatorGetAll();
+            let animatori = [];
+
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
+												 result[i].prezime, result[i].status, result[i].br_tel, 
+                                                 result[i].datum_i_god_rod);
+                    //this.id_animator= results[i].id_animator; id_animator ne postoji!
+                    animatori.push(animator);
+                }
+            }         
+            return animatori;
+        }
 }
 
 //implementacije funkcija
@@ -44,7 +57,7 @@ dbAddNewAnimator = async (animator) => {
     VALUES ($1, $2, $3) RETURNING korisnicko_ime_animator`;
     try {
         await animator.addNewKorisnik();
-        console.log("Dodajem novog animatora")
+        //console.log("Dodajem novog animatora")
         const result = await db.query(sql, [animator.korisnicko_ime, animator.br_tel,
              animator.datum_i_god_rod]);
         return result.rows[0].korisnicko_ime_animator;
@@ -67,13 +80,15 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
 }
 
 //dohvati sve animatore
-dbAnimatorGetAll = async() =>{
-	const sql = `SELECT * FROM animator`;
-	try {
-        const result = await db.query([animator.korisnicko_ime, animator.lozinka, animator.email, animator.ime, animator.prezime, animator.status, animator.br_tel, animator.datum_i_god_rod]);
-        return result.rows[0].korisnicko_ime_animator;
+dbAnimatorGetAll = async () => {
+    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
+    br_tel_animator, datum_i_god_rod_animator
+    FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime`;
+    try {
+        const result = await db.query(sql);
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }

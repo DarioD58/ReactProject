@@ -13,12 +13,13 @@ class PrijavaController extends Controller {
     }
 
     async activeApplications(req, res, next){
-        let cookies = cookie.parse(req.headers.cookie || '');
-        let user = JSON.parse(cookies.user);
-        let userName = user.userName;
+        //let cookies = cookie.parse(req.headers.cookie || '');
+    /*     let cookies = JSON.parse(req.cookies);
+        console.log(cookies); */
+        let korisnik = JSON.parse(req.cookies.korisnik);
     
         try {
-            if(! await Organizator.checkOrganizator(userName)) throw new Error();
+            if(! await Organizator.checkOrganizator(korisnik.korisnickoIme, korisnik.statusKorisnik)) throw new Error();
 
             // testno
             let prijave = {
@@ -26,7 +27,7 @@ class PrijavaController extends Controller {
                 druga : "Druga prijava",
                 treca : "Jos jedna prijava"
             }
-            //let prijave = await Prijava.fetchActive();
+            //let prijave = await Prijava.fetchActivePrijava();
             return JSON.stringify({
                 prijave : prijave
             });
@@ -40,45 +41,60 @@ class PrijavaController extends Controller {
 
 
     async processApplication(req, res, next){
-        let applicationInfo = req.body;
-        let id = applicationInfo.id_prijava;
-        let status = applicationInfo.status_prijava;
-        let userName = applicationInfo.userName;
+        let prijavaInfo = req.body;
+        let id = prijavaInfo.id_prijava;
+        let status = prijavaInfo.status_prijava;
+        let korisnickoIme = prijavaInfo.kor_ime;
         
-        let korisnik = await Korisnik.fetchKorisnikByUsername(userName); 
+        let korisnik = await Korisnik.fetchKorisnikByUsername(korisnckoIme);
+        let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
         //Prijava.changeStatusPrijava(id, status);
 
-        let email = 'nettie.hoppe32@ethereal.email'; 
+        //
+
         // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
+/*         let transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-                user: email, // generated ethereal user
-                pass: 'TJjEN9Q25yTgc4mRuM', // generated ethereal password
+                user: sender, // generated ethereal user
+                pass: senderPas, // generated ethereal password
             },
-        });
-        
+        }); */
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: kamp.email,
+              pass: kamp.lozinka
+            }
+          });
+
         let msg = {
-            from: '"Kamp Mlade nade" <kamp@mladenade.com>', // sender address
-            //to: `${korisnik.email}`, // list of receivers
-            to: email,
+            from: '"Kamp Mlade nade" <mladenade.kamp@gmail.com>', // sender address
+            to: `${korisnik.ime} ${korisnik.prezime} ${korisnik.email}`, // list of receivers
+            //to: email,
             subject: "Kamp Mlade nade - prijava", // Subject line
             text: "", // plain text body
-        }
+        } 
+
 
         try {
             if(status == "prihvaćena"){
-                msg.text = `Pozdrav ${korisnik.ime}, \n
-                Vaša prijava je ${status}! 
-                Vaše korisničko ime je ${korisnik.korisnicko_ime}. \n 
+                msg.text = `Pozdrav ${korisnik.ime},\n
+                Vaša prijava je ${status}!
+                Vaše korisničko ime je ${korisnik.korisnicko_ime}. 
                 Dovršite Vašu registraciju na poveznici.\n
+                Vaš Kamp Mlade nade \n
                 http://${req.hostname}:3000/register`;
                 await transporter.sendMail(msg);
                 
             } else if(status == "odbijena"){
-                msg.text = `Pozdrav ${korisnik.ime}, \n Vaša prijava je nažalost ${status}. Pokušajte se prijaviti na sljedeći kamp.`;
+                msg.text = `Pozdrav ${korisnik.ime}, \n 
+                Vaša prijava je nažalost ${status}. 
+                Pokušajte se prijaviti na sljedeći kamp. \n
+                Vaš Kamp Mlade nade`;
                 await transporter.sendMail(msg);
             } else {
                 throw new Error();
@@ -91,7 +107,7 @@ class PrijavaController extends Controller {
 
 
         return JSON.stringify({
-            userName : userName,
+            korisnickoIme : korisnickoIme,
             status_prijava : status
         });
     }

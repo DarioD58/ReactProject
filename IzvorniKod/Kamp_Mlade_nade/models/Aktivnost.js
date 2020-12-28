@@ -21,10 +21,26 @@ module.exports = class Aktivnost {
             return this.id_aktivnost;
         }
 
-        // vraća tip Aktivnost[]
-        static async fetchAll(kamp){
+        static async fetchAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp){
 
-            let results = await dbGetAll(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+            let results = await dbGetAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp);
+            let aktivnost = new Aktivnost();
+    
+            if( results.length > 0 ) {
+                let aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,
+                    results[0].trajanje_aktivnost_h, results[0].tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                
+                aktivnost.id_aktivnost = results[0].id_aktivnost;
+            }       
+            return aktivnost;
+        }
+    
+           
+        
+
+        // vraća tip Aktivnost[]
+        static async fetchAllAktivnost(kamp){
+            let results = await dbGetAllAktivnosti(kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
             let aktivnosti = [];
 
             if( results.length > 0 ) {
@@ -35,7 +51,7 @@ module.exports = class Aktivnost {
                     this.id_aktivnost = results[i].id_aktivnost;
                     aktivnosti.push(aktivnost);
                 }
-            }         
+            }       
             return aktivnosti;
         }
         
@@ -53,6 +69,18 @@ module.exports = class Aktivnost {
 
 }
 
+dbGetAktivnostByName = async (ime_aktivnost, ime_kamp, datum_odrzavanja_kamp) => {
+    const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    FROM aktivnost WHERE ime_aktivnost LIKE $1 ime_kamp LIKE $2 AND datum_odrzavanja_kamp = $2`;
+    try {
+        const result = await db.query(sql, [ime_aktivnost, ime_kamp, datum_odrzavanja_kamp]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
 dbAddNewAktivnost = async (aktivnost) =>  {
 
 
@@ -63,8 +91,8 @@ dbAddNewAktivnost = async () =>{
 
 }
 
-dbGetAll = async (ime_kamp, datum_odrzavanja_kamp) => {
-    const sql = `SELECT ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+dbGetAllAktivnosti = async (ime_kamp, datum_odrzavanja_kamp) => {
+    const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM aktivnost WHERE ime_kamp LIKE $1 AND datum_odrzavanja_kamp = $2`;
     try {
         const result = await db.query(sql, [ime_kamp, datum_odrzavanja_kamp]);
@@ -77,11 +105,11 @@ dbGetAll = async (ime_kamp, datum_odrzavanja_kamp) => {
 
 //update aktivnosti
 dbUpdateAktivnost = async (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, 
-datum_odrzavanja_kamp, ime_kamp) =>{
-	const sql = `UPDATE aktivnost SET opis_aktivnost, SET trajanje_aktivnost_h,
-    SET tip_aktivnost, SET datum_odrzavanja_kamp, SET ime_kamp WHERE ime_aktivnosti LIKE $1`;
+    datum_odrzavanja_kamp, ime_kamp) => {
+	const sql = `UPDATE aktivnost SET ime_aktivnost = $1, opis_aktivnost = $2, trajanje_aktivnost_h = $3,
+     tip_aktivnost = $4 WHERE ime_aktivnosti LIKE $1 RETURNING id_aktivnost`;
 	 try {
-        const result = await db.query(sql, ime_aktivnost);
+        const result = await db.query(sql, [ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost]);
         return result.rows;
     } catch (err) {
         console.log(err);
@@ -94,7 +122,7 @@ datum_odrzavanja_kamp, ime_kamp) =>{
 dbDeleteAktivnost = async (ime_aktivnost) => {
     const sql = `DELETE FROM aktivnost WHERE ime_aktivnost LIKE $1`;
     try {
-		console.log("Brisem aktivnost")
+		//console.log("Brisem aktivnost")
         const result = await db.query(sql, ime_aktivnost);
     } catch (err) {
         console.log(err);

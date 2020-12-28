@@ -36,9 +36,23 @@ module.exports = class Sudionik extends Korisnik {
     }
 	
     //dohvati sve
-    async sudionikGetAll(){
-        dbSudionikGetAll();
+    static async fetchAllSudionik(){
+            let results = await dbSudionikGetAll();
+            let sudionici = [];
+
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let sudionik = new Sudionik(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+												 result[i].prezime, result[i].status, result[i].br_tel, 
+                                                 result[i].datum_i_god_rod, result[i].br_tel_odg_osobe);
+                    //this.id_sudionik = results[i].id_sudionik; id_sudionik ne postoji!
+                    sudionici.push(sudionik);
+                }
+            }         
+            return sudionici;
     }
+
+    
 }
 //implementacije funkcija
 dbGetSudionikByUsername = async (korisnicko_ime) => {
@@ -59,7 +73,7 @@ dbAddNewSudionik = async (sudionik) => {
      VALUES ($1, $2, $3, $4) RETURNING korisnicko_ime_sudionik`;
     try {
         await sudionik.addNewKorisnik();
-        console.log("Dodajem novog sudionika")
+        //console.log("Dodajem novog sudionika")
         const result = await db.query(sql, [sudionik.korisnicko_ime, sudionik.br_tel, 
             sudionik.datum_i_god_rod, sudionik.br_tel_odg_osobe]);
         return result.rows[0].korisnicko_ime_sudionik;
@@ -69,14 +83,16 @@ dbAddNewSudionik = async (sudionik) => {
     }
 }
 
+// Niti ovo nije dobro. Pogledati dohvat svih aktivnosti
 dbSudionikGetAll = async() =>{
-	const sql = `SELECT * FROM sudionik`;
-	try {
-        const result = await db.query([sudionik.korisnicko_ime, sudionik.lozinka, sudionik.email, sudionik.ime, 
-        sudionik.prezime, sudionik.status, sudionik.br_tel, sudionik.datum_i_god_rod, sudionik.br_tel_odg_osobe]);
-        return result.rows[0].korisnicko_ime_sudionik;
+    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
+    br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe, id_grupa
+    FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime`;
+    try {
+        const result = await db.query(sql);
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }

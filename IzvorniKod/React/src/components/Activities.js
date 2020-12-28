@@ -4,7 +4,6 @@ import Activity from './Activity';
 
 function Activities(props){
     const activities = props.activities;
-    console.log(activities)
     /*const activities = [
         {id_aktivnost:1, ime_aktivnost:'Dorucak', opis_aktivnost:'Dorucak za samoposluznim stolom', trajanje_aktivnost_h:1, tip_aktivnosti: 'nesto'},
         {id_aktivnost:2, ime_aktivnost:'Rucak', opis_aktivnost:'Rucak za samoposluznim stolom', trajanje_aktivnost_h:1, tip_aktivnosti:''},
@@ -14,7 +13,7 @@ function Activities(props){
     if(activities === undefined){
         return (
             <div>
-            <div className="text-black text-center activity-header">MOJE AKTIVNOSTI</div>
+            <div className="text-black text-center activity-header">AKTIVNOSTI KAMPA</div>
             <div className="activites text-light">
             <div className='aktivnosti'>
                 <h3>Naziv</h3>
@@ -28,7 +27,7 @@ function Activities(props){
 
     return (
         <div>
-        <div className="text-black text-center activity-header">MOJE AKTIVNOSTI</div>
+        <div className="text-black text-center activity-header">AKTIVNOSTI KAMPA</div>
         <div className="activites text-light">
         <div className='aktivnosti'>
             <h3>Naziv</h3>

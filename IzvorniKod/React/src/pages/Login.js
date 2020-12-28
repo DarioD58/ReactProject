@@ -1,14 +1,16 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 
-function Login() {
+
+function Login(props) {
 
     const [state, setState] = React.useState({
         korime: "",
         lozinka: ""
     });
 
-    let history = useHistory();
+    const [logged, setLogged] = React.useState('false')
+
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
@@ -18,18 +20,20 @@ function Login() {
             headers: {"Content-type": "application/json"},
             body: objekt
         })
-        .then((response) => response.json()
+        .then((response) => 
+            response.json()
         )
         .then((res) => {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
-            console.log(res);
             localStorage.setItem("isLoggedIn", true);
             localStorage.setItem("user", res.userName);
             localStorage.setItem("role", res.userStatus);
-            history.push('/');
-            window.location.reload();
+            setLogged('true')
+            props.setSession(logged)
+            props.history.push('/')
+            window.location.reload()
         }).catch((error) => {
             console.log(error);
             setState(prevState => ({
@@ -59,23 +63,24 @@ function Login() {
         }))
     }
 
-
     return (
-        <form  onSubmit={onSubmit}>
-            <label className="text-white" for="korime">Korisničko ime: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             required type="text" name="korime" value = {state.korime}
-              placeholder="aanic" size="50"/>
-            <label className="text-white" for="lozinka">Lozinka: </label>
-            <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
-             required type="password" name="lozinka" value={state.lozinka}
-              placeholder="**********" size="50"/>
-            <input className="bg-dark text-white"
-             type="submit" name="submit" placeholder="Submit" />
-            <input className="bg-dark text-white" onClick={handleReset}
-             type="reset" name="res" placeholder="Reset" />
-        </form>
+        <div className='everything'>
+            <form  onSubmit={onSubmit}>
+                <label className="text-white" for="korime">Korisničko ime: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
+                required type="text" name="korime" value = {state.korime}
+                placeholder="aanic" size="50"/>
+                <label className="text-white" for="lozinka">Lozinka: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
+                required type="password" name="lozinka" value={state.lozinka}
+                placeholder="**********" size="50"/>
+                <input className="bg-dark text-white"
+                type="submit" name="submit" placeholder="Submit" />
+                <input className="bg-dark text-white" onClick={handleReset}
+                type="reset" name="res" placeholder="Reset" />
+            </form>
+        </div>
     );
   }
   
-  export default Login;
+  export default withRouter(Login);

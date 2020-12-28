@@ -2,19 +2,15 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Login from './components/Login';
-import Countdown from './components/Countdown';
-import NotButton from './components/NotButton';
-import Calendar from 'react-calendar';
+import Login from './pages/Login';
 import './App.css'
 import 'react-calendar/dist/Calendar.css'
 import Sidebar from './components/Sidebar';
-import Apply from './components/Apply'
-import Register from './components/Register'
-import Activities from './components/Activities';
-
-
-
+import Apply from './pages/Apply'
+import Register from './pages/Register'
+import AddCamp from './pages/AddCamp';
+import AddActivity from './pages/AddActivity';
+import HomePage from './pages/HomePage'
 
 
 function App() {
@@ -25,77 +21,42 @@ function App() {
 
   const [activity, setActivity] = React.useState([]);
 
-  const [session, setSession] = React.useState({
-    isLoggedIn: ''
-  });
+  const [session, setSession] = React.useState(localStorage.getItem('isLoggedIn'));
 
   React.useEffect(() => {
-    if(localStorage.getItem('isLoggedIn') === true){
-      setSession(() => ({
-        isLoggedIn: localStorage.getItem('isLoggedIn')
-      }))
-    }
     // GET request using fetch inside useEffect React hook
     fetch('http://localhost:5000/')
     .then(response => response.json())
     .then((data) => {
-      console.log(data)
       setKamp(prevKamp => ({
         ...prevKamp,
-        ime: data.nadolazeci_kamp,
+        ime: data.kamp,
         vrijeme: data.pocetak_kamp
     }))
     setActivity(
       ...activity,
       data.aktivnosti
     );
-    console.log(activity);
     });
   }, []);
 
-  React.useEffect(() => {
-    setSession(() => ({
-      isLoggedIn: localStorage.getItem("isLoggedIn")
-    }));
-  }, [session.isLoggedIn]);
-
-  if(localStorage.getItem('isLoggedIn') == 'true'){
-    return (
-      <BrowserRouter>
-      <div className="App">
-        <Sidebar logged={session.isLoggedIn}/>
-        <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
-        <div className="everything">
-          <Route exact path='/login'>
-            <Login />
-          </Route>
-          <Route exact path='/register'>
-            <Register />
-          </Route>
-          <Route exact path='/application'>
-            <Apply />
-          </Route>
-          <Route exact path='/calendar'>
-            <Calendar />
-          </Route>
-          <Route exact path='/'>
-            <Countdown vrijeme = {kamp.vrijeme} />
-            <Activities activities = {activity} />
-          </Route>
-        </div>
-        <Footer />
-      </div>
-      </BrowserRouter>
-    );
-  }
   return (
     <BrowserRouter>
     <div className="App">
-      <Sidebar logged={session.isLoggedIn}/>
-      <Header ime = {kamp.ime} logged={session.isLoggedIn}/>
-      <div className="everything">
+      <Sidebar logged={session}/>
+      <Header ime = {kamp.ime} logged={session}/>
+      <Switch>
+        <Route exact path='/'>
+          <HomePage logged={session} vrijeme={kamp.vrijeme} activity={activity} />
+        </Route>
+        <Route exact path='/makecamp'>
+            <AddCamp />
+        </Route>
+        <Route exact path='/makeactivity'>
+            <AddActivity />
+          </Route>
         <Route exact path='/login'>
-          <Login />
+          <Login setSession={setSession}/>
         </Route>
         <Route exact path='/register'>
           <Register />
@@ -103,15 +64,7 @@ function App() {
         <Route exact path='/application'>
           <Apply />
         </Route>
-        <Route exact path='/calendar'>
-          <Calendar />
-        </Route>
-        <Route exact path='/'>
-          <NotButton />
-          <Countdown vrijeme = {kamp.vrijeme} />
-          <Activities activities = {activity} />
-        </Route>
-      </div>
+      </Switch>
       <Footer />
     </div>
     </BrowserRouter>

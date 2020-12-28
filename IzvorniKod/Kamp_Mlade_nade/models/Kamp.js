@@ -25,10 +25,10 @@ module.exports = class Kamp {
             čiji je početak najbliži trenutnom datumu
         */
 
-        static async fetchByNameAndDate(){
-
-
+        async createKamp(){
+            return await dbCreateKamp(this);
         }
+
         
         // vraca Kamp
         static async fetchActive(){
@@ -60,6 +60,24 @@ module.exports = class Kamp {
             return kamp;
         }
 
+}
+
+dbCreateKamp = async(kamp) => {
+    const sql = `INSERT INTO KAMP (ime_kamp, datum_odrzavanja_kamp, 
+        trajanje_d, pocetak_prijava_sudionika, kraj_prijava_sudionika, 
+        pocetak_prijava_animatora, kraj_prijava_animatora, status, 
+        broj_grupa, email_kamp)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+
+    try {
+        const result = await db.query(sql, [kamp.ime_kamp, kamp.datum_odrzavanja_kamp, kamp.trajanje, kamp.pocetak_prijava_sudionika,
+        kamp.kraj_prijava_sudionika, kamp.pocetak_prijava_animatora, kamp.kraj_prijava_animatora, kamp.status, kamp.broj_grupa, kamp.email_kamp]);
+        return result.rows[0];
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+            
 }
 
 dbGetActiveCamp = async () => {

@@ -77,9 +77,20 @@ module.exports = class Korisnik {
 	}
 	
 	//dohvati sve korisnike
-	async getAll(){
-		dbGetAll();
-	}
+	static async fetchAllKorisnik(username){
+            let results = await dbGetAllKorisnik(korisnicko_ime);
+            let korisnici = [];
+
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let korisnik = new Korisnik(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
+												 result[i].prezime, result[i].status);
+                    //this.id_korisnik= results[i].id_korisnik; // id_korisnik ne postoji!!
+                    korisnici.push(korisnik);
+                }
+            }         
+            return korisnici;
+        }
 
     
 }
@@ -100,10 +111,10 @@ dbGetKorisnikByUsername = async (username) => {
     }
 }
 
-dbSetKorisnikPassword = async (korisnicko_ime, password) => {
+dbSetKorisnikPassword = async (korisnicko_ime, lozinka) => {
     const sql = `UPDATE korisnik SET lozinka = $1 WHERE korisnicko_ime LIKE $2`;
     try {
-        const result = await db.query(sql, [password, korisnicko_ime]);
+        const result = await db.query(sql, [lozinka, korisnicko_ime]);
         return result.rows;
     } catch (err) {
         console.log(err);
@@ -114,7 +125,7 @@ dbAddNewKorisnik = async (korisnik) => {
     const sql = `INSERT INTO korisnik (korisnicko_ime, lozinka, email, ime, prezime, status)
      VALUES ($1, $2, $3, $4, $5, $6) RETURNING korisnicko_ime`;
     try {
-        console.log("Dodajem novog korisnika");
+        //console.log("Dodajem novog korisnika");
         const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
              korisnik.ime, korisnik.prezime, korisnik.status]);
         return result.rows[0].korisnicko_ime;
@@ -128,7 +139,7 @@ dbAddNewKorisnik = async (korisnik) => {
 dbDeleteKorisnik = async (korisnicko_ime) => {
     const sql = `DELETE FROM korisnik WHERE korisnicko_ime LIKE $1`;
     try {
-		console.log("Brisem korisnika")
+		//console.log("Brisem korisnika")
         const result = await db.query(sql, [korisnicko_ime]);
     } catch (err) {
         console.log(err);
@@ -137,10 +148,11 @@ dbDeleteKorisnik = async (korisnicko_ime) => {
 }
 
 //update podataka
+//update upit
 dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
-	const sql = `UPDATE korisnik SET lozinka, SET email, SET ime, SET prezime WHERE korisnicko_ime LIKE $1`;
+	const sql = `UPDATE korisnik SET lozinka = $1, email = $2, ime = $3, prezime = $4 WHERE korisnicko_ime LIKE $5 RETURNING korisnicko_ime`;
 	 try {
-        const result = await db.query(sql, korisnicko_ime);
+        const result = await db.query(sql, [lozinka, email, ime, prezime, korisnicko_ime]);
         return result.rows;
     } catch (err) {
         console.log(err);
@@ -149,15 +161,15 @@ dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
 }
 
 //dohvat svih korisnika
-dbGetAll = async() =>{
-	const sql = `SELECT * FROM korisnik`;
-	try {
-        const result = await db.query(sql, [korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email,
-             korisnik.ime, korisnik.prezime, korisnik.status]);
-        return result.rows[0].korisnicko_ime;
+// rezultat upita se ne obrađuje dobro. Opet pogledati kako se dohvacaju sve aktivnosti!
+dbGetAllKorisnik = async (korisnicko_ime) => {
+    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status FROM korisnik WHERE korisnicko_ime LIKE $1`;
+    try {
+        const result = await db.query(sql, [korisnicko_ime]);
+        return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 

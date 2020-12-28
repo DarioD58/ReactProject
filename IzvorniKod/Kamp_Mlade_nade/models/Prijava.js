@@ -26,6 +26,11 @@ module.exports = class Prijava {
         return await dbCheckPrijavaForUsername(korIme);
     }
 
+
+    static async fetchActivePrijava(){
+        //nadopuniti
+    }
+
     static async changeStatusPrijava(id, status){
         // nadopuniti
     }

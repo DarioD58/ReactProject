@@ -110,7 +110,7 @@ CREATE TABLE ocjena_aktivnosti
 (
   ocjena INT NOT NULL,
   dojam VARCHAR(500) NOT NULL,
-  id_aktivnost  NOT NULL,
+  id_aktivnost INT NOT NULL,
   korisnicko_ime VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_aktivnost, korisnicko_ime),
   FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost),

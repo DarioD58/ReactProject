@@ -77,7 +77,7 @@ module.exports = class Korisnik {
 	}
 	
 	//dohvati sve korisnike
-	static async fetchAllKorisnik(username){
+	static async fetchAllKorisnik(korisnicko_ime){
             let results = await dbGetAllKorisnik(korisnicko_ime);
             let korisnici = [];
 

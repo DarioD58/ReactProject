@@ -48,7 +48,7 @@ class PrijavaController extends Controller {
         
         let korisnik = await Korisnik.fetchKorisnikByUsername(korisnckoIme);
         let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
-        //Prijava.changeStatusPrijava(id, status);
+        Prijava.changeStatusPrijava(id, status);
 
         //
 
@@ -96,6 +96,8 @@ class PrijavaController extends Controller {
                 Pokušajte se prijaviti na sljedeći kamp. \n
                 Vaš Kamp Mlade nade`;
                 await transporter.sendMail(msg);
+
+                korisnik.removeKorisnik();
             } else {
                 throw new Error();
             }

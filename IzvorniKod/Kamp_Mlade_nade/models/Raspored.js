@@ -17,14 +17,8 @@ module.exports = class Raspored {
     
     // svasta se događa u ovoj metodi - nije dobro!
 	async addToRaspored() {
-        try {
-            let idAktivnosti = await dbAddNewKorisnik(this);// ??
-            this.id_aktivnost = idAktivnosti;
-            return this.idAktivnosti;
-        } catch(err) {
-			console.log(err);
-            throw err;
-        }
+        return await dbAddToRaspored(this);
+  
     }
 
     async static setDefaultActivities(){
@@ -51,12 +45,12 @@ module.exports = class Raspored {
 
     }
 	
-	async updateInRaspored(id_aktivnost){
+/* 	async updateInRaspored(id_aktivnost){
 		dbUpdateInRaspored (this.id_grupa, id_aktivnost,this.datum_i_vrijeme, this.korisnicko_ime_animator);
-	}
+	} */
 	
-	async deleteFromRaspored(id_aktivnost){
-		dbDeleteFromRaspored(id_aktivnost);
+	async deleteFromRaspored(id_grupa, id_aktivnost, datum_i_vrijeme_izvrsavanja){
+		dbDeleteFromRaspored(id_grupa, id_aktivnost, datum_i_vrijeme_izvrsavanja);
 	}
 	
 	async deleteteRaspored(){
@@ -65,12 +59,12 @@ module.exports = class Raspored {
 }
 	
  
-dbAddToRaspored = async (id_aktivnost, id_grupa, datum_i_vrijeme_izvrsavanja, korisnicko_ime_animator) => {
+dbAddToRaspored = async (raspored) => {
     const sql = `INSERT INTO raspored (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa, korisnicko_ime_animator)
      VALUES ($1, $2, $3, $4) RETURNING id_aktivnost`;
     try {
         //console.log("Dodajem novu aktivnost");
-        const result = await db.query(sql, [datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa, korisnicko_ime_animator]);
+        const result = await db.query(sql, [raspored.datum_i_vrijeme_izvrsavanja, raspored.id_aktivnost, raspored.id_grupa, raspored.korisnicko_ime_animator]);
         return result.rows[0].id_aktivnost;
     } catch (err) {
         console.log(err);
@@ -78,23 +72,23 @@ dbAddToRaspored = async (id_aktivnost, id_grupa, datum_i_vrijeme_izvrsavanja, ko
     }
 }
 
-dbUpdateInRaspored = async (id_grupa, id_aktivnost, datum_i_vrijeme, korisnicko_ime_animator) => {
-	const sql = `UPDATE raspored SET id_grupa = $1, datum_i_vrijeme = $2, korisnicko_ime_animator = '$3' 
-		WHERE id_aktivnost = $5`;
+/* dbUpdateInRaspored = async (id_grupa, id_aktivnost, datum_i_vrijeme, korisnicko_ime_animator) => {
+	const sql = `UPDATE raspored SET id_grupa = $1, id_aktivnost = $2, datum_i_vrijeme_izvrsavanja = $3, korisnicko_ime_animator = '$4' 
+		WHERE id_aktivnost = $2`;
 	 try {
-        const result = await db.query(sql, korisnicko_ime);
+        const result = await db.query(sql, [id_grupa, id_aktivnost, datum_i_vrijeme, korisnicko_ime_animator]);
         return result.rows;
     } catch (err) {
         console.log(err);
         throw err
     }
 
-}
+} */
 
-dbDeleteFromRaspored = async (id_aktivnost) => {
-    const sql = `DELETE FROM raspored WHERE id_aktivnost = $1`;
+dbDeleteFromRaspored = async (id_aktivnost, id_grupa, datum_i_vrijeme) => {
+    const sql = `DELETE FROM raspored WHERE id_aktivnost = $1 AND id_grupa = $2 AND datum_i_vrijeme_izvrsavanja = $3`;
     try {
-        const result = await db.query(sql, id_aktivnost);
+        const result = await db.query(sql, [id_aktivnost, id_grupa, datum_i_vrijeme]);
     } catch (err) {
         console.log(err);
         throw err

@@ -4,9 +4,9 @@ import { useHistory, Redirect } from "react-router-dom";
 function AddActivity() {
 
     const [state, setState] = React.useState({
-        ime_aktivnost: "",
-        opis_aktivnost: "",
-        kategorija: "",
+        ime: "",
+        opis: "",
+        tip: "",
         trajanje: "",
     });
 
@@ -65,7 +65,7 @@ function AddActivity() {
 
     return (
         <div className='everything'>
-            <h1 className="naslovi text-white">Novi kamp</h1>
+            <h1 className="naslovi text-white">Nova aktivnost</h1>
             <form  onSubmit={onSubmit}>
                 <label className="text-white" for="ime_aktivnost">Ime aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}

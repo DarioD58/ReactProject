@@ -66,7 +66,7 @@ CREATE TABLE SUDIONIK
   PRIMARY KEY (korisnicko_ime_sudionik),
   FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa) ON DELETE CASCADE ON UPDATE CASCADE,
-  UNIQUE (br_tel_sudionik)
+  /*UNIQUE (br_tel_sudionik)*/
 );
 
 CREATE TABLE ANIMATOR

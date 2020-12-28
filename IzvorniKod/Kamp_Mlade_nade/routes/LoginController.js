@@ -20,8 +20,8 @@ class LoginController extends Controller{
                 let status = korisnik.status;
                 
                 return JSON.stringify({
-                    statusKorisnik : status,
-                    korisnickoIme : req.body.korime
+                    korisnickoIme : req.body.korime,
+                    statusKorisnik : status
                 });
             } else {
                 throw new Error();

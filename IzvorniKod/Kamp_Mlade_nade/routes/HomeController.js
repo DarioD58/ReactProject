@@ -11,11 +11,18 @@ class HomeController extends Controller {
 
     async get(req, res, next) {
         try{
+            let aktivniKamp = await Kamp.checkForActiveCamp();
+            if(aktivniKamp.status != undefined && aktivniKamp.status != 1){
+                await aktivniKamp.updateStatusKamp(1);
+            }
+
+
             let kamp = await Kamp.fetchActive();
             if(kamp.status != undefined){
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
+                    email: kamp.email_kamp,
                     aktivnosti : aktivnosti
                 });
             } else {
@@ -25,6 +32,10 @@ class HomeController extends Controller {
                 
                 return JSON.stringify({
                     kamp : kamp.ime_kamp,
+                    pocetak_prijava_sud: kamp.pocetak_prijava_sudionika,
+                    kraj_prijava_sud : kamp.kraj_prijava_sudionika,
+                    pocetak_prijava_anim : kamp.pocetak_prijava_animatora,
+                    kraj_prijava_anim : kamp.kraj_prijava_animatora,
                     pocetak_kamp : timer.toString(),
                     aktivnosti : aktivnosti
                 });

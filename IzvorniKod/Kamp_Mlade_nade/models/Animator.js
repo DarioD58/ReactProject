@@ -19,6 +19,23 @@ module.exports = class Animator extends Korisnik {
         return await dbAddNewAnimator(this);
     }
 
+    // vraca Aktivnost[]
+    async fetchAnimatorAcitvities(){
+        let results = await dbGetAnimatorAcitvities(this.korisnicko_ime);
+        let aktivnosti = [];
+
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
+                    results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                
+                this.id_aktivnost = results[i].id_aktivnost;
+                aktivnosti.push(aktivnost);
+            }
+        }       
+        return aktivnosti;
+    }
+
     // vraća Animator
     static async fetchAnimatorByUsername(korisnicko_ime){
 		let results = await dbGetAnimatorByUsername(korisnicko_ime);
@@ -34,21 +51,21 @@ module.exports = class Animator extends Korisnik {
 
     //dohvati sve
     
-	static async fetchAllAnimator(username){
-            let results = await dbAnimatorGetAll();
-            let animatori = [];
+	static async fetchAllAnimator(){
+        let results = await dbAnimatorGetAll();
+        let animatori = [];
 
-            if( results.length > 0 ) {
-                for(let i = 0; i < results.length; i++){
-                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
-												 result[i].prezime, result[i].status, result[i].br_tel, 
-                                                 result[i].datum_i_god_rod);
-                    //this.id_animator= results[i].id_animator; id_animator ne postoji!
-                    animatori.push(animator);
-                }
-            }         
-            return animatori;
-        }
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
+                                                result[i].prezime, result[i].status, result[i].br_tel, 
+                                                result[i].datum_i_god_rod);
+                //this.id_animator= results[i].id_animator; id_animator ne postoji!
+                animatori.push(animator);
+            }
+        }         
+        return animatori;
+    }
 }
 
 //implementacije funkcija
@@ -86,6 +103,18 @@ dbAnimatorGetAll = async () => {
     FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime`;
     try {
         const result = await db.query(sql);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbGetAnimatorAcitvities = async (korisnicko_ime_animator) => {
+    const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    FROM raspored NATURAL JOIN animator WHERE korisnicko_ime_animator LIKE $1`;
+    try {
+        const result = await db.query(sql, [korisnicko_ime_animator]);
         return result.rows;
     } catch (err) {
         console.log(err);

@@ -22,7 +22,6 @@ module.exports = class Aktivnost {
         }
 
         static async fetchAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp){
-
             let results = await dbGetAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp);
             let aktivnost = new Aktivnost();
     

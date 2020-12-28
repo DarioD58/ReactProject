@@ -11,6 +11,12 @@ class HomeController extends Controller {
 
     async get(req, res, next) {
         try{
+            let aktivniKamp = await Kamp.checkForActiveCamp();
+            if(aktivniKamp.status != undefined && aktivniKamp.status != 1){
+                await aktivniKamp.updateStatusKamp(1);
+            }
+
+
             let kamp = await Kamp.fetchActive();
             if(kamp.status != undefined){
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);

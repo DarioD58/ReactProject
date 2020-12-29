@@ -50,24 +50,6 @@ module.exports = class Animator extends Korisnik {
     }
 
     //dohvati sve
-<<<<<<< HEAD
-
-	static async fetchAllAnimator(username){
-            let results = await dbAnimatorGetAll();
-            let animatori = [];
-
-            if( results.length > 0 ) {
-                for(let i = 0; i < results.length; i++){
-                    let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
-												 result[i].prezime, result[i].status, result[i].br_tel,
-                                                 result[i].datum_i_god_rod);
-                    //this.id_animator= results[i].id_animator; id_animator ne postoji!
-                    animatori.push(animator);
-                }
-            }
-            return animatori;
-        }
-=======
     
 	static async fetchAllAnimator(){
         let results = await dbAnimatorGetAll();
@@ -76,15 +58,14 @@ module.exports = class Animator extends Korisnik {
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
                 let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
-                                                result[i].prezime, result[i].status, result[i].br_tel, 
-                                                result[i].datum_i_god_rod);
+                                            result[i].prezime, result[i].status, result[i].br_tel, 
+                                            result[i].datum_i_god_rod);
                 //this.id_animator= results[i].id_animator; id_animator ne postoji!
                 animatori.push(animator);
             }
         }         
         return animatori;
     }
->>>>>>> 96b81c35230a580238ce09861c17cfabed89b1fa
 }
 
 //implementacije funkcija

@@ -24,9 +24,9 @@ function Apply() {
         })
         .then((response) => response.json()
         ).then((res) => {
-            /*if(res.error == undefined){
+            if(res.error == undefined){
                 throw new Error(res.error);
-            }*/
+            }
             history.push('/');
         })
         .catch((response) => {
@@ -71,34 +71,34 @@ function Apply() {
     return (
         <div className='everything'>
             <form  onSubmit={onSubmit}>
-                <label className="text-white" for="ime">Ime: </label>
+                <label className="general-text" for="ime">Ime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="ime" value={state.ime}
                 placeholder="Ime" size="50"/>
-                <label className="text-white" for="prezime">Prezime: </label>
+                <label className="general-text" for="prezime">Prezime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="prezime" value={state.prezime}
                 placeholder="Prezime" size="50"/>
-                <label className="text-white" for="email">Email: </label>
+                <label className="general-text" for="email">Email: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="email" name="email" value={state.email}
                 placeholder="ivica@email.com" size="50"/>
-                <label className="text-white" for="brtel">Broj telefona: </label>
+                <label className="general-text" for="brtel">Broj telefona: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="brtel" value={state.brtel}
                 placeholder="0999999999" size="50"/>
-                <label className="text-white" for="dob">Datum rođenja: </label>
+                <label className="general-text" for="dob">Datum rođenja: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="date" value={state.dob}
                 name="dob" size="50"/>
-                <label className="text-white" for="pismo">Motivacijsko pismo: </label>
+                <label className="general-text" for="pismo">Motivacijsko pismo: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 type="text" name="pismo" value={state.pismo}
                 placeholder="Motivacija..." size="50"/>
-                <label className="text-white" for="sudionik">Sudionik: </label>
+                <label className="general-text" for="sudionik">Sudionik: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" id='sudionik' onChange={onChange}
                 required type="radio" name="status" checked value="sudionik"/>
-                <label className="text-white" for="animator">Animator: </label>
+                <label className="general-text" for="animator">Animator: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" id='animator' onChange={onChange}
                 required type="radio" name="status" value="animator"/>
                 <input className="bg-dark text-white"

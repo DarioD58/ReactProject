@@ -13,7 +13,7 @@ function Activities(props){
     if(activities === undefined){
         return (
             <div>
-            <div className="text-black text-center activity-header">AKTIVNOSTI KAMPA</div>
+            <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
             <div className="activites text-light">
             <div className='aktivnosti'>
                 <h3>Naziv</h3>
@@ -27,7 +27,7 @@ function Activities(props){
 
     return (
         <div>
-        <div className="text-black text-center activity-header">AKTIVNOSTI KAMPA</div>
+        <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
         <div className="activites text-light">
         <div className='aktivnosti'>
             <h3>Naziv</h3>

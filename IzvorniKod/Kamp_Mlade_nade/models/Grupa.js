@@ -48,11 +48,11 @@ module.exports = class Grupa {
 }
 
 dbGetAllGrupa = async () => {
- const sql = 'SELECT * FROM GRUPA';
+ const sql = 'SELECT * FROM grupa';
  try{
    await grupa.fetchAllGrupa();
    //console.log("Dohvat svih grupa")
-   const result = await db.query(sql, [grupa.id_grupa, grupa.ime_grupa]);
+   const result = await db.query(sql);
    return result.rows;
  } catch(err) {
     console.log(err);

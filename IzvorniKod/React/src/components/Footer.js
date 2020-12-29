@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Footer() {
+function Footer(props) {
     return (
       <footer id ="footer" className="container-fluid bg-dark pt-3 pb-3 text-white">
-        <p className="float-left">Kontakt: 099 999 9999</p>
+        <p className="float-left">Email kampa: {props.email}</p>
       </footer>
     );
   }

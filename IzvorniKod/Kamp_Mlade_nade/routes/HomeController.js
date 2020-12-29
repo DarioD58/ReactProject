@@ -29,15 +29,15 @@ class HomeController extends Controller {
                     kamp : kamp.ime_kamp,
                     email: kamp.email_kamp,
                     pocetak_kamp : timer,
+                    email: kamp.email_kamp,
                     pocetak_prijava_sud: kamp.pocetak_prijava_sudionika,
                     kraj_prijava_sud : kamp.kraj_prijava_sudionika,
                     pocetak_prijava_anim : kamp.pocetak_prijava_animatora,
                     kraj_prijava_anim : kamp.kraj_prijava_animatora,
                     aktivnosti : aktivnosti
                 });
-            } else if(req.body.statusKorisnik == "sudionik" || 
-                        req.body.statusKorisnik == "animator" ||
-                        req.body.statusKorisnik == "organizator"){
+            } else if(req.body.statusKorisnik == "sudionik" || req.body.statusKorisnik == "animator"
+                        || req.body.statusKorisnik == "organizator"){
                 let kamp = await Kamp.fetchActive();
                 if(kamp.status != undefined){
                     return JSON.stringify({

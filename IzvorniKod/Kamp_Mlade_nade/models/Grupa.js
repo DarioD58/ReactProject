@@ -1,5 +1,6 @@
 const db = require('../db');
 const Sudionik = require('../models/Sudionik');
+const Korisnik = require('./Korisnik');
 
 module.exports = class Grupa {
     //konstruktor
@@ -24,7 +25,15 @@ module.exports = class Grupa {
     }
 
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
-    async getAllMembers(){
+    async getAllMembers(id_grupa){
+      let results = await dbGetAllMembers(id_grupa);
+      let clanovi = [];
+      if (results.length > 0){
+        for(let i = 0; i < results.length; i++){
+          let clan = new Korisnik(results[i].korisnicko_ime, results[i].lozinka)
+        }
+      }
+
 
     }
 
@@ -51,6 +60,15 @@ dbGetAllGrupa = async () => {
  }
 }
 
-dbGetAllMembers = async () => {
-
+dbGetAllMembers = async (id_grupa) => {
+  const sql = 'SELECT korisnik.korisnicko_ime FROM GRUPA JOIN KORISNIK NATURAL JOIN ON' + id_grupa;
+try{
+  await grupa.getAllMembers();
+  //console.log("Dohvat svih sudionika grupe")
+  const result = await db.query(sql, [sudionik.korisnicko_ime_sudionik]);
+  return result.rows;
+  } catch(err){
+    console.log(err);
+    throw err;
+  }
 }

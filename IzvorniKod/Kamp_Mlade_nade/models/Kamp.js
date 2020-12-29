@@ -78,6 +78,10 @@ module.exports = class Kamp {
             return kamp;
         }
 
+        //brisanje kampa
+        static async eraseCamp(){
+            return await dbEraseCamp(this);
+        }
 }
 
 dbCreateKamp = async(kamp) => {
@@ -154,6 +158,17 @@ dbCheckForActiveCamp = async() => {
         const result = await db.query(sql, []);
         return result.rows;
     } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbEraseCamp = async(ime_kamp, datum_odrzavanja_kamp) => {
+    const sql = 'DELETE * FROM KAMP WHERE ime_kamp =' + ime_kamp + ' AND datum_odrzavanja_kamp =' + datum_odrzavanja_kamp;
+    try{
+        const result = await db.query(sql, [ime_kamp, datum_odrzavanja_kamp]);
+        return result.rows;
+    } catch(err){
         console.log(err);
         throw err;
     }

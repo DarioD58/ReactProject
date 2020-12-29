@@ -36,6 +36,7 @@ module.exports = class Prijava {
     }
 }
 
+// ovdje su dobro iskoristeni argumenti
 dbAddNewPrijava = async (prijava) => {
     const sql = `INSERT INTO prijava (korisnicko_ime, status_prijava, 
     ime_kamp, datum_odrzavanja_kamp, motivacijsko_pismo) VALUES ($1 ,$2, $3, $4, $5) RETURNING id_prijava`;
@@ -50,6 +51,7 @@ dbAddNewPrijava = async (prijava) => {
     
 }
 
+// ovdje su dobro iskoristeni argumenti
 dbCheckPrijavaForUsername = async (korIme) => {
     const sql = `SELECT id_prijava FROM prijava WHERE korisnicko_ime = $1`;
     try {
@@ -61,6 +63,7 @@ dbCheckPrijavaForUsername = async (korIme) => {
     }
 }
 
+// Dohvatiti sve podatke o prijavi i u pozivajućoj metodi stvoriti nove instance prijave
 dbFetchActivePrijava = async() => {
     const sql = 'SELECT id_prijava FROM prijava WHERE status_prijava = "aktivna"';
     try{
@@ -72,6 +75,8 @@ dbFetchActivePrijava = async() => {
     }
 }
 
+// Popraviti modificiranje upita. Za referencu pogledati druge upite npr. gornji upiti
+// Ovakav unos teksta omogućuje SQL injection
 dbChangeStatusPrijava = async(id, status) => {
     const sql = 'UPDATE PRIJAVA SET status_prijava = ' + status + 'WHERE id_prijava = ' + id;
     try{

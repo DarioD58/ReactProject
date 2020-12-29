@@ -28,11 +28,11 @@ module.exports = class Prijava {
 
 
     static async fetchActivePrijava(){
-        //nadopuniti
+        return await dbFetchActivePrijava();
     }
 
     static async changeStatusPrijava(id, status){
-        // nadopuniti
+        return await dbChangeStatusPrijava(id,status);
     }
 }
 
@@ -57,6 +57,28 @@ dbCheckPrijavaForUsername = async (korIme) => {
         return result.rows[0];
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
+    }
+}
+
+dbFetchActivePrijava = async() => {
+    const sql = 'SELECT id_prijava FROM prijava WHERE status_prijava = "aktivna"';
+    try{
+        const result = await db.query(sql, []);
+        return result.rows;
+    } catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+dbChangeStatusPrijava = async(id, status) => {
+    const sql = 'UPDATE PRIJAVA SET status_prijava = ' + status + 'WHERE id_prijava = ' + id;
+    try{
+        const result = await db.query(sql, [id, status]);
+        return result.rows;
+    } catch(err){
+        console.log(err);
+        throw err;
     }
 }

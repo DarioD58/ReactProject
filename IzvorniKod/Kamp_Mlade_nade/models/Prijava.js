@@ -45,7 +45,7 @@ dbAddNewPrijava = async (prijava) => {
             prijava.kamp.datum_odrzavanja_kamp, prijava.motivacijsko_pismo]);
         return result.rows[0].id_prijava;
     } catch (err) {
-        console.log(err + "");
+        console.log(err);
         throw err;
     }
     

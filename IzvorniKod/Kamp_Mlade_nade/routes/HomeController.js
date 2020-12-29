@@ -25,7 +25,9 @@ class HomeController extends Controller {
                 let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
                 
                 return JSON.stringify({
+                    status_kamp : 0,
                     kamp : kamp.ime_kamp,
+                    email: kamp.email_kamp,
                     pocetak_kamp : timer,
                     pocetak_prijava_sud: kamp.pocetak_prijava_sudionika,
                     kraj_prijava_sud : kamp.kraj_prijava_sudionika,
@@ -33,18 +35,23 @@ class HomeController extends Controller {
                     kraj_prijava_anim : kamp.kraj_prijava_animatora,
                     aktivnosti : aktivnosti
                 });
-            } else if(req.body.statusKorisnik == "sudionik" || req.body.statusKorisnik == "animator"){
+            } else if(req.body.statusKorisnik == "sudionik" || 
+                        req.body.statusKorisnik == "animator" ||
+                        req.body.statusKorisnik == "organizator"){
                 let kamp = await Kamp.fetchActive();
                 if(kamp.status != undefined){
                     return JSON.stringify({
+                        status_kamp : 1,
                         kamp : kamp.ime_kamp,
                         email: kamp.email_kamp
                     });
                 } else {
                     let kamp = await Kamp.fetchUpcoming();
-                    let timer = new Date(kamp.datum_odrzavanja_kamp).toDateString(); // za sad podržavamo jedan aktivni kamp
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podrž
                     
                     return JSON.stringify({
+                        status_kamp : 0,
                         kamp : kamp.ime_kamp,
                         pocetak_kamp : timer,
                         email: kamp.email_kamp

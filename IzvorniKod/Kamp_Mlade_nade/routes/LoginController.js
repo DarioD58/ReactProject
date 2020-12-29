@@ -44,7 +44,6 @@ router.post("/", async (req, res, next) => {
     } else {
         res.setHeader('Set-Cookie', cookie.serialize('korisnik', JSON.stringify(data), {httpOnly: true, maxAge: 60*60}));
         //res.cookie("korisnik", JSON.stringify(data), { httpOnly : true, maxAge: 60*60});
-        console.log(data);
         res.json(data);
     }
 });

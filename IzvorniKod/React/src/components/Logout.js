@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-function Logout(){
+function Logout(props){
     let history = useHistory();
 
     const handleLogout = () => {
@@ -11,14 +11,14 @@ function Logout(){
             localStorage.setItem("user", undefined);
             localStorage.setItem("role", undefined);
             history.push('/');
-            window.location.reload();
+            props.setSession('false')
         }).catch((error) => {
             console.log(error);
         })
     }
 
     return (
-        <button className='text-black' onClick={handleLogout}>Odjavi se</button>
+        <button className='logout-button' onClick={handleLogout}>Odjavi se</button>
     );
 }
 

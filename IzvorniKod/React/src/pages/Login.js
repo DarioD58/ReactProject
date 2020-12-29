@@ -1,20 +1,18 @@
 import React from 'react';
-import {Redirect, withRouter} from "react-router-dom";
+import {Redirect, withRouter, useHistory} from "react-router-dom";
 
 
 function Login(props) {
+    let history = useHistory();
 
     const [state, setState] = React.useState({
         korime: "",
         lozinka: ""
     });
 
-    const [logged, setLogged] = React.useState('false')
-
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        console.log(objekt)
         fetch("http://localhost:5000/login", {
             credentials: 'same-origin',
             method: 'POST',
@@ -25,17 +23,14 @@ function Login(props) {
             response.json()
         )
         .then((res) => {
-            console.log(res)
             if(res.error != undefined){
                 throw new Error(res.error);
             }
             localStorage.setItem("isLoggedIn", true);
             localStorage.setItem("user", res.korisnickoIme);
             localStorage.setItem("role", res.statusKorisnik);
-            setLogged('true')
-            props.setSession(logged)
-            props.history.push('/')
-            window.location.reload()
+            history.push('/')
+            props.setSession('true')
         }).catch((error) => {
             console.log(error);
             setState(prevState => ({

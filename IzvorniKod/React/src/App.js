@@ -40,11 +40,19 @@ function App() {
     });
   }, []);
 
+  function updateSession(newValue){
+    setSession(newValue)
+  }
+
+  React.useEffect(() => {
+    console.log(session)
+  }, [session]);
+
   return (
     <BrowserRouter>
     <div className="App">
       <Sidebar logged={session}/>
-      <Header ime = {kamp.ime} logged={session}/>
+      <Header ime = {kamp.ime} logged={session} setSession={updateSession}/>
       <Switch>
         <Route exact path='/'>
           <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} activity={activity} />
@@ -56,10 +64,10 @@ function App() {
             <AddActivity />
           </Route>
         <Route exact path='/login'>
-          <Login setSession={setSession}/>
+          <Login setSession={updateSession}/>
         </Route>
         <Route exact path='/register'>
-          <Register />
+          <Register setSession={updateSession} />
         </Route>
         <Route exact path='/application'>
           <Apply />

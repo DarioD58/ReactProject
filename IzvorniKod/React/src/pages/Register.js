@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-function Register() {
+function Register(props) {
 
     const [state, setState] = React.useState({
         korime: "",
@@ -30,7 +30,7 @@ function Register() {
             localStorage.setItem("user", res.korisnickoIme);
             localStorage.setItem("role", res.statusKorisnik);
             history.push('/');
-            window.location.reload();
+            props.setSession('true')
         }).catch((response) => {
             console.log("Error")
             setState(prevState => ({

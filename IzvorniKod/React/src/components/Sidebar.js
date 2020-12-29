@@ -4,20 +4,32 @@ import {Link} from 'react-router-dom';
 
 export default props => {
   let check = localStorage.getItem('role')
+
+  const [isOpen, setIsOpen] = React.useState({
+    open: false
+  })
+
+  const handleClick = () => {
+    setIsOpen(prevState => ({
+      ...prevState,
+      open: false
+    }))
+  }
+
   if(props.logged == 'true' && check == 'organizator'){
     return (
-      <Menu>
-        <Link to='/'>
+      <Menu right isOpen={isOpen.open}>
+        <Link to='/' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
           </p>
         </Link>
-        <Link to='/makecamp'>
+        <Link to='/makecamp' onClick={handleClick}>
           <p className="menu-item">
             Stvori novi kamp
           </p>
         </Link>
-        <Link to='/makeactivity'>
+        <Link to='/makeactivity' onClick={handleClick}>
           <p className="menu-item">
             Stvori novu aktivnost
           </p>
@@ -29,8 +41,8 @@ export default props => {
     );
   } else if(props.logged == 'true'){
     return (
-      <Menu>
-        <Link to='/'>
+      <Menu right isOpen={isOpen.open}>
+        <Link to='/' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
           </p>
@@ -48,9 +60,9 @@ export default props => {
     );
   }
   return (
-    <Menu>
+    <Menu right isOpen={isOpen.open}>
       <Link to='/'>
-        <p className="menu-item">
+        <p className="menu-item" onClick={handleClick}>
           Početna stranica
         </p>
       </Link>

@@ -16,7 +16,8 @@ import HomePage from './pages/HomePage'
 function App() {
   const [kamp, setKamp] = React.useState({
     ime: "",
-    vrijeme: ""
+    vrijeme: "", 
+    email: ""
   });
 
   const [activity, setActivity] = React.useState([]);
@@ -31,7 +32,8 @@ function App() {
       setKamp(prevKamp => ({
         ...prevKamp,
         ime: data.kamp,
-        vrijeme: data.pocetak_kamp
+        vrijeme: data.pocetak_kamp,
+        email: data.email
     }))
     setActivity(
       ...activity,
@@ -73,7 +75,7 @@ function App() {
           <Apply />
         </Route>
       </Switch>
-      <Footer />
+      <Footer email={kamp.email}/>
     </div>
     </BrowserRouter>
   );

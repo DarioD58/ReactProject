@@ -17,10 +17,9 @@ class PrijavaController extends Controller {
     /*     let cookies = JSON.parse(req.cookies);
         console.log(cookies); */
         let korisnik = JSON.parse(req.cookies.korisnik);
-    
+
         try {
             if(! await Organizator.checkOrganizator(korisnik.korisnickoIme, korisnik.statusKorisnik)) throw new Error();
-
             // testno
             let prijave = {
                 prva : "Prva prijava",
@@ -46,7 +45,7 @@ class PrijavaController extends Controller {
         let status = prijavaInfo.status_prijava;
         let korisnickoIme = prijavaInfo.kor_ime;
         
-        let korisnik = await Korisnik.fetchKorisnikByUsername(korisnckoIme);
+        let korisnik = await Korisnik.fetchKorisnikByUsername(korisnickoIme);
         let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
         Prijava.changeStatusPrijava(id, status);
 

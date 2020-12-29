@@ -15,7 +15,7 @@ class LogoutController extends Controller {
 let logout = new LogoutController();
 router.get("/", async (req, res, next) => {
     let data = JSON.parse(await logout.get(req, res, next));
-    res.clearCookie("user");
+    res.clearCookie("korisnik");
     res.json(data);
 });
 

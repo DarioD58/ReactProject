@@ -13,16 +13,15 @@
 			\item Prijava
 			\item Grupa
 			\item Raspored
-			\item Sjednica
 			\item Aktivnost
 			\item Kamp
-			\item Animator\_ocjena\_aktivnosti
-			\item Sudionik\_ocjena\_aktivnosti
+			\item ocjena\_aktivnosti
+			\item ukupni\_dojam
 		\end{packed_item}
 			\subsection{Opis tablica}
 			
 
-				\textbf{Korisnik}	Ovaj entitet sadržava sve važne informacije o korisniku aplikacije. Sadrži atribute: korisnicko\_ime, lozinka, email, ime, prezime, status. Ovaj entitet u vezi je \textit{One-to-One} s entitetom Sudionik preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Animator preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Organizator preko atributa korisnicko\_ime, te u vezi \textit{One-to-One} s entitetom Prijava preko atributa korisnicko\_ime.
+				\textbf{Korisnik}	Ovaj entitet sadržava sve važne informacije o korisniku aplikacije. Sadrži atribute: korisnicko\_ime, lozinka, email, ime, prezime, status. Ovaj entitet u vezi je \textit{One-to-One} s entitetom Sudionik preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Animator preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Organizator preko atributa korisnicko\_ime, u vezi \textit{One-to-One} s entitetom Prijava preko atributa korisnicko\_ime, u vezi \textit{One-to-Many} s entitetom ocjena\_aktivnosti preko atributa korisnicko\_ime, te u vezi textit{One-to-One} s entitetom ukupni\_dojam preko atributa korisnicko\_ime.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -45,7 +44,7 @@
 					
 				\end{longtabu}
 			
-				\textbf{Sudionik}	Ovaj entitet sadržava sve važne informacije vezane za sudionika u kampu. Sadrži atribute: korisnicko\_ime\_sudionik, br\_tel\_sudionik, datum\_i\_god\_rod\_sudionik, br\_tel\_odg\_osobe, id\_grupa. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Sudionik\_ocjena\_aktivnosti preko atributa korisnicko\_ime\_sudionik, u vezi \textit{Many-to-one} s entitetom Grupa preko atributa id\_grupa, te u vezi \textit{One-to-One}  s entitetom Korisnik preko atributa korisnicko\_ime\_sudionik.
+				\textbf{Sudionik}	Ovaj entitet sadržava sve važne informacije vezane za sudionika u kampu. Sadrži atribute: korisnicko\_ime\_sudionik, br\_tel\_sudionik, datum\_i\_god\_rod\_sudionik, br\_tel\_odg\_osobe, id\_grupa. Ovaj entitet je u vezi \textit{Many-to-one} s entitetom Grupa preko atributa id\_grupa, te u vezi \textit{One-to-One}  s entitetom Korisnik preko atributa korisnicko\_ime\_sudionik.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -67,7 +66,7 @@
 					
 				\end{longtabu}
 			
-				\textbf{Animator}	Ovaj entitet sadržava sve važne informacije vezane za animatora u kampu. Sadrži atribute: korisnicko\_ime\_animator, br\_tel\_animator, datum\_i\_god\_rod\_animator. Ovaj entitet je u \textit{One-to-One} vezi s entitetom Korisnik preko atributa korisnicko\_ime\_animatora, u vezi \textit{Many-to-One} s entitetom Raspored preko atributa korisnicko\_ime\_animator, te u vezi \textit{One-to-Many} s entitetom Animator\_ocjena\_aktivnosti preko atributa korisnicko\_ime\_animator.
+				\textbf{Animator}	Ovaj entitet sadržava sve važne informacije vezane za animatora u kampu. Sadrži atribute: korisnicko\_ime\_animator, br\_tel\_animator, datum\_i\_god\_rod\_animator. Ovaj entitet je u \textit{One-to-One} vezi s entitetom Korisnik preko atributa korisnicko\_ime\_animatora, te u vezi \textit{Many-to-One} s entitetom Raspored preko atributa korisnicko\_ime\_animator.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -148,7 +147,7 @@
 					
 				\end{longtabu}
 			
-				\textbf{Raspored}	Ovaj entitet sadrži sve važne informacije vezane za raspored kampa. Sadrži atribute: id\_grupa, id\_aktivnost, datum\_i\_vrijeme\_izvrsavanja, korisnicko\_ime\_animator. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Grupa preko atributa id\_grupa, \textit{Many-to-Many} vezi s entitetom Animator preko atributa korisnicko\_ime\_animator, te u vezi \textit{One-to-Many} s entitetom Aktivnost preko atributa id\_aktivnost.   
+				\textbf{Raspored}	Ovaj entitet sadrži sve važne informacije vezane za raspored kampa. Sadrži atribute: id\_grupa, id\_aktivnost, datum\_i\_vrijeme\_izvrsavanja, korisnicko\_ime\_animator. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Grupa preko atributa id\_grupa, \textit{Many-to-Many} vezi s entitetom Animator preko atributa korisnicko\_ime\_animator, te u vezi \textit{One-to-Many} s entitetom Aktivnost preko atributa id\_aktivnost.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -170,27 +169,8 @@
 					
 				\end{longtabu}
 			
-				\textbf{Session}	Ovaj entitet sadrži sve važne informacije o sjednici. Sadrži atribute: ssid, sess, expire.
-				
-				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
-					
-					\hline \multicolumn{3}{|c|}{\textbf{Session}}	 \\[3pt] \hline
-					\endfirsthead
-					
-					\hline \multicolumn{3}{|c|}{\textbf{Session}}	 \\[3pt] \hline
-					\endhead
-					
-					\hline 
-					\endlastfoot
-					
-					ssid & INT	& jedinstveni identifikator sjednice 	\\ \hline
-					sess	& VARCHAR & podatci o sjednici  	\\ \hline 
-					expire & DATETIME & rok trajanja sjednice  \\ \hline 
-					
-					
-				\end{longtabu}
 			
-				\textbf{Aktivnost}	Ovaj entitet sadrži sve važne o informacijama vezane za aktivnosti na kampu. Sadrži atribute: id\_aktivnost, ime\_aktivnost, opis\_aktivnost, trajanje\_aktivnost\_(sat/i), tip\_aktivnosti, datum\_odrzavanja\_kamp, ime\_kamp. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom Sudionik\_ocjena\_aktivnosti preko atributa id\_aktivnost, u \textit{Many-to-Many} vezi s entitetom Kamp preko atributa ime\_kamp, u \textit{One-to-Many} vezi s entitetom Animator\_ocjena\_aktivnosti preko atributa id\_aktivnosti te u \textit{Many-to-One} vezi s entitetom Raspored preko atributa id\_aktivnost.
+				\textbf{Aktivnost}	Ovaj entitet sadrži sve važne o informacijama vezane za aktivnosti na kampu. Sadrži atribute: id\_aktivnost, ime\_aktivnost, opis\_aktivnost, trajanje\_aktivnost\_(sat/i), tip\_aktivnosti, datum\_odrzavanja\_kamp, ime\_kamp. Ovaj entitet je u \textit{One-to-Many} vezi s entitetom ocjena\_aktivnosti preko atributa id\_aktivnost, u \textit{Many-to-Many} vezi s entitetom Kamp preko atributa ime\_kamp, te u \textit{Many-to-One} vezi s entitetom Raspored preko atributa id\_aktivnost.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -214,7 +194,7 @@
 					
 				\end{longtabu}
 			
-				\textbf{Kamp}	Ovaj entitet sadrži sve važne informacije o kampu. Sadrži atribute: ime\_kamp, datum\_odrzavanja\_kamp, trajanje\_(dan/a), pocetak\_prijava\_sudionika, kraj\_prijava\_sudionika, pocetak\_prijava\_animatora, kraj\_prijava\_animatora, broj\_grupa, status, email\_kamp. Ovaj entitet je u \textit{Many-to-Many} vezi s entitetom Aktivnost preko atributa ime\_kamp, te u \textit{One-to-Many} vezi s entitetom Prijava preko atributa ime\_kamp.
+				\textbf{Kamp}	Ovaj entitet sadrži sve važne informacije o kampu. Sadrži atribute: ime\_kamp, datum\_odrzavanja\_kamp, trajanje\_(dan/a), pocetak\_prijava\_sudionika, kraj\_prijava\_sudionika, pocetak\_prijava\_animatora, kraj\_prijava\_animatora, broj\_grupa, status, email\_kamp. Ovaj entitet je u \textit{Many-to-Many} vezi s entitetom Aktivnost preko atributa ime\_kamp, u \textit{One-to-Many} vezi s entitetom Prijava preko atributa ime\_kamp, te u \textit{One-to-Many} vezi s entitetom ukupni\_dojam preko atributa ime\_kamp i datum\_odrzavanja\_kamp.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
@@ -241,44 +221,45 @@
 					
 				\end{longtabu}
 			
-				\textbf{Animator\_ocjena\_aktivnosti}	Ovaj entitet sadrži sve važne informacije o ocjenama aktivnosti sa strane animatora. Sadrži atribute: korisnicko\_ime\_animator. ocjena\_animator, dojam\_animator, id\_aktivnost. Ovaj entitet je u \textit{Many-to-one} vezi s entitetom Animator preko atributa korisnicko\_ime\_animator, te u \textit{Many-to-One} vezi s entitetom Aktivnost preko atributa id\_aktivnost.   
+				\textbf{ocjena\_aktivnosti}	Ovaj entitet sadrži sve važne informacije o ocjenama aktivnosti. Sadrži atribute: korisnicko\_ime, ocjena, dojam, id\_aktivnost. Ovaj entitet je u \textit{Many-to-one} vezi s entitetom Korisnik preko atributa korisnicko\_ime, te u \textit{Many-to-One} vezi s entitetom Aktivnost preko atributa id\_aktivnost.   
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
-					\hline \multicolumn{3}{|c|}{\textbf{Animator\_ocjena\_aktivnosti}}	 \\[3pt] \hline
+					\hline \multicolumn{3}{|c|}{\textbf{ocjena\_aktivnosti}}	 \\[3pt] \hline
 					\endfirsthead
 					
-					\hline \multicolumn{3}{|c|}{\textbf{Animator\_ocjena\_aktivnosti}}	 \\[3pt] \hline
+					\hline \multicolumn{3}{|c|}{\textbf{ocjena\_aktivnosti}}	 \\[3pt] \hline
 					\endhead
 					
 					\hline 
 					\endlastfoot
 					
-					\cellcolor{LightGreen}Korisnicko ime animator & VARCHAR	& jedinstveni identifikator korisnika( animator)	\\ \hline
-					Ocjena animator	& INT & animatorova ocjena aktivnosti  	\\ \hline 
-					Dojam animator & VARCHAR & animatorov dojam aktivnosti   \\ \hline 
-					\cellcolor{LightBlue}ID aktivnost	& INT & jedinstveni identifikator aktivnosti	\\ \hline 
+					\cellcolor{LightGreen}Korisnicko ime& VARCHAR	& jedinstveni identifikator korisnika	\\ \hline
+					Ocjena	& INT & ocjena aktivnosti  	\\ \hline 
+					Dojam  & VARCHAR &  dojam aktivnosti   \\ \hline 
+					\cellcolor{LightGreen}ID aktivnost	& INT & jedinstveni identifikator aktivnosti	\\ \hline 
 					
 					
 				\end{longtabu}
 			
-				\textbf{Sudionik\_ocjena\_aktivnosti}	Ovaj entitet sadrži sve važne informacije o ocjenama aktivnosti sa strane animatora. Sadrži atribute: korisnicko\_ime\_sudionik, ocjena\_sudionik, dojam\_sudionik, id\_aktivnost. Ovaj entitet je u \textit{Many-to-One} vezi s entitetom Sudionik preko atributa korisnicko\_ime\_sudionik, te u \textit{Many-to-One} vezi s entitetom Aktivnost preko atributa id\_aktivnost.
+				\textbf{ukupni\_dojam}	Ovaj entitet sadrži sve važne informacije o ukupnom dojmu o aktivnosti. Sadrži atribute: korisnicko\_ime, ocjena, dojam, ime\_kamp, datum\_odrzavanja\_kamp. Ovaj entitet je u \textit{Many-to-One} vezi s entitetom Kamp preko atributa ime\_kamp i atributa datum\_odrzavanja\_kamp, te u \textit{One-to-One} vezi s entitetom Korisnik preko atributa korisnicko\_ime.
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
-					\hline \multicolumn{3}{|c|}{\textbf{Sudionik\_ocjena\_aktivnosti}}	 \\[3pt] \hline
+					\hline \multicolumn{3}{|c|}{\textbf{ukupni\_dojam}}	 \\[3pt] \hline
 					\endfirsthead
 					
-					\hline \multicolumn{3}{|c|}{\textbf{Sudionik\_ocjena\_aktivnosti}}	 \\[3pt] \hline
+					\hline \multicolumn{3}{|c|}{\textbf{ukupni\_dojam}}	 \\[3pt] \hline
 					\endhead
 					
 					\hline 
 					\endlastfoot
 					
 					\cellcolor{LightGreen}Korisnicko ime sudionik & VARCHAR	& korisnicko ime korisnika( sudionik) 	\\ \hline
-					Ocjena sudionik	& INT & ocjena aktivnosti sudionika   	\\ \hline 
-					Dojam sudionik & VARCHAR & dojam aktivnosti sudionika  \\ \hline 
-					\cellcolor{LightBlue} ID aktivnost	& INT & jedinstveni identifikator aktivnosti  	\\ \hline 
+					\cellcolor{LightGreen}Datum odrzavanja kampa	& DATE & datum odrzavanja kampa  	\\ \hline 
+					Dojam & VARCHAR & dojam ukupnog iskustva  \\ \hline 
+					\cellcolor{LightBlue} Ime kamp	& VARCHAR & ime kampa  	\\ \hline 
+					Ocjena & INT & ocjena  ukupnog iskustva 	\\ \hline 
 					
 					
 				\end{longtabu}

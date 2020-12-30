@@ -27,6 +27,7 @@ module.exports = class Prijava {
     }
 
 
+    // Cilj metode je dobiti prijavu a ne vratiti rows.
     static async fetchActivePrijava(){
         return await dbFetchActivePrijava();
     }

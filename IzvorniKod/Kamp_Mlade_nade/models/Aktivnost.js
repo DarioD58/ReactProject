@@ -16,6 +16,7 @@ module.exports = class Aktivnost {
         }
 
         // vraća tip Number
+        // metda dbAddNewAktivnost() nije napravljena!
         async addNewAktivnost(){
             this.id_aktivnost = await dbAddNewAktivnost(this);
             return this.id_aktivnost;

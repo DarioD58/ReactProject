@@ -32,7 +32,15 @@ module.exports = class Kamp {
         async updateStatusKamp(status){
             await dbUpdateStatusKamp(status, this.ime_kamp, this.datum_odrzavanja_kamp);
         }
+
+        async checkForSudionikPrijave(){
+            return await dbCheckForSudionikPrijave(this);
+        }
         
+        async checkForAnimatorPrijave(){
+            return await dbCheckForAnimatorPrijave(this);
+        }
+
         // vraca Kamp
         static async fetchActive(){
 
@@ -82,6 +90,34 @@ module.exports = class Kamp {
         static async eraseCamp(){
             return await dbEraseCamp(this);
         }
+}
+
+dbCheckForSudionikPrijave = async (kamp) => {
+    const sql = `SELECT COUNT(*)
+    FROM kamp
+    WHERE pocetak_prijava_sudionika <= CURRENT_TIMESTAMP(0) AND kraj_prijava_sudionika >= CURRENT_TIMESTAMP(0)
+            AND ime_kamp = $1 AND datum_odrzavanja_kamp = $2`;  
+    try {
+        const result = await db.query(sql, [kamp.ime_kamp, kamp.datum_odrzavanja_kamp]);
+        return result.rows[0];
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbCheckForAnimatorPrijave = async (kamp) => {
+    const sql = `SELECT COUNT(*)
+    FROM kamp
+    WHERE pocetak_prijava_animatora <= CURRENT_TIMESTAMP(0) AND kraj_prijava_animatora >= CURRENT_TIMESTAMP(0)
+            AND ime_kamp = $1 AND datum_odrzavanja_kamp = $2`;  
+    try {
+        const result = await db.query(sql, [kamp.ime_kamp, kamp.datum_odrzavanja_kamp]);
+        return result.rows[0];
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 }
 
 dbCreateKamp = async(kamp) => {

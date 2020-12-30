@@ -25,6 +25,7 @@ module.exports = class Grupa {
     }
 
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
+    // PAZI! Polje nije popunjeno
     async getAllMembers(id_grupa){
       let results = await dbGetAllMembers(id_grupa);
       let clanovi = [];
@@ -59,7 +60,8 @@ dbGetAllGrupa = async () => {
     throw err;
  }
 }
-
+// popraviti upit da lijepo koristi argumente
+// i dohvaca sve atribute korisnika -> cilj je stvoriti instancu razreda Korisnik
 dbGetAllMembers = async (id_grupa) => {
   const sql = 'SELECT korisnik.korisnicko_ime FROM GRUPA JOIN KORISNIK NATURAL JOIN ON' + id_grupa;
 try{

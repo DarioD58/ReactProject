@@ -18,24 +18,28 @@ class HomeController extends Controller {
 
             //console.log(req.cookies.korisnik);
 
-            console.log(req.body.statusKorisnik)
-
             if(req.body.statusKorisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
                 
+                const prijaveZaSudionike = await kamp.checkForSudionikPrijave();
+                const prijaveZaAnimatore = await kamp.checkForAnimatorPrijave();
+
                 return JSON.stringify({
                     status_kamp : 0,
                     kamp : kamp.ime_kamp,
                     email: kamp.email_kamp,
                     pocetak_kamp : timer,
+                    trajanje_kamp : kamp.trajanje,
                     email: kamp.email_kamp,
-                    pocetak_prijava_sud: kamp.pocetak_prijava_sudionika,
-                    kraj_prijava_sud : kamp.kraj_prijava_sudionika,
-                    pocetak_prijava_anim : kamp.pocetak_prijava_animatora,
-                    kraj_prijava_anim : kamp.kraj_prijava_animatora,
+                    pocetak_prijava_sud: new Date(kamp.pocetak_prijava_sudionika).toLocaleDateString(undefined, options),
+                    kraj_prijava_sud : new Date(kamp.kraj_prijava_sudionika).toLocaleDateString(undefined, options),
+                    prijave_sud_otvorene : prijaveZaSudionike,
+                    pocetak_prijava_anim : new Date(kamp.pocetak_prijava_animatora).toLocaleDateString(undefined, options),
+                    kraj_prijava_anim : new Date(kamp.kraj_prijava_animatora).toLocaleDateString(undefined, options),
+                    prijave_anim_otvorene: prijaveZaAnimatore,
                     aktivnosti : aktivnosti
                 });
             } else if(req.body.statusKorisnik == "sudionik" || req.body.statusKorisnik == "animator"
@@ -50,7 +54,7 @@ class HomeController extends Controller {
                 } else {
                     let kamp = await Kamp.fetchUpcoming();
                     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                    let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podrž
+                    let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options);
                     
                     return JSON.stringify({
                         status_kamp : 0,
@@ -60,37 +64,6 @@ class HomeController extends Controller {
                     });
                 } 
             }
-            
-            //let korisnik = JSON.parse(req.cookies.korisnik);
-
-            //if()
-            // ako korisnik nije prijavljen šalji info o sljedećem kampu
-
-
-
- /*            let kamp = await Kamp.fetchActive();
-            if(kamp.status != undefined){
-                let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                return JSON.stringify({
-                    kamp : kamp.ime_kamp,
-                    email: kamp.email_kamp,
-                    aktivnosti : aktivnosti
-                });
-        } else {
-            let kamp = await Kamp.fetchUpcoming();
-            let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-            let timer = new Date(kamp.datum_odrzavanja_kamp); // za sad podržavamo jedan aktivni kamp
-            
-            return JSON.stringify({
-                kamp : kamp.ime_kamp,
-                pocetak_prijava_sud: kamp.pocetak_prijava_sudionika,
-                kraj_prijava_sud : kamp.kraj_prijava_sudionika,
-                pocetak_prijava_anim : kamp.pocetak_prijava_animatora,
-                kraj_prijava_anim : kamp.kraj_prijava_animatora,
-                pocetak_kamp : timer.toString(),
-                aktivnosti : aktivnosti
-            });
-        } */
         
         } catch (err) {
             console.error(err);

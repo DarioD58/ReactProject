@@ -20,7 +20,7 @@ function AddActivity() {
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
         console.log(objekt)
-        fetch("http://localhost:5000/aktivnost/create", {
+        fetch("./aktivnost/create", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

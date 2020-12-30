@@ -18,7 +18,7 @@ function AddCamp() {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("http://localhost:5000/kamp/create", {
+        fetch("./kamp/create", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

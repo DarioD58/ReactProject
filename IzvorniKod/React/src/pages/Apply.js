@@ -17,7 +17,7 @@ function Apply() {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("http://localhost:5000/apply", {
+        fetch("./apply", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

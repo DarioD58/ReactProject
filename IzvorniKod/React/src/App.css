@@ -25,6 +25,34 @@ form{
     opacity: 0.5;
 }
 
+.grid-container{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-content: center;
+  justify-content:space-around ;
+}
+
+#grid-title1{
+  grid-column: 2;
+}
+
+#grid-title2{
+  grid-column: 3;
+}
+
+.first-section{
+  background-color: white;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.second-section{
+  background-color: beige;
+  width: 100%;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
 img[alt="Slika kampa"]{
   max-width: 100%;
   height: 15vh;
@@ -40,18 +68,41 @@ img[alt="Slika kampa"]{
 .logout-button{
   background-color: #343a40;
   color: white;
-  border: 2px solid forestgreen;
+  border: 2px solid white;
   border-radius: 5%;
   cursor: pointer;
 }
 
 #footer{
-    height: max-content;
+    height: 16vh;
+    display: grid;
+    grid-template-columns: auto auto 20%;
+    align-items: center;
 }
 
 #footer>p{
-    font-size: 2vh;
+  display: inline;
+  font-size: 2vh;
 }
+
+.footer-logo{
+  max-width: 100%;
+  height: 10vh;
+}
+
+.footer-logo-container{
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.footer-logo-container>p{
+  display: inline;
+  margin-bottom: 0;
+}
+
 
 .general-text{
   color: black;
@@ -136,12 +187,12 @@ section p:first-child, .timer div:last-child span{
   
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
-    background:forestgreen;
+    background:beige;
   }
   
   /* Color/shape of burger icon bars on hover*/
   .bm-burger-bars-hover {
-    background: forestgreen;
+    background: beige;
   }
   
   /* Position and sizing of clickable cross button */
@@ -152,7 +203,7 @@ section p:first-child, .timer div:last-child span{
   
   /* Color/shape of close button cross */
   .bm-cross {
-    background: forestgreen;
+    background: beige;
   }
   
   /*

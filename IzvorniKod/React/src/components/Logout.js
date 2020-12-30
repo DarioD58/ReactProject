@@ -5,7 +5,7 @@ function Logout(props){
     let history = useHistory();
 
     const handleLogout = () => {
-        fetch('http://localhost:5000/logout')
+        fetch('./logout')
         .then((response) => {
             localStorage.setItem("isLoggedIn", false);
             localStorage.setItem("user", undefined);

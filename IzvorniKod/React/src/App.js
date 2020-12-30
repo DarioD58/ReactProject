@@ -17,7 +17,11 @@ function App() {
   const [kamp, setKamp] = React.useState({
     ime: "",
     vrijeme: "", 
-    email: ""
+    email: "",
+    pocetak_prijava_sud: "",
+    kraj_prijava_sud: "",
+    pocetak_prijava_anim: "",
+    kraj_prijava_anim: ""
   });
 
   const [activity, setActivity] = React.useState([]);
@@ -33,7 +37,11 @@ function App() {
         ...prevKamp,
         ime: data.kamp,
         vrijeme: data.pocetak_kamp,
-        email: data.email
+        email: data.email,
+        pocetak_prijava_sud: data.pocetak_prijava_sud,
+        kraj_prijava_sud: data.kraj_prijava_sud,
+        pocetak_prijava_anim: data.pocetak_prijava_anim,
+        kraj_prijava_anim: data.kraj_prijava_anim
     }))
     setActivity(
       ...activity,
@@ -46,9 +54,6 @@ function App() {
     setSession(newValue)
   }
 
-  React.useEffect(() => {
-    console.log(session)
-  }, [session]);
 
   return (
     <BrowserRouter>
@@ -57,7 +62,9 @@ function App() {
       <Header ime = {kamp.ime} logged={session} setSession={updateSession}/>
       <Switch>
         <Route exact path='/'>
-          <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} activity={activity} />
+          <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} pocetak_prijava_sud={kamp.pocetak_prijava_sud}
+           kraj_prijava_sud={kamp.kraj_prijava_sud} pocetak_prijava_anim={kamp.pocetak_prijava_anim}
+           kraj_prijava_anim={kamp.kraj_prijava_anim} activity={activity} />
         </Route>
         <Route exact path='/makecamp'>
             <AddCamp />

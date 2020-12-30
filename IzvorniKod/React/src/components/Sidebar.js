@@ -23,9 +23,16 @@ export default props => {
     }))
   }
 
+  const handleClose = () => {
+    setIsOpen(prevState => ({
+      ...prevState,
+      open: false
+    }))
+  }
+
   if(props.logged == 'true' && check == 'organizator'){
     return (
-      <Menu right isOpen={isOpen.open} onOpen={handleOpen}>
+      <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
         <Link to='/' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
@@ -48,7 +55,7 @@ export default props => {
     );
   } else if(props.logged == 'true'){
     return (
-      <Menu right isOpen={isOpen.open} onOpen={handleOpen}>
+      <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
         <Link to='/' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
@@ -67,7 +74,7 @@ export default props => {
     );
   }
   return (
-    <Menu right isOpen={isOpen.open} onOpen={handleOpen}>
+    <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
       <Link to='/'>
         <p className="menu-item" onClick={handleClick}>
           Početna stranica

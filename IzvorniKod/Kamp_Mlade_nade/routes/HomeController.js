@@ -18,6 +18,8 @@ class HomeController extends Controller {
 
             //console.log(req.cookies.korisnik);
 
+            console.log(req.body.statusKorisnik)
+
             if(req.body.statusKorisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Redirect, withRouter, useHistory} from "react-router-dom";
+import Cookies from 'js-cookie'
 
 
 function Login(props) {
@@ -13,8 +14,8 @@ function Login(props) {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("http://localhost:5000/login", {
-            credentials: 'same-origin',
+        fetch("./login", {
+            credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt
@@ -26,6 +27,8 @@ function Login(props) {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
+            console.log(document.cookie)
+            console.log(Cookies.get())
             localStorage.setItem("isLoggedIn", true);
             localStorage.setItem("user", res.korisnickoIme);
             localStorage.setItem("role", res.statusKorisnik);

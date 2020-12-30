@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function NotButton(){
+function NotButton(props){
     return (
-        <div>
+        <div className={props.cssClass}>
             <Link to='/application'>
                 <div className="login-not-button text-white">Registriraj se</div>
             </Link>

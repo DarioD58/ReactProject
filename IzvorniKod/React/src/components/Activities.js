@@ -12,30 +12,30 @@ function Activities(props){
     ]*/
     if(activities === undefined){
         return (
-            <div>
-            <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
-            <div className="activites text-light">
-            <div className='aktivnosti'>
-                <h3>Naziv</h3>
-                <h3>Opis</h3>
-                <h3>Trajanje</h3>
-            </div>
-            </div>
+            <div className={props.cssClass}>
+                <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
+                <div className="activites text-light">
+                    <div className='aktivnosti'>
+                        <h3>Naziv</h3>
+                        <h3>Opis</h3>
+                        <h3>Trajanje</h3>
+                    </div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div>
-        <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
-        <div className="activites text-light">
-        <div className='aktivnosti'>
-            <h3>Naziv</h3>
-            <h3>Opis</h3>
-            <h3>Trajanje</h3>
-        </div>
-            {activities.map(activity => <Activity key={activity.id_aktivnost} activity={activity}/>)}
-        </div>
+        <div className={props.cssClass}>
+            <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
+            <div className="activites text-light">
+                <div className='aktivnosti'>
+                    <h3>Naziv</h3>
+                    <h3>Opis</h3>
+                    <h3>Trajanje</h3>
+                </div>
+                {activities.map(activity => <Activity key={activity.id_aktivnost} activity={activity}/>)}
+            </div>
         </div>
     );
 

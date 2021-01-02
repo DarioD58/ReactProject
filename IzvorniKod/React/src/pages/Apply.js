@@ -8,6 +8,7 @@ function Apply() {
         prezime: "",
         email: "",
         brtel: "",
+        brtelrod: "",
         dob: "",
         pismo: "",
         status: "sudionik"
@@ -61,10 +62,34 @@ function Apply() {
             prezime: "",
             email: "",
             brtel: "",
+            brtelrod: "",
             dob: "",
             pismo: "",
             status: "sudionik" 
         }))
+    }
+
+    const [hidden, setHidden]= React.useState(true);
+
+    const youngerThan18 = (e) => {
+        let {id , value} = e.target 
+        id = e.target.name  
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+        var today = new Date();
+        var birthDate = new Date(value);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if(age < 18){
+            setHidden(false);
+        } else {
+            setHidden(true)
+        }   
     }
 
 
@@ -88,9 +113,15 @@ function Apply() {
                 required type="text" name="brtel" value={state.brtel}
                 placeholder="0999999999" size="50"/>
                 <label className="general-text" for="dob">Datum rođenja: </label>
-                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
+                <input className="bg-dark pt-3 pb-3 text-white" onChange={youngerThan18} 
                 required type="date" value={state.dob}
                 name="dob" size="50"/>
+
+                <label className="general-text" for="brtelrod" hidden = {hidden}>Broj telefona roditelja: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" hidden = {hidden} onChange={onChange}
+                required = {!hidden} type="text" name="brtelrod" value={state.brtelrod}
+                placeholder="0999999999" size="50"/>
+
                 <label className="general-text" for="pismo">Motivacijsko pismo: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 type="text" name="pismo" value={state.pismo}

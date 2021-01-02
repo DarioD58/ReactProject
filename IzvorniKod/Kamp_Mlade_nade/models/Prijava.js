@@ -7,9 +7,10 @@ const db = require('../db');
 module.exports = class Prijava {
 
     // konstruktor
-    constructor(korisnik, motivacijsko_pismo, status_prijava, kamp){
+    constructor(korisnik_ime, korisnik_prezime, motivacijsko_pismo, status_prijava, kamp){
         this.id_prijava = undefined;    // number
-        this.korisnik = korisnik;   // Korisnik
+        this.korisnik_ime = korisnik_ime;   // Korisnik
+        this.korisnik_prezime = korisnik_prezime
         this.motivacijsko_pismo = motivacijsko_pismo;   // string
         this.status_prijava = status_prijava;   // string
         this.kamp = kamp;   // Kamp

@@ -62,7 +62,6 @@ function Register(props) {
             [id] : value
         }))
         if(state.lozinka === value){
-            console.log("Tu sam")
             state.disabledButton = false;
         } else{
             state.disabledButton = true;

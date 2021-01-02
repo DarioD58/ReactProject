@@ -9,7 +9,7 @@ class AktivnostController extends Controller {
         super();
     }
 
-    async createKamp(req, res, next) {
+    async createAktivnost(req, res, next) {
         let ime_aktivnost = req.body.ime;
         let opis_aktivnost = req.body.opis;
         let tip_aktivnost = req.body.tip;

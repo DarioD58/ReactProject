@@ -16,16 +16,18 @@ class PrijavaController extends Controller {
         //let cookies = cookie.parse(req.headers.cookie || '');
     /*     let cookies = JSON.parse(req.cookies);
         console.log(cookies); */
-        let korisnik = JSON.parse(req.cookies.korisnik);
+        let korisnik = req.cookies.korisnik;
 
         try {
-            if(! await Organizator.checkOrganizator(korisnik.korisnickoIme, korisnik.statusKorisnik)) throw new Error();
+            if(korisnik.statusKorisnik === 'organizator') throw new Error();
             // testno
-            let prijave = {
-                prva : "Prva prijava",
-                druga : "Druga prijava",
-                treca : "Jos jedna prijava"
-            }
+            let prijave = []
+            let prijava = new Prijava("Dario", "Deković", "Party kamp", "sudionik", "Najbolji kamp")
+            prijave.push(prijava)
+            prijava = new Prijava("Toni", "Dujmović", "Zgodne kamperice", "animator", "Najbolji kamp")
+            prijave.push(prijava)
+            prijava = new Prijava("Dario", "Strunjak", "Zgodni Čupić", "sudionik", "Najbolji kamp")
+            prijave.push(prijava)            
             //let prijave = await Prijava.fetchActivePrijava();
             return JSON.stringify({
                 prijave : prijave
@@ -41,9 +43,10 @@ class PrijavaController extends Controller {
 
     async processApplication(req, res, next){
         let prijavaInfo = req.body;
-        let id = prijavaInfo.id_prijava;
-        let status = prijavaInfo.status_prijava;
-        let korisnickoIme = prijavaInfo.kor_ime;
+        //let id = prijavaInfo.id_prijava;
+        let status = prijavaInfo.status;
+        let korisnickoIme = prijavaInfo.ime;
+        let korisnickoPrezime = prijavaInfo.prezime;
         
         let korisnik = await Korisnik.fetchKorisnikByUsername(korisnickoIme);
         let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
@@ -126,6 +129,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
+    console.log(req.body)
     let data = JSON.parse( await prijava.processApplication(req, res, next));
     if(data.error != null){
         res.status(400).json(data);

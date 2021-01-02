@@ -271,7 +271,7 @@ section p:first-child, .timer div:last-child span{
   
   .activity-header{
     font-size: 2rem;
-    color: rgb(3, 3, 3);
+    color: #343a40;
   }
 
   .aktivnosti{
@@ -281,5 +281,47 @@ section p:first-child, .timer div:last-child span{
   }
 
   .naslovi{
+    text-align: center;
+  }
+
+  .applications{
+    width: 75%;
+    background-color:beige;
+    border: 2px solid #343a40;
+    display: grid;
+    grid-template-columns: auto auto; 
+    margin-bottom: 5vh;
+  }
+
+  .application-section{
+    background-color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+  }
+
+  .button-group{
+    display: grid;
+    grid-template-columns: auto auto ;
+    margin-bottom: 5vh;
+  }
+
+  .buttons{
+    background-color: #343a40;
+    margin: 1vh;
+    color: white;
+  }
+
+  .application-header{
+    font-size: 2rem;
+    color: #343a40;
+    margin-bottom: 5vh;
+  }
+
+  .motivational-letter{
+    grid-column: 1/3;
     text-align: center;
   }

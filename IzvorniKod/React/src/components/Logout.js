@@ -7,9 +7,6 @@ function Logout(props){
     const handleLogout = () => {
         fetch('./logout')
         .then((response) => {
-            localStorage.setItem("isLoggedIn", false);
-            localStorage.setItem("user", undefined);
-            localStorage.setItem("role", undefined);
             history.push('/');
             props.setSession('false')
         }).catch((error) => {

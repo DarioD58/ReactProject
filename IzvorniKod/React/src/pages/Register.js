@@ -26,9 +26,6 @@ function Register(props) {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
-            localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("user", res.korisnickoIme);
-            localStorage.setItem("role", res.statusKorisnik);
             history.push('/');
             props.setSession('true')
         }).catch((response) => {
@@ -51,7 +48,6 @@ function Register(props) {
             [id] : value
         }))
         if(value === state.lozinka2){
-            console.log("Tu sam")
             state.disabledButton = false;
         } else{
             state.disabledButton = true;

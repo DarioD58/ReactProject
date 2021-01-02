@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, Redirect } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 function AddActivity() {
 
@@ -96,7 +97,7 @@ function AddActivity() {
         }       
     }
 
-    if(localStorage.getItem('role') !== 'organizator'){
+    if(Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
         return <Redirect to='/' />
     }
 

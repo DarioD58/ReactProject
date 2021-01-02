@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import AddCamp from './pages/AddCamp';
 import AddActivity from './pages/AddActivity';
 import HomePage from './pages/HomePage'
+import Cookies from 'js-cookie'
 
 
 function App() {
@@ -26,9 +27,14 @@ function App() {
 
   const [activity, setActivity] = React.useState([]);
 
-  const [session, setSession] = React.useState(localStorage.getItem('isLoggedIn'));
+  const [session, setSession] = React.useState();
 
   React.useEffect(() => {
+    if(Cookies.get('korisnik') === undefined){
+      setSession('false')
+    } else {
+      setSession('true')
+    }
     // GET request using fetch inside useEffect React hook
     fetch('http://localhost:5000/')
     .then(response => response.json())

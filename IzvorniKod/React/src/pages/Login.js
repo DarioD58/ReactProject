@@ -27,11 +27,6 @@ function Login(props) {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
-            console.log(document.cookie)
-            console.log(Cookies.get())
-            localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("user", res.korisnickoIme);
-            localStorage.setItem("role", res.statusKorisnik);
             history.push('/')
             props.setSession('true')
         }).catch((error) => {

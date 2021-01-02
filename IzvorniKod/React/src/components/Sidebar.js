@@ -1,10 +1,9 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import {Link} from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 export default props => {
-  let check = localStorage.getItem('role')
-
   const [isOpen, setIsOpen] = React.useState({
     open: false
   })
@@ -30,7 +29,7 @@ export default props => {
     }))
   }
 
-  if(props.logged == 'true' && check == 'organizator'){
+  if(props.logged == 'true' && Cookies.getJSON('korisnik').statusKorisnik == 'organizator'){
     return (
       <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
         <Link to='/' onClick={handleClick}>

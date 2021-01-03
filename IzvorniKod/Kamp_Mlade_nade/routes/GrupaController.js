@@ -32,8 +32,7 @@ class GrupaController extends Controller {
             } else {
                 let sudionici = await Sudionik.fetchAllSudionik();
                 return JSON.stringify({
-                    brojSudionika : sudionici.lenght,
-                    poruka : `Grupe za kamp ne postoje. Rasporedite ${sudionici.lenght} sudionika u grupe!`
+                    brojSudionika : sudionici.lenght
                 });
             }
         } catch (error) {
@@ -49,7 +48,7 @@ class GrupaController extends Controller {
             await Grupa.createGroups(brojGrupa);
 
             return JSON.stringify({
-                poruka : `Uspješno stvoreno ${brojGrupa} sudionika u grupe!`
+                poruka : `Uspješno stvoreno ${brojGrupa} grupa!`
             });
             
         } catch (error) {

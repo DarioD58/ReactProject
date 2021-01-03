@@ -52,6 +52,11 @@ export default props => {
             Prijave za kamp
           </p>
         </Link>
+        <Link to='/creategroups' onClick={handleClick}>
+          <p className="menu-item">
+            Stvori grupe
+          </p>
+        </Link>
         <p className="menu-item">
           Moj profil
         </p>
@@ -81,7 +86,6 @@ export default props => {
           Početna stranica
         </p>
       </Link>
-      <p className="menu-item">
       <Link to='/application'>
         <p className="menu-item" onClick={handleClick}>
           Registriraj se
@@ -92,7 +96,6 @@ export default props => {
           Prijavi se
         </p>
       </Link>
-      </p>
     </Menu>
   );
 };

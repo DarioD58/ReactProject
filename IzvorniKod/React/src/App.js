@@ -13,6 +13,7 @@ import AddActivity from './pages/AddActivity';
 import HomePage from './pages/HomePage'
 import Cookies from 'js-cookie'
 import Applications from './pages/Applications'
+import CreateGroups from './pages/CreateGroups'
 
 
 function App() {
@@ -78,6 +79,9 @@ function App() {
         </Route>
         <Route exact path='/makeactivity'>
             <AddActivity />
+        </Route>
+        <Route exact path='/creategroups'>
+            <CreateGroups />
         </Route>
         <Route exact path='/applications'>
             <Applications />

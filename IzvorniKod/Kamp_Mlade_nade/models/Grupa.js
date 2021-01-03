@@ -24,18 +24,30 @@ module.exports = class Grupa {
       return grupe;
     }
 
+    //dohvat svih grupa na trenutnom kampu
+    static async fetchAllGrupaSKampa(datum_odrzavanja_kamp, ime_kamp){
+      let results = await dbFetchAllGrupaSKampa(datum_odrzavanja_kamp, ime_kamp);
+      let grupe = [];
+      if (results.length > 0){
+        for(let i = 0; i < results.length; i++){
+          let grupa = new Grupa(results[i].id_grupa, results[i].ime_grupa);
+          grupe.push(grupa);
+        }
+      }
+      return grupe;
+    }
+
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
-    // PAZI! Polje nije popunjeno
+    // PAZI! Polje nije popunjeno //+
     async getAllMembers(id_grupa){
       let results = await dbGetAllMembers(id_grupa);
       let clanovi = [];
       if (results.length > 0){
         for(let i = 0; i < results.length; i++){
           let clan = new Korisnik(results[i].korisnicko_ime, results[i].lozinka)
+          clanovi.push(clan);
         }
       }
-
-
     }
 
 
@@ -44,6 +56,11 @@ module.exports = class Grupa {
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
+    }
+
+    //metoda za izmjenu imena grupe
+    async changeGroupName(id_grupa){
+      dbChangeGroupName(id_grupa, novo_ime_grupe);
     }
 
 }
@@ -73,4 +90,19 @@ try{
     console.log(err);
     throw err;
   }
+}
+
+dbChangeGroupName = async (id_grupa, novo_ime_grupe) => {
+  const sql = 'UPDATE GRUPA SET ime_grupa = ' + novo_ime_grupe + 'WHERE id_grupa = ' + id_grupa;
+  try {
+    const result = await db.query(sql, [id_grupa]);
+    return result.rows;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+//kako povezati grupe i kamp?
+dbFetchAllGrupaSKampa = async (datum_odrzavanja_kamp, ime_kamp) =>{
+  const sql = 'SELECT * FROM GRUPA WHERE'
 }

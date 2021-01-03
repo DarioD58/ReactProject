@@ -14,7 +14,25 @@ module.exports = class Ukupni_dojam {
     // metoda za unos ukupnog dojma
     // Poziva se nad instancom razreda Ukupni_dojam
     async addNewUkupniDojam(){
-
+        try {
+            let dojam = await dbAddNewUkupniDojam(this);
+            this.dojam = dojam;
+        } catch(err){
+            console.log(err);
+            throw err;
+        }
     }
-    
 }
+
+
+dbAddNewUkupniDojam = async (dojam) => {
+    const sql = 'INSERT INTO ukupni_dojam(korisnicko_ime, dojam) VALUES (' + this.korisnicko_ime + ',' + dojam + ')';
+    try {
+        const result = await db.query(sql, [dojam]);
+        return result.rows;
+    } catch(err) {
+        console.log(err);
+        throw err;
+    }
+}
+

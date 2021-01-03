@@ -11,6 +11,16 @@ module.exports = class Ukupni_dojam {
         this.ime_kamp = ime_kamp;   // String
     }
 
+    async addNewOcjena(){
+        try {
+            let ocjena = await dbAddNewOcjena(this);
+            this.ocjena = ocjena;
+        } catch(err){
+            console.log(err);
+            throw err;
+        }
+    }
+
     // metoda za unos ukupnog dojma
     // Poziva se nad instancom razreda Ukupni_dojam
     async addNewUkupniDojam(){
@@ -21,6 +31,17 @@ module.exports = class Ukupni_dojam {
             console.log(err);
             throw err;
         }
+    }
+}
+
+dbAddNewOcjena = async (ocjena) => {
+    const sql = 'INSERT INTO ukupni_dojam(korisnicko_ime, ocjena) VALUES (' + this.korisnicko_ime + ',' + ocjena + ')';
+    try {
+        const result = await db.query(sql, [ocjena]);
+        return result.rows;
+    } catch(err) {
+        console.log(err);
+        throw err;
     }
 }
 

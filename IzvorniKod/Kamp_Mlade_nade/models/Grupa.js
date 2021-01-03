@@ -24,6 +24,19 @@ module.exports = class Grupa {
       return grupe;
     }
 
+    //dohvat svih grupa na trenutnom kampu
+    static async fetchAllGrupaSKampa(datum_odrzavanja_kamp, ime_kamp){
+      let results = await dbFetchAllGrupaSKampa(datum_odrzavanja_kamp, ime_kamp);
+      let grupe = [];
+      if (results.length > 0){
+        for(let i = 0; i < results.length; i++){
+          let grupa = new Grupa(results[i].id_grupa, results[i].ime_grupa);
+          grupe.push(grupa);
+        }
+      }
+      return grupe;
+    }
+
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
     // PAZI! Polje nije popunjeno //+
     async getAllMembers(id_grupa){
@@ -88,4 +101,8 @@ dbChangeGroupName = async (id_grupa, novo_ime_grupe) => {
     console.log(err);
     throw err;
   }
+}
+//kako povezati grupe i kamp?
+dbFetchAllGrupaSKampa = async (datum_odrzavanja_kamp, ime_kamp) =>{
+  const sql = 'SELECT * FROM GRUPA WHERE'
 }

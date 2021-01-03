@@ -44,7 +44,7 @@ module.exports = class Grupa {
       let clanovi = [];
       if (results.length > 0){
         for(let i = 0; i < results.length; i++){
-          let clan = new Korisnik(results[i].korisnicko_ime, results[i].lozinka)
+          let clan = new Sudionik(results[i].korisnicko_ime, results[i].lozinka)
           clanovi.push(clan);
         }
       }
@@ -80,7 +80,7 @@ dbGetAllGrupa = async () => {
 // popraviti upit da lijepo koristi argumente
 // i dohvaca sve atribute korisnika -> cilj je stvoriti instancu razreda Korisnik
 dbGetAllMembers = async (id_grupa) => {
-  const sql = 'SELECT korisnik.korisnicko_ime FROM GRUPA JOIN KORISNIK NATURAL JOIN ON' + id_grupa;
+  const sql = 'SELECT sudionik.korisnicko_ime_sudionik FROM sudionik NATURAL JOIN grupa WHERE id_grupa = $1';
 try{
   await grupa.getAllMembers();
   //console.log("Dohvat svih sudionika grupe")

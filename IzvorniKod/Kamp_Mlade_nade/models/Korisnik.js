@@ -107,7 +107,7 @@ dbGetKorisnikByUsername = async (username) => {
         return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 
@@ -118,7 +118,7 @@ dbSetKorisnikPassword = async (korisnicko_ime, lozinka) => {
         return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 dbAddNewKorisnik = async (korisnik) => {
@@ -131,7 +131,7 @@ dbAddNewKorisnik = async (korisnik) => {
         return result.rows[0].korisnicko_ime;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 
@@ -143,7 +143,7 @@ dbDeleteKorisnik = async (korisnicko_ime) => {
         const result = await db.query(sql, [korisnicko_ime]);
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 
@@ -156,7 +156,7 @@ dbUpdateKorisnik = async (korisnicko_ime, lozinka, email, ime, prezime) =>{
         return result.rows;
     } catch (err) {
         console.log(err);
-        throw err
+        throw err;
     }
 }
 

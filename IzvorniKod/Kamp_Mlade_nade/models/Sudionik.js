@@ -85,6 +85,11 @@ module.exports = class Sudionik extends Korisnik {
             return sudionici;
     }
 
+    //metoda za izmjenu grupe sudionika
+    async changeSudionikGroup (korisnicko_ime_sudionik){
+        dbChangeSudionikGroup (korisnicko_ime_sudionik, id_grupa);
+    }
+
     
 }
 //implementacije funkcija
@@ -151,6 +156,17 @@ dbGetSudionikAcitvities = async (id_grupa) => {
         const result = await db.query(sql, [id_grupa]);
         return result.rows;
     } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbChangeSudionikGroup = async (korisnicko_ime_sudionik, id_grupa) => {
+    const sql = 'UPDATE SUDIONIK SET id_grupa = ' + id_grupa + 'WHERE korisnicko_ime_sudionik = ' + korisnicko_ime_sudionik;
+    try {
+        const result = await db.query(sql, [id_grupa]);
+        return result.rows;
+    } catch(err) {
         console.log(err);
         throw err;
     }

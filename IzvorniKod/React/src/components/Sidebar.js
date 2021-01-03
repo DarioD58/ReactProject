@@ -71,9 +71,6 @@ export default props => {
         <p className="menu-item">
           Moja grupa
         </p>
-        <p className="menu-item">
-          Kontakt
-        </p>
       </Menu>
     );
   }

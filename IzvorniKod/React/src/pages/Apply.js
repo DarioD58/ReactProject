@@ -8,7 +8,7 @@ function Apply() {
         prezime: "",
         email: "",
         brtel: "",
-        brtelrod: "",
+        br_tel_odg_osobe: "",
         dob: "",
         pismo: "",
         status: "sudionik"
@@ -38,6 +38,7 @@ function Apply() {
                 prezime: "",
                 email: "",
                 brtel: "",
+                br_tel_odg_osobe: "",
                 dob: "",
                 pismo: "", 
                 status: ""
@@ -117,9 +118,9 @@ function Apply() {
                 required type="date" value={state.dob}
                 name="dob" size="50"/>
 
-                <label className="general-text" for="brtelrod" hidden = {hidden}>Broj telefona roditelja: </label>
+                <label className="general-text" for="br_tel_odg_osobe" hidden = {hidden}>Broj telefona roditelja: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" hidden = {hidden} onChange={onChange}
-                required = {!hidden} type="text" name="brtelrod" value={state.brtelrod}
+                required = {!hidden} type="text" name="br_tel_odg_osobe" value={state.br_tel_odg_osobe}
                 placeholder="0999999999" size="50"/>
 
                 <label className="general-text" for="pismo">Motivacijsko pismo: </label>

@@ -2,6 +2,7 @@ const express = require('express');
 const { fetchKorisnikByUsername } = require('../models/Korisnik');
 const router = express.Router();
 const Controller = require('./Controller');
+const cookie = require('cookie');
 
 class RegisterController extends Controller {
     constructor(){
@@ -39,6 +40,7 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
+        res.setHeader('Set-Cookie', cookie.serialize('korisnik', JSON.stringify(data), {httpOnly: false, maxAge: 60*60}));
         res.json(data);
     }
 });

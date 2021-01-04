@@ -15,16 +15,16 @@ class RegisterController extends Controller {
         }
 
         try {
-            let user = await fetchKorisnikByUsername(req.body.korime);
+            let korisnik = await fetchKorisnikByUsername(req.body.korime);
             if(req.body.korime == user.korisnicko_ime){
-                if(user.status != "sudionik" && user.status != "animator") throw new Error();
+                if(korisnik.status != "sudionik" && korisnik.status != "animator") throw new Error();
                 console.log(req.body.lozinka)
                 // registrira korisnika u bazu
-                await user.registerKorisnik(req.body.lozinka);
+                await korisnik.registerKorisnik(req.body.lozinka);
             
                 return JSON.stringify({
                     korisnickoIme: req.body.korime,
-                    statusKorisnik: user.status
+                    statusKorisnik: korisnik.status
                 });
             }
         } catch (error) {

@@ -39,6 +39,7 @@ module.exports = class Grupa {
 
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
     // PAZI! Polje nije popunjeno //+
+    // POPRAVITI
     async getAllMembers(id_grupa){
       let results = await dbGetAllMembers(id_grupa);
       let clanovi = [];

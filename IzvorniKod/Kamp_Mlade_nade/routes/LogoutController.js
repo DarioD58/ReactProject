@@ -9,6 +9,7 @@ class LogoutController extends Controller {
 
     async get(req, res, next) {
         console.log(req.cookies)
+        req.cookies.clearCookie();
     return JSON.stringify({status : "Korisnik uspješno odjavljen"});
     }
 }

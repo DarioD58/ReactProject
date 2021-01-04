@@ -51,7 +51,7 @@ class PrijavaController extends Controller {
         let status_prijava = req.body.status;
         let prijava = await Prijava.fetchPrijava(id);
    
-        let korisnicko_ime = ime.toLowerCase().substring(0, 1) + prezime.toLowerCase();
+        let korisnicko_ime = prijava.ime.toLowerCase().substring(0, 1) + prijava.prezime.toLowerCase();
         korisnicko_ime = this.replaceLocalChars(korisnicko_ime);
         
         if(prijava.status_korisnik == "sudionik") {
@@ -116,7 +116,6 @@ class PrijavaController extends Controller {
                 Vaš Kamp Mlade nade`;
                 await transporter.sendMail(msg);
 
-                korisnik.removeKorisnik();
             } else {
                 throw new Error();
             }

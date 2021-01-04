@@ -60,7 +60,7 @@ module.exports = class Prijava {
         let prijava;
 
         if(results.length > 0) {
-            let prijava = new Prijava(results[0].status_prijava, results[0].ime, results[0].prezime, results[0].datum_i_god_rod, 
+            prijava = new Prijava(results[0].status_prijava, results[0].ime, results[0].prezime, results[0].datum_i_god_rod, 
                 results[0].email, results[0].br_tel, results[0].br_tel_odg_osobe, results[0].motivacijsko_pismo, 
                 results[0].status_korisnik, results[0].datum_odrzavanja_kamp, results[0].ime_kamp);
             
@@ -70,8 +70,8 @@ module.exports = class Prijava {
         return prijava;
     }
 
-    static async changeStatusPrijava(id, status){
-        return await dbChangeStatusPrijava(id,status);
+    async changeStatusPrijava(status){
+        return await dbChangeStatusPrijava(this.id_prijava, status);
     }
 }
 

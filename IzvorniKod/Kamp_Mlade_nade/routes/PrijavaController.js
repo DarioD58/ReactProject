@@ -67,7 +67,7 @@ class PrijavaController extends Controller {
         }
 
         let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
-        Prijava.changeStatusPrijava(id, status_prijava);
+        prijava.changeStatusPrijava(status_prijava);
 
         //
 

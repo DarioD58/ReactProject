@@ -86,10 +86,25 @@ module.exports = class Kamp {
             return kamp;
         }
 
+        //vraca Kamp
+        static async fetchByNameAndDate(){
+            let results = await dbFetchByNameAndDate();
+            let kamp = new Kamp();
+
+            if(results.length > 0){
+                kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
+                    results[0].trajanje_d, results[0].pocetak_prijava_sudionika, results[0].kraj_prijava_sudionika, 
+                    results[0].pocetak_prijava_animatora, results[0].kraj_prijava_animatora, results[0].broj_grupa,
+                    results[0].status, results[0].email_kamp); 
+            }
+            return kamp;
+        }
+
         //brisanje kampa
         static async eraseCamp(){
             return await dbEraseCamp(this);
         }
+
 }
 
 dbCheckForSudionikPrijave = async (kamp) => {
@@ -168,6 +183,18 @@ dbGetUpcomingCamp = async () => {
 };
 
 dbFetchByNameAndDate = async(ime_kamp, datum_odrzavanja) => {
+    const sql = `SELECT ime_kamp, datum_odrzavanja_kamp, 
+    trajanje_d, pocetak_prijava_sudionika, kraj_prijava_sudionika, 
+    pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa,
+    status, email_kamp
+    FROM kamp WHERE ime_kamp =` + ime_kamp + 'AND datum_odrzavanja_kamp =' + datum_odrzavanja_kamp;
+    try {
+        const result = await db.query(sql, [ime_kamp, datum_odrzavanja]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } 
 
 };
 

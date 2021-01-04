@@ -16,7 +16,6 @@ class HomeController extends Controller {
                 await aktivniKamp.updateStatusKamp(1);
             }
 
-            //console.log(req.cookies.korisnik);
 
             if(req.body.statusKorisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();

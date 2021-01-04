@@ -24,11 +24,11 @@ module.exports = class Aktivnost {
 
         static async fetchAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp){
             let results = await dbGetAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp);
-            let aktivnost = new Aktivnost();
+            let aktivnost;
     
             if( results.length > 0 ) {
-                let aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,
-                    results[0].trajanje_aktivnost_h, results[0].tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,
+                    results[0].trajanje_aktivnost_h, results[0].tip_aktivnost, results[0].datum_odrzavanja_kamp, results[0].ime_kamp);
                 
                 aktivnost.id_aktivnost = results[0].id_aktivnost;
             }       
@@ -46,7 +46,7 @@ module.exports = class Aktivnost {
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
                     let aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
-                        results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                        results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
                     
                     this.id_aktivnost = results[i].id_aktivnost;
                     aktivnosti.push(aktivnost);
@@ -82,8 +82,14 @@ dbGetAktivnostByName = async (ime_aktivnost, ime_kamp, datum_odrzavanja_kamp) =>
 }
 
 dbAddNewAktivnost = async (aktivnost) =>  {
-
-
+    const sql = `INSERT INTO aktivnost (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, datum_odrzavanja_kamp, ime_kamp) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id_aktivnost`;
+    try{
+        const result = await db.query(sql, [aktivnost.ime_aktivnost, aktivnost.opis_aktivnost, aktivnost.trajanje_aktivnost_h, aktivnost.tip_aktivnost, aktivnost.datum_odrzavanja_kamp, aktivnost.ime_kamp]);
+        return result.rows[0].id_aktivnost;
+    } catch(err) {
+        console.log(err);
+        throw err;
+    }
 };
 
 dbAddNewAktivnost = async () =>{

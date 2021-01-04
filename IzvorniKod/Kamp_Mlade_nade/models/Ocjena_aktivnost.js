@@ -31,6 +31,54 @@ module.exports = class Ocjena_aktivnost {
             throw err;
         }
     }
+
+    static async fetchOcjenaKorisnik(korisnicko_ime){
+        let results = await dbGetOcjenaKorisnik(korisnicko_ime);
+        let ocjene = [];
+
+         if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let ocjena = new Ocjena_aktivnost(results[i].ocjena, results[i].dojam,
+                    results[i].id_aktivnost, results[i].korisnicko_ime);
+                
+                this.korisnicko_ime = results[i].korisnicko_ime;
+                ocjene.push(ocjena);
+            }
+        }       
+        return ocjene;
+    }
+
+    async fetchOcjenaGrupa(){
+        let results = await dbGetOcjenaGrupa(this.id_grupa);
+        let ocjene = [];
+
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let ocjena = new Ocjena_aktivnost(results[i].ocjena, results[i].dojam,
+                    results[i].id_aktivnost, results[i].korisnicko_ime);
+                
+                this.id_grupa = results[i].id_grupa;
+                ocjene.push(ocjena);
+            }
+        }       
+        return ocjene;
+    }
+
+    async fetchOcjenaAcitvities(id_aktivnost){
+        let results = await dbGetOcjenaAcitvities(id_aktivnost);
+        let ocjene = [];
+
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let ocjena = new Ocjena_aktivnost(results[i].ocjena, results[i].dojam,
+                    results[i].id_aktivnost, results[i].korisnicko_ime);
+                
+                this.id_aktivnost = results[i].id_aktivnost;
+                ocjene.push(ocjena);
+            }
+        }       
+        return ocjene;
+    }
 }
 
 dbAddNewOcjenaAktivnost = async (ocjena) => {
@@ -82,8 +130,7 @@ dbGetOcjenaGrupa = async(id_grupa) =>{
 
 dbGetOcjenaAcitvities = async (id_aktivnost) => {
     const sql = `SELECT ime_aktivnost, ocjena, dojam, id_aktivnost, korisnicko_ime
-    FROM Ocjena_aktivnost JOIN korisnik ON korisnicko_ime_sudionik=korisnicko_ime 
-    NATURAL JOIN raspored WHERE aktivnost.id_aktivnost LIKE $1`;
+    FROM Ocjena_aktivnost WHERE id_aktivnost LIKE $1`;
     try {
         const result = await db.query(sql, [id_grupa]);
         return result.rows;

@@ -5,13 +5,10 @@ const Korisnik = require('../models/Korisnik');
 module.exports = class Sudionik extends Korisnik {
 
     //konstruktor
-    constructor(korisnicko_ime, lozinka, email, ime, prezime, status,
-        br_tel, datum_i_god_rod, br_tel_odg_osobe){
-        super(korisnicko_ime, lozinka, email, ime, prezime, status);
-        this.br_tel = br_tel;   // string
-        this.datum_i_god_rod = datum_i_god_rod;     // Date
-        this.br_tel_odg_osobe = br_tel_odg_osobe;   // string
-        this.id_grupa = undefined;  // number
+    constructor(korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status, br_tel_odg_osobe){
+        super(korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status);
+        this.br_tel_odg_osobe = br_tel_odg_osobe;   // String
+        this.id_grupa = undefined;  // Number
     }
     //implementacije funkcija
 
@@ -26,10 +23,10 @@ module.exports = class Sudionik extends Korisnik {
 
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
-                let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
-                                                result[i].prezime, result[i].status, result[i].br_tel, 
-                                                result[i].datum_i_god_rod);
-                //this.id_animator= results[i].id_animator; id_animator ne postoji!
+                let animator = new Animator(results[i].korisnicko_ime, results[i].lozinka, results[i].email, results[i].ime,
+                                                results[i].prezime, results[i].status, results[i].br_tel, 
+                                                results[i].datum_i_god_rod);
+
                 animatori.push(animator);
             }
         }         
@@ -44,9 +41,10 @@ module.exports = class Sudionik extends Korisnik {
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
                 let aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
-                    results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                                            results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
+                                            results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
                 
-                this.id_aktivnost = results[i].id_aktivnost;
+                aktivnost.id_aktivnost = results[i].id_aktivnost;
                 aktivnosti.push(aktivnost);
             }
         }       
@@ -56,16 +54,16 @@ module.exports = class Sudionik extends Korisnik {
     // vraca Sudionik
     static async fetchSudionikByUsername(korisnicko_ime){
         let results = await dbGetSudionikByUsername(korisnicko_ime);
-        let noviSudionik = new Sudionik();
+        let sudionik;
 
         if( results.length > 0 ) {
-            noviSudionik = new Sudionik(results[0].korisnicko_ime, results[0].lozinka, results[0].email,
-                results[0].ime, results[0].prezime, results[0].status,
-                results[0].br_tel_sudionik, results[0].datum_i_god_rod_sudionik, results[0].br_tel_odg_osobe);
+            sudionik = new Sudionik(results[0].korisnicko_ime, results[0].lozinka, results[0].ime, 
+                                    results[0].prezime, results[0].datum_i_god_rod, results[0].email, 
+                                    results[0].br_tel, results[0].status, results[0].br_tel_odg_osobe);
 
-            noviSudionik.id_grupa = results[0].id_grupa;
+            sudionik.id_grupa = results[0].id_grupa;
         }
-        return noviSudionik;
+        return sudionik;
     }
 	
     //dohvati sve
@@ -75,10 +73,11 @@ module.exports = class Sudionik extends Korisnik {
 
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    let sudionik = new Sudionik(result[i].korisnicko_ime, result[i].lozinka, result[i].email,result[i].ime,
-												 result[i].prezime, result[i].status, result[i].br_tel, 
-                                                 result[i].datum_i_god_rod, result[i].br_tel_odg_osobe);
-                    //this.id_sudionik = results[i].id_sudionik; id_sudionik ne postoji!
+                    sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
+                                        results[i].prezime, results[i].datum_i_god_rod, results[i].email, 
+                                        results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
+
+                    sudionik.id_grupa = results[i].id_grupa;
                     sudionici.push(sudionik);
                 }
             }         
@@ -94,8 +93,7 @@ module.exports = class Sudionik extends Korisnik {
 }
 //implementacije funkcija
 dbGetSudionikByUsername = async (korisnicko_ime) => {
-    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe, id_grupa
+    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status, br_tel_odg_osobe, id_grupa
     FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime WHERE korisnicko_ime = $1`;
     try {
         const result = await db.query(sql, [korisnicko_ime]);
@@ -107,8 +105,8 @@ dbGetSudionikByUsername = async (korisnicko_ime) => {
 }
 
 dbAddNewSudionik = async (sudionik) => {
-    const sql = `INSERT INTO sudionik (korisnicko_ime_sudionik, br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe)
-     VALUES ($1, $2, $3, $4) RETURNING korisnicko_ime_sudionik`;
+    const sql = `INSERT INTO sudionik (korisnicko_ime_sudionik, br_tel_odg_osobe)
+     VALUES ($1, $2) RETURNING korisnicko_ime_sudionik`;
     try {
         await sudionik.addNewKorisnik();
         //console.log("Dodajem novog sudionika")
@@ -121,7 +119,6 @@ dbAddNewSudionik = async (sudionik) => {
     }
 }
 
-// Niti ovo nije dobro. Pogledati dohvat svih aktivnosti
 dbSudionikGetAll = async() =>{
     const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
     br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe, id_grupa
@@ -162,9 +159,9 @@ dbGetSudionikAcitvities = async (id_grupa) => {
 }
 
 dbChangeSudionikGroup = async (korisnicko_ime_sudionik, id_grupa) => {
-    const sql = 'UPDATE SUDIONIK SET id_grupa = ' + id_grupa + 'WHERE korisnicko_ime_sudionik = ' + korisnicko_ime_sudionik;
+    const sql = 'UPDATE SUDIONIK SET id_grupa = $1 WHERE korisnicko_ime_sudionik = $2';
     try {
-        const result = await db.query(sql, [id_grupa]);
+        const result = await db.query(sql, [id_grupa, korisnicko_ime_sudionik]);
         return result.rows;
     } catch(err) {
         console.log(err);

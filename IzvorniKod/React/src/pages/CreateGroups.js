@@ -88,7 +88,7 @@ function CreateGroup() {
             <form onSubmit={onSubmit}>
                 <input type='number' value={numberOfGroups} onChange={onChange} hidden={isSent} disabled={isSent}
                  name='nmbr_grupa' placeholder='0' min='1' max={numberOfParticipants}/>
-                <label for='nmbr_grupa' hidden={isSent} >Unesite broj grupa</label>
+                <label htmlFor='nmbr_grupa' hidden={isSent} >Unesite broj grupa</label>
                 <input type='submit' hidden={isSent} disabled={isSent}>Rasporedi</input>
             </form>
             <p hidden={!isSent}>{message}</p>

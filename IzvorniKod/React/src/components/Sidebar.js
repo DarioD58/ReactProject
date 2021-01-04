@@ -70,6 +70,11 @@ export default props => {
             Početna stranica
           </p>
         </Link>
+        <Link to='/calendar' onClick={handleClick}>
+          <p className="menu-item">
+            Raspored
+          </p>
+        </Link>
         <p className="menu-item">
           Moj profil
         </p>

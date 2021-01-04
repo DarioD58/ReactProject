@@ -56,6 +56,10 @@ module.exports = class Grupa {
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
+
+        for(var i = 0; i < brojGrupa; i++){
+          
+        }
     }
 
     //metoda za izmjenu imena grupe
@@ -65,6 +69,16 @@ module.exports = class Grupa {
 
 }
 
+dbCreateGroup = async (ime_grupa) => {
+  const sql = 'INSERT INTO GRUPA (ime_grupa) VALUES(' + ime_grupa + ')' 
+  try{
+    const result = await db.query(sql, [ime_grupa]);
+    return result.rows;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 dbGetAllGrupa = async () => {
  const sql = 'SELECT * FROM grupa';
  try{

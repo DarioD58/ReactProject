@@ -79,18 +79,17 @@ CREATE TABLE ANIMATOR
   UNIQUE (br_tel_animator)
 );
 
-CREATE TABLE PRIJAVA
-(
+CREATE TABLE PRIJAVA (
   id_prijava SERIAL NOT NULL,
-  korisnicko_ime VARCHAR(50) NOT NULL,
-  datum_i_vrijeme_prijava TIMESTAMPTZ(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   status_prijava VARCHAR(20),
-  datum_odrzavanja_kamp TIMESTAMPTZ(0) NOT NULL,
-  ime_kamp VARCHAR(50) NOT NULL,
+  ime VARCHAR(50) NOT NULL,
+  prezime VARCHAR(100) NOT NULL,
+  datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL,
   motivacijsko_pismo VARCHAR(3000) NOT NULL,
+  datum_odrzavanja_kamp DATE NOT NULL,
+  ime_kamp VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_prijava),
-  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

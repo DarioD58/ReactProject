@@ -92,7 +92,7 @@ dbGetAllGrupa = async () => {
  }
 }
 // popraviti upit da lijepo koristi argumente
-// i dohvaca sve atribute korisnika -> cilj je stvoriti instancu razreda Korisnik
+// i dohvaca sve atribute korisnika -> cilj je stvoriti instancu razreda Sudionik
 dbGetAllMembers = async (id_grupa) => {
   const sql = 'SELECT sudionik.korisnicko_ime_sudionik FROM sudionik NATURAL JOIN grupa WHERE id_grupa = $1';
 try{
@@ -116,7 +116,10 @@ dbChangeGroupName = async (id_grupa, novo_ime_grupe) => {
     throw err;
   }
 }
-//kako povezati grupe i kamp?
+//kako povezati grupe i kamp? 
+// moze se NATURAL JOIN grupe, rasporeda, aktivnosti uz uvjetovano ime i datum kampa 
+//    -> daje sve grupe koje su bile na aktivnostima na zadanom kampu
+// ako je potrebno mozemo dodati u grupu atribute ime_kamp i datum_odrzavanja_kamp, ali mislim da mozemo bez toga
 dbFetchAllGrupaSKampa = async (datum_odrzavanja_kamp, ime_kamp) =>{
   const sql = 'SELECT * FROM GRUPA WHERE'
 }

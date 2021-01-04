@@ -3,7 +3,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'kampAdmin',
-    password: 'baze5842', //svatko svoju sifru za sebe
+    password: 'bazepodataka', //svatko svoju sifru za sebe
     port: 5432,
 });
 //kod za kreiranje baze kampova
@@ -71,14 +71,14 @@ const create_animators = `CREATE TABLE ANIMATOR (
 //kod za kreiranje prijava
 const create_entries = `CREATE TABLE PRIJAVA (
   id_prijava SERIAL NOT NULL,
-  korisnicko_ime VARCHAR(50) NOT NULL,
-  datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL,
   status_prijava VARCHAR(20),
+  ime VARCHAR(50) NOT NULL,
+  prezime VARCHAR(100) NOT NULL,
+  datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL,
+  motivacijsko_pismo VARCHAR(3000) NOT NULL,
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
-  motivacijsko_pismo VARCHAR(3000) NOT NULL,
   PRIMARY KEY (id_prijava),
-  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 //kod za kreiranje rasporeda

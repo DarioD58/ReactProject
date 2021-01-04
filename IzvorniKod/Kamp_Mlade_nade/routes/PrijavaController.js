@@ -50,13 +50,15 @@ class PrijavaController extends Controller {
         let id = req.body.id_prijava;
         let status_prijava = req.body.status;
         let prijava = await Prijava.fetchPrijava(id);
+
    
-        let korisnicko_ime = ime.toLowerCase().substring(0, 1) + prezime.toLowerCase();
+        let korisnicko_ime = prijava.ime.toLowerCase().substring(0, 1) + prijava.prezime.toLowerCase();
         korisnicko_ime = this.replaceLocalChars(korisnicko_ime);
         
         if(prijava.status_korisnik == "sudionik") {
             let sudionik = new Sudionik(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
                 prijava.email, prijava.br_tel, prijava.status_korisnik, prijava.br_tel_odg_osobe);
+            console.log(sudionik)
             sudionik.addNewSudionik();
         } else if(prijava.status_korisnik == "animator"){
             let animator = new Animator(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
@@ -115,8 +117,6 @@ class PrijavaController extends Controller {
                 Pokušajte se prijaviti na sljedeći kamp. \n
                 Vaš Kamp Mlade nade`;
                 await transporter.sendMail(msg);
-
-                korisnik.removeKorisnik();
             } else {
                 throw new Error();
             }

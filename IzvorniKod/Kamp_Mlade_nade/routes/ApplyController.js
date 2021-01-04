@@ -31,6 +31,7 @@ class ApplyController extends Controller {
             let prijava = new Prijava("neobrađena", req.body.ime, req.body.prezime, req.body.dob, 
                 req.body.email, req.body.brtel, req.body.br_tel_odg_osobe,
                 req.body.pismo, req.body.status, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+
             
             let id = await prijava.addNewPrijava();
             

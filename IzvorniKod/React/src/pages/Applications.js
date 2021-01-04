@@ -14,6 +14,7 @@ function Applications() {
         })
         .then(response => response.json())
         .then((data) => {
+        console.log(data.prijave)
         setApplications(
           ...applications,
           data.prijave
@@ -46,8 +47,8 @@ function Applications() {
             <button id='animator' className='buttons' onClick={onClick}>Animatori</button>
         </div>
         {Array.from(applications).map((application) => {
-                            if(application.status_prijava === filter){
-                                return <Application key={application.korisnik_prezime} application={application}/>
+                            if(application.status_korisnik === filter){
+                                return <Application key={application.id_prijava} application={application}/>
                             }
     })}
     </div>

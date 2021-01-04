@@ -92,10 +92,6 @@ dbAddNewAktivnost = async (aktivnost) =>  {
     }
 };
 
-dbAddNewAktivnost = async () =>{
-
-
-}
 
 dbGetAllAktivnosti = async (ime_kamp, datum_odrzavanja_kamp) => {
     const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp

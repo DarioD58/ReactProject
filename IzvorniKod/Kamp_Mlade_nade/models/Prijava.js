@@ -78,7 +78,7 @@ module.exports = class Prijava {
 dbGetPrijava = async (id_prijava) => {
     const sql = `SELECT id_prijava, status_prijava, ime, prezime, datum_i_god_rod, email,
                 br_tel, br_tel_odg_osobe, motivacijsko_pismo, status_korisnik, datum_i_vrijeme_prijava, datum_odrzavanja_kamp, ime_kamp
-	            FROM prijava; WHERE id_prijava = $1`;
+	            FROM prijava WHERE id_prijava = $1`;
     try{
         const result = await db.query(sql, [id_prijava]);
         return result.rows;
@@ -92,7 +92,7 @@ dbGetPrijava = async (id_prijava) => {
 dbAddNewPrijava = async (prijava) => {
     const sql = `INSERT INTO prijava (status_prijava, ime, prezime, datum_i_god_rod, email, 
         br_tel, br_tel_odg_osobe, motivacijsko_pismo, status_korisnik, datum_odrzavanja_kamp, ime_kamp)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11); RETURNING id_prijava`;
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id_prijava`;
     try {
         const result = await db.query(sql, [prijava.status_prijava, prijava.ime, prijava.prezime, prijava.datum_i_god_rod, 
             prijava.email, prijava.br_tel, prijava.br_tel_odg_osobe, prijava.motivacijsko_pismo,
@@ -135,7 +135,7 @@ dbFetchActivePrijava = async() => {
 // Popraviti modificiranje upita. Za referencu pogledati druge upite npr. gornji upiti
 // Ovakav unos teksta omogućuje SQL injection
 dbChangeStatusPrijava = async(id, status) => {
-    const sql = 'UPDATE PRIJAVA SET status_prijava = ' + status + 'WHERE id_prijava = ' + id;
+    const sql = 'UPDATE PRIJAVA SET status_prijava = $2 WHERE id_prijava = $1';
     try{
         const result = await db.query(sql, [id, status]);
         return result.rows;

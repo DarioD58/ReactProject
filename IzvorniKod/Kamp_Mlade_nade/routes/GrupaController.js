@@ -31,7 +31,7 @@ class GrupaController extends Controller {
 
             } else {
                 let sudionici = await Sudionik.fetchAllSudionik();
-                console.log(sudionici.length)
+                //console.log(sudionici.length)
                 return JSON.stringify({
                     brojSudionika : sudionici.length
                 });

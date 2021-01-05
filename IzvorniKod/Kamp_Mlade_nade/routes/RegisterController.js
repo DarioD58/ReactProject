@@ -18,7 +18,7 @@ class RegisterController extends Controller {
             let korisnik = await fetchKorisnikByUsername(req.body.korime);
             if(req.body.korime == korisnik.korisnicko_ime){
                 if(korisnik.status != "sudionik" && korisnik.status != "animator") throw new Error();
-                console.log(req.body.lozinka)
+
                 // registrira korisnika u bazu
                 await korisnik.registerKorisnik(req.body.lozinka);
             

@@ -70,10 +70,9 @@ module.exports = class Sudionik extends Korisnik {
     static async fetchAllSudionik(){
             let results = await dbSudionikGetAll();
             let sudionici = [];
-
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
+                    let sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
                                         results[i].prezime, results[i].datum_i_god_rod, results[i].email, 
                                         results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
 
@@ -120,7 +119,7 @@ dbAddNewSudionik = async (sudionik) => {
 
 dbSudionikGetAll = async() =>{
     const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe, id_grupa
+    br_tel, datum_i_god_rod, br_tel_odg_osobe, id_grupa
     FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime`;
     try {
         const result = await db.query(sql);

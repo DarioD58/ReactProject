@@ -83,10 +83,8 @@ dbCreateGroup = async (ime_grupa) => {
 dbGetAllGrupa = async () => {
  const sql = 'SELECT * FROM grupa';
  try{
-   await grupa.fetchAllGrupa();
-   //console.log("Dohvat svih grupa")
-   const result = await db.query(sql);
-   return result.rows;
+    const result = await db.query(sql);
+    return result.rows;
  } catch(err) {
     console.log(err);
     throw err;
@@ -122,5 +120,5 @@ dbChangeGroupName = async (id_grupa, novo_ime_grupe) => {
 //    -> daje sve grupe koje su bile na aktivnostima na zadanom kampu
 // ako je potrebno mozemo dodati u grupu atribute ime_kamp i datum_odrzavanja_kamp, ali mislim da mozemo bez toga
 dbFetchAllGrupaSKampa = async (datum_odrzavanja_kamp, ime_kamp) =>{
-  const sql = 'SELECT * FROM GRUPA WHERE'
+  const sql = 'SELECT * FROM GRUPA'
 }

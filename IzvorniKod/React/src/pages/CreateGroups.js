@@ -36,7 +36,9 @@ function CreateGroup() {
     }, [])
 
     const onSubmit = (e) => {
-        let objekt = JSON.stringify(numberOfGroups);
+        let objekt = JSON.stringify({
+            brojGrupa: numberOfGroups
+        });
         fetch("./grupe", {
             credentials: 'include',
             method: 'POST',

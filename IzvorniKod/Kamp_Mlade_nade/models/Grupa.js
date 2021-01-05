@@ -39,12 +39,13 @@ module.exports = class Grupa {
 
     // dohvaća sve članove grupe jedne grupe: iz tablice sudionik i grupa spojiti po id_grupa
     // PAZI! Polje nije popunjeno //+
+    // POPRAVITI
     async getAllMembers(id_grupa){
       let results = await dbGetAllMembers(id_grupa);
       let clanovi = [];
       if (results.length > 0){
         for(let i = 0; i < results.length; i++){
-          let clan = new Korisnik(results[i].korisnicko_ime, results[i].lozinka)
+          let clan = new Sudionik(results[i].korisnicko_ime, results[i].lozinka)
           clanovi.push(clan);
         }
       }
@@ -56,6 +57,10 @@ module.exports = class Grupa {
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
+
+        for(var i = 0; i < brojGrupa; i++){
+          
+        }
     }
 
     //metoda za izmjenu imena grupe
@@ -65,22 +70,30 @@ module.exports = class Grupa {
 
 }
 
+dbCreateGroup = async (ime_grupa) => {
+  const sql = 'INSERT INTO GRUPA (ime_grupa) VALUES(' + ime_grupa + ')' 
+  try{
+    const result = await db.query(sql, [ime_grupa]);
+    return result.rows;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 dbGetAllGrupa = async () => {
  const sql = 'SELECT * FROM grupa';
  try{
-   await grupa.fetchAllGrupa();
-   //console.log("Dohvat svih grupa")
-   const result = await db.query(sql);
-   return result.rows;
+    const result = await db.query(sql);
+    return result.rows;
  } catch(err) {
     console.log(err);
     throw err;
  }
 }
 // popraviti upit da lijepo koristi argumente
-// i dohvaca sve atribute korisnika -> cilj je stvoriti instancu razreda Korisnik
+// i dohvaca sve atribute korisnika -> cilj je stvoriti instancu razreda Sudionik
 dbGetAllMembers = async (id_grupa) => {
-  const sql = 'SELECT korisnik.korisnicko_ime FROM GRUPA JOIN KORISNIK NATURAL JOIN ON' + id_grupa;
+  const sql = 'SELECT sudionik.korisnicko_ime_sudionik FROM sudionik NATURAL JOIN grupa WHERE id_grupa = $1';
 try{
   await grupa.getAllMembers();
   //console.log("Dohvat svih sudionika grupe")
@@ -102,7 +115,10 @@ dbChangeGroupName = async (id_grupa, novo_ime_grupe) => {
     throw err;
   }
 }
-//kako povezati grupe i kamp?
+//kako povezati grupe i kamp? 
+// moze se NATURAL JOIN grupe, rasporeda, aktivnosti uz uvjetovano ime i datum kampa 
+//    -> daje sve grupe koje su bile na aktivnostima na zadanom kampu
+// ako je potrebno mozemo dodati u grupu atribute ime_kamp i datum_odrzavanja_kamp, ali mislim da mozemo bez toga
 dbFetchAllGrupaSKampa = async (datum_odrzavanja_kamp, ime_kamp) =>{
-  const sql = 'SELECT * FROM GRUPA WHERE'
+  const sql = 'SELECT * FROM GRUPA'
 }

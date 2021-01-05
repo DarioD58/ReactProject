@@ -81,35 +81,35 @@ function AddCamp() {
         <div className='everything'>
             <h1 className="naslovi general-text">Novi kamp</h1>
             <form  onSubmit={onSubmit}>
-                <label className="general-text" for="ime_kamp">Ime kampa: </label>
+                <label className="general-text" htmlFor="ime_kamp">Ime kampa: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="ime_kamp" value={state.ime_kamp}
                 placeholder="ime_kamp" size="50"/>
-                <label className="general-text" for="datum_odrzavanja">Datum održavanja: </label>
+                <label className="general-text" htmlFor="datum_odrzavanja">Datum održavanja: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="date" name="datum_odrzavanja" value={state.datum_odrzavanja}
                 placeholder="datum_odrzavanja" size="50"/>
-                <label className="general-text" for="email">Email: </label>
+                <label className="general-text" htmlFor="email">Email: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="email" name="email" value={state.email}
                 placeholder="ivica@email.com" size="50"/>
-                <label className="general-text" for="trajanje">Trajanje kampa: </label>
+                <label className="general-text" htmlFor="trajanje">Trajanje kampa: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="text" name="trajanje" value={state.trajanje}
                 placeholder="0" size="50"/>
-                <label className="general-text" for="pocetak_prijava_sud">Početak prijava sudionika: </label>
+                <label className="general-text" htmlFor="pocetak_prijava_sud">Početak prijava sudionika: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="date" name="pocetak_prijava_sud" value={state.pocetak_prijava_sud}
                 placeholder="0999999999" size="50"/>
-                <label className="general-text" for="kraj_prijava_sud">Kraj prijava sudionika: </label>
+                <label className="general-text" htmlFor="kraj_prijava_sud">Kraj prijava sudionika: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="date" value={state.kraj_prijava_sud}
                 name="kraj_prijava_sud" size="50"/>
-                <label className="general-text" for="pocetak_prijava_anim">Početak prijava animatora: </label>
+                <label className="general-text" htmlFor="pocetak_prijava_anim">Početak prijava animatora: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 type="date" name="pocetak_prijava_anim" value={state.pocetak_prijava_anim}
                 size="50"/>
-                <label className="general-text" for="kraj_prijava_animator">Kraj prijava animatora: </label>
+                <label className="general-text" htmlFor="kraj_prijava_animator">Kraj prijava animatora: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 type="date" name="kraj_prijava_anim" value={state.kraj_prijava_anim}
                 size="50"/>

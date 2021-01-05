@@ -7,13 +7,21 @@ const db = require('../db');
 module.exports = class Prijava {
 
     // konstruktor
-    constructor(korisnik_ime, korisnik_prezime, motivacijsko_pismo, status_prijava, kamp){
-        this.id_prijava = undefined;    // number
-        this.korisnik_ime = korisnik_ime;   // Korisnik
-        this.korisnik_prezime = korisnik_prezime
-        this.motivacijsko_pismo = motivacijsko_pismo;   // string
-        this.status_prijava = status_prijava;   // string
-        this.kamp = kamp;   // Kamp
+    constructor (status_prijava, ime, prezime, datum_i_god_rod, email, br_tel, br_tel_odg_osobe,
+        motivacijsko_pismo, status_korisnik, datum_odrzavanja_kamp, ime_kamp){
+        this.id_prijava = undefined;    // Number
+        this.status_prijava = status_prijava;   // String
+        this.ime = ime;   // String
+        this.prezime = prezime  // String
+        this.datum_i_god_rod = datum_i_god_rod; // Date
+        this.email = email; // String
+        this.br_tel = br_tel; // String
+        this.br_tel_odg_osobe = br_tel_odg_osobe; // String
+        this.motivacijsko_pismo = motivacijsko_pismo;   // String
+        this.status_korisnik = status_korisnik; // String
+        this.datum_i_vrijeme_prijava = undefined; // Date
+        this.datum_odrzavanja_kamp = datum_odrzavanja_kamp;   // Date
+        this.ime_kamp = ime_kamp; // String
     }
 
     // vraca String
@@ -23,28 +31,72 @@ module.exports = class Prijava {
     }
     
     // vraca String ili null
-    static async checkPrijavaForUsername(korIme){
-        return await dbCheckPrijavaForUsername(korIme);
+    static async checkExistingPrijava(ime, prezime){
+        return await dbCheckExistingPrijava(ime, prezime);
     }
 
-
-    // Cilj metode je dobiti prijavu a ne vratiti rows.
+    // dohbvaca aktivne prijave
     static async fetchActivePrijava(){
-        return await dbFetchActivePrijava();
+        let results = await dbFetchActivePrijava();
+        let prijave = [];
+
+        if(results.length > 0) {
+            for(let i = 0; i < results.length; i++){
+            let prijava = new Prijava(results[i].status_prijava, results[i].ime, results[i].prezime, results[i].datum_i_god_rod, 
+                            results[i].email, results[i].br_tel, results[i].br_tel_odg_osobe, results[i].motivacijsko_pismo, 
+                            results[i].status_korisnik, results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
+
+            prijava.id_prijava = results[i].id_prijava;
+            prijava.datum_i_vrijeme_prijava = results[i].datum_i_vrijeme_prijava;
+            prijave.push(prijava);
+            }
+        }         
+        return prijave;
     }
 
-    static async changeStatusPrijava(id, status){
-        return await dbChangeStatusPrijava(id,status);
+    // Dohvaća prijavu za id_prijava
+    static async fetchPrijava(id_prijava){
+        let results = await dbGetPrijava(id_prijava);
+        let prijava;
+
+        if(results.length > 0) {
+            prijava = new Prijava(results[0].status_prijava, results[0].ime, results[0].prezime, results[0].datum_i_god_rod, 
+                results[0].email, results[0].br_tel, results[0].br_tel_odg_osobe, results[0].motivacijsko_pismo, 
+                results[0].status_korisnik, results[0].datum_odrzavanja_kamp, results[0].ime_kamp);
+            
+            prijava.id_prijava = results[0].id_prijava;
+            prijava.datum_i_vrijeme_prijava = results[0].datum_i_vrijeme_prijava;
+        }         
+        return prijava;
+    }
+
+    async changeStatusPrijava(status){
+        return await dbChangeStatusPrijava(this.id_prijava, status);
     }
 }
 
-// ovdje su dobro iskoristeni argumenti
+dbGetPrijava = async (id_prijava) => {
+    const sql = `SELECT id_prijava, status_prijava, ime, prezime, datum_i_god_rod, email,
+                br_tel, br_tel_odg_osobe, motivacijsko_pismo, status_korisnik, datum_i_vrijeme_prijava, datum_odrzavanja_kamp, ime_kamp
+	            FROM prijava WHERE id_prijava = $1`;
+    try{
+        const result = await db.query(sql, [id_prijava]);
+        return result.rows;
+    } catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+
 dbAddNewPrijava = async (prijava) => {
-    const sql = `INSERT INTO prijava (korisnicko_ime, status_prijava, 
-    ime_kamp, datum_odrzavanja_kamp, motivacijsko_pismo) VALUES ($1 ,$2, $3, $4, $5) RETURNING id_prijava`;
+    const sql = `INSERT INTO prijava (status_prijava, ime, prezime, datum_i_god_rod, email, 
+        br_tel, br_tel_odg_osobe, motivacijsko_pismo, status_korisnik, datum_odrzavanja_kamp, ime_kamp)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id_prijava`;
     try {
-        const result = await db.query(sql, [prijava.korisnik.korisnicko_ime, prijava.status_prijava, prijava.kamp.ime_kamp,
-            prijava.kamp.datum_odrzavanja_kamp, prijava.motivacijsko_pismo]);
+        const result = await db.query(sql, [prijava.status_prijava, prijava.ime, prijava.prezime, prijava.datum_i_god_rod, 
+            prijava.email, prijava.br_tel, prijava.br_tel_odg_osobe, prijava.motivacijsko_pismo,
+            prijava.status_korisnik, prijava.datum_odrzavanja_kamp, prijava.ime_kamp]);
         return result.rows[0].id_prijava;
     } catch (err) {
         console.log(err);
@@ -54,10 +106,10 @@ dbAddNewPrijava = async (prijava) => {
 }
 
 // ovdje su dobro iskoristeni argumenti
-dbCheckPrijavaForUsername = async (korIme) => {
-    const sql = `SELECT id_prijava FROM prijava WHERE korisnicko_ime = $1`;
+dbCheckExistingPrijava= async (ime, prezime) => {
+    const sql = `SELECT id_prijava FROM prijava WHERE ime = $1 AND prezime = $2`;
     try {
-        const result = await db.query(sql, [korIme]);
+        const result = await db.query(sql, [ime, prezime]);
         return result.rows[0];
     } catch (err) {
         console.log(err);
@@ -67,9 +119,11 @@ dbCheckPrijavaForUsername = async (korIme) => {
 
 // Dohvatiti sve podatke o prijavi i u pozivajućoj metodi stvoriti nove instance prijave
 dbFetchActivePrijava = async() => {
-    const sql = 'SELECT id_prijava FROM prijava WHERE status_prijava = "aktivna"';
+    const sql = `SELECT id_prijava, status_prijava, ime, prezime, status_korisnik, datum_i_vrijeme_prijava, 
+                motivacijsko_pismo, datum_odrzavanja_kamp, ime_kamp
+                FROM prijava WHERE status_prijava = $1`;
     try{
-        const result = await db.query(sql, []);
+        const result = await db.query(sql, ["neobrađena"]);
         return result.rows;
     } catch(err){
         console.log(err);
@@ -77,12 +131,13 @@ dbFetchActivePrijava = async() => {
     }
 }
 
+
 // Popraviti modificiranje upita. Za referencu pogledati druge upite npr. gornji upiti
 // Ovakav unos teksta omogućuje SQL injection
 dbChangeStatusPrijava = async(id, status) => {
-    const sql = 'UPDATE PRIJAVA SET status_prijava = ' + status + 'WHERE id_prijava = ' + id;
+    const sql = 'UPDATE PRIJAVA SET status_prijava = $1 WHERE id_prijava = $2';
     try{
-        const result = await db.query(sql, [id, status]);
+        const result = await db.query(sql, [status, id]);
         return result.rows;
     } catch(err){
         console.log(err);

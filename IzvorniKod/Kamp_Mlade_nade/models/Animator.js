@@ -5,11 +5,8 @@ const Korisnik = require('../models/Korisnik');
 module.exports = class Animator extends Korisnik {
 
     //konstruktor
-    constructor(korisnicko_ime, lozinka, email, ime, prezime, status,
-        br_tel, datum_i_god_rod){
-        super(korisnicko_ime, lozinka, email, ime, prezime, status);
-        this.br_tel = br_tel;   // string
-        this.datum_i_god_rod = datum_i_god_rod; // Date
+    constructor(korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status){
+        super(korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status);
     }
 
     //implementacije funkcija
@@ -21,15 +18,17 @@ module.exports = class Animator extends Korisnik {
 
     // vraca Aktivnost[]
     async fetchAnimatorAcitvities(){
-        let results = await dbGetAnimatorAcitvities(this.korisnicko_ime);
+        let results = await dbGetAnimatorActivities(this.korisnicko_ime);
         let aktivnosti = [];
+        let aktivnost;
 
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
-                let aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
-                    results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
+                                            results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
+                                            results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
                 
-                this.id_aktivnost = results[i].id_aktivnost;
+                aktivnost.id_aktivnost = results[i].id_aktivnost;
                 aktivnosti.push(aktivnost);
             }
         }       
@@ -39,28 +38,27 @@ module.exports = class Animator extends Korisnik {
     // vraća Animator
     static async fetchAnimatorByUsername(korisnicko_ime){
 		let results = await dbGetAnimatorByUsername(korisnicko_ime);
-        let noviAnimator = new Animator()
+        let animator;
 
         if( results.length > 0 ) {
-            noviAnimator = new Animator(results[0].korisnicko_ime, results[0].lozinka,
-                results[0].email, results[0].ime, results[0].prezime, results[0].status,
-                results[0].br_tel_animator, results[0].datum_i_god_rod_animator);
+            animator = new Animator(results[0].ime_aktivnost, results[0].opis_aktivnost,
+                results[0].trajanje_aktivnost_h, results[0].tip_aktivnost, 
+                results[0].datum_odrzavanja_kamp, results[0].ime_kamp);
         }
-        return noviAnimator;
+        return animator;
     }
 
     //dohvati sve
-    
 	static async fetchAllAnimator(){
         let results = await dbAnimatorGetAll();
         let animatori = [];
+        let animator;
 
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
-                let animator = new Animator(result[i].korisnicko_ime, result[i].lozinka, result[i].email, result[i].ime,
-                                            result[i].prezime, result[i].status, result[i].br_tel, 
-                                            result[i].datum_i_god_rod);
-                //this.id_animator= results[i].id_animator; id_animator ne postoji!
+                animator = new Animator(results[i].ime_aktivnost, results[i].opis_aktivnost,
+                    results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
+                    results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
                 animatori.push(animator);
             }
         }         
@@ -70,23 +68,20 @@ module.exports = class Animator extends Korisnik {
 
 //implementacije funkcija
 dbAddNewAnimator = async (animator) => {
-    const sql = `INSERT INTO animator (korisnicko_ime_animator, br_tel_animator, datum_i_god_rod_animator)
-    VALUES ($1, $2, $3) RETURNING korisnicko_ime_animator`;
+    const sql = "INSERT INTO animator (korisnicko_ime_animator) VALUES ($1) RETURNING korisnicko_ime_animator";
     try {
         await animator.addNewKorisnik();
-        //console.log("Dodajem novog animatora");
-        const result = await db.query(sql, [animator.korisnicko_ime, animator.br_tel,
-             animator.datum_i_god_rod]);
+        const result = await db.query(sql, [animator.korisnicko_ime]);
         return result.rows[0].korisnicko_ime_animator;
-    } catch (err) {
+    } catch (error) {
         console.log(err);
-        throw err;
+        throw err
     }
 }
 dbGetAnimatorByUsername = async (korisnicko_ime) => {
-    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel_animator, datum_i_god_rod_animator
-    FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime WHERE korisnicko_ime = $1`;
+    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status
+    FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime 
+    WHERE korisnicko_ime = $1`;
     try {
         const result = await db.query(sql, [korisnicko_ime]);
         return result.rows;
@@ -98,8 +93,7 @@ dbGetAnimatorByUsername = async (korisnicko_ime) => {
 
 //dohvati sve animatore
 dbAnimatorGetAll = async () => {
-    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel_animator, datum_i_god_rod_animator
+    const sql = `SELECT korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status
     FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime`;
     try {
         const result = await db.query(sql);
@@ -110,9 +104,9 @@ dbAnimatorGetAll = async () => {
     }
 }
 
-dbGetAnimatorAcitvities = async (korisnicko_ime_animator) => {
-    const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
-    FROM raspored NATURAL JOIN animator WHERE korisnicko_ime_animator LIKE $1`;
+dbGetAnimatorActivities = async (korisnicko_ime_animator) => {
+    const sql = `SELECT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator WHERE korisnicko_ime_animator LIKE $1`;
     try {
         const result = await db.query(sql, [korisnicko_ime_animator]);
         return result.rows;

@@ -14,6 +14,7 @@ import HomePage from './pages/HomePage'
 import Cookies from 'js-cookie'
 import Applications from './pages/Applications'
 import CreateGroups from './pages/CreateGroups'
+import UserCalendar from './pages/UserCalendar'
 
 
 function App() {
@@ -85,6 +86,9 @@ function App() {
         </Route>
         <Route exact path='/applications'>
             <Applications />
+        </Route>
+        <Route exact path='/calendar'>
+            <UserCalendar />
         </Route>
         <Route exact path='/login'>
           <Login setSession={updateSession}/>

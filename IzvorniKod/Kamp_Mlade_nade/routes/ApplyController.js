@@ -21,37 +21,17 @@ class ApplyController extends Controller {
         korisnicko_ime = this.replaceLocalChars(korisnicko_ime);
 
         try {
-            if(req.body.status == "sudionik"){
-                let postojeciSudionik = await Sudionik.fetchSudionikByUsername(korisnicko_ime);
-                
-                if(postojeciSudionik.korisnicko_ime !== undefined) return JSON.stringify({error : "Prijava nije moguća za postojećeg sudionika."});
-                
-                let sudionik = new Sudionik(korisnicko_ime, null, req.body.email, req.body.ime, req.body.prezime, req.body.status,
-                    req.body.brtel, req.body.dob, req.body.br_tel_odg_osobe != null ? req.body.br_tel_odg_osobe : null);
-                
-                await sudionik.addNewSudionik();
-                
-            } else if(req.body.status == "animator"){
-                let postojeciAnimator = await Animator.fetchAnimatorByUsername(korisnicko_ime);
-
-                if(postojeciAnimator.korisnicko_ime !== undefined) return JSON.stringify({error : "Prijava nije moguća za postojećeg animatora."});
-                
-                let animator = new Animator(korisnicko_ime, null, req.body.email, req.body.ime, req.body.prezime, req.body.status,
-                    req.body.brtel, req.body.dob);
-    
-                let username = await animator.addNewAnimator();
-                console.log(username);
-            } 
-
-            
             // provjera postoji li prijava za ovog korisnika
-            let id_prijava = await Prijava.checkPrijavaForUsername(korisnicko_ime);
-            
+            let id_prijava = await Prijava.checkExistingPrijava(req.body.ime, req.body.prezime);
+            console.log(id_prijava);
             if(id_prijava != undefined) return JSON.stringify({error : "Za ovu osobu već postoji neobrađena prijava"});
-        
-            let korisnik = await Korisnik.fetchKorisnikByUsername(korisnicko_ime);
+            
             let kamp = await Kamp.fetchUpcoming();
-            let prijava = new Prijava(korisnik, req.body.pismo, "neobrađena", kamp);
+            
+            let prijava = new Prijava("neobrađena", req.body.ime, req.body.prezime, req.body.dob, 
+                req.body.email, req.body.brtel, req.body.br_tel_odg_osobe,
+                req.body.pismo, req.body.status, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+
             
             let id = await prijava.addNewPrijava();
             

@@ -23,7 +23,7 @@ function Register(props) {
         .then((response) => response.json()
         )
         .then((res) => {
-            if(res.error != undefined){
+            if(res.error !== undefined){
                 throw new Error(res.error);
             }
             history.push('/');
@@ -81,15 +81,15 @@ function Register(props) {
     return (
         <div className='everything'>
             <form  onSubmit={onSubmit}>
-                <label className="general-text" for="ime">Korisničko ime: </label>
+                <label className="general-text" htmlFor="ime">Korisničko ime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="korime" value={state.korime}
                 placeholder="aanic" size="50"/>
-                <label className="general-text" for="lozinka">Lozinka: </label>
+                <label className="general-text" htmlFor="lozinka">Lozinka: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="password" value={state.lozinka}
                 name="lozinka" size="50"/>
-                <label className="general-text" for="lozinka2">Ponovi lozinku: </label>
+                <label className="general-text" htmlFor="lozinka2">Ponovi lozinku: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onPassChange}
                 required type="password" value={state.lozinka2}
                 name="lozinka2" size="50"/>

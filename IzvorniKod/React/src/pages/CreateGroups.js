@@ -68,11 +68,11 @@ function CreateGroup() {
     }
 
 
-    if(numberOfGroups === 0){
+    if(numberOfGroups > 0){
         return (
             <div className='everything'>
-                <p>Grupe su već dodjeljene!</p>
-                <p>Možete ih pregledati i premjestiti sudionike</p>
+                <p className='general-text'>Grupe su već dodjeljene!</p>
+                <p className='general-text'>Možete ih pregledati i premjestiti sudionike</p>
                 <Link to={{
                     pathname:'/viewgroups',
                     groups: groups
@@ -83,15 +83,15 @@ function CreateGroup() {
 
     return (
         <div className='everything'>
-            <h3>Raspoređivanje grupa</h3>
-            <p>Grupe za kamp ne postoje. Rasporedite {numberOfParticipants} sudionika u grupe!`</p>
+            <h3 className='general-text'>Raspoređivanje grupa</h3>
+            <p className='general-text'>Grupe za kamp ne postoje. Rasporedite {numberOfParticipants} sudionika u grupe!`</p>
             <form onSubmit={onSubmit}>
                 <input type='number' value={numberOfGroups} onChange={onChange} hidden={isSent} disabled={isSent}
                  name='nmbr_grupa' placeholder='0' min='1' max={numberOfParticipants}/>
-                <label for='nmbr_grupa' hidden={isSent} >Unesite broj grupa</label>
-                <input type='submit' hidden={isSent} disabled={isSent}>Rasporedi</input>
+                <label className='general-text' htmlFor='nmbr_grupa' hidden={isSent} >Unesite broj grupa</label>
+                <input type='submit' hidden={isSent} disabled={isSent} value='Rasporedi'/>
             </form>
-            <p hidden={!isSent}>{message}</p>
+            <p className='general-text' hidden={!isSent}>{message}</p>
         </div>
     );
 }

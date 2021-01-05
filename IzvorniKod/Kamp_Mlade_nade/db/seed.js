@@ -47,38 +47,35 @@ const create_organizers = `CREATE TABLE ORGANIZATOR (
 //kod za kreiranje sudionika
 const create_participators = `CREATE TABLE SUDIONIK
 (
-  korisnicko_ime_sudionik VARCHAR(50) NOT NULL,
-  datum_i_god_rod_sudionik DATE NOT NULL,
-  br_tel_sudionik VARCHAR(20) NOT NULL,
-  motivacijsko_pismo_sudionik VARCHAR(3000) NOT NULL,
-  br_tel_odg_osobe VARCHAR(20) NOT NULL,
+  korisnicko_ime_sudionik VARCHAR(50) NOT NULL ,
+  br_tel_odg_osobe VARCHAR(20),
   id_grupa INT,
   PRIMARY KEY (korisnicko_ime_sudionik),
-  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa) ON UPDATE CASCADE ON DELETE CASCADE,
-  UNIQUE (br_tel_sudionik)
+  FOREIGN KEY (korisnicko_ime_sudionik) REFERENCES KORISNIK(korisnicko_ime) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 //kod za kreiranje animatora
 const create_animators = `CREATE TABLE ANIMATOR (
   korisnicko_ime_animator VARCHAR(50) NOT NULL,
-  datum_i_god_rod_animator DATE NOT NULL,
-  br_tel_animator VARCHAR(20) NOT NULL,
-  motivacijsko_pismo_animator VARCHAR(3000) NOT NULL,
   PRIMARY KEY (korisnicko_ime_animator),
-  FOREIGN KEY (korisnicko_ime_animator) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
-  UNIQUE (br_tel_animator)
+  FOREIGN KEY (korisnicko_ime_animator) REFERENCES KORISNIK(korisnicko_ime) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 //kod za kreiranje prijava
 const create_entries = `CREATE TABLE PRIJAVA (
   id_prijava SERIAL NOT NULL,
-  korisnicko_ime VARCHAR(50) NOT NULL,
-  datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL,
   status_prijava VARCHAR(20),
+  ime VARCHAR(50) NOT NULL,
+  prezime VARCHAR(100) NOT NULL,
+  datum_i_god_rod DATE NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  br_tel VARCHAR(20) NOT NULL,
+  br_tel_odg_osobe VARCHAR(20),
+  motivacijsko_pismo VARCHAR(3000) NOT NULL,
+  status_korisnik VARCHAR(50) NOT NULL, 
+  datum_i_vrijeme_prijava TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   datum_odrzavanja_kamp DATE NOT NULL,
   ime_kamp VARCHAR(50) NOT NULL,
-  motivacijsko_pismo VARCHAR(3000) NOT NULL,
   PRIMARY KEY (id_prijava),
-  FOREIGN KEY (korisnicko_ime) REFERENCES KORISNIK(korisnicko_ime) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (datum_odrzavanja_kamp, ime_kamp) REFERENCES KAMP(datum_odrzavanja_kamp, ime_kamp) ON UPDATE CASCADE ON DELETE CASCADE
 )`;
 //kod za kreiranje rasporeda
@@ -116,12 +113,13 @@ const  create_sudionik_ocjena_aktivnosti = `CREATE TABLE sudionik_ocjena_aktivno
 const create_users = `CREATE TABLE KORISNIK (
   korisnicko_ime VARCHAR(50) NOT NULL,
   lozinka VARCHAR(50),
-  email VARCHAR(50) NOT NULL,
   ime VARCHAR(50) NOT NULL,
   prezime VARCHAR(100) NOT NULL,
-  status VARCHAR(50),
-  PRIMARY KEY (korisnicko_ime),
-  UNIQUE (email)
+  datum_i_god_rod DATE NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  br_tel VARCHAR(20) NOT NULL,
+  status VARCHAR(20),
+  PRIMARY KEY (korisnicko_ime)
 )`;
 
 const insert_camps = `INSERT INTO KAMP (ime_kamp, datum_odrzavanja_kamp, trajanje, pocetak_prijava_sudionika, kraj_prijava_sudionika, pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa) VALUES

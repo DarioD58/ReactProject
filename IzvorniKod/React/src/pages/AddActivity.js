@@ -106,25 +106,25 @@ function AddActivity() {
         <div className='everything'>
             <h1 className="naslovi general-text">Nova aktivnost</h1>
             <form  onSubmit={onSubmit}>
-                <label className="general-text" for="ime">Ime aktivnosti: </label>
+                <label className="general-text" htmlFor="ime">Ime aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="ime" value={state.ime}
                 placeholder="Ručak" size="50"/>
-                <label className="general-text" for="opis">Opis aktivnosti: </label>
+                <label className="general-text" htmlFor="opis">Opis aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="opis" value={state.opis}
                 placeholder="Opis..." size="50"/>
-                <label className="general-text" for="tip">Tip aktivnosti: </label>
+                <label className="general-text" htmlFor="tip">Tip aktivnosti: </label>
                 <select className="bg-dark pt-3 pb-3 text-white" onChange={onChangeSelect} name="tip" value={state.tip}>
                     <option value="1">Sudjeluje 1 grupa</option>
                     <option value="N">Sudjeluje N grupa</option>
                     <option value="max N">Sudjeuje maksimalno N grupa</option>
                     <option value="svi">Sudjeluju sve grupe</option>
                 </select>
-                <label className="general-text" for="br_grupa">Broj grupa: </label>
+                <label className="general-text" htmlFor="br_grupa">Broj grupa: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="number" name="br_grupa" value={state.br_grupa} disabled={disabled.isDisabled} min="1" size="50"/>
-                <label className="general-text" for="trajanje">Trajanje aktivnosti u satima: </label>
+                <label className="general-text" htmlFor="trajanje">Trajanje aktivnosti u satima: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="text" name="trajanje" value={state.trajanje}
                 placeholder="0" size="50"/>

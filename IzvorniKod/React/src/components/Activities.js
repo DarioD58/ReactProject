@@ -2,9 +2,8 @@ import React from 'react';
 import Activity from './Activity';
 
 function Activities(props){
-    const activities = Array.from(props.activities);
 
-    if(activities === undefined){
+    if(props.activities === undefined){
         return (
             <div className={props.cssClass}>
                 <div className="general-text text-center activity-header">AKTIVNOSTI KAMPA</div>
@@ -18,6 +17,8 @@ function Activities(props){
             </div>
         );
     }
+
+    const activities = Array.from(props.activities);
 
     return (
         <div className={props.cssClass}>

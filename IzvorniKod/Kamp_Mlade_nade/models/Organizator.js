@@ -5,8 +5,8 @@ const Korisnik = require('../models/Korisnik');
 module.exports = class Organizator extends Korisnik {
     
     // konstruktor
-    constructor(korisnicko_ime, lozinka, email, ime, prezime, status){
-        super(korisnicko_ime, lozinka, email, ime, prezime, status);
+    constructor(korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status){
+        super(korisnicko_ime, lozinka, ime, prezime, datum_i_god_rod, email, br_tel, status);
     }
 
     //implementacije funkcija
@@ -18,7 +18,8 @@ module.exports = class Organizator extends Korisnik {
     // vraca Organizator
     static async fetchOrganizatorkByUsername(username){
         let korisnik = await Korisnik.fetchKorisnikByUsername(username);
-        return new Organizator(korisnik.korisnicko_ime, korisnik.lozinka, korisnik.email, korisnik.ime, korisnik.prezime, korisnik.status);
+        return new Organizator(korisnik.korisnicko_ime, korisnik.lozinka, korisnik.ime, 
+            korisnik.prezime, korisnik.datum_i_god_rod, korisnik.email, korisnik.br_tel, korisnik.status);
     }   
 
     static async checkOrganizator(username, status){

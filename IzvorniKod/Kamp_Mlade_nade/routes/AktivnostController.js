@@ -3,7 +3,7 @@ const Aktivnost = require('../models/Aktivnost');
 const router = express.Router();
 const Kamp = require('../models/Kamp');
 const Controller = require('./Controller');
-
+const Ocjena_aktivnost = require('../models/Ocjena_aktivnost');
 class AktivnostController extends Controller {
     constructor(){
         super();
@@ -31,6 +31,19 @@ class AktivnostController extends Controller {
         }
     }
 
+    async activityGrade(req, res, next) {
+        let korisnik = req.cookies.korisnik;
+        
+        try {
+            let ocjena_aktivnost = new Ocjena_aktivnost(req.body.ocjena, req.body.dojam, req.body.id_aktivnost, korisnik.korisnickoIme);
+            await ocjena_aktivnost.addNewOcjenaAktivnost();
+            return JSON.stringify({poruka : "Ocjena i dojam aktivnosti uspješno uneseni!"});
+        } catch (error) {
+            return JSON.stringify({error: "Greška pri unosu ocjene aktivnosti!"});
+        }
+      
+    }
+
 }
 
 let aktivnostController = new AktivnostController();
@@ -43,5 +56,18 @@ router.post("/create", async (req, res, next) => {
         res.json(data);
     }
 });
+
+// za unos ocjene aktivnosti korisnika
+router.post("/ocjena", async (req, res, next) => {
+    let data = JSON.parse( await aktivnostController.activityGrade(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+
+
 
 module.exports = router;

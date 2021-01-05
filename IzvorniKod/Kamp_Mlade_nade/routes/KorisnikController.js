@@ -10,7 +10,8 @@ class KorisnikController extends Controller {
         super();
     }
 
-    async get(req, res, next) {
+    // Dohvaca informacije o grupama i animatorima korisnika
+    async userInfo(req, res, next) {
         let korisnik = req.cookies.korisnik;
 
         try {
@@ -67,18 +68,66 @@ class KorisnikController extends Controller {
       
     }
 
+    // Dohvaca informacije o aktivnostima korisnika
+    async userActivities(req, res, next) {
+        let korisnik = req.cookies.korisnik;
+        
+        try {
+        if(korisnik.statusKorisnik == "sudionik") {
+            let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
+            let aktivnosti = await sudionik.fetchSudionikAcitvities()
+
+            return JSON.stringify({
+                aktivnosti : aktivnosti
+            });
+        } else if(korisnik.statusKorisnik == "animator") {
+            let animator = await Animator.fetchAnimatorByUsername(korisnik.korisnickoIme);
+            let aktivnosti = await animator.fetchSudionikAcitvities()
+
+            return JSON.stringify({
+                aktivnosti : aktivnosti
+            });
+
+        } else if(korisnik.statusKorisnik == "organizator") {
+            return JSON.stringify({
+                poruka : "Što organizator traži ovdje?"
+            });
+
+        } else {
+            throw new Error("Nevaljan status korisnika!");
+        }
+
+        } catch (error) {
+            return JSON.stringify({error: "Greška pri dohvatu informacija aktivnosti korisnika! " + error.message});
+        }
+      
+    }
+
+
 }
 
 let korisnikController = new KorisnikController();
 
+// za prikaz info o korisniku
 router.get("/", async (req, res, next) => {
-    let data = JSON.parse( await korisnikController.get(req, res, next));
+    let data = JSON.parse( await korisnikController.userInfo(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {
         res.json(data);
     }
 });
+
+// za prikaz aktivnosti korisnika
+router.get("/aktivnosti", async (req, res, next) => {
+    let data = JSON.parse( await korisnikController.userActivities(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
 
 
 

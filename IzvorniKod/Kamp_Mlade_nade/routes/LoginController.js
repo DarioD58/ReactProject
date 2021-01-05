@@ -1,11 +1,8 @@
 const express = require('express');
-const { stringify } = require('querystring');
 const router = express.Router();
 const Korisnik = require('../models/Korisnik');
-const { fetchOrganizatorkByUsername } = require('../models/Organizator');
-const { fetchSudionikByUsername } = require('../models/Sudionik');
 const Controller = require('./Controller');
-const cookie = require('cookie');
+
 
 class LoginController extends Controller{
     constructor(){

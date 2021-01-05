@@ -6,7 +6,10 @@ function Applications() {
 
     const [filter, setFilter] = React.useState('sudionik')
 
+    const [refresh, setRefresh] = React.useState(false)
+
     React.useEffect(() => {
+        console.log("Tu sam")
         // GET request using fetch inside useEffect React hook
         fetch("./prijave", {
             credentials: 'include',
@@ -14,57 +17,50 @@ function Applications() {
         })
         .then(response => response.json())
         .then((data) => {
-        console.log(data.prijave)
         setApplications(
-          ...applications,
           data.prijave
         );
         }).catch((error) => {
             console.log(error);
         });
-      }, []);
+      }, [refresh]);
 
     function onClick(e){
         setFilter(e.target.id)
     }
 
-    function updateApplications(application){
-        let temp = applications
-        for(let i = 0; i < temp.length; i++){
-            if(temp[i] === application){
-                temp.slice(i, 1)
-            }
-        }
-        setApplications(
-            ...applications,
-            temp
-          )
-        console.log(applications)
+    function onRefresh(){
+        setRefresh(!refresh)
     }
 
 
     if(applications.length === 0){
         return (
-        <div className='application-section'>
-            <div className="general-text text-center application-header">PRIJAVE ZA KAMP</div>
-            <p className='general-text text-center application-header'>Trenutno nema aktivnih prijava za kamp.</p>
+        <div className='everything'>
+            <div className='application-section'>
+                <div className="general-text text-center application-header">PRIJAVE ZA KAMP</div>
+                <p className='general-text text-center application-header'>Trenutno nema aktivnih prijava za kamp.</p>
+            </div>
         </div>
         )
     }
 
 
     return (
-    <div className='application-section'>
-        <div className="general-text text-center application-header">PRIJAVE ZA KAMP</div>
-        <div className='button-group'>
-            <button id='sudionik' className='buttons' onClick={onClick}>Sudionici</button>
-            <button id='animator' className='buttons' onClick={onClick}>Animatori</button>
+    <div className='everything'>
+        <div className='application-section'>
+            <div className="general-text text-center application-header">PRIJAVE ZA KAMP</div>
+            <button className='buttons' onClick={onRefresh}>Osvježi</button>
+            <div className='button-group'>
+                <button id='sudionik' className='buttons' onClick={onClick}>Sudionici</button>
+                <button id='animator' className='buttons' onClick={onClick}>Animatori</button>
+            </div>
+            {Array.from(applications).map((application) => {
+                                if(application.status_korisnik === filter){
+                                    return <Application key={application.id_prijava} application={application} update={setRefresh}/>
+                                }
+        })}
         </div>
-        {Array.from(applications).map((application) => {
-                            if(application.status_korisnik === filter){
-                                return <Application key={application.id_prijava} application={application} update={updateApplications}/>
-                            }
-    })}
     </div>
     );
 }

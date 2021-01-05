@@ -62,7 +62,7 @@ class PrijavaController extends Controller {
             }
         }
 
-        let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
+        let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
         await prijava.changeStatusPrijava(status_prijava);
 
         // create reusable transporter object using the default SMTP transport
@@ -77,16 +77,12 @@ class PrijavaController extends Controller {
         }); */
 
         var transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            secureConnection: false,
-            port: 587,
-            requiresAuth: true,
-            domains: ["gmail.com", "googlemail.com"],
+            service: 'gmail',
             auth: {
-            user: kamp.email,
-            pass: kamp.lozinka
+              user: kamp.email,
+              pass: kamp.lozinka
             }
-            });
+          });
 
         let msg = {
             from: '"Kamp Mlade nade" <mladenade.kamp@gmail.com>', // sender address

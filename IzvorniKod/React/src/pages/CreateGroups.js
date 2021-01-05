@@ -36,6 +36,7 @@ function CreateGroup() {
     }, [])
 
     const onSubmit = (e) => {
+        e.preventDefault();
         let objekt = JSON.stringify({
             brojGrupa: numberOfGroups
         });

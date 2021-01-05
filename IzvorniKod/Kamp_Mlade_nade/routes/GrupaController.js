@@ -44,7 +44,7 @@ class GrupaController extends Controller {
 
     async post(req, res, next) {
         let brojGrupa = req.body.brojGrupa;
-
+        console.log(brojGrupa);
         try {
             await Grupa.createGroups(brojGrupa);
 

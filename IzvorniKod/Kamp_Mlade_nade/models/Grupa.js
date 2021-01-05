@@ -94,8 +94,10 @@ module.exports = class Grupa {
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
+
       let sudionici = await Sudionik.fetchAllSudionik();
-      let brojSudionika = sudionici.length();
+      
+      let brojSudionika = sudionici.length;
       let brojSudGrupa = Math.floor(brojSudionika / brojGrupa);
       let ostatak = brojSudionika % brojSudionika;
 
@@ -105,7 +107,7 @@ module.exports = class Grupa {
 
         let sudioniciGrupa = await Sudionik.fetchNSudionikWithoutGroup(brojSudGrupa);
 
-        for(let j = 0; j < sudioniciGrupa.length(); j++){
+        for(let j = 0; j < sudioniciGrupa.length; j++){
             sudioniciGrupa[j].changeSudionikGroup(id_grupa);
         }
       }
@@ -118,9 +120,7 @@ module.exports = class Grupa {
           preostaliSudionici[i].changeSudionikGroup(grupe[i].id_grupa);
         }
       }
-      
-
-
+    
     }
 
     //metoda za izmjenu imena grupe

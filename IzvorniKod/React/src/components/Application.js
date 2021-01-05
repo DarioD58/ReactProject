@@ -4,8 +4,7 @@ function Application(props){
 
     function onClick(e){
         let object = {
-            ime: props.application.korisnik_ime,
-            prezime: props.application.korisnik_prezime,
+            id_prijava: props.application.id_prijava,
             status: e.target.id
         }
         // GET request using fetch inside useEffect React hook
@@ -25,7 +24,7 @@ function Application(props){
 
     return (
         <div className='applications'>
-            <p className='text-dark motivational-letter' >{props.application.korisnik_ime} {props.application.korisnik_prezime}</p>
+            <p className='text-dark motivational-letter' >{props.application.ime} {props.application.prezime}</p>
             <p className='text-dark motivational-letter'>MOTIVACIJSKO PISMO</p>
             <p className='text-dark motivational-letter'>{props.application.motivacijsko_pismo}</p>
             <button id='prihvaćena' className='buttons' onClick={onClick}>Prihvati prijavu</button>

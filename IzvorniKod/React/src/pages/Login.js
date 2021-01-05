@@ -61,11 +61,11 @@ function Login(props) {
     return (
         <div className='everything'>
             <form  onSubmit={onSubmit}>
-                <label className="general-text" for="korime">Korisničko ime: </label>
+                <label className="general-text" htmlFor="korime">Korisničko ime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="korime" value = {state.korime}
                 placeholder="aanic" size="50"/>
-                <label className="general-text" for="lozinka">Lozinka: </label>
+                <label className="general-text" htmlFor="lozinka">Lozinka: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="password" name="lozinka" value={state.lozinka}
                 placeholder="**********" size="50"/>

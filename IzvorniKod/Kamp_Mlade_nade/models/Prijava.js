@@ -135,9 +135,9 @@ dbFetchActivePrijava = async() => {
 // Popraviti modificiranje upita. Za referencu pogledati druge upite npr. gornji upiti
 // Ovakav unos teksta omogućuje SQL injection
 dbChangeStatusPrijava = async(id, status) => {
-    const sql = 'UPDATE PRIJAVA SET status_prijava = $2 WHERE id_prijava = $1';
+    const sql = 'UPDATE PRIJAVA SET status_prijava = $1 WHERE id_prijava = $2';
     try{
-        const result = await db.query(sql, [id, status]);
+        const result = await db.query(sql, [status, id]);
         return result.rows;
     } catch(err){
         console.log(err);

@@ -33,9 +33,10 @@ function CreateGroup() {
         }).catch((error) => {
             console.log(error);
         });
-    }, [])
+    }, [isSent])
 
     const onSubmit = (e) => {
+        e.preventDefault()
         let objekt = JSON.stringify({
             brojGrupa: numberOfGroups
         });
@@ -70,7 +71,8 @@ function CreateGroup() {
     if(groups === undefined || groups.length > 0){
         return (
             <div className='everything'>
-                <p className='general-text'>Grupe su već dodjeljene!</p>
+                <p className='general-text' hidden={isSent}>Grupe su već dodjeljene!</p>
+                <p className='general-text' hidden={!isSent}>{message}</p>
                 <p className='general-text'>Možete ih pregledati i premjestiti sudionike</p>
                 <Link to={{
                     pathname:'/viewgroups',
@@ -90,7 +92,6 @@ function CreateGroup() {
                 <label className='general-text' htmlFor='numberOfGroups' hidden={isSent} >Unesite broj grupa</label>
                 <input type='submit' hidden={isSent} disabled={isSent} value='Rasporedi'/>
             </form>
-            <p className='general-text' hidden={!isSent}>{message}</p>
         </div>
     );
 }

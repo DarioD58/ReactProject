@@ -37,7 +37,7 @@ class KorisnikController extends Controller {
         
             let grupeSClanovima = [];
 
-            for(let i = 0; i < grupe.lenght(); i++){
+            for(let i = 0; i < grupe.lenght; i++){
                 let clanovi = await grupe[i].fetchAllMembers();
                 let grupaSClanovima = {
                     grupa: grupe[i],

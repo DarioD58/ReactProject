@@ -95,7 +95,7 @@ module.exports = class Grupa {
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
       let sudionici = await Sudionik.fetchAllSudionik();
-      let brojSudionika = sudionici.length();
+      let brojSudionika = sudionici.length;
       let brojSudGrupa = Math.floor(brojSudionika / brojGrupa);
       let ostatak = brojSudionika % brojSudionika;
 
@@ -105,7 +105,7 @@ module.exports = class Grupa {
 
         let sudioniciGrupa = await Sudionik.fetchNSudionikWithoutGroup(brojSudGrupa);
 
-        for(let j = 0; j < sudioniciGrupa.length(); j++){
+        for(let j = 0; j < sudioniciGrupa.length; j++){
             sudioniciGrupa[j].changeSudionikGroup(id_grupa);
         }
       }

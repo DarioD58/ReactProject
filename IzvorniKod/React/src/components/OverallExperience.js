@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 function OverallExperience(){
@@ -16,8 +15,10 @@ function OverallExperience(){
         dojam: "",
         korisnicko_ime: "",
     });
+    const [isSent, setIsSent] = React.useState(false)
 
-    let history = useHistory();
+    const [message, setMessage] = React.useState("")
+
 
     //http je moozda krivi
     const onSubmit = (e) => {
@@ -32,7 +33,9 @@ function OverallExperience(){
             /*if(res.error == undefined){
                 throw new Error(res.error);
             }*/
-            history.push('/');
+
+            setMessage(res.poruka)
+            setIsSent(true)
         })
         .catch((response) => {
             console.log(response)
@@ -57,18 +60,19 @@ function OverallExperience(){
 
     return (
         <div className='everything'>
-            <h1 className="naslovi general-text">Ocjeni kamp</h1>
+            <h1 className="naslovi general-text" hidden={isSent}>Ocjeni kamp</h1>
             <form onSubmit={onSubmit}>
-            <label className="general-text" for="ocjena">Ocjena za kamp: </label>
+            <label className="general-text" for="ocjena" hidden={isSent}>Ocjena za kamp: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="number" min="1" max="10" name="ocjena" value={state.ocjena}
-                placeholder="1 - 10"/>
-            <label className="general-text" for="dojam">Dojam: </label>
+                placeholder="1 - 10" hidden={isSent}/>
+            <label className="general-text" for="dojam" hidden={isSent}>Dojam: </label>
                 <textarea className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="dojam" value={state.dojam}
-                placeholder="Napišite vaš dojam" rows='10' cols='50' maxLength='500'/>
-            <input className="bg-dark text-white" type="submit" name="submit" placeholder="Submit" />
+                placeholder="Napišite vaš dojam" rows='10' cols='50' maxLength='500' hidden={isSent}/>
+            <input className="bg-dark text-white" hidden={isSent} type="submit" name="submit" placeholder="Submit" />
             </form>
+            <p hidden={!isSent}>{message}</p>
         </div>
     );
 }

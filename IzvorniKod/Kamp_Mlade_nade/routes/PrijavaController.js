@@ -49,7 +49,7 @@ class PrijavaController extends Controller {
 
     async processApplication(req, res, next){
         let id = req.body.id_prijava;
-        console.log(req.body);
+        //console.log(req.body);
         let status_prijava = req.body.status;
         let prijava = await Prijava.fetchPrijava(id);
 
@@ -60,7 +60,7 @@ class PrijavaController extends Controller {
         if(prijava.status_korisnik == "sudionik") {
             let sudionik = new Sudionik(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
                 prijava.email, prijava.br_tel, prijava.status_korisnik, prijava.br_tel_odg_osobe);
-            console.log(sudionik)
+            //console.log(sudionik)
             sudionik.addNewSudionik();
         } else if(prijava.status_korisnik == "animator"){
             let animator = new Animator(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
@@ -71,9 +71,10 @@ class PrijavaController extends Controller {
         }
 
         let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
-        prijava.changeStatusPrijava(status_prijava);
+        await prijava.changeStatusPrijava(status_prijava);
 
-        //
+        console.log(prijava);
+
 
         // create reusable transporter object using the default SMTP transport
 /*         let transporter = nodemailer.createTransport({
@@ -102,7 +103,8 @@ class PrijavaController extends Controller {
             text: "", // plain text body
         } 
 
-
+        console.log(msg);
+        
         try {
             if(status == "prihvaćena"){
                 msg.text = `Pozdrav ${prijava.ime},\n

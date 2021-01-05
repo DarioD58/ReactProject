@@ -68,6 +68,7 @@ module.exports = class Sudionik extends Korisnik {
 	
     //dohvati sve
     static async fetchAllSudionik(){
+<<<<<<< HEAD
         let results = await dbSudionikGetAll();
         let sudionici = [];
         let sudionik;
@@ -83,6 +84,21 @@ module.exports = class Sudionik extends Korisnik {
             }
         }         
         return sudionici;
+=======
+            let results = await dbSudionikGetAll();
+            let sudionici = [];
+            if( results.length > 0 ) {
+                for(let i = 0; i < results.length; i++){
+                    let sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
+                                        results[i].prezime, results[i].datum_i_god_rod, results[i].email, 
+                                        results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
+
+                    sudionik.id_grupa = results[i].id_grupa;
+                    sudionici.push(sudionik);
+                }
+            }         
+            return sudionici;
+>>>>>>> a9ee1588f2b5f342be0be0a3fd9d317d2e2bd9d5
     }
 
     //metoda za izmjenu grupe sudionika
@@ -121,7 +137,7 @@ dbAddNewSudionik = async (sudionik) => {
 
 dbSudionikGetAll = async() =>{
     const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel_sudionik, datum_i_god_rod_sudionik, br_tel_odg_osobe, id_grupa
+    br_tel, datum_i_god_rod, br_tel_odg_osobe, id_grupa
     FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime`;
     try {
         const result = await db.query(sql);

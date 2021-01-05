@@ -12,7 +12,7 @@ class GrupaController extends Controller {
     async get(req, res, next) {
         try {
             let grupe = await Grupa.fetchAllGrupa();
-            if(grupe.lenght != 0) {
+            if(grupe.lenght > 0) {
 
                 let grupeSClanovima = [];
 
@@ -31,8 +31,9 @@ class GrupaController extends Controller {
 
             } else {
                 let sudionici = await Sudionik.fetchAllSudionik();
+                console.log(sudionici.length)
                 return JSON.stringify({
-                    brojSudionika : sudionici.lenght
+                    brojSudionika : sudionici.length
                 });
             }
         } catch (error) {

@@ -61,14 +61,11 @@ function CreateGroup() {
     const onChange = (e) => {
         let {id , value} = e.target 
         id = e.target.name  
-        setNumberOfGroups(prevState => ({
-            ...prevState,
-            [id] : value
-        }))
+        setNumberOfGroups(value)
     }
 
 
-    if(numberOfGroups > 0){
+    if(groups === undefined || groups.length > 0){
         return (
             <div className='everything'>
                 <p className='general-text'>Grupe su već dodjeljene!</p>
@@ -87,8 +84,8 @@ function CreateGroup() {
             <p className='general-text'>Grupe za kamp ne postoje. Rasporedite {numberOfParticipants} sudionika u grupe!</p>
             <form onSubmit={onSubmit}>
                 <input type='number' value={numberOfGroups} onChange={onChange} hidden={isSent} disabled={isSent}
-                 name='nmbr_grupa' placeholder='0' min='1' max={numberOfParticipants}/>
-                <label className='general-text' htmlFor='nmbr_grupa' hidden={isSent} >Unesite broj grupa</label>
+                 name='numberOfGroups' placeholder='0' min='1' max={numberOfParticipants}/>
+                <label className='general-text' htmlFor='numberOfGroups' hidden={isSent} >Unesite broj grupa</label>
                 <input type='submit' hidden={isSent} disabled={isSent} value='Rasporedi'/>
             </form>
             <p className='general-text' hidden={!isSent}>{message}</p>

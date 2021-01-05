@@ -77,12 +77,16 @@ class PrijavaController extends Controller {
         }); */
 
         var transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: "smtp.gmail.com",
+            secureConnection: false,
+            port: 587,
+            requiresAuth: true,
+            domains: ["gmail.com", "googlemail.com"],
             auth: {
-              user: kamp.email,
-              pass: kamp.lozinka
+            user: kamp.email,
+            pass: kamp.lozinka
             }
-          });
+            });
 
         let msg = {
             from: '"Kamp Mlade nade" <mladenade.kamp@gmail.com>', // sender address

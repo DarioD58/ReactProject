@@ -50,10 +50,10 @@ class KampController extends Controller {
 
 }
 
-let kamp = new KampController();
+let kampController = new KampController();
 
 router.post("/create", async (req, res, next) => {
-    let data = JSON.parse(await kamp.createKamp(req, res, next));
+    let data = JSON.parse(await kampController.createKamp(req, res, next));
     if(data.error != null){
         res.status(404).json(data);
     } else{

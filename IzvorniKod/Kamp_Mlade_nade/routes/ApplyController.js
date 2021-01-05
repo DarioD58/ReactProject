@@ -48,13 +48,13 @@ class ApplyController extends Controller {
 
 }
 
-apply = new ApplyController();
+let applyController = new ApplyController();
 
 router.post("/", [body('email').isEmail()], async (req, res, next) => {
     let errors = validationResult(req);
     if(!errors.isEmpty()) res.json({errors : errors.array() });
 
-    let data = JSON.parse(await apply.post(req, res, next));
+    let data = JSON.parse(await applyController.post(req, res, next));
     
     if(data.error != null){
         res.status(409).json(data);

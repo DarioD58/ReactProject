@@ -35,10 +35,10 @@ class LoginController extends Controller{
     }
 }
 
-let login = new LoginController();
+let loginController = new LoginController();
 
 router.post("/", async (req, res, next) => {
-    let data = JSON.parse( await login.post(req, res, next));
+    let data = JSON.parse( await loginController.post(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

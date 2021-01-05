@@ -33,10 +33,10 @@ class AktivnostController extends Controller {
 
 }
 
-let aktivnost = new AktivnostController();
+let aktivnostController = new AktivnostController();
 
 router.post("/create", async (req, res, next) => {
-    let data = JSON.parse(await aktivnost.createAktivnost(req, res, next));
+    let data = JSON.parse(await aktivnostController.createAktivnost(req, res, next));
     if(data.error != null){
         res.status(404).json(data);
     } else{

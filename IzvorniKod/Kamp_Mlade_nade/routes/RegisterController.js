@@ -18,7 +18,7 @@ class RegisterController extends Controller {
             let korisnik = await fetchKorisnikByUsername(req.body.korime);
             if(req.body.korime == korisnik.korisnicko_ime){
                 if(korisnik.status != "sudionik" && korisnik.status != "animator") throw new Error();
-                console.log(req.body.lozinka)
+
                 // registrira korisnika u bazu
                 await korisnik.registerKorisnik(req.body.lozinka);
             
@@ -40,7 +40,9 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
-        res.setHeader('Set-Cookie', cookie.serialize('korisnik', JSON.stringify(data), {httpOnly: false, maxAge: 60*60*24}));
+        //res.setHeader('Set-Cookie', cookie.serialize('korisnik', JSON.stringify(data), {httpOnly: false, maxAge: 60*60*24}));
+        // ILI 
+        res.cookie("korisnik", JSON.stringify(data), { httpOnly : false, maxAge: 60*60*24});
         res.json(data);
     }
 });

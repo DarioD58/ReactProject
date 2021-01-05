@@ -23,9 +23,9 @@ module.exports = class Raspored {
 
     async static setDefaultActivities(){
         let kamp = await Kamp.fetchUpcoming();
-        let dorucakAkt = await Aktivnost.fetchAktivnostByName("doručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
-        let rucakAkt = await Aktivnost.fetchAktivnostByName("ručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
-        let veceraAkt = await Aktivnost.fetchAktivnostByName("večera", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+        let dorucakAkt = await Aktivnost.fetchAktivnostByName("Doručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+        let rucakAkt = await Aktivnost.fetchAktivnostByName("Ručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+        let veceraAkt = await Aktivnost.fetchAktivnostByName("Večera", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
         let grupe = await Grupa.fetchAllGrupa();
         let animatori = await Animator.fetchAllAnimator();
 

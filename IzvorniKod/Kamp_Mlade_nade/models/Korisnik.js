@@ -83,10 +83,11 @@ module.exports = class Korisnik {
 	static async fetchAllKorisnik(){
             let results = await dbGetAllKorisnik();
             let korisnici = [];
-
+            let korisnik;
+            
             if( results.length > 0 ) {
                 for(let i = 0; i < results.length; i++){
-                    let korisnik = new Korisnik(results[i].korisnicko_ime, results[i].lozinka, 
+                    korisnik = new Korisnik(results[i].korisnicko_ime, results[i].lozinka, 
                         results[i].ime, results[i].prezime, results[i].datum_i_god_rod, 
                         results[i].email, results[i].br_tel, results[i].status);
                     korisnici.push(korisnik);

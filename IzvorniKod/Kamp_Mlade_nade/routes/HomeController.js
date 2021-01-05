@@ -4,6 +4,7 @@ const router = express.Router();
 const Kamp = require('../models/Kamp');
 const Controller = require('./Controller');
 
+
 class HomeController extends Controller {
     constructor(){
         super();
@@ -15,7 +16,6 @@ class HomeController extends Controller {
             if(aktivniKamp.status != undefined && aktivniKamp.status != 1){
                 await aktivniKamp.updateStatusKamp(1);
             }
-
 
             if(req.body.statusKorisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();

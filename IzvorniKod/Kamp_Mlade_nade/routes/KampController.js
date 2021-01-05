@@ -1,7 +1,9 @@
 const express = require('express');
+const Aktivnost = require('../models/Aktivnost');
 const router = express.Router();
 const Kamp = require('../models/Kamp');
 const Controller = require('./Controller');
+
 
 class KampController extends Controller {
     constructor(){
@@ -23,6 +25,19 @@ class KampController extends Controller {
             let kamp = new Kamp(ime_kamp, datum_odrzavanja_kamp, trajanje, pocetak_prijava_sudionika,
                 kraj_prijava_sudionika, pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa, status, email_kamp);
             let stvoreni_ime = await kamp.createKamp();
+
+            let dorucak = new Aktivnost("Doručak", "Zajednički doručak",
+                1, "svi", datum_odrzavanja_kamp, ime_kamp);
+            dorucak.addNewAktivnost();
+
+            let rucak = new Aktivnost("Ručak", "Zajednički ručak",
+                1, "svi", datum_odrzavanja_kamp, ime_kamp);
+            rucak.addNewAktivnost();
+
+            let vecera = new Aktivnost("Večera", "Zajednička večera",
+                1, "svi", datum_odrzavanja_kamp, ime_kamp);
+            vecera.addNewAktivnost();
+
             return JSON.stringify({
             poruka : `Uspješno stvoren novi kamp ${stvoreni_ime}!`
             });

@@ -1,6 +1,6 @@
 const db = require('../db');
 const Sudionik = require('../models/Sudionik');
-const Korisnik = require('./Korisnik');
+const Korisnik = require('../models/Korisnik');
 
 module.exports = class Grupa {
     //konstruktor
@@ -57,9 +57,13 @@ module.exports = class Grupa {
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
+      let sudionici = await Sudionik.fetchAllSudionik();
+      let brojSudionika = sudionici.length();
+    
 
         for(var i = 0; i < brojGrupa; i++){
-          
+          let ime_grupa = "Grupa" + (i+1);
+          await dbCreateGroup(ime_grupa);
         }
     }
 
@@ -71,7 +75,7 @@ module.exports = class Grupa {
 }
 
 dbCreateGroup = async (ime_grupa) => {
-  const sql = 'INSERT INTO GRUPA (ime_grupa) VALUES(' + ime_grupa + ')' 
+  const sql = 'INSERT INTO GRUPA (ime_grupa) VALUES($1)'; 
   try{
     const result = await db.query(sql, [ime_grupa]);
     return result.rows;

@@ -11,33 +11,19 @@ module.exports = class Ukupni_dojam {
         this.ime_kamp = ime_kamp;   // String
     }
 
-    async addNewOcjena(){
-        try {
-            let ocjena = await dbAddNewOcjena(this);
-            this.ocjena = ocjena;
-        } catch(err){
-            console.log(err);
-            throw err;
-        }
-    }
-
-    // metoda za unos ukupnog dojma
-    // Poziva se nad instancom razreda Ukupni_dojam
     async addNewUkupniDojam(){
-        try {
-            let dojam = await dbAddNewUkupniDojam(this);
-            this.dojam = dojam;
-        } catch(err){
-            console.log(err);
-            throw err;
-        }
+        await dbAddNewUkupniDojam(this);
     }
+
+
 }
 
-dbAddNewOcjena = async (ocjena) => {
-    const sql = 'INSERT INTO ukupni_dojam(korisnicko_ime, ocjena) VALUES (' + this.korisnicko_ime + ',' + ocjena + ')';
+dbAddNewUkupniDojam = async (ukupni_dojam) => {
+    const sql = `INSERT INTO ukupni_dojam (ocjena, dojam, korisnicko_ime, datum_odrzavanja_kamp, ime_kamp)
+        VALUES ($1, $2, $3, $4, $5)`;
     try {
-        const result = await db.query(sql, [ocjena]);
+        const result = await db.query(sql, [ukupni_dojam.ocjena, ukupni_dojam.dojam, ukupni_dojam.korisnicko_ime,
+                        ukupni_dojam.datum_odrzavanja_kamp, ukupni_dojam.ime_kamp]);
         return result.rows;
     } catch(err) {
         console.log(err);
@@ -45,15 +31,4 @@ dbAddNewOcjena = async (ocjena) => {
     }
 }
 
-
-dbAddNewUkupniDojam = async (dojam) => {
-    const sql = 'INSERT INTO ukupni_dojam(korisnicko_ime, dojam) VALUES (' + this.korisnicko_ime + ',' + dojam + ')';
-    try {
-        const result = await db.query(sql, [dojam]);
-        return result.rows;
-    } catch(err) {
-        console.log(err);
-        throw err;
-    }
-}
 

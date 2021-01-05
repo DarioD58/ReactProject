@@ -85,9 +85,28 @@ module.exports = class Sudionik extends Korisnik {
         return sudionici;
     }
 
+    // Dohvati određeni broj sudionika koji nemaju grupu
+    static async fetchNSudionikWithoutGroup(n){
+        let results = await dbGetNSudionikWithoutGroup(n);
+        let sudionici = [];
+        let sudionik;
+        
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
+                                    results[i].prezime, results[i].datum_i_god_rod, results[i].email, 
+                                    results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
+
+                sudionik.id_grupa = results[i].id_grupa;
+                sudionici.push(sudionik);
+            }
+        }         
+        return sudionici;
+    }
+
     //metoda za izmjenu grupe sudionika
-    async changeSudionikGroup (korisnicko_ime_sudionik){
-        dbChangeSudionikGroup (korisnicko_ime_sudionik, id_grupa);
+    async changeSudionikGroup(){
+        dbChangeSudionikGroup(this.korisnicko_ime_sudionik, id_grupa);
     }
 
     
@@ -119,9 +138,24 @@ dbAddNewSudionik = async (sudionik) => {
     }
 }
 
+dbGetNSudionikWithoutGroup = async(n) =>{
+    const sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
+    FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
+    WHERE id_grupa IS NULL
+    LIMIT $1`;
+    try {
+        const result = await db.query(sql, [n]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+
+
 dbSudionikGetAll = async() =>{
-    const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel, datum_i_god_rod, br_tel_odg_osobe, id_grupa
+    const sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
     FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime`;
     try {
         const result = await db.query(sql);

@@ -46,18 +46,20 @@ class PrijavaController extends Controller {
         let korisnicko_ime = prijava.ime.toLowerCase().substring(0, 1) + prijava.prezime.toLowerCase();
         korisnicko_ime = this.replaceLocalChars(korisnicko_ime);
         
-        if(prijava.status_korisnik == "sudionik") {
-            let sudionik = new Sudionik(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
-                prijava.email, prijava.br_tel, prijava.status_korisnik, prijava.br_tel_odg_osobe);
-            
-            sudionik.addNewSudionik();
-        } else if(prijava.status_korisnik == "animator"){
-            let animator = new Animator(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
-                prijava.email, prijava.br_tel, prijava.status_korisnik);
+        if(status_prijava == "prihvaćena"){
+            if(prijava.status_korisnik == "sudionik") {
+                let sudionik = new Sudionik(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
+                    prijava.email, prijava.br_tel, prijava.status_korisnik, prijava.br_tel_odg_osobe);
+                
+                sudionik.addNewSudionik();
+            } else if(prijava.status_korisnik == "animator"){
+                let animator = new Animator(korisnicko_ime, null, prijava.ime, prijava.prezime, prijava.datum_i_god_rod,
+                    prijava.email, prijava.br_tel, prijava.status_korisnik);
 
-            animator.addNewAnimator();
-        } else {
-            throw new Error("Neispravan status korisnika.");
+                animator.addNewAnimator();
+            } else {
+                throw new Error("Neispravan status korisnika.");
+            }
         }
 
         let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
@@ -123,10 +125,10 @@ class PrijavaController extends Controller {
     }
 }
 
-let prijava = new PrijavaController();
+let prijavaController = new PrijavaController();
 
 router.get("/", async (req, res, next) => {
-    let data = JSON.parse( await prijava.activeApplications(req, res, next));
+    let data = JSON.parse( await prijavaController.activeApplications(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {
@@ -135,8 +137,8 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-    console.log(req.body)
-    let data = JSON.parse( await prijava.processApplication(req, res, next));
+    let data = JSON.parse( await prijavaController.processApplication(req, res, next));
+    console.log(data);
     if(data.error != null){
         res.status(400).json(data);
     } else {

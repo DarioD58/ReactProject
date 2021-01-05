@@ -1,11 +1,8 @@
 const express = require('express');
-const { stringify } = require('querystring');
 const router = express.Router();
 const Korisnik = require('../models/Korisnik');
-const { fetchOrganizatorkByUsername } = require('../models/Organizator');
-const { fetchSudionikByUsername } = require('../models/Sudionik');
 const Controller = require('./Controller');
-const cookie = require('cookie');
+
 
 class LoginController extends Controller{
     constructor(){
@@ -35,10 +32,10 @@ class LoginController extends Controller{
     }
 }
 
-let login = new LoginController();
+let loginController = new LoginController();
 
 router.post("/", async (req, res, next) => {
-    let data = JSON.parse( await login.post(req, res, next));
+    let data = JSON.parse( await loginController.post(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

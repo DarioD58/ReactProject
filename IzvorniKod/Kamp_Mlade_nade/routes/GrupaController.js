@@ -17,7 +17,7 @@ class GrupaController extends Controller {
                 let grupeSClanovima = [];
 
                 for(let i = 0; i < grupe.lenght; i++){
-                    let clanovi = await grupe[i].getAllMembers();
+                    let clanovi = await grupe[i].fetchAllMembers();
                     let grupaSClanovima = {
                         grupa: grupe[i],
                         clanovi : clanovi
@@ -59,10 +59,10 @@ class GrupaController extends Controller {
     }
 }
 
-let grupa = new GrupaController();
+let grupaController = new GrupaController();
 
 router.get("/", async (req, res, next) => {
-    let data = JSON.parse( await grupa.get(req, res, next));
+    let data = JSON.parse( await grupaController.get(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {
@@ -71,7 +71,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-    let data = JSON.parse( await grupa.post(req, res, next));
+    let data = JSON.parse( await grupaController.post(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

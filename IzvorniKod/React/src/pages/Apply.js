@@ -41,7 +41,7 @@ function Apply() {
                 br_tel_odg_osobe: "",
                 dob: "",
                 pismo: "", 
-                status: ""
+                status: "sudionik"
             }))
         });
         e.preventDefault();

@@ -294,7 +294,7 @@ section p:first-child, .timer div:last-child span{
 
   .application-section{
     background-color: white;
-    height: 100%;
+    height: max-content;
     display: flex;
     flex-direction: column;
     align-items: center;

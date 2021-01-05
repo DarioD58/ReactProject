@@ -84,7 +84,7 @@ function CreateGroup() {
     return (
         <div className='everything'>
             <h3 className='general-text'>Raspoređivanje grupa</h3>
-            <p className='general-text'>Grupe za kamp ne postoje. Rasporedite {numberOfParticipants} sudionika u grupe!`</p>
+            <p className='general-text'>Grupe za kamp ne postoje. Rasporedite {numberOfParticipants} sudionika u grupe!</p>
             <form onSubmit={onSubmit}>
                 <input type='number' value={numberOfGroups} onChange={onChange} hidden={isSent} disabled={isSent}
                  name='nmbr_grupa' placeholder='0' min='1' max={numberOfParticipants}/>

@@ -28,8 +28,22 @@ function Applications() {
         setFilter(e.target.id)
     }
 
+    function updateApplications(application){
+        let temp = applications
+        for(let i = 0; i < temp.length; i++){
+            if(temp[i] === application){
+                temp.slice(i, 1)
+            }
+        }
+        setApplications(
+            ...applications,
+            temp
+          )
+        console.log(applications)
+    }
 
-    if(applications === undefined){
+
+    if(applications.length === 0){
         return (
         <div className='application-section'>
             <div className="general-text text-center application-header">PRIJAVE ZA KAMP</div>
@@ -48,7 +62,7 @@ function Applications() {
         </div>
         {Array.from(applications).map((application) => {
                             if(application.status_korisnik === filter){
-                                return <Application key={application.id_prijava} application={application}/>
+                                return <Application key={application.id_prijava} application={application} update={updateApplications}/>
                             }
     })}
     </div>

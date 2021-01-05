@@ -17,6 +17,7 @@ function Application(props){
         .then(response => response.json())
         .then((data) => {
             console.log(data)
+            props.update(props.application)
         }).catch((error) => {
             console.log(error);
         });;

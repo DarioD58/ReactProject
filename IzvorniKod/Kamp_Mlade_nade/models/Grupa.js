@@ -104,11 +104,11 @@ module.exports = class Grupa {
       for(let i = 0; i < brojGrupa; i++){
         let ime_grupa = "Grupa_" + (i+1);
         let id_grupa = await dbCreateGroup(ime_grupa);
-
+     
         let sudioniciGrupa = await Sudionik.fetchNSudionikWithoutGroup(brojSudGrupa);
-
+        
         for(let j = 0; j < sudioniciGrupa.length; j++){
-            sudioniciGrupa[j].changeSudionikGroup(id_grupa);
+            await sudioniciGrupa[j].changeSudionikGroup(id_grupa);
         }
       }
 
@@ -117,7 +117,7 @@ module.exports = class Grupa {
         let grupe = await Grupa.fetchNGrupa(ostatak);
 
         for(let i = 0; i < ostatak; i++){
-          preostaliSudionici[i].changeSudionikGroup(grupe[i].id_grupa);
+          await preostaliSudionici[i].changeSudionikGroup(grupe[i].id_grupa);
         }
       }
     

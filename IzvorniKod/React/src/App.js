@@ -32,6 +32,8 @@ function App() {
 
   const [session, setSession] = React.useState();
 
+  const [updateInfo, setUpdateInfo] = React.useState();
+
   React.useEffect(() => {
     if(Cookies.get('korisnik') === undefined){
       setSession('false')
@@ -53,14 +55,17 @@ function App() {
         kraj_prijava_anim: data.kraj_prijava_anim
     }))
     setActivity(
-      ...activity,
       data.aktivnosti
     );
     });
-  }, []);
+  }, [updateInfo]);
 
   function updateSession(newValue){
     setSession(newValue)
+  }
+
+  function updateFetch(){
+    setUpdateInfo(!updateInfo)
   }
 
 
@@ -68,7 +73,7 @@ function App() {
     <BrowserRouter>
     <div className="App">
       <Sidebar logged={session}/>
-      <Header ime = {kamp.ime} logged={session} setSession={updateSession}/>
+      <Header logged={session} setSession={updateSession}/>
       <Switch>
         <Route exact path='/'>
           <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} pocetak_prijava_sud={kamp.pocetak_prijava_sud}
@@ -76,10 +81,10 @@ function App() {
            kraj_prijava_anim={kamp.kraj_prijava_anim} activity={activity} />
         </Route>
         <Route exact path='/makecamp'>
-            <AddCamp />
+            <AddCamp update={updateFetch} />
         </Route>
         <Route exact path='/makeactivity'>
-            <AddActivity />
+            <AddActivity update={updateFetch} />
         </Route>
         <Route exact path='/creategroups'>
             <CreateGroups />

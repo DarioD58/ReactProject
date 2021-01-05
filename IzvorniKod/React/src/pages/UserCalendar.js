@@ -19,6 +19,7 @@ function UserCalendar(){
 
     return (
         <div className='everything'>
+          <div className='calendar-wrapper'>
             <Calendar 
                 events={events}
                 views={allViews}
@@ -28,6 +29,7 @@ function UserCalendar(){
                   }}
                 localizer={localizer}
             />
+          </div>
         </div>
     );
 }

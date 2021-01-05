@@ -29,7 +29,7 @@ function Activities(props){
                     <h3>Opis</h3>
                     <h3>Trajanje</h3>
                 </div>
-                {activities.map((activity) => <Activity key={activity.ime_aktivnosti} activity={activity}/>)}
+                {activities.map((activity) => <Activity key={activity.id_aktivnost} activity={activity}/>)}
             </div>
         </div>
     );

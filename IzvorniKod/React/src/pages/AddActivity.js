@@ -1,8 +1,8 @@
 import React from 'react';
-import { useHistory, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Cookies from 'js-cookie'
 
-function AddActivity() {
+function AddActivity(props) {
 
     const [state, setState] = React.useState({
         ime: "",
@@ -16,7 +16,7 @@ function AddActivity() {
         isDisabled: true
     })
 
-    let history = useHistory();
+    const [message, setMessage] = React.useState("")
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
@@ -29,10 +29,12 @@ function AddActivity() {
         })
         .then((response) => response.json()
         ).then((res) => {
-            /*if(res.error == undefined){
-                throw new Error(res.error);
-            }*/
-            history.push('/');
+            props.update()
+            if(res.error === undefined)
+                setMessage(res.poruka)
+            else
+                setMessage(res.error)
+            handleReset()
         })
         .catch((response) => {
             console.log(response)
@@ -41,7 +43,7 @@ function AddActivity() {
                 ime: "",
                 opis: "",
                 tip: "",
-                br_grupa: "",
+                br_grupa: "1",
                 trajanje: "",
             }))
         });
@@ -57,13 +59,13 @@ function AddActivity() {
         }))
     }
 
-    const handleReset = (e) => {
+    const handleReset = () => {
         setState(prevState => ({
             ...prevState,
             ime: "",
             opis: "",
             tip: "",
-            br_grupa: "",
+            br_grupa: "1",
             trajanje: "",
         }))
     }
@@ -105,6 +107,7 @@ function AddActivity() {
     return (
         <div className='everything'>
             <h1 className="naslovi general-text">Nova aktivnost</h1>
+            <p className='general-text' hidden={!message}>{message}</p>
             <form  onSubmit={onSubmit}>
                 <label className="general-text" htmlFor="ime">Ime aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}

@@ -60,7 +60,7 @@ class PrijavaController extends Controller {
             throw new Error("Neispravan status korisnika.");
         }
 
-        let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
+        let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
         await prijava.changeStatusPrijava(status_prijava);
 
         // create reusable transporter object using the default SMTP transport
@@ -112,7 +112,7 @@ class PrijavaController extends Controller {
 
             
         } catch (error) {
-            return JSON.stringify({error : "Greška kod obrade prijave. " + error.message()});
+            return JSON.stringify({error : "Greška kod obrade prijave. " + error.message});
         }
 
 

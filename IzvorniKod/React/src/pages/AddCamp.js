@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, Redirect } from "react-router-dom";
 import Cookies from 'js-cookie'
 
-function AddCamp() {
+function AddCamp(props) {
 
     const [state, setState] = React.useState({
         ime_kamp: "",
@@ -31,6 +31,7 @@ function AddCamp() {
                 throw new Error(res.error);
             }*/
             history.push('/');
+            props.update()
         })
         .catch((response) => {
             console.log(response)

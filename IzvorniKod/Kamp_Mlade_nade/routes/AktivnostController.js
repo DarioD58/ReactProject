@@ -16,18 +16,25 @@ class AktivnostController extends Controller {
         let trajanje_aktivnost_h = req.body.trajanje;
         let kamp = await Kamp.fetchUpcoming();
 
-        try{   
-            let aktivnost = new Aktivnost(ime_aktivnost, opis_aktivnost,
-                trajanje_aktivnost_h, tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
-            let id_akt = await aktivnost.addNewAktivnost();
-            
-            return JSON.stringify({
-            poruka : `Uspješno stvorena nova aktivnost ${id_akt}!`
-            });
-            
-        } catch (err) {
-            console.error(err);
-            return JSON.stringify({error : "Greška pri stvaranju aktivnosti."});   
+        try{
+            let aktivnost_check = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp,  kamp.datum_odrzavanja_kamp)
+            if(aktivnost_check !== undefined)
+                throw new Error(`Aktivnost ${ime_aktivnost} već postoji`)
+            try{   
+                let aktivnost = new Aktivnost(ime_aktivnost, opis_aktivnost,
+                    trajanje_aktivnost_h, tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                let id_akt = await aktivnost.addNewAktivnost();
+                
+                return JSON.stringify({
+                poruka : `Uspješno stvorena nova aktivnost ${ime_aktivnost}!`
+                });
+                
+            } catch (err) {
+                console.error(err);
+                return JSON.stringify({error : "Greška pri stvaranju aktivnosti."});   
+            }
+        } catch(err){
+            return JSON.stringify({error : err.message});
         }
     }
 

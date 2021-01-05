@@ -24,7 +24,7 @@ module.exports = class Aktivnost {
 
         static async fetchAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp){
             let results = await dbGetAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp);
-            let aktivnost;
+            let aktivnost = undefined;
     
             if( results.length > 0 ) {
                 aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,
@@ -71,7 +71,7 @@ module.exports = class Aktivnost {
 
 dbGetAktivnostByName = async (ime_aktivnost, ime_kamp, datum_odrzavanja_kamp) => {
     const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
-    FROM aktivnost WHERE ime_aktivnost LIKE $1 ime_kamp LIKE $2 AND datum_odrzavanja_kamp = $2`;
+    FROM aktivnost WHERE ime_aktivnost LIKE $1 AND ime_kamp LIKE $2 AND datum_odrzavanja_kamp = $3`;
     try {
         const result = await db.query(sql, [ime_aktivnost, ime_kamp, datum_odrzavanja_kamp]);
         return result.rows;

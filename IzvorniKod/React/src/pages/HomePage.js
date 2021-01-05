@@ -4,13 +4,21 @@ import NotButton from '../components/NotButton';
 import Activities from '../components/Activities';
 
 function HomePage(props) {
-
-    if(props.logged == 'true'){
+    if(props.logged === 'true'){
       return (
         <div className='everything'>
             <Countdown vrijeme = {props.vrijeme} />
         </div>
         );
+    } 
+    
+    if(props.ime == undefined){
+      return (<div className='everything'>
+        <NotButton cssClass={'first-section'}/>
+        <div className='second-section'>
+          <h2 className='text-center general-text'>Nažalost nema još najavljenih kampova.</h2>
+        </div>
+      </div>)
     }
     return (
         <div className='everything'>

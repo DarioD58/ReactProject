@@ -14,7 +14,13 @@ function Application(props){
             headers: {"Content-type": "application/json"},
             body: JSON.stringify(object)
         })
-        .then(() => props.update())
+        .then((response) => response.json())
+        .then((res) =>{
+            if(res.error !== undefined){
+                throw new Error(res.error)
+            }
+            props.update()
+        })
         .catch((error) => {
             console.log(error);
         });;

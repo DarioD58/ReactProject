@@ -9,7 +9,6 @@ function Applications() {
     const [refresh, setRefresh] = React.useState(false)
 
     React.useEffect(() => {
-        console.log("Tu sam")
         // GET request using fetch inside useEffect React hook
         fetch("./prijave", {
             credentials: 'include',
@@ -30,15 +29,17 @@ function Applications() {
     }
 
     function onRefresh(){
+        console.log("Tu sam")
         setRefresh(!refresh)
     }
 
 
-    if(applications.length === 0){
+    if(applications ===undefined || applications.length === 0){
         return (
         <div className='everything'>
             <div className='application-section'>
                 <div className="general-text text-center application-header">PRIJAVE ZA KAMP</div>
+                <button className='buttons' onClick={onRefresh}>Osvježi</button>
                 <p className='general-text text-center application-header'>Trenutno nema aktivnih prijava za kamp.</p>
             </div>
         </div>

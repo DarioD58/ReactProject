@@ -29,6 +29,7 @@ class PrijavaController extends Controller {
             prijave.push(prijava)      */       
             
             let prijave = await Prijava.fetchActivePrijava();
+            //console.log(prijave);
             return JSON.stringify({
                 prijave : prijave
             });
@@ -48,6 +49,7 @@ class PrijavaController extends Controller {
 
     async processApplication(req, res, next){
         let id = req.body.id_prijava;
+        console.log(req.body);
         let status_prijava = req.body.status;
         let prijava = await Prijava.fetchPrijava(id);
    

@@ -68,20 +68,21 @@ module.exports = class Sudionik extends Korisnik {
 	
     //dohvati sve
     static async fetchAllSudionik(){
-            let results = await dbSudionikGetAll();
-            let sudionici = [];
+        let results = await dbSudionikGetAll();
+        let sudionici = [];
+        let sudionik;
+        
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
+                                    results[i].prezime, results[i].datum_i_god_rod, results[i].email, 
+                                    results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
 
-            if( results.length > 0 ) {
-                for(let i = 0; i < results.length; i++){
-                    sudionik = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
-                                        results[i].prezime, results[i].datum_i_god_rod, results[i].email, 
-                                        results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
-
-                    sudionik.id_grupa = results[i].id_grupa;
-                    sudionici.push(sudionik);
-                }
-            }         
-            return sudionici;
+                sudionik.id_grupa = results[i].id_grupa;
+                sudionici.push(sudionik);
+            }
+        }         
+        return sudionici;
     }
 
     //metoda za izmjenu grupe sudionika

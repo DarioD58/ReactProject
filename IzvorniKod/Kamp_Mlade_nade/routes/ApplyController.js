@@ -23,7 +23,7 @@ class ApplyController extends Controller {
         try {
             // provjera postoji li prijava za ovog korisnika
             let id_prijava = await Prijava.checkExistingPrijava(req.body.ime, req.body.prezime);
-            console.log(id_prijava);
+
             if(id_prijava != undefined) return JSON.stringify({error : "Za ovu osobu već postoji neobrađena prijava"});
             
             let kamp = await Kamp.fetchUpcoming();

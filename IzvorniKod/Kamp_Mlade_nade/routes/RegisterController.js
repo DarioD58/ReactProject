@@ -40,7 +40,9 @@ router.post("/", async (req, res, next) => {
     if(data.error != null){
         res.status(400).json(data);
     } else {
-        res.setHeader('Set-Cookie', cookie.serialize('korisnik', JSON.stringify(data), {httpOnly: false, maxAge: 60*60*24}));
+        //res.setHeader('Set-Cookie', cookie.serialize('korisnik', JSON.stringify(data), {httpOnly: false, maxAge: 60*60*24}));
+        // ILI 
+        res.cookie("korisnik", JSON.stringify(data), { httpOnly : false, maxAge: 60*60*24});
         res.json(data);
     }
 });

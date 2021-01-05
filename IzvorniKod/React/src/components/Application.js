@@ -28,7 +28,7 @@ function Application(props){
             <p className='text-dark motivational-letter' >{props.application.korisnik_ime} {props.application.korisnik_prezime}</p>
             <p className='text-dark motivational-letter'>MOTIVACIJSKO PISMO</p>
             <p className='text-dark motivational-letter'>{props.application.motivacijsko_pismo}</p>
-            <button id='prihvacena' className='buttons' onClick={onClick}>Prihvati prijavu</button>
+            <button id='prihvaćena' className='buttons' onClick={onClick}>Prihvati prijavu</button>
             <button id='odbijena' className='buttons' onClick={onClick}>Odbij prijavu</button>
         </div>
     );

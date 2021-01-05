@@ -70,8 +70,8 @@ module.exports = class Prijava {
         return prijava;
     }
 
-    static async changeStatusPrijava(id, status){
-        return await dbChangeStatusPrijava(id,status);
+    async changeStatusPrijava(status){
+        return await dbChangeStatusPrijava(this.id_prijava, status);
     }
 }
 

@@ -82,7 +82,8 @@ dbGetAktivnostByName = async (ime_aktivnost, ime_kamp, datum_odrzavanja_kamp) =>
 }
 
 dbAddNewAktivnost = async (aktivnost) =>  {
-    const sql = `INSERT INTO aktivnost (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, datum_odrzavanja_kamp, ime_kamp) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id_aktivnost`;
+    const sql = `INSERT INTO aktivnost (ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, datum_odrzavanja_kamp, ime_kamp)
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id_aktivnost`;
     try{
         const result = await db.query(sql, [aktivnost.ime_aktivnost, aktivnost.opis_aktivnost, aktivnost.trajanje_aktivnost_h, aktivnost.tip_aktivnost, aktivnost.datum_odrzavanja_kamp, aktivnost.ime_kamp]);
         return result.rows[0].id_aktivnost;

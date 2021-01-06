@@ -41,9 +41,8 @@ module.exports = class Animator extends Korisnik {
         let animator;
 
         if( results.length > 0 ) {
-            animator = new Animator(results[0].ime_aktivnost, results[0].opis_aktivnost,
-                results[0].trajanje_aktivnost_h, results[0].tip_aktivnost, 
-                results[0].datum_odrzavanja_kamp, results[0].ime_kamp);
+            animator = new Animator(results[0].korisnicko_ime, results[0].lozinka, results[0].ime, 
+                results[0].prezime, results[0].datum_i_god_rod, results[0].email, results[0].br_tel, results[0].status);
         }
         return animator;
     }
@@ -56,9 +55,8 @@ module.exports = class Animator extends Korisnik {
 
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
-                animator = new Animator(results[i].ime_aktivnost, results[i].opis_aktivnost,
-                    results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
-                    results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
+                animator = new Animator(results[i].korisnicko_ime, results[i].lozinka, results[i].ime, 
+                    results[i].prezime, results[i].datum_i_god_rod, results[i].email, results[i].br_tel, results[i].status);
                 animatori.push(animator);
             }
         }         

@@ -32,8 +32,8 @@ module.exports = class Grupa {
       let grupa;
 
       if (results.length > 0){
-          grupa = new Grupa(results[i].ime_grupa);
-          grupa.id_grupa = results[i].id_grupa;
+          grupa = new Grupa(results[0].ime_grupa);
+          grupa.id_grupa = results[0].id_grupa;
       }
       return grupa;
   }
@@ -56,8 +56,8 @@ module.exports = class Grupa {
     }
 
     // dohvaća sve članove grupe jedne grupe
-    async fetchAllMembers(id_grupa){
-      let results = await dbGetAllMembers(id_grupa);
+    async fetchAllMembers(){
+      let results = await dbGetAllMembers(this.id_grupa);
       let clanovi = [];
       let clan;
 

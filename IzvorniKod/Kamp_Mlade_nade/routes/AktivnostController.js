@@ -88,14 +88,12 @@ class AktivnostController extends Controller {
         let datum_i_vrijeme = req.body.datum;
         let grupe = req.body.grupe;
         let animatori = req.body.animatori;
-
+        console.log(req.body);
+        
         try {
         let kamp = await Kamp.fetchUpcoming();
         let aktivnost = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
 
-        let instancaAktivnosti = new Raspored(infoAktivnost.id_grupa, aktivnost.id_aktivnost, 
-            infoAktivnost.datum_i_vrijeme, infoAktivnost.korisnicko_ime_animator);
-        
         // uvjet 1) aktivnost se neće preklapati s aktivnošću istog tipa
         let typeOverlap = await Raspored.checkActivityTypeOverlap(aktivnost.tip_aktivnost);
         if(typeOverlap > 0) throw new Error("Aktivnost se ne smije preklapati s aktivnošću istog tipa!");
@@ -116,11 +114,25 @@ class AktivnostController extends Controller {
         let timeOverlap = await Raspored.checkActivityTimeOverlap(datum_i_vrijeme, aktivnost.trajanje_aktivnost_h);
         if(timeOverlap > 0) throw new Error("Aktivnost se ne smije imati vremenske konflikte s postojećim aktivnostima!");
 
+        // uvjet 5) ni jedna od pridruženih grupa nije već pridružena jednakoj aktivnosti
         for(let i = 0; i < grupe.length; i++){
-            
+            let grupaOverlap = await Raspored.checkGrupaOverlap(grupe[i].id_grupa);
+            if(grupaOverlap > 0) throw new Error(`Grupa ${grupe[i]} je već pridružena aktivnosti ${ime_aktivnost}.`);
         }
 
-        await Raspored.setDefaultActivities();
+        // uvjet 6) pridruženi animatori neće imati konflikte s drugim aktivnostima na koje su pridruženi
+        for(let i = 0; i < animatori.length; i++){
+            let animatorOverlap = await Raspored.checkAnimatorOverlap(animatori[i].korisnicko_ime, datum_i_vrijeme);
+            if(animatorOverlap > 0) throw new Error(`Animator ${animatori[i]} je već pridružen aktivnosti ${ime_aktivnost}.`);
+        }
+
+        for(let i = 0; i < grupe.length; i++){
+            for(let j = 0; j < animatori.length; j++){
+                let instancaAktivnosti = new Raspored(grupe[i].id_grupa, aktivnost.id_aktivnost, 
+                    datum_i_vrijeme, animatori[j]);
+                instancaAktivnosti.addToRaspored();
+            }
+        }
 
         } catch(error){
             return JSON.stringify({error: "Greška pri dodavanju aktivnosti u raspored! " + error.message});
@@ -152,7 +164,7 @@ router.post("/ocjena", async (req, res, next) => {
 });
 
 router.get("/add", async (req, res, next) => {
-    console.log('Tu sam')
+    
     let data = JSON.parse( await aktivnostController.getAddToRaspored(req, res, next));
     if(data.error != null){
         res.status(400).json(data);

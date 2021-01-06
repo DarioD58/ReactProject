@@ -17,6 +17,7 @@ module.exports = class Raspored {
     
     // svasta se događa u ovoj metodi - nije dobro!
 	async addToRaspored() {
+        console.log(this);
         return await dbAddToRaspored(this);
   
     }
@@ -54,7 +55,15 @@ module.exports = class Raspored {
     static async checkActivityTimeOverlap(datum_i_vrijeme, trajanje_aktivnost_h) {
         return await dbCheckActivityTimeOverlap(datum_i_vrijeme, trajanje_aktivnost_h);
     }
-	
+    
+    static async checkGrupaOverlap(id_grupa) {
+        return await dbCheckGrupaOverlap(id_grupa);
+    }
+
+    static async checkAnimatorOverlap(korisnicko_ime, datum_i_vrijeme){
+        return await dbCheckAnimatorOverlap(korisnicko_ime, datum_i_vrijeme);
+    }
+
 /* 	async updateInRaspored(id_aktivnost){
 		dbUpdateInRaspored (this.id_grupa, id_aktivnost,this.datum_i_vrijeme, this.korisnicko_ime_animator);
 	} */
@@ -68,6 +77,34 @@ module.exports = class Raspored {
 	}
 }
 
+dbCheckAnimatorOverlap = async (korisnicko_ime, datum_i_vrijeme) => {
+    const sql = `SELECT COUNT(*)
+                FROM raspored NATURAL JOIN aktivnost
+                WHERE korisnicko_ime_animator = $1 
+                AND $2 BETWEEN datum_i_vrijeme_izvrsavanja AND datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * trajanje_aktivnost_h`;
+    try {
+    //console.log("Dodajem novu aktivnost");
+    const result = await db.query(sql, [korisnicko_ime, datum_i_vrijeme]);
+    return result.rows[0];
+    } catch (err) {
+    console.log(err);
+    throw err
+    }
+}
+
+dbCheckGrupaOverlap = async (id_grupa) => {
+    const sql = `SELECT COUNT(*)
+                FROM raspored 
+                WHERE id_grupa = $1`;
+   try {
+       //console.log("Dodajem novu aktivnost");
+       const result = await db.query(sql, [id_grupa]);
+       return result.rows[0];
+   } catch (err) {
+       console.log(err);
+       throw err
+   }
+}
 
 dbCheckActivityTimeOverlap = async (datum_i_vrijeme, trajanje_aktivnost_h) => {
     const sql = `SELECT COUNT(*)
@@ -102,7 +139,8 @@ dbAddToRaspored = async (raspored) => {
      VALUES ($1, $2, $3, $4) RETURNING id_aktivnost`;
     try {
         //console.log("Dodajem novu aktivnost");
-        const result = await db.query(sql, [raspored.datum_i_vrijeme_izvrsavanja, raspored.id_aktivnost, raspored.id_grupa, raspored.korisnicko_ime_animator]);
+        const result = await db.query(sql, [raspored.datum_i_vrijeme_izvrsavanja, raspored.id_aktivnost,
+             raspored.id_grupa, raspored.korisnicko_ime_animator]);
         return result.rows[0].id_aktivnost;
     } catch (err) {
         console.log(err);

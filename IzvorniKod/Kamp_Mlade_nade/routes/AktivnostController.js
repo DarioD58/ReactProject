@@ -6,7 +6,7 @@ const Controller = require('./Controller');
 const Ocjena_aktivnost = require('../models/Ocjena_aktivnost');
 const Grupa = require('../models/Grupa');
 const Animator = require('../models/Animator');
-
+const Raspored = require('../models/Raspored');
 
 class AktivnostController extends Controller {
 
@@ -57,53 +57,74 @@ class AktivnostController extends Controller {
     }
 
     async getAddToRaspored(req, res, next) {
-        let grupe = await Grupa.fetchAllGrupa();
-        
-/*         let grupeSClanovima = [];
-        for(let i = 0; i < grupe.length; i++){
-            let clanoviDTO =[];
+        try {
+            let grupe = await Grupa.fetchAllGrupa();        
 
-            let clanovi = await grupe[i].fetchAllMembers();
-            
-            for(let j = 0; j < clanovi.length; j++) {
-                let clan = {
-                    korisnicko_ime : clanovi[j].korisnicko_ime,
-                    ime: clanovi[j].ime,
-                    prezime : clanovi[j].prezime,
-                    id_grupa : grupe[i].id_grupa
+            let animatori = await Animator.fetchAllAnimator();
+
+            let animatoriDTO = [];
+            for(let i = 0; i < animatori.length; i++) {
+                let animator = {
+                    korisnicko_ime : animatori[i].korisnicko_ime,
+                    ime: animatori[i].ime,
+                    prezime : animatori[i].prezime
                 }
 
-                clanoviDTO.push(clan);
+                animatoriDTO.push(animator);
             }
-
-            let grupaSClanovima = {
-                grupa: grupe[i],
-                clanovi : JSON.stringify(clanoviDTO)
-            }
-            grupeSClanovima.push(grupaSClanovima);
-        } */
-
-        
-
-        let animatori = await Animator.fetchAllAnimator();
-
-        let animatoriDTO = [];
-        for(let i = 0; i < animatori.length; i++) {
-            let animator = {
-                korisnicko_ime : animatori[i].korisnicko_ime,
-                ime: animatori[i].ime,
-                prezime : animatori[i].prezime
-            }
-
-            animatoriDTO.push(animator);
+            
+            return JSON.stringify({
+                grupe : grupe,
+                animatori : animatoriDTO
+            });
+        } catch(error){
+            return JSON.stringify({error: "Greška pri dohvatu grupa i aktivnosti!"});
         }
-        
+      
+    }
 
-        return JSON.stringify({
-            grupe : grupe,
-            animatori : animatoriDTO
-        });
+    async postAddToRaspored(req, res, next) {
+        let ime_aktivnost = req.body.ime;
+        let datum_i_vrijeme = req.body.datum;
+        let grupe = req.body.grupe;
+        let animatori = req.body.animatori;
+
+        try {
+        let kamp = await Kamp.fetchUpcoming();
+        let aktivnost = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+
+        let instancaAktivnosti = new Raspored(infoAktivnost.id_grupa, aktivnost.id_aktivnost, 
+            infoAktivnost.datum_i_vrijeme, infoAktivnost.korisnicko_ime_animator);
         
+        // uvjet 1) aktivnost se neće preklapati s aktivnošću istog tipa
+        let typeOverlap = await Raspored.checkActivityTypeOverlap(aktivnost.tip_aktivnost);
+        if(typeOverlap > 0) throw new Error("Aktivnost se ne smije preklapati s aktivnošću istog tipa!");
+
+        // uvjet 2) pridružen je minimalno jedan animator
+        if(animatori.length < 1) throw new Error("Aktivnost mora imati barem jednog animatora!");
+        
+        // uvjet 3) pridružen je odgovarajuć broj grupa
+        if(aktivnost.tip_aktivnost.includes("max")){
+            let maxBroj = aktivnost.tip_aktivnost.split(" ")[1];
+            if(grupe.length > maxBroj) throw new Error(`Aktivnosti je pridruženo previše grupa. Smije biti najviše ${maxBroj} grupa.`);
+        } else {
+            let brojGrupa = aktivnost.tip_aktivnost.split(" ")[1];
+            if(grupe.length != maxBroj) throw new Error(`Aktivnosti je pridružen nevaljan grupa. Na aktivnosti mora biti ${brojGrupa} grupa.`);
+        }
+
+        // uvjet 4) ni jedna od pridruženih grupa neće imati konflikte s drugim aktivnostima koje su već navedene
+        let timeOverlap = await Raspored.checkActivityTimeOverlap(datum_i_vrijeme, aktivnost.trajanje_aktivnost_h);
+        if(timeOverlap > 0) throw new Error("Aktivnost se ne smije imati vremenske konflikte s postojećim aktivnostima!");
+
+        for(let i = 0; i < grupe.length; i++){
+            
+        }
+
+        await Raspored.setDefaultActivities();
+
+        } catch(error){
+            return JSON.stringify({error: "Greška pri dodavanju aktivnosti u raspored! " + error.message});
+        }
       
     }
 
@@ -133,6 +154,15 @@ router.post("/ocjena", async (req, res, next) => {
 router.get("/add", async (req, res, next) => {
     console.log('Tu sam')
     let data = JSON.parse( await aktivnostController.getAddToRaspored(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+router.post("/add", async (req, res, next) => {
+    let data = JSON.parse( await aktivnostController.postAddToRaspored(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

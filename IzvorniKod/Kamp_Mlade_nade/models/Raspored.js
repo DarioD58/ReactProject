@@ -21,7 +21,7 @@ module.exports = class Raspored {
   
     }
 
-    async static setDefaultActivities(){
+    static async setDefaultActivities(){
         let kamp = await Kamp.fetchUpcoming();
         let dorucakAkt = await Aktivnost.fetchAktivnostByName("Doručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
         let rucakAkt = await Aktivnost.fetchAktivnostByName("Ručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
@@ -30,19 +30,29 @@ module.exports = class Raspored {
         let animatori = await Animator.fetchAllAnimator();
 
         for(let i = 0; i < kamp.trajanje; i++){
-            for(let j = 0; j < grupe.lenght; j++){
+            for(let j = 0; j < grupe.length; j++){
                 await dbAddToRaspored(dorucakAkt.id_aktivnost, grupe[j].id_grupa, kamp.datum_odrzavanja_kamp+i*24+8, null);
                 await dbAddToRaspored(rucakAkt.id_aktivnost, grupe[j].id_grupa, kamp.datum_odrzavanja_kamp+i*24+12, null);
                 await dbAddToRaspored(veceraAkt.id_aktivnost, grupe[j].id_grupa, kamp.datum_odrzavanja_kamp+i*24+18, null);                
             }
 
-            for(let j = 0; j < animatori.lenght; j++){
+            for(let j = 0; j < animatori.length; j++){
                 await dbAddToRaspored(dorucakAkt.id_aktivnost, null, kamp.datum_odrzavanja_kamp+i*24+8, animatori[j]);
                 await dbAddToRaspored(rucakAkt.id_aktivnost, null, kamp.datum_odrzavanja_kamp+i*24+12, animatori[j]);
                 await dbAddToRaspored(veceraAkt.id_aktivnost, null, kamp.datum_odrzavanja_kamp+i*24+18, animatori[j]);                
             }
         }
 
+    }
+
+
+
+    static async checkActivityTypeOverlap(datum_i_vrijeme, tip_aktivnost) {
+        return await dbCheckActivityTypeOverlap(datum_i_vrijeme, tip_aktivnost);
+    }
+
+    static async checkActivityTimeOverlap(datum_i_vrijeme, trajanje_aktivnost_h) {
+        return await dbCheckActivityTimeOverlap(datum_i_vrijeme, trajanje_aktivnost_h);
     }
 	
 /* 	async updateInRaspored(id_aktivnost){
@@ -57,7 +67,35 @@ module.exports = class Raspored {
 		dbDeleteRaspored();
 	}
 }
-	
+
+
+dbCheckActivityTimeOverlap = async (datum_i_vrijeme, trajanje_aktivnost_h) => {
+    const sql = `SELECT COUNT(*)
+                FROM raspored NATURAL JOIN aktivnost
+                WHERE $1 BETWEEN datum_i_vrijeme_izvrsavanja AND datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * trajanje_aktivnost_h`;
+   try {
+       //console.log("Dodajem novu aktivnost");
+       const result = await db.query(sql, [datum_i_vrijeme, trajanje_aktivnost_h]);
+       return result.rows[0];
+   } catch (err) {
+       console.log(err);
+       throw err
+   }
+}
+
+dbCheckActivityTypeOverlap = async (datum_i_vrijeme, tip_aktivnost) => {
+    const sql = `SELECT COUNT(*)
+                FROM raspored NATURAL JOIN aktivnost
+                WHERE datum_i_vrijeme_izvrsavanja = $1 AND tip_aktivnost = $2`;
+   try {
+       //console.log("Dodajem novu aktivnost");
+       const result = await db.query(sql, [datum_i_vrijeme, tip_aktivnost]);
+       return result.rows[0];
+   } catch (err) {
+       console.log(err);
+       throw err
+   }
+}
  
 dbAddToRaspored = async (raspored) => {
     const sql = `INSERT INTO raspored (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa, korisnicko_ime_animator)

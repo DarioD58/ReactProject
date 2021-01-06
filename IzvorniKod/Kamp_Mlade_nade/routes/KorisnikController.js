@@ -28,30 +28,35 @@ class KorisnikController extends Controller {
                     korisnicko_ime : clanovi[i].korisnicko_ime,
                     ime: clanovi[i].ime,
                     prezime : clanovi[i].prezime,
+                    email : clanovi[i].email,
+                    br_tel: clanovi[i].br_tel,
                     id_grupa : grupa.id_grupa
                 }
 
                 clanoviDTO.push(clan);
             }
 
-            let grupaSClanovima = {
+/*             let grupaSClanovima = {
                 grupa: grupa,
                 clanovi : clanoviDTO
-            }
+            } */
 
             let animatoriDTO = [];
             for(let i = 0; i < animatori.length; i++) {
                 let clan = {
                     korisnicko_ime : animatori[i].korisnicko_ime,
                     ime: animatori[i].ime,
-                    prezime : animatori[i].prezime
+                    prezime : animatori[i].prezime,
+                    email : animator[i].email,
+                    br_tel : animator[i].br_tel
                 }
 
                 animatoriDTO.push(clan);
             }
 
             return JSON.stringify({
-                grupa : grupaSClanovima,
+                grupa : grupa,
+                clanovi : clanoviDTO,
                 animatori : animatoriDTO
             });
 
@@ -59,9 +64,10 @@ class KorisnikController extends Controller {
         } else if(korisnik.statusKorisnik == "animator") {
             let grupe = await Grupa.fetchAllGrupa();
         
-            let grupeSClanovima = [];
+            //let grupeSClanovima = [];
+            let clanoviDTO =[];
             for(let i = 0; i < grupe.length; i++){
-                let clanoviDTO =[];
+                //let clanoviDTO =[];
 
                 let clanovi = await grupe[i].fetchAllMembers();
                 
@@ -70,17 +76,19 @@ class KorisnikController extends Controller {
                         korisnicko_ime : clanovi[j].korisnicko_ime,
                         ime: clanovi[j].ime,
                         prezime : clanovi[j].prezime,
+                        email : clanovi[i].email,
+                        br_tel: clanovi[i].br_tel,
                         id_grupa : grupe[i].id_grupa
                     }
 
                     clanoviDTO.push(clan);
                 }
 
-                let grupaSClanovima = {
+/*                 let grupaSClanovima = {
                     grupa: grupe[i],
                     clanovi : clanoviDTO
                 }
-                grupeSClanovima.push(grupaSClanovima);
+                grupeSClanovima.push(grupaSClanovima); */
             }
 
             
@@ -92,7 +100,9 @@ class KorisnikController extends Controller {
                 let animator = {
                     korisnicko_ime : animatori[i].korisnicko_ime,
                     ime: animatori[i].ime,
-                    prezime : animatori[i].prezime
+                    prezime : animatori[i].prezime,
+                    email : animatori[i].email,
+                    br_tel: animatori[i].br_tel
                 }
 
                 animatoriDTO.push(animator);
@@ -100,7 +110,8 @@ class KorisnikController extends Controller {
             
 
             return JSON.stringify({
-                grupe : grupeSClanovima,
+                grupe : grupe,
+                clanovi : clanoviDTO,
                 animatori : animatoriDTO
             });
 

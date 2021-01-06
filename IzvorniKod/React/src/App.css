@@ -336,3 +336,13 @@ section p:first-child, .timer div:last-child span{
   padding-top: 5vh;
   padding-bottom: 5vh;
 }
+
+.group{
+  width: 75%;
+  background-color:beige;
+  border: 2px solid #343a40;
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: auto auto; 
+  margin-bottom: 5vh;
+}

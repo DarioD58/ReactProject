@@ -92,6 +92,7 @@ class PrijavaController extends Controller {
             text: "", // plain text body
         } 
 
+
         try {
             if(status_prijava == "prihvaćena"){
                 msg.text = `Pozdrav ${prijava.ime},\n

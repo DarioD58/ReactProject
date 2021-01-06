@@ -9,6 +9,7 @@ function Applications() {
     const [refresh, setRefresh] = React.useState(false)
 
     React.useEffect(() => {
+        document.getElementById('sudionik').style.backgroundColor = 'grey'
         // GET request using fetch inside useEffect React hook
         fetch("./prijave", {
             credentials: 'include',
@@ -25,11 +26,18 @@ function Applications() {
       }, [refresh]);
 
     function onClick(e){
-        setFilter(e.target.id)
+        let id = e.target.id
+        setFilter(id)
+        if(id === 'sudionik'){
+            document.getElementById(id).style.backgroundColor = 'grey'
+            document.getElementById('animator').style.backgroundColor = '#343a40'
+        } else {
+            document.getElementById(id).style.backgroundColor = 'grey'
+            document.getElementById('sudionik').style.backgroundColor = '#343a40'
+        }
     }
 
     function onRefresh(){
-        console.log("Tu sam")
         setRefresh(!refresh)
     }
 

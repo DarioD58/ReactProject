@@ -35,9 +35,9 @@ module.exports = class Aktivnost {
             return aktivnost;
         }
         
-        async fetchTipAktivnost(id_aktivnost){
+/*         async fetchTipAktivnost(id_aktivnost){
 
-        }
+        } */
            
         
 

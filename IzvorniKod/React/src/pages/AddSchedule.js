@@ -125,7 +125,7 @@ function AddSchedule(props) {
                 })}                
                 <label className="general-text" htmlFor="trajanje">Vrijeme održavanja aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
-                required type="datetime-local" name="trajanje" value={state.datum} size="50"/>
+                required type="datetime-local" name="trajanje" defaultValue={state.datum} size="50"/>
                 <input className="bg-dark text-white"
                 type="submit" name="submit" placeholder="Submit" />
                 <input className="bg-dark text-white" onClick={handleReset}

@@ -47,11 +47,6 @@ export default props => {
             Stvori novu aktivnost
           </p>
         </Link>
-        <Link to='/addactivity' onClick={handleClick}>
-          <p className="menu-item">
-            Dodaj aktivnost u raspored
-          </p>
-        </Link>
         <Link to='/applications' onClick={handleClick}>
           <p className="menu-item">
             Prijave za kamp

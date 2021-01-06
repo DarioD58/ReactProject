@@ -19,7 +19,6 @@ function CreateGroup() {
         })
         .then(response => response.json())
         .then((res) => {
-            console.log(res)
             if(res.error != undefined){
                 throw new Error(res.error);
             }
@@ -54,7 +53,6 @@ function CreateGroup() {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
-            console.log(res.poruka)
             setMessage(res.poruka)
             setIsSent(true)
         }).catch((error) => {

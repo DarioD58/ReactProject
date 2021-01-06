@@ -62,7 +62,7 @@ class PrijavaController extends Controller {
             }
         }
 
-        let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
+        let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
         await prijava.changeStatusPrijava(status_prijava);
 
         // create reusable transporter object using the default SMTP transport
@@ -77,16 +77,12 @@ class PrijavaController extends Controller {
         }); */
 
         var transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            secureConnection: false,
-            port: 587,
-            requiresAuth: true,
-            domains: ["gmail.com", "googlemail.com"],
+            service: 'gmail',
             auth: {
-            user: kamp.email,
-            pass: kamp.lozinka
+              user: kamp.email,
+              pass: kamp.lozinka
             }
-            });
+          });
 
         let msg = {
             from: '"Kamp Mlade nade" <mladenade.kamp@gmail.com>', // sender address
@@ -95,6 +91,7 @@ class PrijavaController extends Controller {
             subject: "Kamp Mlade nade - prijava", // Subject line
             text: "", // plain text body
         } 
+
 
         try {
             if(status_prijava == "prihvaćena"){
@@ -142,7 +139,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let data = JSON.parse( await prijavaController.processApplication(req, res, next));
-    console.log(data);
+    //console.log(data);
     if(data.error != null){
         res.status(400).json(data);
     } else {

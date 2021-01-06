@@ -16,7 +16,6 @@ class ApplyController extends Controller {
 
     async post (req, res, next){
        
-
         let korisnicko_ime = req.body.ime.toLowerCase().substring(0, 1) + req.body.prezime.toLowerCase();
         korisnicko_ime = this.replaceLocalChars(korisnicko_ime);
 

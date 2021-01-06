@@ -32,8 +32,8 @@ module.exports = class Grupa {
       let grupa;
 
       if (results.length > 0){
-          grupa = new Grupa(results[i].ime_grupa);
-          grupa.id_grupa = results[i].id_grupa;
+          grupa = new Grupa(results[0].ime_grupa);
+          grupa.id_grupa = results[0].id_grupa;
       }
       return grupa;
   }
@@ -56,8 +56,8 @@ module.exports = class Grupa {
     }
 
     // dohvaća sve članove grupe jedne grupe
-    async fetchAllMembers(id_grupa){
-      let results = await dbGetAllMembers(id_grupa);
+    async fetchAllMembers(){
+      let results = await dbGetAllMembers(this.id_grupa);
       let clanovi = [];
       let clan;
 
@@ -94,19 +94,21 @@ module.exports = class Grupa {
         // u petlji napraviti traženi broj grupa i dodavati jednu po jednu u bazu
         // u tablicu Kamp u bazi odgovarajucem kampu dodati broj grupa
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
+
       let sudionici = await Sudionik.fetchAllSudionik();
+      
       let brojSudionika = sudionici.length;
       let brojSudGrupa = Math.floor(brojSudionika / brojGrupa);
-      let ostatak = brojSudionika % brojSudionika;
+      let ostatak = brojSudionika - (brojGrupa*brojSudGrupa);
 
       for(let i = 0; i < brojGrupa; i++){
         let ime_grupa = "Grupa_" + (i+1);
         let id_grupa = await dbCreateGroup(ime_grupa);
-
+     
         let sudioniciGrupa = await Sudionik.fetchNSudionikWithoutGroup(brojSudGrupa);
-
+        
         for(let j = 0; j < sudioniciGrupa.length; j++){
-            sudioniciGrupa[j].changeSudionikGroup(id_grupa);
+            await sudioniciGrupa[j].changeSudionikGroup(id_grupa);
         }
       }
 
@@ -115,12 +117,10 @@ module.exports = class Grupa {
         let grupe = await Grupa.fetchNGrupa(ostatak);
 
         for(let i = 0; i < ostatak; i++){
-          preostaliSudionici[i].changeSudionikGroup(grupe[i].id_grupa);
+          await preostaliSudionici[i].changeSudionikGroup(grupe[i].id_grupa);
         }
       }
-      
-
-
+    
     }
 
     //metoda za izmjenu imena grupe

@@ -12,25 +12,42 @@ class GrupaController extends Controller {
     async get(req, res, next) {
         try {
             let grupe = await Grupa.fetchAllGrupa();
-            if(grupe.lenght > 0) {
+           
+            if(grupe.length > 0) {
 
                 let grupeSClanovima = [];
 
-                for(let i = 0; i < grupe.lenght; i++){
+                for(let i = 0; i < grupe.length; i++){
+                    let clanoviDTO =[];
+
                     let clanovi = await grupe[i].fetchAllMembers();
+                    
+                    for(let j = 0; j < clanovi.length; j++) {
+                        let clan = {
+                            korisnicko_ime : clanovi[i].korisnicko_ime,
+                            ime: clanovi[i].ime,
+                            prezime : clanovi[i].prezime,
+                            id_grupa : clanovi[i].id_grupa
+                        }
+
+                        clanoviDTO.push(clan);
+                    }
+
                     let grupaSClanovima = {
                         grupa: grupe[i],
-                        clanovi : clanovi
+                        clanovi : JSON.stringify(clanoviDTO)
                     }
                     grupeSClanovima.push(grupaSClanovima);
                 }
+
+                console.log(grupeSClanovima);
 
                 return JSON.stringify({
                     grupeSClanovima : grupeSClanovima
                 });
 
             } else {
-                let sudionici = await Sudionik.fetchAllSudionik();
+                let sudionici = await Sudionik.fetchNSudionikWithoutGroup('ALL');
                 //console.log(sudionici.length)
                 return JSON.stringify({
                     brojSudionika : sudionici.length
@@ -44,7 +61,7 @@ class GrupaController extends Controller {
 
     async post(req, res, next) {
         let brojGrupa = req.body.brojGrupa;
-
+    
         try {
             await Grupa.createGroups(brojGrupa);
 

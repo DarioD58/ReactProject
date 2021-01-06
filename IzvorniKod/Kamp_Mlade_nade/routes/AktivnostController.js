@@ -4,7 +4,12 @@ const router = express.Router();
 const Kamp = require('../models/Kamp');
 const Controller = require('./Controller');
 const Ocjena_aktivnost = require('../models/Ocjena_aktivnost');
+const Grupa = require('../models/Grupa');
+const Animator = require('../models/Animator');
+
+
 class AktivnostController extends Controller {
+
     constructor(){
         super();
     }
@@ -51,6 +56,57 @@ class AktivnostController extends Controller {
       
     }
 
+    async getAddToRaspored(req, res, next) {
+        let grupe = await Grupa.fetchAllGrupa();
+        
+/*         let grupeSClanovima = [];
+        for(let i = 0; i < grupe.length; i++){
+            let clanoviDTO =[];
+
+            let clanovi = await grupe[i].fetchAllMembers();
+            
+            for(let j = 0; j < clanovi.length; j++) {
+                let clan = {
+                    korisnicko_ime : clanovi[j].korisnicko_ime,
+                    ime: clanovi[j].ime,
+                    prezime : clanovi[j].prezime,
+                    id_grupa : grupe[i].id_grupa
+                }
+
+                clanoviDTO.push(clan);
+            }
+
+            let grupaSClanovima = {
+                grupa: grupe[i],
+                clanovi : JSON.stringify(clanoviDTO)
+            }
+            grupeSClanovima.push(grupaSClanovima);
+        } */
+
+        
+
+        let animatori = await Animator.fetchAllAnimator();
+
+        let animatoriDTO = [];
+        for(let i = 0; i < animatori.length; i++) {
+            let animator = {
+                korisnicko_ime : animatori[i].korisnicko_ime,
+                ime: animatori[i].ime,
+                prezime : animatori[i].prezime
+            }
+
+            animatoriDTO.push(animator);
+        }
+        
+
+        return JSON.stringify({
+            grupe : grupe,
+            animatori : animatoriDTO
+        });
+        
+      
+    }
+
 }
 
 let aktivnostController = new AktivnostController();
@@ -67,6 +123,16 @@ router.post("/create", async (req, res, next) => {
 // za unos ocjene aktivnosti korisnika
 router.post("/ocjena", async (req, res, next) => {
     let data = JSON.parse( await aktivnostController.activityGrade(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+router.get("/add", async (req, res, next) => {
+    console.log('Tu sam')
+    let data = JSON.parse( await aktivnostController.getAddToRaspored(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

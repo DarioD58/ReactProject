@@ -21,7 +21,7 @@ function AddSchedule(props) {
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
         fetch('http://localhost:5000/aktivnost/add', {
-            credentials: 'include',
+            credentials: 'same-origin',
             method: 'GET'
         })
         .then(response => response.json())
@@ -107,15 +107,17 @@ function AddSchedule(props) {
                             <option key={activity.id_aktivnost} id={activity.id_aktivnost} value={activity.ime_aktivnost}>{activity.ime_aktivnost}</option>
                     )}
                 </select>
+                <p className='general-text for-checkboxes'>Izaberite grupe</p>
                 {data.grupe.map((grupa) => {
-                    return (<div>
+                    return (<div className='checkboxes'>
                         <label className="general-text" htmlFor={grupa.ime_grupa}>{grupa.ime_grupa}: </label>
                         <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={grupa.ime_grupa}
                         required type="checkbox" name="grupe" value={grupa} />
                     </div>)
                 })}
+                <p className='general-text for-checkboxes'>Izaberite animatore</p>
                 {data.animatori.map((animator) => {
-                    return (<div>
+                    return (<div className='checkboxes'>
                         <label className="general-text" htmlFor={animator.korisnickoIme}>{animator.ime} {animator.prezime}: </label>
                         <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={animator.korisnickoIme}
                         required type="checkbox" name="animatori" value={animator} />

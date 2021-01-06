@@ -131,6 +131,7 @@ router.post("/ocjena", async (req, res, next) => {
 });
 
 router.get("/add", async (req, res, next) => {
+    console.log('Tu sam')
     let data = JSON.parse( await aktivnostController.getAddToRaspored(req, res, next));
     if(data.error != null){
         res.status(400).json(data);

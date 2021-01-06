@@ -11,7 +11,7 @@ function Applications() {
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
         fetch("./prijave", {
-            credentials: 'include',
+            credentials: 'same-origin',
             method: 'GET',
         })
         .then(response => response.json())

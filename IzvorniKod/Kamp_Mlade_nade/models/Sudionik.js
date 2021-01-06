@@ -139,12 +139,22 @@ dbAddNewSudionik = async (sudionik) => {
 }
 
 dbGetNSudionikWithoutGroup = async(n) =>{
-    const sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
-    FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
-    WHERE id_grupa IS NULL
-    LIMIT $1`;
+    let sql;
+    let result;
+    if(n == "ALL"){
+        sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
+        FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
+        WHERE id_grupa IS NULL
+        LIMIT ALL`;
+        result = await db.query(sql);
+    } else {
+        sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
+            FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
+            WHERE id_grupa IS NULL
+            LIMIT $1`;
+        result = await db.query(sql, [n]);
+    }
     try {
-        const result = await db.query(sql, [n]);
         return result.rows;
     } catch (err) {
         console.log(err);

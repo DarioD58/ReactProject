@@ -99,7 +99,7 @@ module.exports = class Grupa {
       
       let brojSudionika = sudionici.length;
       let brojSudGrupa = Math.floor(brojSudionika / brojGrupa);
-      let ostatak = brojSudionika % brojSudionika;
+      let ostatak = brojSudionika - (brojGrupa*brojSudGrupa);
 
       for(let i = 0; i < brojGrupa; i++){
         let ime_grupa = "Grupa_" + (i+1);

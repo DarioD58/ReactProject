@@ -107,25 +107,25 @@ function AddSchedule(props) {
                             <option key={activity.id_aktivnost} id={activity.id_aktivnost} value={activity.ime_aktivnost}>{activity.ime_aktivnost}</option>
                     )}
                 </select>
-                <p className='general-text for-checkboxes'>Izaberite grupe</p>
+                <h5 className='general-text for-checkboxes'>Izaberite grupe</h5>
                 {data.grupe.map((grupa) => {
                     return (<div className='checkboxes'>
                         <label className="general-text" htmlFor={grupa.ime_grupa}>{grupa.ime_grupa}: </label>
                         <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={grupa.ime_grupa}
-                        required type="checkbox" name="grupe" value={grupa} />
+                         type="checkbox" name="grupe" value={grupa} />
                     </div>)
                 })}
-                <p className='general-text for-checkboxes'>Izaberite animatore</p>
+                <h5 className='general-text for-checkboxes'>Izaberite animatore</h5>
                 {data.animatori.map((animator) => {
                     return (<div className='checkboxes'>
                         <label className="general-text" htmlFor={animator.korisnickoIme}>{animator.ime} {animator.prezime}: </label>
                         <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={animator.korisnickoIme}
-                        required type="checkbox" name="animatori" value={animator} />
+                         type="checkbox" name="animatori" value={animator} />
                     </div>)
                 })}                
                 <label className="general-text" htmlFor="trajanje">Vrijeme održavanja aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
-                required type="datetime-local" name="trajanje" value={state.trajanje} size="50"/>
+                required type="datetime-local" name="trajanje" value={state.datum} size="50"/>
                 <input className="bg-dark text-white"
                 type="submit" name="submit" placeholder="Submit" />
                 <input className="bg-dark text-white" onClick={handleReset}

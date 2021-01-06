@@ -97,6 +97,9 @@ function App() {
         <Route exact path='/creategroups'>
             <CreateGroups />
         </Route>
+        <Route exact path='/mygroups'>
+            <Groups />
+        </Route>
         <Route exact path='/applications'>
             <Applications />
         </Route>

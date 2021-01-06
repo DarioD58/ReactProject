@@ -92,7 +92,6 @@ class PrijavaController extends Controller {
             text: "", // plain text body
         } 
 
-        console.log("Tu sam")
 
         try {
             if(status_prijava == "prihvaćena"){
@@ -102,7 +101,6 @@ class PrijavaController extends Controller {
                 Dovršite Vašu registraciju na poveznici.\n
                 Vaš Kamp Mlade nade \n
                 http://${req.hostname}:3000/register`;
-                console.log('Hej hej')
                 await transporter.sendMail(msg);
                 
             } else if(status_prijava == "odbijena"){

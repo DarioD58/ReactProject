@@ -30,7 +30,7 @@ class GrupaController extends Controller {
                 });
 
             } else {
-                let sudionici = await Sudionik.fetchAllSudionik();
+                let sudionici = await Sudionik.fetchNSudionikWithoutGroup('ALL');
                 //console.log(sudionici.length)
                 return JSON.stringify({
                     brojSudionika : sudionici.length
@@ -44,7 +44,7 @@ class GrupaController extends Controller {
 
     async post(req, res, next) {
         let brojGrupa = req.body.brojGrupa;
-
+    
         try {
             await Grupa.createGroups(brojGrupa);
 

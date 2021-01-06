@@ -105,8 +105,8 @@ module.exports = class Sudionik extends Korisnik {
     }
 
     //metoda za izmjenu grupe sudionika
-    async changeSudionikGroup(){
-        dbChangeSudionikGroup(this.korisnicko_ime_sudionik, id_grupa);
+    async changeSudionikGroup(id_grupa){
+        dbChangeSudionikGroup(this.korisnicko_ime, id_grupa);
     }
 
     
@@ -139,12 +139,22 @@ dbAddNewSudionik = async (sudionik) => {
 }
 
 dbGetNSudionikWithoutGroup = async(n) =>{
-    const sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
-    FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
-    WHERE id_grupa IS NULL
-    LIMIT $1`;
+    let sql;
+    let result;
+    if(n == "ALL"){
+        sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
+        FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
+        WHERE id_grupa IS NULL
+        LIMIT ALL`;
+        result = await db.query(sql);
+    } else {
+        sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
+            FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
+            WHERE id_grupa IS NULL
+            LIMIT $1`;
+        result = await db.query(sql, [n]);
+    }
     try {
-        const result = await db.query(sql, [n]);
         return result.rows;
     } catch (err) {
         console.log(err);
@@ -192,10 +202,10 @@ dbGetSudionikAcitvities = async (id_grupa) => {
     }
 }
 
-dbChangeSudionikGroup = async (korisnicko_ime_sudionik, id_grupa) => {
+dbChangeSudionikGroup = async (korisnicko_ime, id_grupa) => {
     const sql = 'UPDATE SUDIONIK SET id_grupa = $1 WHERE korisnicko_ime_sudionik = $2';
     try {
-        const result = await db.query(sql, [id_grupa, korisnicko_ime_sudionik]);
+        const result = await db.query(sql, [id_grupa, korisnicko_ime]);
         return result.rows;
     } catch(err) {
         console.log(err);

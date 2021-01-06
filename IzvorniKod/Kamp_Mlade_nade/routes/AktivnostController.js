@@ -57,53 +57,29 @@ class AktivnostController extends Controller {
     }
 
     async getAddToRaspored(req, res, next) {
-        let grupe = await Grupa.fetchAllGrupa();
-        
-/*         let grupeSClanovima = [];
-        for(let i = 0; i < grupe.length; i++){
-            let clanoviDTO =[];
+        try {
+            let grupe = await Grupa.fetchAllGrupa();        
 
-            let clanovi = await grupe[i].fetchAllMembers();
-            
-            for(let j = 0; j < clanovi.length; j++) {
-                let clan = {
-                    korisnicko_ime : clanovi[j].korisnicko_ime,
-                    ime: clanovi[j].ime,
-                    prezime : clanovi[j].prezime,
-                    id_grupa : grupe[i].id_grupa
+            let animatori = await Animator.fetchAllAnimator();
+
+            let animatoriDTO = [];
+            for(let i = 0; i < animatori.length; i++) {
+                let animator = {
+                    korisnicko_ime : animatori[i].korisnicko_ime,
+                    ime: animatori[i].ime,
+                    prezime : animatori[i].prezime
                 }
 
-                clanoviDTO.push(clan);
+                animatoriDTO.push(animator);
             }
-
-            let grupaSClanovima = {
-                grupa: grupe[i],
-                clanovi : JSON.stringify(clanoviDTO)
-            }
-            grupeSClanovima.push(grupaSClanovima);
-        } */
-
-        
-
-        let animatori = await Animator.fetchAllAnimator();
-
-        let animatoriDTO = [];
-        for(let i = 0; i < animatori.length; i++) {
-            let animator = {
-                korisnicko_ime : animatori[i].korisnicko_ime,
-                ime: animatori[i].ime,
-                prezime : animatori[i].prezime
-            }
-
-            animatoriDTO.push(animator);
+            
+            return JSON.stringify({
+                grupe : grupe,
+                animatori : animatoriDTO
+            });
+        } catch(error){
+            return JSON.stringify({error: "Greška pri dohvatu grupa i aktivnosti!"});
         }
-        
-
-        return JSON.stringify({
-            grupe : grupe,
-            animatori : animatoriDTO
-        });
-        
       
     }
 

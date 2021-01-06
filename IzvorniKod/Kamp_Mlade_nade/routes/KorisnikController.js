@@ -34,10 +34,10 @@ class KorisnikController extends Controller {
                 clanoviDTO.push(clan);
             }
 
-            let grupaSClanovima = {
+/*             let grupaSClanovima = {
                 grupa: grupa,
                 clanovi : clanoviDTO
-            }
+            } */
 
             let animatoriDTO = [];
             for(let i = 0; i < animatori.length; i++) {
@@ -51,7 +51,8 @@ class KorisnikController extends Controller {
             }
 
             return JSON.stringify({
-                grupa : grupaSClanovima,
+                grupa : grupa,
+                clanovi : clanoviDTO,
                 animatori : animatoriDTO
             });
 
@@ -59,9 +60,10 @@ class KorisnikController extends Controller {
         } else if(korisnik.statusKorisnik == "animator") {
             let grupe = await Grupa.fetchAllGrupa();
         
-            let grupeSClanovima = [];
+            //let grupeSClanovima = [];
+            let clanoviDTO =[];
             for(let i = 0; i < grupe.length; i++){
-                let clanoviDTO =[];
+                //let clanoviDTO =[];
 
                 let clanovi = await grupe[i].fetchAllMembers();
                 
@@ -76,11 +78,11 @@ class KorisnikController extends Controller {
                     clanoviDTO.push(clan);
                 }
 
-                let grupaSClanovima = {
+/*                 let grupaSClanovima = {
                     grupa: grupe[i],
                     clanovi : clanoviDTO
                 }
-                grupeSClanovima.push(grupaSClanovima);
+                grupeSClanovima.push(grupaSClanovima); */
             }
 
             
@@ -100,7 +102,8 @@ class KorisnikController extends Controller {
             
 
             return JSON.stringify({
-                grupe : grupeSClanovima,
+                grupe : grupe,
+                clanovi : clanoviDTO,
                 animatori : animatoriDTO
             });
 

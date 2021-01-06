@@ -12,8 +12,9 @@ class KorisnikController extends Controller {
 
     // Dohvaca informacije o grupama i animatorima korisnika
     async userInfo(req, res, next) {
-        let korisnik = req.cookies.korisnik;
+        let korisnik = JSON.parse(req.cookies.korisnik);
 
+    
         try {
         if(korisnik.statusKorisnik == "sudionik") {
             let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
@@ -21,14 +22,37 @@ class KorisnikController extends Controller {
             let clanovi = await grupa.fetchAllMembers();
             let animatori = await sudionik.fetchSudionkAnimators();
             
+            let clanoviDTO =[];
+            for(let i = 0; i < clanovi.length; i++) {
+                let clan = {
+                    korisnicko_ime : clanovi[i].korisnicko_ime,
+                    ime: clanovi[i].ime,
+                    prezime : clanovi[i].prezime,
+                    id_grupa : grupa.id_grupa
+                }
+
+                clanoviDTO.push(clan);
+            }
+
             let grupaSClanovima = {
                 grupa: grupa,
-                clanoviGrupe : clanovi
+                clanovi : clanoviDTO
+            }
+
+            let animatoriDTO = [];
+            for(let i = 0; i < animatori.length; i++) {
+                let clan = {
+                    korisnicko_ime : animatori[i].korisnicko_ime,
+                    ime: animatori[i].ime,
+                    prezime : animatori[i].prezime
+                }
+
+                animatoriDTO.push(clan);
             }
 
             return JSON.stringify({
                 grupa : grupaSClanovima,
-                animatori : animatori
+                animatori : animatoriDTO
             });
 
 
@@ -36,21 +60,48 @@ class KorisnikController extends Controller {
             let grupe = await Grupa.fetchAllGrupa();
         
             let grupeSClanovima = [];
+            for(let i = 0; i < grupe.length; i++){
+                let clanoviDTO =[];
 
-            for(let i = 0; i < grupe.lenght; i++){
                 let clanovi = await grupe[i].fetchAllMembers();
+                
+                for(let j = 0; j < clanovi.length; j++) {
+                    let clan = {
+                        korisnicko_ime : clanovi[j].korisnicko_ime,
+                        ime: clanovi[j].ime,
+                        prezime : clanovi[j].prezime,
+                        id_grupa : grupe[i].id_grupa
+                    }
+
+                    clanoviDTO.push(clan);
+                }
+
                 let grupaSClanovima = {
                     grupa: grupe[i],
-                    clanoviGrupe : clanovi
+                    clanovi : clanoviDTO
                 }
                 grupeSClanovima.push(grupaSClanovima);
             }
 
-            let animtori = await Animator.fetchAllAnimator();
+            
+
+            let animatori = await Animator.fetchAllAnimator();
+
+            let animatoriDTO = [];
+            for(let i = 0; i < animatori.length; i++) {
+                let animator = {
+                    korisnicko_ime : animatori[i].korisnicko_ime,
+                    ime: animatori[i].ime,
+                    prezime : animatori[i].prezime
+                }
+
+                animatoriDTO.push(animator);
+            }
+            
 
             return JSON.stringify({
                 grupe : grupeSClanovima,
-                animatori : animtori
+                animatori : animatoriDTO
             });
 
         } else if(korisnik.statusKorisnik == "organizator") {

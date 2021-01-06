@@ -138,7 +138,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let data = JSON.parse( await prijavaController.processApplication(req, res, next));
-    console.log(data);
+    //console.log(data);
     if(data.error != null){
         res.status(400).json(data);
     } else {

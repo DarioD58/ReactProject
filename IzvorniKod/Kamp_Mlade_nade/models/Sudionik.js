@@ -178,7 +178,7 @@ dbSudionikGetAll = async() =>{
 
 dbGetSudionikAnimators = async (id_grupa) => {
     const sql = `SELECT korisnicko_ime, lozinka, email, ime, prezime, status,
-    br_tel_animator, datum_i_god_rod_animator
+    br_tel, datum_i_god_rod
     FROM animator JOIN korisnik ON korisnicko_ime_animator = korisnicko_ime NATURAL JOIN raspored
     WHERE raspored.id_grupa = $1`;
     try {

@@ -71,6 +71,7 @@ function AddSchedule(props) {
     }
 
     const onChange = (e) => {  
+        console.log(e.target.value)
         setState(prevState => ({
             ...prevState,
             ime : e.target.value
@@ -80,6 +81,7 @@ function AddSchedule(props) {
     const onChangeCheck1 = (e) => {
         let temp = state.grupe
         temp.push(e.target.value)  
+        console.log(e.target.value)
         setState(prevState => ({
             ...prevState,
             grupe : temp
@@ -89,6 +91,7 @@ function AddSchedule(props) {
     const onChangeCheck2 = (e) => {
         let temp = state.animatori
         temp.push(e.target.value)  
+        console.log(e.target.value)
         setState(prevState => ({
             ...prevState,
             animatori: temp
@@ -119,8 +122,6 @@ function AddSchedule(props) {
     if(props.activity === undefined){
         return <Redirect to='/' />
     }
-
-    console.log(props.activity)
 
     const activities = Array.from(props.activity);
 

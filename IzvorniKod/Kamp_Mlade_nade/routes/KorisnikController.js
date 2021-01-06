@@ -76,8 +76,8 @@ class KorisnikController extends Controller {
                         korisnicko_ime : clanovi[j].korisnicko_ime,
                         ime: clanovi[j].ime,
                         prezime : clanovi[j].prezime,
-                        email : clanovi[i].email,
-                        br_tel: clanovi[i].br_tel,
+                        email : clanovi[j].email,
+                        br_tel: clanovi[j].br_tel,
                         id_grupa : grupe[i].id_grupa
                     }
 

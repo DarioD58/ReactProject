@@ -74,10 +74,7 @@ function CreateGroup() {
                 <p className='general-text' hidden={isSent}>Grupe su već dodjeljene!</p>
                 <p className='general-text' hidden={!isSent}>{message}</p>
                 <p className='general-text'>Možete ih pregledati i premjestiti sudionike</p>
-                <Link to={{
-                    pathname:'/viewgroups',
-                    state: {groups: groups}
-                }}><button>Pregled grupa</button></Link>
+                <Link to='viewgroups'><button>Pregled grupa</button></Link>
             </div>
         )
     }

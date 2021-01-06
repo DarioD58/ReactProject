@@ -11,7 +11,7 @@ function Applications() {
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
         fetch("./prijave", {
-            credentials: 'same-origin',
+            credentials: 'include',
             method: 'GET',
         })
         .then(response => response.json())
@@ -25,18 +25,11 @@ function Applications() {
       }, [refresh]);
 
     function onClick(e){
-        let id = e.target.id
-        setFilter(id)
-        if(id === 'sudionik'){
-            document.getElementById(id).style.backgroundColor = 'grey'
-            document.getElementById('animator').style.backgroundColor = '#343a40'
-        } else {
-            document.getElementById(id).style.backgroundColor = 'grey'
-            document.getElementById('sudionik').style.backgroundColor = '#343a40'
-        }
+        setFilter(e.target.id)
     }
 
     function onRefresh(){
+        console.log("Tu sam")
         setRefresh(!refresh)
     }
 

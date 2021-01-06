@@ -17,6 +17,7 @@ import CreateGroups from './pages/CreateGroups'
 import UserCalendar from './pages/UserCalendar'
 import AddSchedule from './pages/AddSchedule';
 import RearangeGroups from './pages/RearangeGroups';
+import Groups from './pages/Groups'
 
 
 function App() {

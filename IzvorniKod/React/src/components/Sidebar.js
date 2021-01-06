@@ -47,11 +47,6 @@ export default props => {
             Stvori novu aktivnost
           </p>
         </Link>
-        <Link to='/addactivity' onClick={handleClick}>
-          <p className="menu-item">
-            Dodaj aktivnost u raspored
-          </p>
-        </Link>
         <Link to='/applications' onClick={handleClick}>
           <p className="menu-item">
             Prijave za kamp
@@ -83,9 +78,11 @@ export default props => {
         <p className="menu-item">
           Moj profil
         </p>
-        <p className="menu-item">
-          Moja grupa
-        </p>
+        <Link to='/mygroups' onClick={handleClick}>
+          <p className="menu-item">
+            Moja grupa
+          </p>
+        </Link>
       </Menu>
     );
   }

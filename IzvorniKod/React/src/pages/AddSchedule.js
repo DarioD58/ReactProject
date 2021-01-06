@@ -7,37 +7,37 @@ function AddSchedule(props) {
     const [state, setState] = React.useState({
         ime: props.activity[0].ime_aktivnost,
         grupe: [],
-        animator: [],
+        animatori: [],
         datum: "",
     });
 
     const [data, setData] = React.useState({
         grupe: [],
-        animator: []
+        animatori: []
     })
     
     const [message, setMessage] = React.useState("")
 
-   /* React.useEffect(() => {
+    React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
         fetch('http://localhost:5000/aktivnost/add', {
-            credentials: 'include',
+            credentials: 'same-origin',
             method: 'GET'
         })
         .then(response => response.json())
-        .then((data) => {
-        if(data.error != undefined){
-            throw new Error(data.error);
+        .then((res) => {
+        if(res.error != undefined){
+            throw new Error(res.error);
         }
         setData(() => ({
-            grupe: data.grupe,
-            animator: data.animatori
+            grupe: res.grupe,
+            animatori: res.animatori
         }))
         })
         .catch((error) => {
             console.log(error);
         });
-      }, []);*/
+      }, []);
 
 
     const onSubmit = (e) => {
@@ -63,7 +63,7 @@ function AddSchedule(props) {
                 ...prevState,
                 ime: "",
                 grupe: [],
-                animator: [],
+                animatori: [],
                 datum: "",
             }))
         });
@@ -107,7 +107,22 @@ function AddSchedule(props) {
                             <option key={activity.id_aktivnost} id={activity.id_aktivnost} value={activity.ime_aktivnost}>{activity.ime_aktivnost}</option>
                     )}
                 </select>
-
+                <p className='general-text for-checkboxes'>Izaberite grupe</p>
+                {data.grupe.map((grupa) => {
+                    return (<div className='checkboxes'>
+                        <label className="general-text" htmlFor={grupa.ime_grupa}>{grupa.ime_grupa}: </label>
+                        <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={grupa.ime_grupa}
+                        required type="checkbox" name="grupe" value={grupa} />
+                    </div>)
+                })}
+                <p className='general-text for-checkboxes'>Izaberite animatore</p>
+                {data.animatori.map((animator) => {
+                    return (<div className='checkboxes'>
+                        <label className="general-text" htmlFor={animator.korisnickoIme}>{animator.ime} {animator.prezime}: </label>
+                        <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={animator.korisnickoIme}
+                        required type="checkbox" name="animatori" value={animator} />
+                    </div>)
+                })}                
                 <label className="general-text" htmlFor="trajanje">Vrijeme održavanja aktivnosti: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
                 required type="datetime-local" name="trajanje" value={state.trajanje} size="50"/>

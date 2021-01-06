@@ -31,6 +31,7 @@ function Groups() {
         }).catch((error) => {
             console.log(error);
         });
+        console.log(grupe)
       }, []);
 
     if(grupe === undefined){
@@ -68,7 +69,7 @@ function Groups() {
         return(
             <div className='application-section'>
                 <div className="general-text text-center application-header">INFO O VASOJ GRUPI</div>
-                {grupe.map((grupa) => <Group key={grupa.id_grupa} grupa={grupa} clanovi={clanovi} />)}
+                <Group grupa={grupe} clanovi={clanovi} />
                 <div className="general-text text-center activity-header">ANIMATORI KONTAKT</div>
                 <div className="activites text-light">
                     <div className='aktivnosti'>

@@ -110,7 +110,7 @@ class KorisnikController extends Controller {
             
 
             return JSON.stringify({
-                grupe : grupe,
+                grupa : grupe,
                 clanovi : clanoviDTO,
                 animatori : animatoriDTO
             });

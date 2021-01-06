@@ -15,6 +15,7 @@ import Cookies from 'js-cookie'
 import Applications from './pages/Applications'
 import CreateGroups from './pages/CreateGroups'
 import UserCalendar from './pages/UserCalendar'
+import AddSchedule from './pages/AddSchedule';
 
 
 function App() {
@@ -85,6 +86,9 @@ function App() {
         </Route>
         <Route exact path='/makeactivity'>
             <AddActivity update={updateFetch} />
+        </Route>
+        <Route exact path='/addactivity'>
+            <AddSchedule  activity={activity} />
         </Route>
         <Route exact path='/creategroups'>
             <CreateGroups />

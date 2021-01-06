@@ -320,6 +320,10 @@ section p:first-child, .timer div:last-child span{
     color: white;
   }
 
+  .buttons:hover{
+    cursor: pointer;
+  }
+
   .application-header{
     font-size: 2rem;
     color: #343a40;

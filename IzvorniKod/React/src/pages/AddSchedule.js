@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 function AddSchedule(props) {
 
     const [state, setState] = React.useState({
-        ime: props.activity[0].ime_aktivnost,
+        ime: "",
         grupe: [],
         animatori: [],
         datum: "",
@@ -70,12 +70,35 @@ function AddSchedule(props) {
         e.preventDefault();
     }
 
-    const onChange = (e) => {
-        let {id , value} = e.target 
-        id = e.target.name  
+    const onChange = (e) => {  
         setState(prevState => ({
             ...prevState,
-            [id] : value
+            ime : e.target.value
+        }))
+    }
+
+    const onChangeCheck1 = (e) => {
+        let temp = state.grupe
+        temp.push(e.target.value)  
+        setState(prevState => ({
+            ...prevState,
+            grupe : temp
+        }))
+    }
+
+    const onChangeCheck2 = (e) => {
+        let temp = state.animatori
+        temp.push(e.target.value)  
+        setState(prevState => ({
+            ...prevState,
+            animatori: temp
+        }))
+    }
+
+    const onChangeDate = (e) => {  
+        setState(prevState => ({
+            ...prevState,
+            datum : e.target.value
         }))
     }
 
@@ -92,6 +115,12 @@ function AddSchedule(props) {
     if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
         return <Redirect to='/' />
     }
+
+    if(props.activity === undefined){
+        return <Redirect to='/' />
+    }
+
+    console.log(props.activity)
 
     const activities = Array.from(props.activity);
 
@@ -111,21 +140,21 @@ function AddSchedule(props) {
                 {data.grupe.map((grupa) => {
                     return (<div className='checkboxes'>
                         <label className="general-text" htmlFor={grupa.ime_grupa}>{grupa.ime_grupa}: </label>
-                        <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={grupa.ime_grupa}
-                         type="checkbox" name="grupe" value={grupa} />
+                        <input className="bg-dark pt-3 pb-3 text-white" onChange={onChangeCheck1} id={grupa.ime_grupa}
+                         type="checkbox" name={grupa.ime_grupa} value={grupa} />
                     </div>)
                 })}
                 <h5 className='general-text for-checkboxes'>Izaberite animatore</h5>
                 {data.animatori.map((animator) => {
                     return (<div className='checkboxes'>
                         <label className="general-text" htmlFor={animator.korisnickoIme}>{animator.ime} {animator.prezime}: </label>
-                        <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} id={animator.korisnickoIme}
-                         type="checkbox" name="animatori" value={animator} />
+                        <input className="bg-dark pt-3 pb-3 text-white" onChange={onChangeCheck2} id={animator.korisnickoIme}
+                         type="checkbox" name={animator.korisnickoIme} value={animator.korisnickoIme} />
                     </div>)
                 })}                
-                <label className="general-text" htmlFor="trajanje">Vrijeme održavanja aktivnosti: </label>
-                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange} 
-                required type="datetime-local" name="trajanje" value={state.datum} size="50"/>
+                <label className="general-text" htmlFor="datum">Vrijeme održavanja aktivnosti: </label>
+                <input className="bg-dark pt-3 pb-3 text-white" onChange={onChangeDate} 
+                required type="datetime-local" name="datum" value={state.datum} size="50"/>
                 <input className="bg-dark text-white"
                 type="submit" name="submit" placeholder="Submit" />
                 <input className="bg-dark text-white" onClick={handleReset}

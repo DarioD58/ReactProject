@@ -9,7 +9,7 @@ function Applications() {
     const [refresh, setRefresh] = React.useState(false)
 
     React.useEffect(() => {
-        document.getElementById('sudionik').style.backgroundColor = 'grey'
+        //document.getElementById('sudionik').style.backgroundColor = 'grey'
         // GET request using fetch inside useEffect React hook
         fetch("./prijave", {
             credentials: 'include',

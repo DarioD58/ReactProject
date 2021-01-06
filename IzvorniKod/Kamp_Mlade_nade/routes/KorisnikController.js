@@ -28,6 +28,8 @@ class KorisnikController extends Controller {
                     korisnicko_ime : clanovi[i].korisnicko_ime,
                     ime: clanovi[i].ime,
                     prezime : clanovi[i].prezime,
+                    email : clanovi[i].email,
+                    br_tel: clanovi[i].br_tel,
                     id_grupa : grupa.id_grupa
                 }
 
@@ -44,7 +46,9 @@ class KorisnikController extends Controller {
                 let clan = {
                     korisnicko_ime : animatori[i].korisnicko_ime,
                     ime: animatori[i].ime,
-                    prezime : animatori[i].prezime
+                    prezime : animatori[i].prezime,
+                    email : animator[i].email,
+                    br_tel : animator[i].br_tel
                 }
 
                 animatoriDTO.push(clan);
@@ -72,6 +76,8 @@ class KorisnikController extends Controller {
                         korisnicko_ime : clanovi[j].korisnicko_ime,
                         ime: clanovi[j].ime,
                         prezime : clanovi[j].prezime,
+                        email : clanovi[i].email,
+                        br_tel: clanovi[i].br_tel,
                         id_grupa : grupe[i].id_grupa
                     }
 
@@ -94,7 +100,9 @@ class KorisnikController extends Controller {
                 let animator = {
                     korisnicko_ime : animatori[i].korisnicko_ime,
                     ime: animatori[i].ime,
-                    prezime : animatori[i].prezime
+                    prezime : animatori[i].prezime,
+                    email : animatori[i].email,
+                    br_tel: animatori[i].br_tel
                 }
 
                 animatoriDTO.push(animator);

@@ -6,7 +6,7 @@ const Controller = require('./Controller');
 const Ocjena_aktivnost = require('../models/Ocjena_aktivnost');
 const Grupa = require('../models/Grupa');
 const Animator = require('../models/Animator');
-
+const Raspored = require('../models/Raspored');
 
 class AktivnostController extends Controller {
 
@@ -83,6 +83,21 @@ class AktivnostController extends Controller {
       
     }
 
+    async postAddToRaspored(req, res, next) {
+        let infoAktivnost = req.body;
+
+
+        let instancaAktivnosti = new Raspored(infoAktivnost.id_grupa, infoAktivnost.id_aktivnost, 
+            infoAktivnost.datum_i_vrijeme, infoAktivnost.korisnicko_ime_animator);
+        try {
+            await Raspored.setDefaultActivities();
+
+        } catch(error){
+            return JSON.stringify({error: "Greška pri stvaranju rasporeda!"});
+        }
+      
+    }
+
 }
 
 let aktivnostController = new AktivnostController();
@@ -108,6 +123,15 @@ router.post("/ocjena", async (req, res, next) => {
 
 router.get("/add", async (req, res, next) => {
     let data = JSON.parse( await aktivnostController.getAddToRaspored(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+router.post("/add", async (req, res, next) => {
+    let data = JSON.parse( await aktivnostController.postAddToRaspored(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

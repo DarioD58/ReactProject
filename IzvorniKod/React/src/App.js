@@ -16,6 +16,7 @@ import Applications from './pages/Applications'
 import CreateGroups from './pages/CreateGroups'
 import UserCalendar from './pages/UserCalendar'
 import AddSchedule from './pages/AddSchedule';
+import RearangeGroups from './pages/RearangeGroups';
 
 
 function App() {
@@ -89,6 +90,9 @@ function App() {
         </Route>
         <Route exact path='/addactivity'>
             <AddSchedule  activity={activity} />
+        </Route>
+        <Route exact path='/viewgroups'>
+            <RearangeGroups />
         </Route>
         <Route exact path='/creategroups'>
             <CreateGroups />

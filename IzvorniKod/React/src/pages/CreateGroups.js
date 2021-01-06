@@ -78,7 +78,7 @@ function CreateGroup() {
                 <p className='general-text'>Možete ih pregledati i premjestiti sudionike</p>
                 <Link to={{
                     pathname:'/viewgroups',
-                    groups: groups
+                    state: {groups: groups}
                 }}><button>Pregled grupa</button></Link>
             </div>
         )

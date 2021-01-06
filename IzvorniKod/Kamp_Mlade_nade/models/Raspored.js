@@ -45,15 +45,14 @@ module.exports = class Raspored {
 
     }
 
-    async checkAktivnostInRaspored(){
-        /*  aktivnost se neće preklapati s aktivnošću istog tipa
-            Spojiti tablice raspored i aktivnost => natural join (id_aktivnost)
-            Pretražiti po atributima datum_i_vrijeme_izvrsavanja i id_aktivnost nove aktivnosti */
-            checkActivityTypeOverlap(this.id_aktivnost, this.datum_i_vrijeme);
+
+
+    static async checkActivityTypeOverlap(datum_i_vrijeme, tip_aktivnost) {
+        return await dbCheckActivityTypeOverlap(datum_i_vrijeme, tip_aktivnost);
     }
 
-    async checkActivityTypeOverlap(id_aktivnost, datum_i_vrijeme) {
-        let results = await dbCheckActivityTypeOverlap(id_aktivnost, datum_i_vrijeme);
+    static async checkActivityTimeOverlap(datum_i_vrijeme, trajanje_aktivnost_h) {
+        return await dbCheckActivityTimeOverlap(datum_i_vrijeme, trajanje_aktivnost_h);
     }
 	
 /* 	async updateInRaspored(id_aktivnost){
@@ -68,7 +67,35 @@ module.exports = class Raspored {
 		dbDeleteRaspored();
 	}
 }
-	
+
+
+dbCheckActivityTimeOverlap = async (datum_i_vrijeme, trajanje_aktivnost_h) => {
+    const sql = `SELECT COUNT(*)
+                FROM raspored NATURAL JOIN aktivnost
+                WHERE $1 BETWEEN datum_i_vrijeme_izvrsavanja AND datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * trajanje_aktivnost_h`;
+   try {
+       //console.log("Dodajem novu aktivnost");
+       const result = await db.query(sql, [datum_i_vrijeme, trajanje_aktivnost_h]);
+       return result.rows[0];
+   } catch (err) {
+       console.log(err);
+       throw err
+   }
+}
+
+dbCheckActivityTypeOverlap = async (datum_i_vrijeme, tip_aktivnost) => {
+    const sql = `SELECT COUNT(*)
+                FROM raspored NATURAL JOIN aktivnost
+                WHERE datum_i_vrijeme_izvrsavanja = $1 AND tip_aktivnost = $2`;
+   try {
+       //console.log("Dodajem novu aktivnost");
+       const result = await db.query(sql, [datum_i_vrijeme, tip_aktivnost]);
+       return result.rows[0];
+   } catch (err) {
+       console.log(err);
+       throw err
+   }
+}
  
 dbAddToRaspored = async (raspored) => {
     const sql = `INSERT INTO raspored (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa, korisnicko_ime_animator)

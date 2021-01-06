@@ -3,6 +3,7 @@ const router = express.Router();
 const Controller = require('./Controller');
 const Grupa = require('../models/Grupa');
 const Sudionik = require('../models/Sudionik');
+const Raspored = require('../models/Raspored');
 
 class GrupaController extends Controller {
     constructor(){
@@ -64,7 +65,8 @@ class GrupaController extends Controller {
     
         try {
             await Grupa.createGroups(brojGrupa);
-
+            await Raspored.setDefaultActivities();
+            
             return JSON.stringify({
                 poruka : `Uspješno stvoreno ${brojGrupa} grupa!`
             });

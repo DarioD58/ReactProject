@@ -84,16 +84,46 @@ class AktivnostController extends Controller {
     }
 
     async postAddToRaspored(req, res, next) {
-        let infoAktivnost = req.body;
+        let ime_aktivnost = req.body.ime;
+        let datum_i_vrijeme = req.body.datum;
+        let grupe = req.body.grupe;
+        let animatori = req.body.animatori;
 
-
-        let instancaAktivnosti = new Raspored(infoAktivnost.id_grupa, infoAktivnost.id_aktivnost, 
-            infoAktivnost.datum_i_vrijeme, infoAktivnost.korisnicko_ime_animator);
         try {
-            await Raspored.setDefaultActivities();
+        let kamp = await Kamp.fetchUpcoming();
+        let aktivnost = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+
+        let instancaAktivnosti = new Raspored(infoAktivnost.id_grupa, aktivnost.id_aktivnost, 
+            infoAktivnost.datum_i_vrijeme, infoAktivnost.korisnicko_ime_animator);
+        
+        // uvjet 1) aktivnost se neće preklapati s aktivnošću istog tipa
+        let typeOverlap = await Raspored.checkActivityTypeOverlap(aktivnost.tip_aktivnost);
+        if(typeOverlap > 0) throw new Error("Aktivnost se ne smije preklapati s aktivnošću istog tipa!");
+
+        // uvjet 2) pridružen je minimalno jedan animator
+        if(animatori.length < 1) throw new Error("Aktivnost mora imati barem jednog animatora!");
+        
+        // uvjet 3) pridružen je odgovarajuć broj grupa
+        if(aktivnost.tip_aktivnost.includes("max")){
+            let maxBroj = aktivnost.tip_aktivnost.split(" ")[1];
+            if(grupe.length > maxBroj) throw new Error(`Aktivnosti je pridruženo previše grupa. Smije biti najviše ${maxBroj} grupa.`);
+        } else {
+            let brojGrupa = aktivnost.tip_aktivnost.split(" ")[1];
+            if(grupe.length != maxBroj) throw new Error(`Aktivnosti je pridružen nevaljan grupa. Na aktivnosti mora biti ${brojGrupa} grupa.`);
+        }
+
+        // uvjet 4) ni jedna od pridruženih grupa neće imati konflikte s drugim aktivnostima koje su već navedene
+        let timeOverlap = await Raspored.checkActivityTimeOverlap(datum_i_vrijeme, aktivnost.trajanje_aktivnost_h);
+        if(timeOverlap > 0) throw new Error("Aktivnost se ne smije imati vremenske konflikte s postojećim aktivnostima!");
+
+        for(let i = 0; i < grupe.length; i++){
+            
+        }
+
+        await Raspored.setDefaultActivities();
 
         } catch(error){
-            return JSON.stringify({error: "Greška pri stvaranju rasporeda!"});
+            return JSON.stringify({error: "Greška pri dodavanju aktivnosti u raspored! " + error.message});
         }
       
     }

@@ -10,7 +10,6 @@
 
 form{
   border: 2px solid  #343a40;
-  background-color: beige;
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-evenly;
@@ -283,7 +282,7 @@ section p:first-child, .timer div:last-child span{
   .aktivnosti{
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 25% 50% 25%;
   }
 
   .naslovi{

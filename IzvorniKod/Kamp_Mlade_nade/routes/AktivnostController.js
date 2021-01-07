@@ -18,8 +18,15 @@ class AktivnostController extends Controller {
         let ime_aktivnost = req.body.ime;
         let opis_aktivnost = req.body.opis;
         let tip_aktivnost = req.body.tip;
+        let br_grupa = req.body.br_grupa
         let trajanje_aktivnost_h = req.body.trajanje;
         let kamp = await Kamp.fetchUpcoming();
+
+        if(tip_aktivnost == 'max N'){
+            tip_aktivnost = 'max ' + br_grupa
+        } else if(tip_aktivnost == 'N'){
+            tip_aktivnost = br_grupa
+        } 
 
         try{
             let aktivnost_check = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp,  kamp.datum_odrzavanja_kamp)

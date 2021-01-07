@@ -41,19 +41,18 @@ class GrupaController extends Controller {
                     grupeSClanovima.push(grupaSClanovima);
                 }
 
-                console.log(grupeSClanovima);
-
                 return JSON.stringify({
                     grupeSClanovima : grupeSClanovima
                 });
 
             } else {
                 let sudionici = await Sudionik.fetchNSudionikWithoutGroup('ALL');
-                //console.log(sudionici.length)
+
                 return JSON.stringify({
                     brojSudionika : sudionici.length
                 });
             }
+
         } catch (error) {
             return JSON.stringify({error: "Greška pri dohvatu grupa kampa!"});
         }

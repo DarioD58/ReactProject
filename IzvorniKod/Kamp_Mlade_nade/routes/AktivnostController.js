@@ -35,7 +35,7 @@ class AktivnostController extends Controller {
                 });
                 
             } catch (err) {
-                console.error(err);
+                console.log(err);
                 return JSON.stringify({error : "Greška pri stvaranju aktivnosti."});   
             }
         } catch(err){

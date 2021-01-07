@@ -7,6 +7,7 @@ const Ocjena_aktivnost = require('../models/Ocjena_aktivnost');
 const Grupa = require('../models/Grupa');
 const Animator = require('../models/Animator');
 const Raspored = require('../models/Raspored');
+const Sudionik = require('../models/Sudionik');
 
 class AktivnostController extends Controller {
 
@@ -96,7 +97,8 @@ class AktivnostController extends Controller {
         let datum_i_vrijeme = req.body.datum;
         let grupe = req.body.grupe;
         let animatori = req.body.animatori;
-        console.log(req.body);
+        
+        //console.log(req.body);
         
         try {
         let kamp = await Kamp.fetchUpcoming();
@@ -151,6 +153,43 @@ class AktivnostController extends Controller {
       
     }
 
+
+    async getRaspored(req, res, next) {
+        let korisnik = JSON.parse(req.cookies.korisnik);
+
+        console.log(korisnik.statusKorisnik)
+        try {
+        if(korisnik.statusKorisnik == "sudionik") {
+            console.log(korisnik.statusKorisnik)
+            let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
+            let aktivnostiURasporedu = await Raspored.fetchRasporedAktivnostiForSudionik(sudionik.id_grupa, sudionik.korisnicko_ime);
+
+            return JSON.stringify({
+                rasporedAktivnosti : aktivnostiURasporedu
+            });
+
+
+        } else if(korisnik.statusKorisnik == "animator") {
+            let aktivnostiURasporedu = await Raspored.fetchRasporedAktivnostiForAnimator(korisnik.korisnickoIme);
+
+            return JSON.stringify({
+                rasporedAktivnosti : aktivnostiURasporedu
+            });
+
+        } else if(korisnik.statusKorisnik == "organizator") {
+            return JSON.stringify({
+                poruka : "Što organizator traži ovdje?"
+            });
+
+        } else {
+            throw new Error("Nevaljan status korisnika!");
+        }
+
+        } catch (error) {
+            return JSON.stringify({error: "Greška pri dohvatu informacija korisnika! " + error.message});
+        }
+    }
+
 }
 
 let aktivnostController = new AktivnostController();
@@ -193,6 +232,14 @@ router.post("/add", async (req, res, next) => {
     }
 });
 
+router.get("/raspored", async (req, res, next) => {
+    let data = JSON.parse( await aktivnostController.getRaspored(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
 
 
 

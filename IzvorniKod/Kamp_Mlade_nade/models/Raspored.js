@@ -46,6 +46,42 @@ module.exports = class Raspored {
 
     }
 
+    static async fetchRasporedAktivnostiForAnimator(korisnicko_ime_animator) {
+        let results = await dbGetRasporedAktivnostiForAnimator(korisnicko_ime_animator);
+        let aktivnostiURasporedu = [];
+
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let rasporedAktivnost = {
+                    id: i,
+                    title: results[i].ime_aktivnost,
+                    start: results[i].datum_i_vrijeme_izvrsavanja,
+                    end: results[i].kraj_aktivnost
+                }
+                aktivnostiURasporedu.push(rasporedAktivnost);
+            }
+        }       
+        return aktivnostiURasporedu;
+    }
+
+    static async fetchRasporedAktivnostiForSudionik(id_grupa, korisnicko_ime_sudionik) {
+        let results = await dbGetRasporedAktivnostiForSudionik(id_grupa, korisnicko_ime_sudionik);
+        let aktivnostiURasporedu = [];
+ 
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                let rasporedAktivnost = {
+                    id: i,
+                    title: results[i].ime_aktivnost,
+                    start: results[i].datum_i_vrijeme_izvrsavanja,
+                    end: results[i].kraj_aktivnost
+                }
+                aktivnostiURasporedu.push(rasporedAktivnost);
+            }
+        }       
+        return aktivnostiURasporedu;
+    }
+
 
 
     static async checkActivityTypeOverlap(datum_i_vrijeme, tip_aktivnost) {
@@ -75,6 +111,32 @@ module.exports = class Raspored {
 	async deleteteRaspored(){
 		dbDeleteRaspored();
 	}
+}
+
+dbGetRasporedAktivnostiForSudionik = async (id_grupa, korisnicko_ime_sudionik) => {
+    const sql = `SELECT DISTINCT ime_aktivnost, datum_i_vrijeme_izvrsavanja, datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * trajanje_aktivnost_h AS kraj_aktivnost
+                FROM raspored NATURAL JOIN aktivnost NATURAL JOIN grupa NATURAL JOIN sudionik
+                WHERE id_grupa = $1 AND korisnicko_ime_sudionik = $2`;
+    try {
+        const result = await db.query(sql, [id_grupa, korisnicko_ime_sudionik]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
+}
+
+dbGetRasporedAktivnostiForAnimator = async (korisnicko_ime_animator) => {
+    const sql = `SELECT DISTINCT ime_aktivnost, datum_i_vrijeme_izvrsavanja, datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * trajanje_aktivnost_h AS kraj_aktivnost
+                FROM raspored NATURAL JOIN aktivnost
+                WHERE korisnicko_ime_animator = $1`;
+    try {
+        const result = await db.query(sql, [korisnicko_ime_animator]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err
+    }
 }
 
 dbCheckAnimatorOverlap = async (korisnicko_ime, datum_i_vrijeme) => {

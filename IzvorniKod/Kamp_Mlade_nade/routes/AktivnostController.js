@@ -17,8 +17,9 @@ class AktivnostController extends Controller {
     async createAktivnost(req, res, next) {
         let ime_aktivnost = req.body.ime;
         let opis_aktivnost = req.body.opis;
-        let tip_aktivnost = req.body.tip;
+        let tip_aktivnost = req.body.tip; // 1, N, max N, svi
         let trajanje_aktivnost_h = req.body.trajanje;
+        let br_grupa = req.body.br_grupa; // 1 => 1, 
         let kamp = await Kamp.fetchUpcoming();
 
         try{
@@ -26,6 +27,7 @@ class AktivnostController extends Controller {
             if(aktivnost_check !== undefined)
                 throw new Error(`Aktivnost ${ime_aktivnost} već postoji`)
             try{   
+                
                 let aktivnost = new Aktivnost(ime_aktivnost, opis_aktivnost,
                     trajanje_aktivnost_h, tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
                 let id_akt = await aktivnost.addNewAktivnost();

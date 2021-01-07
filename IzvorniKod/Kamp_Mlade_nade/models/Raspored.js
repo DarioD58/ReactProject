@@ -31,16 +31,16 @@ module.exports = class Raspored {
         let animatori = await Animator.fetchAllAnimator();
 
         for(let i = 0; i < kamp.trajanje; i++){
-            for(let j = 0; j < grupe.length; j++){
-                await dbAddToRaspored(dorucakAkt.id_aktivnost, grupe[j].id_grupa, kamp.datum_odrzavanja_kamp+i*24+8, null);
-                await dbAddToRaspored(rucakAkt.id_aktivnost, grupe[j].id_grupa, kamp.datum_odrzavanja_kamp+i*24+12, null);
-                await dbAddToRaspored(veceraAkt.id_aktivnost, grupe[j].id_grupa, kamp.datum_odrzavanja_kamp+i*24+18, null);                
+            for(let j = 0; j < grupe.length; j++) {
+                await dbAddToRaspored(new Raspored(grupe[j].id_grupa, dorucakAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+8, null));
+                await dbAddToRaspored(new Raspored(grupe[j].id_grupa, rucakAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+12, null));
+                await dbAddToRaspored(new Raspored(grupe[j].id_grupa, veceraAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+18, null));          
             }
 
             for(let j = 0; j < animatori.length; j++){
-                await dbAddToRaspored(dorucakAkt.id_aktivnost, null, kamp.datum_odrzavanja_kamp+i*24+8, animatori[j]);
-                await dbAddToRaspored(rucakAkt.id_aktivnost, null, kamp.datum_odrzavanja_kamp+i*24+12, animatori[j]);
-                await dbAddToRaspored(veceraAkt.id_aktivnost, null, kamp.datum_odrzavanja_kamp+i*24+18, animatori[j]);                
+                await dbAddToRaspored(new Raspored(null, dorucakAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+8, animatori[j]));
+                await dbAddToRaspored(new Raspored(null, rucakAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+12, animatori[j]));
+                await dbAddToRaspored(new Raspored(null, veceraAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+18, animatori[j])); 
             }
         }
 

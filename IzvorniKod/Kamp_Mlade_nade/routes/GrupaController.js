@@ -64,7 +64,7 @@ class GrupaController extends Controller {
     
         try {
             await Grupa.createGroups(brojGrupa);
-            await Raspored.setDefaultActivities();
+            //await Raspored.setDefaultActivities();
             
             return JSON.stringify({
                 poruka : `Uspješno stvoreno ${brojGrupa} grupa!`

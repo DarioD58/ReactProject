@@ -157,7 +157,8 @@ class AktivnostController extends Controller {
     async getRaspored(req, res, next) {
         let korisnik = JSON.parse(req.cookies.korisnik);
 
-        console.log(korisnik.statusKorisnik)
+        console.log(korisnik.statusKorisnik);
+
         try {
         if(korisnik.statusKorisnik == "sudionik") {
             console.log(korisnik.statusKorisnik)

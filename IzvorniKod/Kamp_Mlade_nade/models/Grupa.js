@@ -66,6 +66,7 @@ module.exports = class Grupa {
           clan = new Sudionik(results[i].korisnicko_ime, results[i].lozinka, 
                       results[i].ime, results[i].prezime, results[i].datum_i_god_rod, 
                       results[i].email, results[i].br_tel, results[i].status, results[i].br_tel_odg_osobe);
+          clan.id_grupa = results[i].id_grupa;
           clanovi.push(clan);
         }
       }
@@ -96,7 +97,6 @@ module.exports = class Grupa {
         // podijeliti sudionike po grupama tako da broj sudionika u grupi bude podjednak
 
       let sudionici = await Sudionik.fetchAllSudionik();
-      
       let brojSudionika = sudionici.length;
       let brojSudGrupa = Math.floor(brojSudionika / brojGrupa);
       let ostatak = brojSudionika - (brojGrupa*brojSudGrupa);
@@ -104,21 +104,23 @@ module.exports = class Grupa {
       for(let i = 0; i < brojGrupa; i++){
         let ime_grupa = "Grupa_" + (i+1);
         let id_grupa = await dbCreateGroup(ime_grupa);
-     
         let sudioniciGrupa = await Sudionik.fetchNSudionikWithoutGroup(brojSudGrupa);
-        
+
         for(let j = 0; j < sudioniciGrupa.length; j++){
             await sudioniciGrupa[j].changeSudionikGroup(id_grupa);
         }
+
       }
 
       if(ostatak != 0) {
+        //let preostaliSudionici = await Sudionik.fetchNSudionikWithoutGroup("ALL");
         let preostaliSudionici = await Sudionik.fetchNSudionikWithoutGroup(ostatak);
         let grupe = await Grupa.fetchNGrupa(ostatak);
 
-        for(let i = 0; i < ostatak; i++){
+        for(let i = 0; i < preostaliSudionici.length; i++){
           await preostaliSudionici[i].changeSudionikGroup(grupe[i].id_grupa);
         }
+
       }
     
     }

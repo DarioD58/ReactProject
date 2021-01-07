@@ -16,33 +16,28 @@ class GrupaController extends Controller {
            
             if(grupe.length > 0) {
 
-                let grupeSClanovima = [];
-
+                let clanoviDTO =[];
                 for(let i = 0; i < grupe.length; i++){
-                    let clanoviDTO =[];
-
                     let clanovi = await grupe[i].fetchAllMembers();
                     
                     for(let j = 0; j < clanovi.length; j++) {
                         let clan = {
-                            korisnicko_ime : clanovi[i].korisnicko_ime,
-                            ime: clanovi[i].ime,
-                            prezime : clanovi[i].prezime,
-                            id_grupa : clanovi[i].id_grupa
+                            korisnicko_ime : clanovi[j].korisnicko_ime,
+                            ime: clanovi[j].ime,
+                            prezime : clanovi[j].prezime,
+                            email : clanovi[j].email,
+                            br_tel: clanovi[j].br_tel,
+                            id_grupa : grupe[i].id_grupa
                         }
-
+    
                         clanoviDTO.push(clan);
                     }
-
-                    let grupaSClanovima = {
-                        grupa: grupe[i],
-                        clanovi : JSON.stringify(clanoviDTO)
-                    }
-                    grupeSClanovima.push(grupaSClanovima);
+    
                 }
 
                 return JSON.stringify({
-                    grupeSClanovima : grupeSClanovima
+                    grupe: grupe,
+                    clanovi : clanoviDTO
                 });
 
             } else {

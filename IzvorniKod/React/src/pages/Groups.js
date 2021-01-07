@@ -68,7 +68,7 @@ function Groups() {
     }else if(Cookies.getJSON('korisnik').statusKorisnik == 'sudionik'){
         return(
             <div className='application-section'>
-                <div className="general-text text-center application-header">INFO O VAšOJ GRUPI</div>
+                <div className="general-text text-center application-header">INFO O VAŠOJ GRUPI</div>
                 <Group grupa={grupe} clanovi={clanovi} />
                 <div className="general-text text-center activity-header">ANIMATORI KONTAKT</div>
                 <div className="activites text-light">

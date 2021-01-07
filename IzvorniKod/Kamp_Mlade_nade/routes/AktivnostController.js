@@ -157,14 +157,14 @@ class AktivnostController extends Controller {
     async getRaspored(req, res, next) {
         let korisnik = JSON.parse(req.cookies.korisnik);
 
-        console.log(korisnik.statusKorisnik);
+        //console.log(korisnik.statusKorisnik);
 
         try {
         if(korisnik.statusKorisnik == "sudionik") {
-            console.log(korisnik.statusKorisnik)
+            //console.log(korisnik.statusKorisnik)
             let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
             let aktivnostiURasporedu = await Raspored.fetchRasporedAktivnostiForSudionik(sudionik.id_grupa, sudionik.korisnicko_ime);
-            console.log(aktivnostiURasporedu)
+            //console.log(aktivnostiURasporedu)
             return JSON.stringify({
                 rasporedAktivnosti : aktivnostiURasporedu
             });

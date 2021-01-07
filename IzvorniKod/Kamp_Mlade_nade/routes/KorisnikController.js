@@ -20,8 +20,9 @@ class KorisnikController extends Controller {
             let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
             let grupa = await Grupa.fetchGrupaById(sudionik.id_grupa);
             let clanovi = await grupa.fetchAllMembers();
-            let animatori = await sudionik.fetchSudionkAnimators();
-            
+            //let animatori = await sudionik.fetchSudionkAnimators();
+            let animatori = await Animator.fetchAllAnimator();
+
             let clanoviDTO =[];
             for(let i = 0; i < clanovi.length; i++) {
                 let clan = {
@@ -36,6 +37,7 @@ class KorisnikController extends Controller {
                 clanoviDTO.push(clan);
             }
 
+
 /*             let grupaSClanovima = {
                 grupa: grupa,
                 clanovi : clanoviDTO
@@ -43,16 +45,17 @@ class KorisnikController extends Controller {
 
             let animatoriDTO = [];
             for(let i = 0; i < animatori.length; i++) {
-                let clan = {
+                let animator = {
                     korisnicko_ime : animatori[i].korisnicko_ime,
                     ime: animatori[i].ime,
                     prezime : animatori[i].prezime,
-                    email : animator[i].email,
-                    br_tel : animator[i].br_tel
+                    email : animatori[i].email,
+                    br_tel : animatori[i].br_tel
                 }
 
-                animatoriDTO.push(clan);
+                animatoriDTO.push(animator);
             }
+        
 
             return JSON.stringify({
                 grupa : grupa,
@@ -84,13 +87,9 @@ class KorisnikController extends Controller {
                     clanoviDTO.push(clan);
                 }
 
-/*                 let grupaSClanovima = {
-                    grupa: grupe[i],
-                    clanovi : clanoviDTO
-                }
-                grupeSClanovima.push(grupaSClanovima); */
             }
 
+            //console.log(clanoviDTO);
             
 
             let animatori = await Animator.fetchAllAnimator();
@@ -173,6 +172,7 @@ let korisnikController = new KorisnikController();
 // za prikaz info o korisniku
 router.get("/", async (req, res, next) => {
     let data = JSON.parse( await korisnikController.userInfo(req, res, next));
+    //console.log(data);
     if(data.error != null){
         res.status(400).json(data);
     } else {

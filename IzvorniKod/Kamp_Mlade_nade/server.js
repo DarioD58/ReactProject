@@ -19,7 +19,10 @@ const AktivnostController = require('./routes/AktivnostController');
 const KorisnikController = require('./routes/KorisnikController');
 
 // middleware
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+  }));
 app.use(express.json());
 
 // middleware - cookie

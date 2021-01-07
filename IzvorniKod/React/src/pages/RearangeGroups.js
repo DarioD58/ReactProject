@@ -38,8 +38,25 @@ function RearangeGroups(props){
 
 
     return (
-        <div className='aktivnosti'>
-          <p>Nešto</p>
+        <div className='double-groups'>
+            < div className='groups-container'>
+                {groups.map((grupaSClanovima) => {
+                    return (
+                        <div className='groups-box'>
+                            <p className='other-text' key={grupaSClanovima.grupa.id_grupa}>{grupaSClanovima.grupa.ime_grupa}</p>
+                        </div>
+                    )
+                })}
+            </div>
+            < div className='groups-container'>
+                {groups.map((grupaSClanovima) => {
+                    return (
+                        <div className='groups-box'>
+                            <p className='other-text' key={grupaSClanovima.grupa.id_grupa}>{grupaSClanovima.grupa.ime_grupa}</p>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     );
 }

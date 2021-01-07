@@ -41,6 +41,7 @@ class HomeController extends Controller {
                     prijave_anim_otvorene: prijaveZaAnimatore,
                     aktivnosti : aktivnosti
                 });
+                
             } else if(req.body.statusKorisnik == "sudionik" || req.body.statusKorisnik == "animator"
                         || req.body.statusKorisnik == "organizator"){
                 let kamp = await Kamp.fetchActive();

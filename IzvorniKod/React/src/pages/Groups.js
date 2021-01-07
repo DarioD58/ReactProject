@@ -38,8 +38,8 @@ function Groups() {
         if((Cookies.getJSON('korisnik').statusKorisnik == 'animator') || (Cookies.getJSON('korisnik').statusKorisnik == 'sudionik')){
             return (
             <div className='application-section'>
-                <div className="general-text text-center application-header">NEMA GRUPA ZA PRIKAZATI PRICEKAJTE DA SE FORMIRAJU GRUPE</div>
-                <p className='general-text text-center application-header'>Organizator je u procesu stvaranja grupa pricekajte jos malo</p>
+                <div className="general-text text-center application-header">NEMA GRUPA ZA PRIKAZATI PRIČEKAJTE DA SE FORMIRAJU GRUPE</div>
+                <p className='general-text text-center application-header'>Organizator je u procesu stvaranja grupa pričekajte još malo</p>
             </div>
             )
             }else{
@@ -51,7 +51,7 @@ function Groups() {
     if(Cookies.getJSON('korisnik').statusKorisnik == 'animator'){
         return (
         <div className='application-section'>
-            <div className="general-text text-center application-header">GRUPE S SUDIONICIMA I NJIHOVI KONTAKTI</div>
+            <div className="general-text text-center application-header">GRUPE SA SUDIONICIMA I NJIHOVI KONTAKTI</div>
             {grupe.map((grupa) => <Group key={grupa.id_grupa} grupa={grupa} clanovi={clanovi} />) 
             }
             <div className="general-text text-center activity-header">ANIMATORI KONTAKT</div>
@@ -68,7 +68,7 @@ function Groups() {
     }else if(Cookies.getJSON('korisnik').statusKorisnik == 'sudionik'){
         return(
             <div className='application-section'>
-                <div className="general-text text-center application-header">INFO O VASOJ GRUPI</div>
+                <div className="general-text text-center application-header">INFO O VAšOJ GRUPI</div>
                 <Group grupa={grupe} clanovi={clanovi} />
                 <div className="general-text text-center activity-header">ANIMATORI KONTAKT</div>
                 <div className="activites text-light">

@@ -99,7 +99,7 @@ CREATE TABLE RASPORED
   id_aktivnost INT NOT NULL,
   id_grupa INT,
   korisnicko_ime_animator VARCHAR(50),
-  PRIMARY KEY (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa),
+  PRIMARY KEY (datum_i_vrijeme_izvrsavanja, id_aktivnost, id_grupa, korisnicko_ime_animator),
   FOREIGN KEY (korisnicko_ime_animator) REFERENCES ANIMATOR(korisnicko_ime_animator) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_aktivnost) REFERENCES AKTIVNOST(id_aktivnost) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_grupa) REFERENCES GRUPA(id_grupa) ON DELETE CASCADE ON UPDATE CASCADE

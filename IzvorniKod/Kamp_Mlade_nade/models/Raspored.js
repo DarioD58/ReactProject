@@ -109,7 +109,7 @@ dbCheckGrupaOverlap = async (id_grupa) => {
 dbCheckActivityTimeOverlap = async (datum_i_vrijeme, trajanje_aktivnost_h) => {
     const sql = `SELECT COUNT(*)
                 FROM raspored NATURAL JOIN aktivnost
-                WHERE $1 BETWEEN datum_i_vrijeme_izvrsavanja AND datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * trajanje_aktivnost_h`;
+                WHERE $1 BETWEEN datum_i_vrijeme_izvrsavanja AND datum_i_vrijeme_izvrsavanja + INTERVAL '1 hour' * $2`;
    try {
        //console.log("Dodajem novu aktivnost");
        const result = await db.query(sql, [datum_i_vrijeme, trajanje_aktivnost_h]);
@@ -139,7 +139,7 @@ dbAddToRaspored = async (raspored) => {
      VALUES ($1, $2, $3, $4) RETURNING id_aktivnost`;
     try {
         //console.log("Dodajem novu aktivnost");
-        const result = await db.query(sql, [raspored.datum_i_vrijeme_izvrsavanja, raspored.id_aktivnost,
+        const result = await db.query(sql, [raspored.datum_i_vrijeme, raspored.id_aktivnost,
              raspored.id_grupa, raspored.korisnicko_ime_animator]);
         return result.rows[0].id_aktivnost;
     } catch (err) {

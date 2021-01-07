@@ -93,22 +93,23 @@ class AktivnostController extends Controller {
         try {
         let kamp = await Kamp.fetchUpcoming();
         let aktivnost = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
+        let full_grupe = await Grupa.fetchAllGrupa()
 
         // uvjet 1) aktivnost se neće preklapati s aktivnošću istog tipa
-        let typeOverlap = await Raspored.checkActivityTypeOverlap(aktivnost.tip_aktivnost);
+        let typeOverlap = await Raspored.checkActivityTypeOverlap(kamp.datum_odrzavanja_kamp, aktivnost.tip_aktivnost);
         if(typeOverlap > 0) throw new Error("Aktivnost se ne smije preklapati s aktivnošću istog tipa!");
 
         // uvjet 2) pridružen je minimalno jedan animator
         if(animatori.length < 1) throw new Error("Aktivnost mora imati barem jednog animatora!");
         
         // uvjet 3) pridružen je odgovarajuć broj grupa
-        if(aktivnost.tip_aktivnost.includes("max")){
+        /*if(aktivnost.tip_aktivnost.includes("max")){
             let maxBroj = aktivnost.tip_aktivnost.split(" ")[1];
             if(grupe.length > maxBroj) throw new Error(`Aktivnosti je pridruženo previše grupa. Smije biti najviše ${maxBroj} grupa.`);
         } else {
             let brojGrupa = aktivnost.tip_aktivnost.split(" ")[1];
             if(grupe.length != maxBroj) throw new Error(`Aktivnosti je pridružen nevaljan grupa. Na aktivnosti mora biti ${brojGrupa} grupa.`);
-        }
+        }*/
 
         // uvjet 4) ni jedna od pridruženih grupa neće imati konflikte s drugim aktivnostima koje su već navedene
         let timeOverlap = await Raspored.checkActivityTimeOverlap(datum_i_vrijeme, aktivnost.trajanje_aktivnost_h);
@@ -128,12 +129,12 @@ class AktivnostController extends Controller {
 
         for(let i = 0; i < grupe.length; i++){
             for(let j = 0; j < animatori.length; j++){
-                let instancaAktivnosti = new Raspored(grupe[i].id_grupa, aktivnost.id_aktivnost, 
+                let instancaAktivnosti = new Raspored(grupe[i], aktivnost.id_aktivnost, 
                     datum_i_vrijeme, animatori[j]);
                 instancaAktivnosti.addToRaspored();
             }
         }
-
+        return JSON.stringify({poruka: `Aktivnost ${aktivnost.ime_aktivnost} je uspješno dodana u raspored!`});
         } catch(error){
             return JSON.stringify({error: "Greška pri dodavanju aktivnosti u raspored! " + error.message});
         }

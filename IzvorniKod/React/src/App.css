@@ -365,3 +365,32 @@ section p:first-child, .timer div:last-child span{
   grid-template-columns: auto auto; 
   margin-bottom: 5vh;
 }
+
+.double-groups{
+  display: grid;
+  grid-template-columns: 45% 45%;
+  width: 100%;
+  height: fit-content;
+  min-height: 100%;
+  justify-content: center;
+}
+
+.groups-container{
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: 100%;
+  margin: 5vh;
+}
+
+.groups-box{
+  margin: 2vh;
+  text-align: center;
+  height: 10vh;
+  background-color: #343a40;
+}
+
+.other-text{
+  color: white;
+  font-weight: bold;
+}

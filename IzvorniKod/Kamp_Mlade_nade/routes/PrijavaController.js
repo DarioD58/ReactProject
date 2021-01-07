@@ -62,7 +62,7 @@ class PrijavaController extends Controller {
             }
         }
 
-        let kamp = await Korisnik.fetchKorisnikByUsername('KampMladenade');
+        let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
         await prijava.changeStatusPrijava(status_prijava);
 
         // create reusable transporter object using the default SMTP transport

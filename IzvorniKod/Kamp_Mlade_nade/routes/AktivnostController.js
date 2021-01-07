@@ -111,13 +111,15 @@ class AktivnostController extends Controller {
         if(animatori.length < 1) throw new Error("Aktivnost mora imati barem jednog animatora!");
         
         // uvjet 3) pridružen je odgovarajuć broj grupa
-        /*if(aktivnost.tip_aktivnost.includes("max")){
+        if(aktivnost.tip_aktivnost.includes("max")){
             let maxBroj = aktivnost.tip_aktivnost.split(" ")[1];
             if(grupe.length > maxBroj) throw new Error(`Aktivnosti je pridruženo previše grupa. Smije biti najviše ${maxBroj} grupa.`);
+        } else if(aktivnost.tip_aktivnost == "svi"){
+            //let brojGrupa = aktivnost.tip_aktivnost.split(" ")[1];
+            if(grupe.length != full_grupe.length) throw new Error(`Aktivnosti je pridružen nevaljan broj grupa. Na aktivnosti mora biti ${full_grupe.length} grupa.`);
         } else {
-            let brojGrupa = aktivnost.tip_aktivnost.split(" ")[1];
-            if(grupe.length != maxBroj) throw new Error(`Aktivnosti je pridružen nevaljan grupa. Na aktivnosti mora biti ${brojGrupa} grupa.`);
-        }*/
+            if(grupe.length != aktivnost.tip_aktivnost) throw new Error(`Aktivnosti je pridružen nevaljan broj grupa. Na aktivnosti mora biti ${aktivnost.tip_aktivnost} grupa.`);
+        }
 
         // uvjet 4) ni jedna od pridruženih grupa neće imati konflikte s drugim aktivnostima koje su već navedene
         let timeOverlap = await Raspored.checkActivityTimeOverlap(datum_i_vrijeme, aktivnost.trajanje_aktivnost_h);

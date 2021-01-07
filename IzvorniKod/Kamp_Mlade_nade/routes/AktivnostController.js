@@ -163,7 +163,7 @@ class AktivnostController extends Controller {
             console.log(korisnik.statusKorisnik)
             let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
             let aktivnostiURasporedu = await Raspored.fetchRasporedAktivnostiForSudionik(sudionik.id_grupa, sudionik.korisnicko_ime);
-
+            console.log(aktivnostiURasporedu)
             return JSON.stringify({
                 rasporedAktivnosti : aktivnostiURasporedu
             });

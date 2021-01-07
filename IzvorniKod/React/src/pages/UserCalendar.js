@@ -1,7 +1,7 @@
 import React from 'react'
 import {Calendar, momentLocalizer, Views} from 'react-big-calendar'
 import moment from 'moment'
-import events from '../testingData/events'
+//import events from '../testingData/events'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const localizer = momentLocalizer(moment)
@@ -16,6 +16,28 @@ const ColoredDateCellWrapper = ({ children }) =>
   })
 
 function UserCalendar(){
+  const [events, setEvents] = React.useState([])
+
+
+  React.useEffect(() => {
+    // GET request using fetch inside useEffect React hook
+    fetch('http://localhost:5000/aktivnost/raspored', {
+        credentials: 'include',
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then((res) => {
+    if(res.error !== undefined){
+        throw new Error(res.error);
+    }
+    setEvents(res.rasporedAktivnosti)
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+  }, []);
+
+  console.log(events)
 
     return (
         <div className='everything'>

@@ -278,7 +278,8 @@
 			
 			
 		\section{Dijagram razreda}
-			
+		
+		U ovom poglavlju nalazi se dijagram razreda sa svim potrebnim klasama za rad sustava. Na slici 4.2 je prikazan dijagram razreda. On preslikava strukturu baze podataka u aplikaciji. Implementirane metode direktno komuniciraju s bazom podataka te vraćaju tražene podatke. Razred Korisnik predstavlja općenitog korisnika sustava, kojeg nasljeđuju razredi Sudionik, Organizator i Animator, koji predstavljaju sudionika na kampu, organizatora, odnosno voditelja kampa te animatore na kampu.
 			\begin{figure}[H]
 				\centerline{\includegraphics[width=\linewidth]{slike/Dijagram_razreda_modeli.png}}
 				\caption{Dijagram razreda- modeli}
@@ -304,7 +305,18 @@
 			\label{fig:dijagram_stanja_organizator}
 		\end{figure}
 		
-		\eject			
+		\eject	
+		
+		\section{Dijagram aktivnosti}
+		
+		Dijagram aktivnosti primjenjuje se za opis modela toka upravljanja ili toka podataka. Ne upotrebljava se za modeliranje događajima poticanog ponašanja. U modeliranju toka upravljanja svaki novi korak poduzima se nakon završenog prethodnog. Na dijagramu aktivnosti 4.5 prikazan je postupak premještanja sudionika u drugu grupu, sa strane organizatora. Korisnik se prijavljuje u sustav, otvara izbornik, otvara stranicu za stvaranje grupa, pregledava grupe, odabire željene sudionike i odredišnu grupu, što se zatim pohranjuje u sustav.
+			\begin{figure}[H]
+			\centerline{\includegraphics[width=\linewidth]{slike/Dijagram aktivnosti-premještanje sudionika.png}}
+			\caption{Dijagram aktivnosti-premještanje sudionika}
+			\label{fig:dijagram_aktivnosti}
+		\end{figure}
+		
+		\eject		
 
 		
 	

@@ -1,4 +1,5 @@
 const {Pool} = require('pg');
+const db = require('.');
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -6,6 +7,9 @@ const pool = new Pool({
     password: 'baze5842', //svatko svoju sifru za sebe
     port: 5432,
 });
+module.exports = {
+  //prekopirati funkciju inicijalizacije ovdje?
+}
 //kod za kreiranje baze kampova
 const create_camps = `CREATE TABLE KAMP (
   ime_kamp VARCHAR(50) NOT NULL,
@@ -287,3 +291,35 @@ const insert_sudionik_ocjena_aktivnosti =  `INSERT INTO sudionik_ocjena_aktivnos
 ('Ezra Holland', '4', '5', 'Predobro, s obzirom da nemam pojma sto se dogada'),
 ('Rhiannon Austin', '6', '5', 'Bilo nam je genijalno'),
 ('Rhiannon Austin', '7', '1', 'Bilo nam je suprotno od genijalnog')`;
+
+//dio koda za inicijalizaciju baze
+
+createDatabase = async () => {
+  db.query(create_camps);
+  db.query(insert_camps);
+
+  db.query(create_groups);
+  db.query(insert_groups);
+
+  db.query(create_activities);
+  db.query(insert_activities);
+
+  db.query(create_entries);
+  db.query(insert_applications);
+
+  db.query(create_organizers);
+  db.query(create_participators);
+  db.query(create_animators);
+  db.query(create_users);
+  db.query(insert_users);
+
+  db.query(create_schedules);
+  db.query(insert_schedule);
+
+  db.query(create_animator_ocjena_aktivnosti);
+  db.query(insert_animator_ocjena_aktivnosti);
+
+  db.query(create_sudionik_ocjena_aktivnosti);
+  db.query(insert_sudionik_ocjena_aktivnosti);
+}
+ 

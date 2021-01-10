@@ -54,7 +54,6 @@ function unos_nove_aktivnosti(ime_aktivnost, opis_aktivnost, trajanje_aktivnost_
   return str;
 }
 //metoda za brisanje kampa
-//brisanje po imenu ili ime+datum?
 function brisanje_kampa(ime_kamp){
   let str = 'DELETE * FROM KAMP WHERE ime_kamp = ' + ime_kamp;
   return str;

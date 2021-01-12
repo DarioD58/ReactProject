@@ -1,6 +1,6 @@
 const db = require('../db');
 const Korisnik = require('../models/Korisnik');
-
+const Aktivnost = require('../models/Aktivnost');
 //razred Animator - predstavlja jednog animatora kampa
 module.exports = class Animator extends Korisnik {
 
@@ -35,21 +35,22 @@ module.exports = class Animator extends Korisnik {
         return aktivnosti;
     }
 
-    async dbGetAnimatorFinishedActivities(){
+    async fetchAnimatorFinishedActivities(){
         let results = await dbGetAnimatorFinishedActivities(this.korisnicko_ime);
         let aktivnosti = [];
         let aktivnost;
-
+   
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
                 aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
                                             results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
                                             results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
                 
-                aktivnost.id_aktivnost = results[i].id_aktivnost;
+                aktivnost.id_aktivnost = results[i].id_aktivnost;  
                 aktivnosti.push(aktivnost);
             }
-        }       
+        }     
+        
         return aktivnosti;
     }
 
@@ -133,9 +134,9 @@ dbGetAnimatorActivities = async (korisnicko_ime_animator) => {
 }
 
 dbGetAnimatorFinishedActivities = async (korisnicko_ime_animator) => {
-    const sql = `SELECT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    const sql = `SELECT DISTINCT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator 
-    WHERE korisnicko_ime_animator LIKE $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0) `;
+    WHERE korisnicko_ime_animator LIKE $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0)`;
     try {
         const result = await db.query(sql, [korisnicko_ime_animator]);
         return result.rows;

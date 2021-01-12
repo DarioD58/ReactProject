@@ -1,5 +1,6 @@
 const db = require('../db');
 const Korisnik = require('../models/Korisnik');
+const Aktivnost = require('../models/Aktivnost');
 
 //razred Sudionik - predstavlja jednog sudionika kampa
 module.exports = class Sudionik extends Korisnik {
@@ -51,7 +52,7 @@ module.exports = class Sudionik extends Korisnik {
         return aktivnosti;
     }
 
-    async dbGetSudionikFinishedActivities(){
+    async fetchSudionikFinishedActivities(){
         let results = await dbGetSudionikFinishedActivities(this.id_grupa);
         let aktivnosti = [];
         let aktivnost;
@@ -66,6 +67,7 @@ module.exports = class Sudionik extends Korisnik {
                 aktivnosti.push(aktivnost);
             }
         }       
+
         return aktivnosti;
     }
 
@@ -210,7 +212,7 @@ dbGetSudionikAnimators = async (id_grupa) => {
 
 dbGetSudionikActivities = async (id_grupa) => {
     const sql = `SELECT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
-    FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator WHERE id_grupa LIKE $1`;
+    FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator WHERE id_grupa = $1`;
     try {
         const result = await db.query(sql, [id_grupa]);
         return result.rows;
@@ -232,9 +234,9 @@ dbChangeSudionikGroup = async (korisnicko_ime, id_grupa) => {
 }
 
 dbGetSudionikFinishedActivities = async (id_grupa) => {
-    const sql = `SELECT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    const sql = `SELECT DISTINCT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator 
-    WHERE id_grupa LIKE $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0) `;
+    WHERE id_grupa = $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0) `;
     try {
         const result = await db.query(sql, [id_grupa]);
         return result.rows;

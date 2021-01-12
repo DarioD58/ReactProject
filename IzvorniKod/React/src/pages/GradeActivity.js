@@ -5,6 +5,8 @@ import ActivityGrade from '../components/ActivityGrade';
 function GradeActivity(){
     const [aktivnosti, setAktivnosti] = React.useState([])
 
+    const [isGraded, setIsGraded] = React.useState(false)
+
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
         fetch("./korisnik/aktivnosti", {
@@ -19,7 +21,11 @@ function GradeActivity(){
         }).catch((error) => {
                 console.log(error);
             });
-      }, []);
+      }, [isGraded]);
+
+    function gradeGiven(){
+        setIsGraded(!isGraded)
+    }
 
     if(aktivnosti === undefined){
         return(
@@ -39,7 +45,7 @@ function GradeActivity(){
                         <h3>Ocjena</h3>
                         <h3>Dojam</h3>
                     </div>
-                    {aktivnosti.map((aktivnost) => <ActivityGrade key={aktivnost.id_aktivnost} aktivnost={aktivnost}/>)}
+                    {aktivnosti.map((aktivnost) => <ActivityGrade key={aktivnost.id_aktivnost} grade={gradeGiven} aktivnost={aktivnost}/>)}
                 </div>
         </div>
     );

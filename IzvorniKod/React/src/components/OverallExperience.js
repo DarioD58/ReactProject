@@ -5,8 +5,7 @@ function OverallExperience(){
     // TO DO funkcionalnost da korisnik to moze unjeti samo jednom  
     const [state, setState] = React.useState({
         ocjena: "",
-        dojam: "",
-        korisnicko_ime: "",
+        dojam: ""
     });
     const [isSent, setIsSent] = React.useState(false)
 
@@ -15,12 +14,9 @@ function OverallExperience(){
 
     //http je moozda krivi
     const onSubmit = (e) => {
-        setState(prevState => ({
-            ...prevState,
-            korisnicko_ime: Cookies.getJSON('korisnik').korisnickoIme
-        })) 
         let objekt = JSON.stringify(state);
         fetch("./overallexperience", {
+            credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

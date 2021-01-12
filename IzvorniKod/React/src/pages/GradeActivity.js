@@ -39,7 +39,7 @@ function GradeActivity(){
                         <h3>Ocjena</h3>
                         <h3>Dojam</h3>
                     </div>
-                    {aktivnosti.map((aktivnost) => <ActivityGrade aktivnost={aktivnost}/>)}
+                    {aktivnosti.map((aktivnost) => <ActivityGrade key={aktivnost.id_aktivnost} aktivnost={aktivnost}/>)}
                 </div>
         </div>
     );

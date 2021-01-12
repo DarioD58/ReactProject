@@ -10,17 +10,13 @@ function Countdown(props) {
     let interval = useRef();
 
     const startTimer = async () => {
-        let countdownDate;
         if(props.vrijeme === undefined){
             setTimerDays('00');
             setTimerHours('00');
             setTimerMinutes('00');
             setTimerSeconds('00');
-            countdownDate = new Date(0).getTime();
-        } else{
-            countdownDate = new Date(props.vrijeme).getTime();
         }
-        
+        const countdownDate = new Date(props.vrijeme).getTime();
 
         interval = setInterval(() => {
             const now = new Date().getTime();

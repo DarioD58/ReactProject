@@ -292,34 +292,41 @@ const insert_sudionik_ocjena_aktivnosti =  `INSERT INTO sudionik_ocjena_aktivnos
 ('Rhiannon Austin', '6', '5', 'Bilo nam je genijalno'),
 ('Rhiannon Austin', '7', '1', 'Bilo nam je suprotno od genijalnog')`;
 
+
+const insert_camp_admin = `INSERT INTO KORISNIK (korisnicko_ime, lozinka, email, ime, prezime, status) VALUES 
+                          ('KampMladeNade', 'ProgiProjektMladeNade', 'mladenade.kamp@gmail.com', 'Kamp', 'Mladenade', 'organizator');
+                          INSERT INTO ORGANIZATOR VALUES ('KampMladeNade')`;
+
 //dio koda za inicijalizaciju baze
 
 createDatabase = async () => {
   db.query(create_camps);
-  db.query(insert_camps);
+  //db.query(insert_camps);
 
   db.query(create_groups);
-  db.query(insert_groups);
+  //db.query(insert_groups);
 
   db.query(create_activities);
-  db.query(insert_activities);
+  //db.query(insert_activities);
 
   db.query(create_entries);
-  db.query(insert_applications);
+  //db.query(insert_applications);
 
   db.query(create_organizers);
   db.query(create_participators);
   db.query(create_animators);
   db.query(create_users);
-  db.query(insert_users);
+  //db.query(insert_users);
 
   db.query(create_schedules);
-  db.query(insert_schedule);
+  //db.query(insert_schedule);
 
   db.query(create_animator_ocjena_aktivnosti);
-  db.query(insert_animator_ocjena_aktivnosti);
+  //db.query(insert_animator_ocjena_aktivnosti);
 
   db.query(create_sudionik_ocjena_aktivnosti);
-  db.query(insert_sudionik_ocjena_aktivnosti);
+  //db.query(insert_sudionik_ocjena_aktivnosti);
+
+  db.query(insert_camp_admin);
 }
  

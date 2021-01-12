@@ -41,7 +41,7 @@ app.use('/aktivnost', AktivnostController);
 app.use('/korisnik', KorisnikController);
 
 // pokreni server
-var port = 5000;
-app.listen(port, () => {
-    console.log("server has started on port " + port);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log("server has started on port " + PORT);
 })

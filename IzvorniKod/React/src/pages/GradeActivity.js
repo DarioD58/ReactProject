@@ -15,6 +15,9 @@ function GradeActivity(){
         })
         .then(response => response.json())
         .then((data) => {
+        if(data.error !== undefined){
+            throw new Error(data.error);
+        }
         setAktivnosti(
             data.aktivnosti
         );

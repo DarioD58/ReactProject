@@ -11,11 +11,39 @@ function OverallExperience(){
 
     const [message, setMessage] = React.useState("")
 
+    const [wrong, setWrong] = React.useState("")
+
+    React.useEffect(() =>{
+        fetch("./kamp/ocjena", {
+            credentials: 'include',
+            method: 'GET'
+        })
+        .then((response) => response.json()
+        ).then((res) => {
+            if(res.error !== undefined){
+                throw new Error(res.error);
+            }
+
+            setMessage(res.poruka)
+            setIsSent(true)
+        })
+        .catch((response) => {
+            setWrong(response)
+            setIsSent(true)
+            setState(prevState => ({
+                ...prevState,
+                ocjena: "",
+                dojam: "",
+                korisnicko_ime: "",
+            }))
+        });
+    }, [isSent])
+
 
     //http je moozda krivi
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./overallexperience", {
+        fetch("./kamp/ocjena", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
@@ -23,11 +51,9 @@ function OverallExperience(){
         })
         .then((response) => response.json()
         ).then((res) => {
-            /*if(res.error == undefined){
+            if(res.error !== undefined){
                 throw new Error(res.error);
-            }*/
-
-            setMessage(res.poruka)
+            }
             setIsSent(true)
         })
         .catch((response) => {
@@ -50,10 +76,19 @@ function OverallExperience(){
         }))
     }
 
+    if(wrong !== ""){
+        return (
+            <div className='everything'>
+                <h1 className="naslovi general-text" hidden={isSent}>Ocjeni kamp</h1>
+                <p className='general-text'>{wrong}</p>
+            </div>
+        );
+    }
 
     return (
         <div className='everything'>
             <h1 className="naslovi general-text" hidden={isSent}>Ocjeni kamp</h1>
+            <p className='general-text'>{message}</p>
             <form onSubmit={onSubmit}>
             <label className="general-text" for="ocjena" hidden={isSent}>Ocjena za kamp: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
@@ -65,7 +100,6 @@ function OverallExperience(){
                 placeholder="Napišite vaš dojam" rows='10' cols='50' maxLength='500' hidden={isSent}/>
             <input className="bg-dark text-white" hidden={isSent} type="submit" name="submit" placeholder="Submit" />
             </form>
-            <p hidden={!isSent}>{message}</p>
         </div>
     );
 }

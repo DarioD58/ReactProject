@@ -18,7 +18,9 @@ function Groups() {
         })
         .then(response => response.json())
         .then((data) => {
-            console.log(data)
+        if(data.error !== undefined){
+            throw new Error(data.error);
+        }
         setGrupe(
           data.grupa
         );

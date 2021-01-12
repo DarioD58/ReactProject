@@ -19,7 +19,7 @@ function CreateGroup() {
         })
         .then(response => response.json())
         .then((res) => {
-            if(res.error != undefined){
+            if(res.error !== undefined){
                 throw new Error(res.error);
             }
             console.log(res)

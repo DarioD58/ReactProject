@@ -51,6 +51,9 @@ function App() {
     })
     .then(response => response.json())
     .then((data) => {
+      if(data.error !== undefined){
+        throw new Error(data.error);
+      }
       setKamp(prevKamp => ({
         ime: data.kamp,
         vrijeme: data.pocetak_kamp,

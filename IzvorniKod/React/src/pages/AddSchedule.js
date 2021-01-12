@@ -25,7 +25,7 @@ function AddSchedule(props) {
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
         fetch('./aktivnost/add', {
-            credentials: 'same-origin',
+            credentials: 'include',
             method: 'GET'
         })
         .then(response => response.json())

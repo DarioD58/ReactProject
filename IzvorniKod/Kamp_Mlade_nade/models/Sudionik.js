@@ -53,7 +53,7 @@ module.exports = class Sudionik extends Korisnik {
     }
 
     async fetchSudionikFinishedActivities(){
-        let results = await dbGetSudionikFinishedActivities(this.id_grupa);
+        let results = await dbGetSudionikFinishedActivities(this.id_grupa, this.korisnicko_ime);
         let aktivnosti = [];
         let aktivnost;
 
@@ -233,13 +233,13 @@ dbChangeSudionikGroup = async (korisnicko_ime, id_grupa) => {
     }
 }
 
-dbGetSudionikFinishedActivities = async (id_grupa) => {
+dbGetSudionikFinishedActivities = async (id_grupa, korisnicko_ime) => {
     const sql = `SELECT DISTINCT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator 
     WHERE id_grupa = $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0)
-            AND aktivnost.id_aktivnost NOT IN (SELECT id_aktivnost FROM ocjena_aktivnost WHERE id_grupa = $1)`;
+            AND aktivnost.id_aktivnost NOT IN (SELECT id_aktivnost FROM ocjena_aktivnost WHERE korisnicko_ime = $2)`;
     try {
-        const result = await db.query(sql, [id_grupa]);
+        const result = await db.query(sql, [id_grupa, korisnicko_ime]);
         return result.rows;
     } catch (err) {
         console.log(err);

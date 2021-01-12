@@ -61,7 +61,7 @@ function App() {
       data.aktivnosti
     );
     });
-  }, [updateInfo]);
+  }, [updateInfo, session]);
 
   function updateSession(newValue){
     setSession(newValue)

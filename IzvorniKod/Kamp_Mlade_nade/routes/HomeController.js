@@ -22,7 +22,9 @@ class HomeController extends Controller {
                 await prosliKamp.updateStatusKamp(0);
             }
 
-            if(req.body.statusKorisnik == undefined){
+            console.log(req.cookies.korisnik);
+
+            if(req.cookies.korisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -47,8 +49,8 @@ class HomeController extends Controller {
                     aktivnosti : aktivnosti
                 });
                 
-            } else if(req.body.statusKorisnik == "sudionik" || req.body.statusKorisnik == "animator"
-                        || req.body.statusKorisnik == "organizator"){
+            } else if(req.cookies.korisnik.statusKorisnik == "sudionik" || req.cookies.korisnik.statusKorisnik == "animator"
+                        || req.cookies.korisnik.statusKorisnik == "organizator"){
                 let kamp = await Kamp.fetchActive();
                 if(kamp.status != undefined){
                     return JSON.stringify({

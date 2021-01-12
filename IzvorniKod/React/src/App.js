@@ -45,7 +45,10 @@ function App() {
       setSession('true')
     }
     // GET request using fetch inside useEffect React hook
-    fetch('http://localhost:5000/')
+    fetch('http://localhost:5000/', {
+      credentials: 'include',
+      method: 'GET'
+    })
     .then(response => response.json())
     .then((data) => {
       setKamp(prevKamp => ({
@@ -62,7 +65,7 @@ function App() {
       data.aktivnosti
     );
     });
-  }, [updateInfo]);
+  }, [updateInfo, session]);
 
   function updateSession(newValue){
     setSession(newValue)

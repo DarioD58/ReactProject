@@ -8,8 +8,6 @@ function ActivityGrade(props){
         dojam: ""
     });
 
-    const [message, setMessage] = React.useState("")
-
 
     //http je moozda krivi
     const onSubmit = (e) => {        
@@ -26,7 +24,7 @@ function ActivityGrade(props){
                 throw new Error(res.error);
             }
 
-            setMessage(res.poruka)
+            props.grade()
         })
         .catch((response) => {
             console.log(response)

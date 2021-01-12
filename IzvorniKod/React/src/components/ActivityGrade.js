@@ -3,23 +3,18 @@ import Cookies from 'js-cookie'
 
 function ActivityGrade(props){
     const [state, setState] = React.useState({
-        ime_aktivnost:"",
+        id_aktivnost:props.aktivnost.id_aktivnost,
         ocjena: "",
-        dojam: "",
-        korisnicko_ime: "",
+        dojam: ""
     });
 
     const [message, setMessage] = React.useState("")
 
 
     //http je moozda krivi
-    const onSubmit = (e) => {
-        setState(prevState => ({
-            ...prevState,
-            korisnicko_ime: Cookies.getJSON('korisnik').korisnickoIme
-        }))        
+    const onSubmit = (e) => {        
         let objekt = JSON.stringify(state);
-        fetch("./aktivnosti/ocjena", {//adresa
+        fetch("./aktivnost/ocjena", {//adresa
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
@@ -38,8 +33,7 @@ function ActivityGrade(props){
             setState(prevState => ({
                 ...prevState,
                 ocjena: "",
-                dojam: "",
-                korisnicko_ime: "",
+                dojam: ""
             }))
         });
         e.preventDefault();

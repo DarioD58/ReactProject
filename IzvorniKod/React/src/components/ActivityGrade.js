@@ -20,15 +20,16 @@ function ActivityGrade(props){
         }))        
         let objekt = JSON.stringify(state);
         fetch("./aktivnosti/ocjena", {//adresa
+            credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt
         })
         .then((response) => response.json()
         ).then((res) => {
-            /*if(res.error == undefined){
+            if(res.error == undefined){
                 throw new Error(res.error);
-            }*/
+            }
 
             setMessage(res.poruka)
         })

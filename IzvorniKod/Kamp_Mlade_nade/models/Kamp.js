@@ -86,6 +86,7 @@ module.exports = class Kamp {
             return kamp;
         }
 
+        // vraca Kamp[]
         //vraca Kamp
         static async fetchByNameAndDate(){
             let results = await dbFetchByNameAndDate();

@@ -70,13 +70,29 @@ class GrupaController extends Controller {
         }
       
     }
+
+    async zamjeniClanove(req, res, next) {
+        let zamjena = req.body;
+    
+        try {
+            await Sudionik.changeSudionikGroup(zamjena.swap1, zamjena.id_grupa1)
+            await Sudionik.changeSudionikGroup(zamjena.swap2, zamjena.id_grupa2)
+            
+            return JSON.stringify({
+                poruka : `Uspješna zamjena grupa!`
+            });
+            
+        } catch (error) {
+            return JSON.stringify({error: "Greška pri stvaranju grupa"});
+        }
+      
+    }
 }
 
 let grupaController = new GrupaController();
 
 router.get("/", async (req, res, next) => {
     let data = JSON.parse( await grupaController.get(req, res, next));
-    console.log(data);
     if(data.error != null){
         res.status(400).json(data);
     } else {
@@ -86,6 +102,15 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let data = JSON.parse( await grupaController.post(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+router.post("/promjeni", async (req, res, next) => {
+    let data = JSON.parse( await grupaController.zamjeniClanove(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

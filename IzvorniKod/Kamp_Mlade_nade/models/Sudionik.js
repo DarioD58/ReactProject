@@ -105,8 +105,8 @@ module.exports = class Sudionik extends Korisnik {
     }
 
     //metoda za izmjenu grupe sudionika
-    async changeSudionikGroup(id_grupa){
-        await dbChangeSudionikGroup(this.korisnicko_ime, id_grupa);
+    static async changeSudionikGroup(korisnicko_ime, id_grupa){
+        await dbChangeSudionikGroup(korisnicko_ime, id_grupa);
     }
 
     

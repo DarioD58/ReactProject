@@ -14,6 +14,8 @@ function Apply() {
         status: "sudionik"
     });
 
+    const [sudionik, setSudionik] = React.useState(true)
+
     let history = useHistory();
 
     const onSubmit = (e) => {
@@ -54,6 +56,16 @@ function Apply() {
             ...prevState,
             [id] : value
         }))
+    }
+
+    const onChangeRadio = (e) => {
+        let {id , value} = e.target 
+        id = e.target.name  
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+        setSudionik(!sudionik)
     }
 
     const handleReset = (e) => {
@@ -128,11 +140,11 @@ function Apply() {
                 type="text" name="pismo" value={state.pismo}
                 placeholder="Motivacija..." size="50"/>
                 <label className="general-text" htmlFor="sudionik">Sudionik: </label>
-                <input className="bg-dark pt-3 pb-3 text-white" id='sudionik' onChange={onChange}
-                required type="radio" name="status" checked value="sudionik"/>
+                <input className="bg-dark pt-3 pb-3 text-white" id='sudionik' onChange={onChangeRadio}
+                required type="radio" name="status" checked={sudionik} value="sudionik"/>
                 <label className="general-text" htmlFor="animator">Animator: </label>
-                <input className="bg-dark pt-3 pb-3 text-white" id='animator' onChange={onChange}
-                required type="radio" name="status" value="animator"/>
+                <input className="bg-dark pt-3 pb-3 text-white" id='animator' onChange={onChangeRadio}
+                required type="radio" name="status" checked={!sudionik} value="animator"/>
                 <input className="bg-dark text-white"
                 type="submit" name="submit" placeholder="Submit" />
                 <input className="bg-dark text-white" onClick={handleReset}

@@ -62,6 +62,11 @@ export default props => {
             Stvori grupe
           </p>
         </Link>
+        <Link to='/viewgroups' onClick={handleClick}>
+          <p className="menu-item">
+            Pregledaj grupe
+          </p>
+        </Link>
         <p className="menu-item">
           Moj profil
         </p>

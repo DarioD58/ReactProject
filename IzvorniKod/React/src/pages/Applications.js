@@ -29,7 +29,6 @@ function Applications() {
     }
 
     function onRefresh(){
-        console.log("Tu sam")
         setRefresh(!refresh)
     }
 

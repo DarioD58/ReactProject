@@ -375,6 +375,14 @@ section p:first-child, .timer div:last-child span{
   justify-content: center;
 }
 
+.triple-groups{
+  display: grid;
+  grid-template-columns: 45% 10% 45%;
+  width: 100%;
+  height: fit-content;
+  min-height: 100%;
+}
+
 .groups-container{
   display: flex;
   flex-direction: column;
@@ -393,4 +401,41 @@ section p:first-child, .timer div:last-child span{
 .other-text{
   color: white;
   font-weight: bold;
+}
+
+.groups-drag-box{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: beige;
+  height: fit-content;
+  border: 2px solid #343a40;
+}
+
+.swap-button{
+  height: 5vh;
+  width: fit-content;
+  align-self: center;
+  justify-self: center;
+}
+.ocjenjivanjeAktivnosti{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  align-items: center;
+}
+.ocjenjivanjeAktivnosti2{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 30% 30% 20%;
+}
+
+.aktivnosti3{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  border-width: 0ch;
 }

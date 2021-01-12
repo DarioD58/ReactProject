@@ -225,7 +225,6 @@ router.post("/ocjena", async (req, res, next) => {
     }
 });
 
-// za unos ocjene aktivnosti korisnika
 router.post("/ocjene", async (req, res, next) => {
     let data = JSON.parse( await aktivnostController.getActivityGrades(req, res, next));
     if(data.error != null){

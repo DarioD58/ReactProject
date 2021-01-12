@@ -52,7 +52,6 @@ function App() {
     .then(response => response.json())
     .then((data) => {
       setKamp(prevKamp => ({
-        ...prevKamp,
         ime: data.kamp,
         vrijeme: data.pocetak_kamp,
         email: data.email,

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState} from 'react';
 
 
 function Countdown(props) {
-
     const [timerDays, setTimerDays] = useState('00');
     const [timerHours, setTimerHours] = useState('00');
     const [timerMinutes, setTimerMinutes] = useState('00');
@@ -11,7 +10,17 @@ function Countdown(props) {
     let interval = useRef();
 
     const startTimer = async () => {
-        const countdownDate = new Date(props.vrijeme).getTime();
+        let countdownDate;
+        if(props.vrijeme === undefined){
+            setTimerDays('00');
+            setTimerHours('00');
+            setTimerMinutes('00');
+            setTimerSeconds('00');
+            countdownDate = new Date(0).getTime();
+        } else{
+            countdownDate = new Date(props.vrijeme).getTime();
+        }
+        
 
         interval = setInterval(() => {
             const now = new Date().getTime();

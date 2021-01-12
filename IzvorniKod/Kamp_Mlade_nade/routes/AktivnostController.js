@@ -65,6 +65,15 @@ class AktivnostController extends Controller {
       
     }
 
+    async getActivityGrades(req, res, next) {
+        try {
+            let ocjeneAktivnosti = await Ocjena_aktivnost.fetchAllOcjenaAktivnost();
+            return JSON.stringify({ocjeneAktivnosti : ocjeneAktivnosti});
+        } catch (error) {
+            return JSON.stringify({error: "Greška pri unosu ocjene aktivnosti!"});
+        }
+    }
+
     async getAddToRaspored(req, res, next) {
         try {
             let grupe = await Grupa.fetchAllGrupa();        
@@ -209,6 +218,16 @@ router.post("/create", async (req, res, next) => {
 // za unos ocjene aktivnosti korisnika
 router.post("/ocjena", async (req, res, next) => {
     let data = JSON.parse( await aktivnostController.activityGrade(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+// za unos ocjene aktivnosti korisnika
+router.post("/ocjene", async (req, res, next) => {
+    let data = JSON.parse( await aktivnostController.getActivityGrades(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

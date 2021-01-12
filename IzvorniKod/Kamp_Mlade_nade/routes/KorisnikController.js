@@ -136,14 +136,14 @@ class KorisnikController extends Controller {
         try {
         if(korisnik.statusKorisnik == "sudionik") {
             let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
-            let aktivnosti = await sudionik.fetchSudionikAcitvities()
+            let aktivnosti = await sudionik.fetchSudionikFinishedActivities();
 
             return JSON.stringify({
                 aktivnosti : aktivnosti
             });
         } else if(korisnik.statusKorisnik == "animator") {
             let animator = await Animator.fetchAnimatorByUsername(korisnik.korisnickoIme);
-            let aktivnosti = await animator.fetchSudionikAcitvities()
+            let aktivnosti = await animator.fetchAnimatorFinishedActivities();
 
             return JSON.stringify({
                 aktivnosti : aktivnosti

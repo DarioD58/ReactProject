@@ -53,8 +53,10 @@ class AktivnostController extends Controller {
     }
 
     async activityGrade(req, res, next) {
-        let korisnik = req.cookies.korisnik;
+        let korisnik = JSON.parse(req.cookies.korisnik);
         
+
+
         try {
             let ocjena_aktivnost = new Ocjena_aktivnost(req.body.ocjena, req.body.dojam, req.body.id_aktivnost, korisnik.korisnickoIme);
             await ocjena_aktivnost.addNewOcjenaAktivnost();

@@ -17,12 +17,12 @@ module.exports = class Raspored {
     
     // svasta se događa u ovoj metodi - nije dobro!
 	async addToRaspored() {
-        console.log(this);
+        //console.log(this);
         return await dbAddToRaspored(this);
   
     }
 
-    static async setDefaultActivities(){
+    /* static async setDefaultActivities(){
         let kamp = await Kamp.fetchUpcoming();
         let dorucakAkt = await Aktivnost.fetchAktivnostByName("Doručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
         let rucakAkt = await Aktivnost.fetchAktivnostByName("Ručak", kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
@@ -42,9 +42,9 @@ module.exports = class Raspored {
                 await dbAddToRaspored(new Raspored(null, rucakAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+12, animatori[j]));
                 await dbAddToRaspored(new Raspored(null, veceraAkt.id_aktivnost, kamp.datum_odrzavanja_kamp+i*24+18, animatori[j])); 
             }
-        }
+        } 
 
-    }
+    }*/
 
     static async fetchRasporedAktivnostiForAnimator(korisnicko_ime_animator) {
         let results = await dbGetRasporedAktivnostiForAnimator(korisnicko_ime_animator);

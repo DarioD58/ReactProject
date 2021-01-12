@@ -131,13 +131,13 @@ class KorisnikController extends Controller {
 
     // Dohvaca informacije o aktivnostima korisnika
     async userActivities(req, res, next) {
-        let korisnik = req.cookies.korisnik;
+        let korisnik = JSON.parse(req.cookies.korisnik);
         
         try {
         if(korisnik.statusKorisnik == "sudionik") {
             let sudionik = await Sudionik.fetchSudionikByUsername(korisnik.korisnickoIme);
             let aktivnosti = await sudionik.fetchSudionikFinishedActivities();
-
+ 
             return JSON.stringify({
                 aktivnosti : aktivnosti
             });

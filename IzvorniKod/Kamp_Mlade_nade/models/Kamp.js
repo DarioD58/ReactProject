@@ -217,7 +217,7 @@ dbGetCompletedCamp = async () => {
     pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa,
     status, email_kamp
     FROM kamp
-    WHERE (datum_odrzavanja_kamp + ( (trajanje_d+7) * interval '1 day')) => CURRENT_TIMESTAMP(0)`;
+    WHERE (datum_odrzavanja_kamp + ( (trajanje_d+7) * interval '1 day')) >= CURRENT_TIMESTAMP(0)`;
     try {
         const result = await db.query(sql, []);
         return result.rows;

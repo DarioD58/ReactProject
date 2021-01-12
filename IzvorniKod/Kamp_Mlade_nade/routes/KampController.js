@@ -74,7 +74,7 @@ class KampController extends Controller {
             if(ukupni_dojam.dojam == undefined){
                 return JSON.stringify({poruka : `Niste još ocijenili kamp ${kamp.ime_kamp}!`});
             } else {
-                return JSON.stringify({error : `Već ste ocijenili kamp ${kamp.ime_kamp}!`});
+                return JSON.stringify({poruka2 : `Već ste ocijenili kamp ${kamp.ime_kamp}!`});
             }
             
         } catch (error) {

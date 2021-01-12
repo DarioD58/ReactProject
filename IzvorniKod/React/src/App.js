@@ -18,6 +18,7 @@ import UserCalendar from './pages/UserCalendar'
 import AddSchedule from './pages/AddSchedule';
 import RearangeGroups from './pages/RearangeGroups';
 import Groups from './pages/Groups'
+import GradeActivity from './pages/GradeActivity';
 
 
 function App() {
@@ -100,6 +101,12 @@ function App() {
         </Route>
         <Route exact path='/mygroups'>
             <Groups />
+        </Route>
+        <Route exact path='/activitygrade'>
+            <GradeActivity />
+        </Route>
+        <Route exact path='/overallexperience'>
+            <GradeActivity />
         </Route>
         <Route exact path='/applications'>
             <Applications />

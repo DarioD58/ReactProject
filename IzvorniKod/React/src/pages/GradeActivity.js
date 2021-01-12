@@ -21,6 +21,15 @@ function GradeActivity(){
             });
       }, []);
 
+    if(aktivnosti === undefined){
+        return(
+            <div className='application-section'>
+                <div className="general-text text-center application-header">OCIJENITE AKTIVNOSTI</div>
+                <p className='general-text'>Niste sudjelovali ni na jednoj aktivnosti</p>
+            </div>
+        );
+    } 
+
     return(
         <div className='application-section'>
             <div className="general-text text-center application-header">OCIJENITE AKTIVNOSTI</div>

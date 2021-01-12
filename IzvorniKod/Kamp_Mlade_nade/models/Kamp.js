@@ -86,6 +86,21 @@ module.exports = class Kamp {
             return kamp;
         }
 
+        // vraca Kamp[]
+        static async checkForPastActiveCamp(){
+            let results = await dbCheckForPastActiveCamp();
+            let kamp = new Kamp();
+
+            if(results.length > 0 ){
+                kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
+                    results[0].trajanje_d, results[0].pocetak_prijava_sudionika, results[0].kraj_prijava_sudionika, 
+                    results[0].pocetak_prijava_animatora, results[0].kraj_prijava_animatora, results[0].broj_grupa,
+                    results[0].status, results[0].email_kamp);
+            }
+
+            return kamp;
+        }
+
         //vraca Kamp
         static async fetchByNameAndDate(){
             let results = await dbFetchByNameAndDate();
@@ -217,6 +232,22 @@ dbCheckForActiveCamp = async() => {
     status, email_kamp
     FROM kamp
     WHERE datum_odrzavanja_kamp <= CURRENT_TIMESTAMP(0) AND (datum_odrzavanja_kamp + (trajanje_d * interval '1 day')) >= CURRENT_TIMESTAMP(0)`;
+    try {
+        const result = await db.query(sql, []);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbCheckForPastActiveCamp = async() => {
+    const sql = `SELECT ime_kamp, datum_odrzavanja_kamp, 
+    trajanje_d, pocetak_prijava_sudionika, kraj_prijava_sudionika, 
+    pocetak_prijava_animatora, kraj_prijava_animatora, broj_grupa,
+    status, email_kamp
+    FROM kamp
+    WHERE status = 1 AND (datum_odrzavanja_kamp + (trajanje_d * interval '1 day')) < CURRENT_TIMESTAMP(0)`;
     try {
         const result = await db.query(sql, []);
         return result.rows;

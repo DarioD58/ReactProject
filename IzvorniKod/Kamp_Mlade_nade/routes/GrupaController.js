@@ -76,6 +76,7 @@ let grupaController = new GrupaController();
 
 router.get("/", async (req, res, next) => {
     let data = JSON.parse( await grupaController.get(req, res, next));
+    console.log(data);
     if(data.error != null){
         res.status(400).json(data);
     } else {

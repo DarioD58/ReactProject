@@ -55,31 +55,55 @@ class HomeController extends Controller {
                 
             } else if(korisnik.statusKorisnik == "sudionik" || korisnik.statusKorisnik == "animator"
                         || korisnik.statusKorisnik == "organizator"){
-                let kamp = await Kamp.fetchActive();
-                if(kamp.status == undefined) {
+                    let kamp = await Kamp.fetchCompleted();
+                    if(kamp.status == 0) {
+                        let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+    
+                        return JSON.stringify({
+                            status_kamp : kamp.status,
+                            kamp : kamp.ime_kamp,
+                            email : kamp.email_kamp,
+                            aktivnosti : aktivnosti 
+                        });
+                    }
+    
+                    kamp = await Kamp.fetchActive();
+                    if(kamp.status == 1) {
+                        let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+    
+                        return JSON.stringify({
+                            status_kamp : kamp.status,
+                            kamp : kamp.ime_kamp,
+                            email : kamp.email_kamp,
+                            aktivnosti : aktivnosti 
+                        });
+                    }
+    
                     kamp = await Kamp.fetchUpcoming();
-                    let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                    let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
-                    
-                    const prijaveZaSudionike = await kamp.checkForSudionikPrijave();
-                    const prijaveZaAnimatore = await kamp.checkForAnimatorPrijave();
-
-                    return JSON.stringify({
-                        status_kamp : 0,
-                        kamp : kamp.ime_kamp,
-                        email: kamp.email_kamp,
-                        pocetak_kamp : timer,
-                        trajanje_kamp : kamp.trajanje,
-                        email: kamp.email_kamp,
-                        pocetak_prijava_sud: new Date(kamp.pocetak_prijava_sudionika).toLocaleDateString(undefined, options),
-                        kraj_prijava_sud : new Date(kamp.kraj_prijava_sudionika).toLocaleDateString(undefined, options),
-                        prijave_sud_otvorene : prijaveZaSudionike,
-                        pocetak_prijava_anim : new Date(kamp.pocetak_prijava_animatora).toLocaleDateString(undefined, options),
-                        kraj_prijava_anim : new Date(kamp.kraj_prijava_animatora).toLocaleDateString(undefined, options),
-                        prijave_anim_otvorene: prijaveZaAnimatore,
-                        aktivnosti : aktivnosti
-                    });
+                    if(kamp.status == 0) {
+                        let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
+                        
+                        const prijaveZaSudionike = await kamp.checkForSudionikPrijave();
+                        const prijaveZaAnimatore = await kamp.checkForAnimatorPrijave();
+    
+                        return JSON.stringify({
+                            status_kamp : 0,
+                            kamp : kamp.ime_kamp,
+                            email: kamp.email_kamp,
+                            pocetak_kamp : timer,
+                            trajanje_kamp : kamp.trajanje,
+                            email: kamp.email_kamp,
+                            pocetak_prijava_sud: new Date(kamp.pocetak_prijava_sudionika).toLocaleDateString(undefined, options),
+                            kraj_prijava_sud : new Date(kamp.kraj_prijava_sudionika).toLocaleDateString(undefined, options),
+                            prijave_sud_otvorene : prijaveZaSudionike,
+                            pocetak_prijava_anim : new Date(kamp.pocetak_prijava_animatora).toLocaleDateString(undefined, options),
+                            kraj_prijava_anim : new Date(kamp.kraj_prijava_animatora).toLocaleDateString(undefined, options),
+                            prijave_anim_otvorene: prijaveZaAnimatore,
+                            aktivnosti : aktivnosti
+                        });
+                    }
                 } else {
                     let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                     return JSON.stringify({

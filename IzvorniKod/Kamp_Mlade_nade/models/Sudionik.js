@@ -236,7 +236,8 @@ dbChangeSudionikGroup = async (korisnicko_ime, id_grupa) => {
 dbGetSudionikFinishedActivities = async (id_grupa) => {
     const sql = `SELECT DISTINCT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator 
-    WHERE id_grupa = $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0) `;
+    WHERE id_grupa = $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0)
+            AND aktivnost.id_aktivnost NOT IN (SELECT id_aktivnost FROM ocjena_aktivnost)`;
     try {
         const result = await db.query(sql, [id_grupa]);
         return result.rows;

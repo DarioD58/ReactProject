@@ -136,7 +136,8 @@ dbGetAnimatorActivities = async (korisnicko_ime_animator) => {
 dbGetAnimatorFinishedActivities = async (korisnicko_ime_animator) => {
     const sql = `SELECT DISTINCT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator 
-    WHERE korisnicko_ime_animator LIKE $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0)`;
+    WHERE korisnicko_ime_animator LIKE $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0)
+            AND aktivnost.id_aktivnost NOT IN (SELECT id_aktivnost FROM ocjena_aktivnost)`;
     try {
         const result = await db.query(sql, [korisnicko_ime_animator]);
         return result.rows;

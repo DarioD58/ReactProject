@@ -34,13 +34,31 @@ module.exports = class Sudionik extends Korisnik {
     }
 
     // vraca Aktivnost[]
-    async fetchSudionikAcitvities(){
-        let results = await dbGetSudionikAcitvities(this.id_grupa);
+    async fetchSudionikActivities(){
+        let results = await dbGetSudionikActivities(this.id_grupa);
         let aktivnosti = [];
 
         if( results.length > 0 ) {
             for(let i = 0; i < results.length; i++){
                 let aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
+                                            results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
+                                            results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
+                
+                aktivnost.id_aktivnost = results[i].id_aktivnost;
+                aktivnosti.push(aktivnost);
+            }
+        }       
+        return aktivnosti;
+    }
+
+    async dbGetSudionikFinishedActivities(){
+        let results = await dbGetSudionikFinishedActivities(this.id_grupa);
+        let aktivnosti = [];
+        let aktivnost;
+
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                aktivnost = new Aktivnost(results[i].ime_aktivnost, results[i].opis_aktivnost,
                                             results[i].trajanje_aktivnost_h, results[i].tip_aktivnost, 
                                             results[i].datum_odrzavanja_kamp, results[i].ime_kamp);
                 
@@ -190,7 +208,7 @@ dbGetSudionikAnimators = async (id_grupa) => {
     }
 }
 
-dbGetSudionikAcitvities = async (id_grupa) => {
+dbGetSudionikActivities = async (id_grupa) => {
     const sql = `SELECT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
     FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator WHERE id_grupa LIKE $1`;
     try {
@@ -208,6 +226,19 @@ dbChangeSudionikGroup = async (korisnicko_ime, id_grupa) => {
         const result = await db.query(sql, [id_grupa, korisnicko_ime]);
         return result.rows;
     } catch(err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbGetSudionikFinishedActivities = async (id_grupa) => {
+    const sql = `SELECT aktivnost.id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    FROM raspored NATURAL JOIN aktivnost NATURAL JOIN animator 
+    WHERE id_grupa LIKE $1 AND datum_i_vrijeme_izvrsavanja < CURRENT_TIMESTAMP(0) `;
+    try {
+        const result = await db.query(sql, [id_grupa]);
+        return result.rows;
+    } catch (err) {
         console.log(err);
         throw err;
     }

@@ -22,12 +22,13 @@ function CreateGroup() {
             if(res.error != undefined){
                 throw new Error(res.error);
             }
-            if(res.grupeSClanovima === undefined){
+            console.log(res)
+            if(res.grupe === undefined){
                 setNumberOfParticipants(res.brojSudionika)
             } else {
                 setGroups(
                     ...groups,
-                    res.grupeSClanovima
+                    res.grupe
                 )
             }
         }).catch((error) => {

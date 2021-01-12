@@ -54,7 +54,8 @@ class AktivnostController extends Controller {
 
     async activityGrade(req, res, next) {
         let korisnik = JSON.parse(req.cookies.korisnik);
-        
+        console.log(korisnik)
+        console.log(req.body)
         try {
             let ocjena_aktivnost = new Ocjena_aktivnost(req.body.ocjena, req.body.dojam, req.body.id_aktivnost, korisnik.korisnickoIme);
             await ocjena_aktivnost.addNewOcjenaAktivnost();
@@ -225,7 +226,8 @@ router.post("/ocjena", async (req, res, next) => {
     }
 });
 
-router.post("/ocjene", async (req, res, next) => {
+// za dohvat svih ocjena aktivnosti
+router.get("/ocjene", async (req, res, next) => {
     let data = JSON.parse( await aktivnostController.getActivityGrades(req, res, next));
     if(data.error != null){
         res.status(400).json(data);

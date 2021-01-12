@@ -67,9 +67,6 @@ export default props => {
             Pregledaj grupe
           </p>
         </Link>
-        <p className="menu-item">
-          Moj profil
-        </p>
       </Menu>
     );
   } else if(props.logged == 'true'){
@@ -85,12 +82,14 @@ export default props => {
             Raspored
           </p>
         </Link>
-        <p className="menu-item">
-          Moj profil
-        </p>
         <Link to='/mygroups' onClick={handleClick}>
           <p className="menu-item">
             Moja grupa
+          </p>
+        </Link>
+        <Link to='/activitygrade' onClick={handleClick}>
+          <p className="menu-item">
+            Moje aktivnosti
           </p>
         </Link>
       </Menu>

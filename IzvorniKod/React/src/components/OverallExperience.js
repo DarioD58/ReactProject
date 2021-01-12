@@ -2,14 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 
 function OverallExperience(){
-    // TO DO funkcionalnost da korisnik to moze unjeti samo jednom
-    
-    let korIme;
-    if(Cookies.get('korisnik') !== undefined){
-        korIme = Cookies.getJSON('korisnik').korisnickoIme//mozda krivo
-    }else{
-        korIme = "Toni";//makni ovo
-    }    
+    // TO DO funkcionalnost da korisnik to moze unjeti samo jednom  
     const [state, setState] = React.useState({
         ocjena: "",
         dojam: "",
@@ -22,8 +15,12 @@ function OverallExperience(){
 
     //http je moozda krivi
     const onSubmit = (e) => {
+        setState(prevState => ({
+            ...prevState,
+            korisnicko_ime: Cookies.getJSON('korisnik').korisnickoIme
+        })) 
         let objekt = JSON.stringify(state);
-        fetch("http://localhost:5000/OverallExperience", {
+        fetch("./overallexperience", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt
@@ -43,7 +40,7 @@ function OverallExperience(){
                 ...prevState,
                 ocjena: "",
                 dojam: "",
-                korisnicko_ime: korIme,
+                korisnicko_ime: "",
             }))
         });
         e.preventDefault();

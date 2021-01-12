@@ -18,6 +18,7 @@ import UserCalendar from './pages/UserCalendar'
 import AddSchedule from './pages/AddSchedule';
 import RearangeGroups from './pages/RearangeGroups';
 import Groups from './pages/Groups'
+import GradeActivity from './pages/GradeActivity';
 
 
 function App() {
@@ -44,7 +45,10 @@ function App() {
       setSession('true')
     }
     // GET request using fetch inside useEffect React hook
-    fetch('http://localhost:5000/')
+    fetch('http://localhost:5000/', {
+      credentials: 'include',
+      method: 'GET'
+    })
     .then(response => response.json())
     .then((data) => {
       setKamp(prevKamp => ({
@@ -100,6 +104,12 @@ function App() {
         </Route>
         <Route exact path='/mygroups'>
             <Groups />
+        </Route>
+        <Route exact path='/activitygrade'>
+            <GradeActivity />
+        </Route>
+        <Route exact path='/overallexperience'>
+            <GradeActivity />
         </Route>
         <Route exact path='/applications'>
             <Applications />

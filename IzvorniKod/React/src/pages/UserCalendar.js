@@ -21,7 +21,7 @@ function UserCalendar(){
 
   React.useEffect(() => {
     // GET request using fetch inside useEffect React hook
-    fetch('http://localhost:5000/aktivnost/raspored', {
+    fetch('./aktivnost/raspored', {
         credentials: 'include',
         method: 'GET'
     })

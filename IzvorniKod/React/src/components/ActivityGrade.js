@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from 'js-cookie'
 
 function ActivityGrade(props){
     const [state, setState] = React.useState({
@@ -13,8 +14,12 @@ function ActivityGrade(props){
 
     //http je moozda krivi
     const onSubmit = (e) => {
+        setState(prevState => ({
+            ...prevState,
+            korisnicko_ime: Cookies.getJSON('korisnik').korisnickoIme
+        }))        
         let objekt = JSON.stringify(state);
-        fetch("http://localhost:5000/", {//adresa
+        fetch("./aktivnosti/ocjena", {//adresa
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

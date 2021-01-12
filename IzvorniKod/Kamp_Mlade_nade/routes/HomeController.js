@@ -55,9 +55,33 @@ class HomeController extends Controller {
                 
             } else if(korisnik.statusKorisnik == "sudionik" || korisnik.statusKorisnik == "animator"
                         || korisnik.statusKorisnik == "organizator"){
-                let kamp = await Kamp.fetchActive();
-                if(kamp.status == undefined) {
-                    kamp = await Kamp.fetchUpcoming();
+                
+                let kamp = await Kamp.fetchCompleted();
+                if(kamp.status == 0) {
+                    let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+
+                    return JSON.stringify({
+                        status_kamp : kamp.status,
+                        kamp : kamp.ime_kamp,
+                        email : kamp.email_kamp,
+                        aktivnosti : aktivnosti 
+                    });
+                }
+
+                kamp = await Kamp.fetchActive();
+                if(kamp.status == 1) {
+                    let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+
+                    return JSON.stringify({
+                        status_kamp : kamp.status,
+                        kamp : kamp.ime_kamp,
+                        email : kamp.email_kamp,
+                        aktivnosti : aktivnosti 
+                    });
+                }
+
+                kamp = await Kamp.fetchUpcoming();
+                if(kamp.status == 0) {
                     let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                     let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
@@ -80,17 +104,8 @@ class HomeController extends Controller {
                         prijave_anim_otvorene: prijaveZaAnimatore,
                         aktivnosti : aktivnosti
                     });
-                } else {
-                    let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                    return JSON.stringify({
-                        status_kamp : 1,
-                        kamp : kamp.ime_kamp,
-                        email : kamp.email_kamp,
-                        aktivnosti : aktivnosti 
-                    });
-                }
+                } 
            
-                
             }
         
         } catch (err) {

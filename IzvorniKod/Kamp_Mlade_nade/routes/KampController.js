@@ -50,14 +50,33 @@ class KampController extends Controller {
     }
 
     
-    async campGrade(req, res, next) {
-        let korisnik = req.cookies.korisnik;
+    async postCampGrade(req, res, next) {
+        let korisnik = JSON.parse(req.cookies.korisnik);
         
         try {
+            let kamp = await Kamp.fetchCompleted();
             let ukupni_dojam = new Ukupni_dojam(req.body.ocjena, req.body.dojam, korisnik.korisnickoIme,
-                                    req.body.datum_odrzavanja_kamp, req.body.ime_kamp);
+                                    kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
             await ukupni_dojam.addNewUkupniDojam();
             return JSON.stringify({poruka : "Ocjena i dojam kampa uspješno uneseni!"});
+        } catch (error) {
+            return JSON.stringify({error: "Greška pri unosu ocjene aktivnosti!"});
+        }
+      
+    }
+
+    async getCampGrade(req, res, next) {
+        let korisnik = JSON.parse(req.cookies.korisnik);
+        
+        try {
+            let kamp = await Kamp.fetchCompleted();
+            let ukupni_dojam = await Ukupni_dojam.fetchUkupniDojamKorisnik(korisnik.korisnickoIme, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+            if(ukupni_dojam.dojam == undefined){
+                return JSON.stringify({poruka : `Niste još ocijenili kamp ${kamp.ime_kamp}!`});
+            } else {
+                return JSON.stringify({error : `Već ste ocijenili kamp ${kamp.ime_kamp}!`});
+            }
+            
         } catch (error) {
             return JSON.stringify({error: "Greška pri unosu ocjene aktivnosti!"});
         }
@@ -79,7 +98,16 @@ router.post("/create", async (req, res, next) => {
 
 // za unos ocjene aktivnosti korisnika
 router.post("/ocjena", async (req, res, next) => {
-    let data = JSON.parse( await kampController.campGrade(req, res, next));
+    let data = JSON.parse( await kampController.postCampGrade(req, res, next));
+    if(data.error != null){
+        res.status(400).json(data);
+    } else {
+        res.json(data);
+    }
+});
+
+router.get("/ocjena", async (req, res, next) => {
+    let data = JSON.parse( await kampController.getCampGrade(req, res, next));
     if(data.error != null){
         res.status(400).json(data);
     } else {

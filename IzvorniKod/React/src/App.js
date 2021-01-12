@@ -19,6 +19,7 @@ import AddSchedule from './pages/AddSchedule';
 import RearangeGroups from './pages/RearangeGroups';
 import Groups from './pages/Groups'
 import GradeActivity from './pages/GradeActivity';
+import OverallExperience from './pages/OverallExperience';
 
 
 function App() {
@@ -111,7 +112,7 @@ function App() {
             <GradeActivity />
         </Route>
         <Route exact path='/overallexperience'>
-            <GradeActivity />
+            <OverallExperience />
         </Route>
         <Route exact path='/applications'>
             <Applications />

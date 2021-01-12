@@ -23,13 +23,12 @@ function OverallExperience(){
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-
-            setMessage(res.poruka)
-            setIsSent(true)
+            if(res.poruka !== undefined)
+                setMessage(res.poruka)
+            else
+                setWrong(res.poruka2)
         })
         .catch((response) => {
-            setWrong(response)
-            setIsSent(true)
             setState(prevState => ({
                 ...prevState,
                 ocjena: "",
@@ -79,7 +78,7 @@ function OverallExperience(){
     if(wrong !== ""){
         return (
             <div className='everything'>
-                <h1 className="naslovi general-text" hidden={isSent}>Ocjeni kamp</h1>
+                <h1 className="naslovi general-text" >Ocijeni kamp</h1>
                 <p className='general-text'>{wrong}</p>
             </div>
         );
@@ -87,18 +86,18 @@ function OverallExperience(){
 
     return (
         <div className='everything'>
-            <h1 className="naslovi general-text" hidden={isSent}>Ocjeni kamp</h1>
+            <h1 className="naslovi general-text" >Ocjeni kamp</h1>
             <p className='general-text'>{message}</p>
             <form onSubmit={onSubmit}>
-            <label className="general-text" for="ocjena" hidden={isSent}>Ocjena za kamp: </label>
+            <label className="general-text" htmlFor="ocjena">Ocjena za kamp: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="number" min="1" max="10" name="ocjena" value={state.ocjena}
-                placeholder="1 - 10" hidden={isSent}/>
-            <label className="general-text" for="dojam" hidden={isSent}>Dojam: </label>
+                placeholder="1 - 10"/>
+            <label className="general-text" htmlFor="dojam">Dojam: </label>
                 <textarea className="bg-dark pt-3 pb-3 text-white" onChange={onChange}
                 required type="text" name="dojam" value={state.dojam}
-                placeholder="Napišite vaš dojam" rows='10' cols='50' maxLength='500' hidden={isSent}/>
-            <input className="bg-dark text-white" hidden={isSent} type="submit" name="submit" placeholder="Submit" />
+                placeholder="Napišite vaš dojam" rows='10' cols='50' maxLength='500'/>
+            <input className="bg-dark text-white" type="submit" name="submit" placeholder="Submit" />
             </form>
         </div>
     );

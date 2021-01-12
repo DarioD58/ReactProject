@@ -92,6 +92,11 @@ export default props => {
             Moje aktivnosti
           </p>
         </Link>
+        <Link to='/overallexperience' onClick={handleClick}>
+          <p className="menu-item">
+            Ocjenite Kamp
+          </p>
+        </Link>
       </Menu>
     );
   }

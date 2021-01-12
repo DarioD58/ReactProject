@@ -418,3 +418,24 @@ section p:first-child, .timer div:last-child span{
   align-self: center;
   justify-self: center;
 }
+.ocjenjivanjeAktivnosti{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  align-items: center;
+}
+.ocjenjivanjeAktivnosti2{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 30% 30% 20%;
+}
+
+.aktivnosti3{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  border-width: 0ch;
+}

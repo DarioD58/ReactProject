@@ -1,12 +1,8 @@
-const { request } = require('express');
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const Sudionik = require('../models/Sudionik');
-const Korisnik = require('../models/Korisnik');
 const router = express.Router();
 const Controller = require('./Controller');
 const Kamp = require('../models/Kamp');
-const Animator = require('../models/Animator');
 const Prijava = require('../models/Prijava');
 
 class ApplyController extends Controller {

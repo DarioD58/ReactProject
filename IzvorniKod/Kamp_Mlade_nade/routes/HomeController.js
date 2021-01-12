@@ -18,6 +18,10 @@ class HomeController extends Controller {
             }
 
             let prosliKamp = await Kamp.checkForPastActiveCamp();
+            if(prosliKamp.status == 1){
+                await prosliKamp.updateStatusKamp(0);
+            }
+
             if(req.body.statusKorisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);

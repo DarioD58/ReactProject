@@ -104,6 +104,7 @@ class AktivnostController extends Controller {
         let kamp = await Kamp.fetchUpcoming();
         let aktivnost = await Aktivnost.fetchAktivnostByName(ime_aktivnost, kamp.ime_kamp, kamp.datum_odrzavanja_kamp);
         let full_grupe = await Grupa.fetchAllGrupa()
+        let full_animatori = await Animator.fetchAllAnimator();
 
         // uvjet 1) aktivnost se neće preklapati s aktivnošću istog tipa
         let typeOverlap = await Raspored.checkActivityTypeOverlap(kamp.datum_odrzavanja_kamp, aktivnost.tip_aktivnost);
@@ -119,6 +120,7 @@ class AktivnostController extends Controller {
         } else if(aktivnost.tip_aktivnost == "svi"){
             //let brojGrupa = aktivnost.tip_aktivnost.split(" ")[1];
             if(grupe.length != full_grupe.length) throw new Error(`Aktivnosti je pridružen nevaljan broj grupa. Na aktivnosti mora biti ${full_grupe.length} grupa.`);
+            if(animatori.length != full_animatori.length) throw new Error(`Aktivnosti je pridružen nevaljan broj animatora. Na aktivnosti mora biti ${full_animatori.length} animatora.`);
         } else {
             if(grupe.length != aktivnost.tip_aktivnost) throw new Error(`Aktivnosti je pridružen nevaljan broj grupa. Na aktivnosti mora biti ${aktivnost.tip_aktivnost} grupa.`);
         }

@@ -16,6 +16,23 @@ module.exports = class Ocjena_aktivnost {
         await dbAddNewOcjenaAktivnost(this);
     }
 
+    static async fetchAllOcjenaAktivnost() {
+        let results = await dbGetAllOcjenaAktivnost();
+        let ocjene = [];
+        let ocjena;
+
+        if( results.length > 0 ) {
+            for(let i = 0; i < results.length; i++){
+                ocjena = new Ocjena_aktivnost(results[i].ocjena, results[i].dojam,
+                    results[i].id_aktivnost, results[i].korisnicko_ime);
+
+                ocjene.push(ocjena);
+            }
+        }       
+
+        return ocjene;
+    }
+
     static async fetchOcjenaKorisnik(korisnicko_ime){
         let results = await dbGetOcjenaKorisnik(korisnicko_ime);
         let ocjene = [];
@@ -79,6 +96,18 @@ dbAddNewOcjenaAktivnost = async (ocjena_aktivnost) => {
         throw err;
     }
 }
+
+dbGetAllOcjenaAktivnost = async() => {
+    const sql = `SELECT *
+                FROM ocjena_aktivnost`;
+    try {
+    const result = await db.query(sql);
+    return result.rows;
+    } catch (err) {
+    console.log(err);
+    throw err;
+    }
+} 
 
 dbGetOcjenaKorisnik = async(korisnicko_ime) =>{
     const sql = `SELECT *

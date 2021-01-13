@@ -45,6 +45,10 @@ app.use('/api/kamp', KampController);
 app.use('/api/aktivnost', AktivnostController);
 app.use('/api/korisnik', KorisnikController);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 // pokreni server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

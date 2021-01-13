@@ -5,6 +5,7 @@ const db = require('./db');
 const pg = require('pg');
 var cookieParser = require('cookie-parser');
 const pgSession = require('connect-pg-simple');
+const path = require('path');
 
 // middleware - ruteri
 const HomeController = require('./routes/HomeController');

@@ -5,7 +5,7 @@ function Logout(props){
     let history = useHistory();
 
     const handleLogout = () => {
-        fetch('./logout')
+        fetch('./api/logout')
         .then((response) => {
             history.push('/');
             props.setSession('false')

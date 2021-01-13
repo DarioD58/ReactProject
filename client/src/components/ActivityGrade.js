@@ -12,7 +12,7 @@ function ActivityGrade(props){
     //http je moozda krivi
     const onSubmit = (e) => {        
         let objekt = JSON.stringify(state);
-        fetch("./aktivnost/ocjena", {//adresa
+        fetch("./api/aktivnost/ocjena", {//adresa
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

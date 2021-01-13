@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './pages/Login';
@@ -86,6 +86,9 @@ function App() {
       <Sidebar logged={session}/>
       <Header logged={session} setSession={updateSession}/>
       <Switch>
+      <Route exact path='/'>
+            <Redirect to = "/home"/>
+        </Route>
         <Route exact path='/home'>
           <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} pocetak_prijava_sud={kamp.pocetak_prijava_sud}
            kraj_prijava_sud={kamp.kraj_prijava_sud} pocetak_prijava_anim={kamp.pocetak_prijava_anim}

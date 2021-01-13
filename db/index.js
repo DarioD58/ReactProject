@@ -19,13 +19,6 @@ const client = new Client({
 
 client.connect();
 
-/* client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-}); */
 
 module.exports = {
     query: (text, params) => {
@@ -33,7 +26,7 @@ module.exports = {
         return client.query(text, params)
             .then(res => {
                 const duration = Date.now() - start;
-                //yconsole.log('executed query', {text, params, duration, rows: res.rows});
+                //console.log('executed query', {text, params, duration, rows: res.rows});
                 return res;
             });
     },

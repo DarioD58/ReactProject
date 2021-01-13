@@ -46,7 +46,7 @@ app.use('/api/aktivnost', AktivnostController);
 app.use('/api/korisnik', KorisnikController);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/src/index.html'));
 });
 
 // pokreni server

@@ -47,7 +47,7 @@ function App() {
       setSession('true')
     }
     // GET request using fetch inside useEffect React hook
-    fetch('http://localhost:5000/', {
+    fetch('https://progi-kamp-mlade-nade.herokuapp.com/', {
       credentials: 'include',
       method: 'GET'
     })

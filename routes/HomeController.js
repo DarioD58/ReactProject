@@ -122,7 +122,6 @@ router.get("/", async (req, res, next) => {
     if(data.error != null){
         res.status(404).json(data);
     } else{
-        console.log("Testing output on deployed");
         res.json(data);
     }
 });

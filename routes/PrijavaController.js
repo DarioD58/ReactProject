@@ -101,14 +101,14 @@ class PrijavaController extends Controller {
                 Dovršite Vašu registraciju na poveznici.\n
                 Vaš Kamp Mlade nade \n
                 https://${req.hostname}/register`;
-                await transporter.sendMail(msg).then(console.log("Email za prihvaćanje prijave poslan"));
+                await transporter.sendMail(msg).then(console.log("Email za prihvaćanje prijave poslan..."));
                 
             } else if(status_prijava == "odbijena"){
                 msg.text = `Pozdrav ${prijava.ime}, \n 
                 Vaša prijava je nažalost ${status_prijava}. 
                 Pokušajte se prijaviti na sljedeći kamp. \n
                 Vaš Kamp Mlade nade`;
-                await transporter.sendMail(msg).then(console.log("Email za odbijanje prijave poslan"));
+                await transporter.sendMail(msg).then(console.log("Email za odbijanje prijave poslan..."));
             } else {
                 throw new Error("Neispravan status prijave.");
             }

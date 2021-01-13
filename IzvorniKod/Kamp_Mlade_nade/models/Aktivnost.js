@@ -35,9 +35,19 @@ module.exports = class Aktivnost {
             return aktivnost;
         }
         
-/*         async fetchTipAktivnost(id_aktivnost){
-
-        } */
+        static async fetchAktivnostById(id_aktivnost){
+            let results = await dbGetAktivnostById(id_aktivnost);
+            let aktivnost = undefined;
+    
+            if( results.length > 0 ) {
+                aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,
+                    results[0].trajanje_aktivnost_h, results[0].tip_aktivnost, results[0].datum_odrzavanja_kamp, results[0].ime_kamp);
+                
+                aktivnost.id_aktivnost = results[0].id_aktivnost;
+            }       
+            return aktivnost;
+        }
+ 
            
         
 
@@ -77,6 +87,18 @@ dbGetAktivnostByName = async (ime_aktivnost, ime_kamp, datum_odrzavanja_kamp) =>
     FROM aktivnost WHERE ime_aktivnost LIKE $1 AND ime_kamp LIKE $2 AND datum_odrzavanja_kamp = $3`;
     try {
         const result = await db.query(sql, [ime_aktivnost, ime_kamp, datum_odrzavanja_kamp]);
+        return result.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+dbGetAktivnostById = async (id_aktivnost) => {
+    const sql = `SELECT id_aktivnost, ime_aktivnost, opis_aktivnost, trajanje_aktivnost_h, tip_aktivnost, ime_kamp, datum_odrzavanja_kamp
+    FROM aktivnost WHERE id_aktivnost = $1`;
+    try {
+        const result = await db.query(sql, [id_aktivnost]);
         return result.rows;
     } catch (err) {
         console.log(err);

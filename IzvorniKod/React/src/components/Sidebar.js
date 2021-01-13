@@ -67,6 +67,11 @@ export default props => {
             Pregledaj grupe
           </p>
         </Link>
+        <Link to='/viewgrades' onClick={handleClick}>
+          <p className="menu-item">
+            Pregledaj ocjene
+          </p>
+        </Link>
       </Menu>
     );
   } else if(props.logged == 'true'){

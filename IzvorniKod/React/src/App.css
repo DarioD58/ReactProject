@@ -30,6 +30,17 @@ form{
     background-color: white;
 }
 
+.everything-start{
+  height: max-content;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background-color: white;
+  margin: 5vh
+}
+
 .grid-container{
   display: grid;
   grid-template-columns: auto auto auto;
@@ -439,4 +450,35 @@ section p:first-child, .timer div:last-child span{
   display: grid;
   grid-template-columns: 25% 50% 25%;
   border-width: 0ch;
+}
+
+.triple-containers{
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  row-gap: 5vh;
+  margin: 2vh;
+  justify-items: center;
+}
+
+.grades-container{
+  width: 80%;
+  height: fit-content;
+  grid-column: 1/4;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  background-color:  #343a40;
+  justify-items: center;
+}
+
+.grades-title-container{
+  width: 80%;
+  height: fit-content;
+  grid-column: 1/4;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  background-color:  white;
+  justify-items: center;
 }

@@ -8,6 +8,7 @@ const Grupa = require('../models/Grupa');
 const Animator = require('../models/Animator');
 const Raspored = require('../models/Raspored');
 const Sudionik = require('../models/Sudionik');
+const Korisnik = require('../models/Korisnik');
 
 class AktivnostController extends Controller {
 
@@ -69,9 +70,39 @@ class AktivnostController extends Controller {
     async getActivityGrades(req, res, next) {
         try {
             let ocjeneAktivnosti = await Ocjena_aktivnost.fetchAllOcjenaAktivnost();
-            return JSON.stringify({ocjeneAktivnosti : ocjeneAktivnosti});
+            let korisnik;
+            let grupa;
+            let aktivnost;
+            let podaci = []
+            for(let i = 0; i < ocjeneAktivnosti.length; i++){
+                let temp = {
+                    ocjena: ocjeneAktivnosti[i].ocjena,
+                    dojam: ocjeneAktivnosti[i].dojam,
+                    korisnik_ime: "",
+                    korisnik_prezime: "",
+                    grupa: "",
+                    aktivnost: ""
+                }
+                korisnik = await Sudionik.fetchSudionikByUsername(ocjeneAktivnosti[i].korisnicko_ime)
+                if(korisnik == undefined){
+                    korisnik = await Animator.fetchAnimatorByUsername(ocjeneAktivnosti[i].korisnicko_ime)
+                    temp.korisnik_ime = korisnik.ime;
+                    temp.korisnik_prezime = korisnik.prezime;
+                } else {
+                    grupa = await Grupa.fetchGrupaById(korisnik.id_grupa)
+                    temp.grupa = grupa.ime_grupa;
+                    temp.korisnik_ime = korisnik.ime;
+                    temp.korisnik_prezime = korisnik.prezime;
+                }
+                aktivnost = await Aktivnost.fetchAktivnostById(ocjeneAktivnosti[i].id_aktivnost)
+                temp.aktivnost = aktivnost.ime_aktivnost;
+                podaci.push(temp);
+            }
+            return JSON.stringify({
+                podaci: podaci
+            });
         } catch (error) {
-            return JSON.stringify({error: "Greška pri unosu ocjene aktivnosti!"});
+            return JSON.stringify({error: "Greška pri dohvatu ocjene aktivnosti!"});
         }
     }
 

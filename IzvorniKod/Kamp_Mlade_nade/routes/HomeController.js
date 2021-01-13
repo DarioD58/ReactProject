@@ -103,7 +103,6 @@ class HomeController extends Controller {
                             prijave_anim_otvorene: prijaveZaAnimatore,
                             aktivnosti : aktivnosti
                         });
-                    }
                 } else {
                     let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
                     return JSON.stringify({

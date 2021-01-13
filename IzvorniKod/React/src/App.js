@@ -20,6 +20,7 @@ import RearangeGroups from './pages/RearangeGroups';
 import Groups from './pages/Groups'
 import GradeActivity from './pages/GradeActivity';
 import OverallExperience from './pages/OverallExperience';
+import ViewGrades from './pages/ViewGrades';
 
 
 function App() {
@@ -110,6 +111,9 @@ function App() {
         </Route>
         <Route exact path='/activitygrade'>
             <GradeActivity />
+        </Route>
+        <Route exact path='/viewgrades'>
+            <ViewGrades />
         </Route>
         <Route exact path='/overallexperience'>
             <OverallExperience />

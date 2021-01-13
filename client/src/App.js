@@ -47,7 +47,7 @@ function App() {
       setSession('true')
     }
     // GET request using fetch inside useEffect React hook
-    fetch('/home', {
+    fetch('/api/home', {
       credentials: 'include',
       method: 'GET'
     })

@@ -18,11 +18,14 @@ const KampController = require('./routes/KampController');
 const AktivnostController = require('./routes/AktivnostController');
 const KorisnikController = require('./routes/KorisnikController');
 
+
+app.use(express.static(path.join(__dirname, 'client/build')));
 // middleware
-app.use(cors({
+/* app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
-  }));
+  })); */
+
 app.use(express.json());
 
 // middleware - cookie

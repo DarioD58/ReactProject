@@ -32,7 +32,7 @@ export default props => {
   if(props.logged == 'true' && Cookies.getJSON('korisnik').statusKorisnik == 'organizator'){
     return (
       <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
-        <Link to='/' onClick={handleClick}>
+        <Link to='/home' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
           </p>
@@ -77,7 +77,7 @@ export default props => {
   } else if(props.logged == 'true'){
     return (
       <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
-        <Link to='/' onClick={handleClick}>
+        <Link to='/home' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
           </p>
@@ -107,7 +107,7 @@ export default props => {
   }
   return (
     <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
-      <Link to='/'>
+      <Link to='/home'>
         <p className="menu-item" onClick={handleClick}>
           Početna stranica
         </p>

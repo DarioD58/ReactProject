@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // definicija ruta
-app.use('/', HomeController);
+app.use('/home', HomeController);
 app.use('/login', LoginController);
 app.use('/logout', LogoutController);
 app.use('/apply', ApplyController);

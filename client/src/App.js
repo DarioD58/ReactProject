@@ -47,7 +47,7 @@ function App() {
       setSession('true')
     }
     // GET request using fetch inside useEffect React hook
-    fetch('https://progi-kamp-mlade-nade.herokuapp.com/', {
+    fetch('/home', {
       credentials: 'include',
       method: 'GET'
     })
@@ -86,7 +86,7 @@ function App() {
       <Sidebar logged={session}/>
       <Header logged={session} setSession={updateSession}/>
       <Switch>
-        <Route exact path='/'>
+        <Route exact path='/home'>
           <HomePage logged={session} ime={kamp.ime} vrijeme={kamp.vrijeme} pocetak_prijava_sud={kamp.pocetak_prijava_sud}
            kraj_prijava_sud={kamp.kraj_prijava_sud} pocetak_prijava_anim={kamp.pocetak_prijava_anim}
            kraj_prijava_anim={kamp.kraj_prijava_anim} activity={activity} />

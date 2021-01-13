@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // middleware
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'https://progi-kamp-mlade-nade.herokuapp.com'
   }));
 
 app.use(express.json());

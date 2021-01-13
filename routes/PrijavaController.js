@@ -100,7 +100,7 @@ class PrijavaController extends Controller {
                 Vaše korisničko ime je ${korisnicko_ime}. 
                 Dovršite Vašu registraciju na poveznici.\n
                 Vaš Kamp Mlade nade \n
-                http://${req.hostname}:3000/register`;
+                https://${req.hostname}/register`;
                 await transporter.sendMail(msg);
                 
             } else if(status_prijava == "odbijena"){

@@ -14,7 +14,7 @@ function Login(props) {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./login", {
+        fetch("./api/login", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

@@ -5,7 +5,7 @@ const ViewGrades = () => {
     const [grades, setGrades] = React.useState([])
 
     React.useEffect(() => {
-        fetch("./aktivnost/ocjene", {
+        fetch("./api/aktivnost/ocjene", {
             credentials:'include',
             method:'GET'
         })

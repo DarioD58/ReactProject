@@ -12,7 +12,7 @@ function Groups() {
 
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
-        fetch("./korisnik", {
+        fetch("./api/korisnik", {
             credentials: 'include',
             method: 'GET',
         })

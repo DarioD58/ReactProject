@@ -20,7 +20,7 @@ function Apply() {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./apply", {
+        fetch("./api/apply", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

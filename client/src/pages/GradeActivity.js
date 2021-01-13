@@ -9,7 +9,7 @@ function GradeActivity(){
 
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
-        fetch("./korisnik/aktivnosti", {
+        fetch("./api/korisnik/aktivnosti", {
             credentials: 'include',
             method: 'GET'
         })

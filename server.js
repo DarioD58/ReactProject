@@ -34,16 +34,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // definicija ruta
-app.use('/home', HomeController);
-app.use('/login', LoginController);
-app.use('/logout', LogoutController);
-app.use('/apply', ApplyController);
-app.use('/register', RegisterController);
-app.use('/prijave', PrijavaController);
-app.use('/grupe', GrupaController);
-app.use('/kamp', KampController);
-app.use('/aktivnost', AktivnostController);
-app.use('/korisnik', KorisnikController);
+app.use('/api/home', HomeController);
+app.use('/api/login', LoginController);
+app.use('/api/logout', LogoutController);
+app.use('/api/apply', ApplyController);
+app.use('/api/register', RegisterController);
+app.use('/api/prijave', PrijavaController);
+app.use('/api/grupe', GrupaController);
+app.use('/api/kamp', KampController);
+app.use('/api/aktivnost', AktivnostController);
+app.use('/api/korisnik', KorisnikController);
 
 // pokreni server
 const PORT = process.env.PORT || 5000;

@@ -13,7 +13,7 @@ function CreateGroup() {
     const [message, setMessage] = React.useState("")
 
     React.useEffect(() => {
-        fetch("./grupe", {
+        fetch("./api/grupe", {
             credentials:'include',
             method:'GET'
         })
@@ -41,7 +41,7 @@ function CreateGroup() {
         let objekt = JSON.stringify({
             brojGrupa: numberOfGroups
         });
-        fetch("./grupe", {
+        fetch("./api/grupe", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

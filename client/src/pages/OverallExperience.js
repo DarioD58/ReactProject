@@ -14,7 +14,7 @@ function OverallExperience(){
     const [wrong, setWrong] = React.useState("")
 
     React.useEffect(() =>{
-        fetch("./kamp/ocjena", {
+        fetch("./api/kamp/ocjena", {
             credentials: 'include',
             method: 'GET'
         })
@@ -42,7 +42,7 @@ function OverallExperience(){
     //http je moozda krivi
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./kamp/ocjena", {
+        fetch("./api/kamp/ocjena", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

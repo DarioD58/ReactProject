@@ -20,7 +20,7 @@ function AddActivity(props) {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./aktivnost/create", {
+        fetch("./api/aktivnost/create", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

@@ -21,7 +21,7 @@ function RearangeGroups(){
     const [isSwapped, setIsSwapped] = React.useState(false)
 
     React.useEffect(() => {
-        fetch("./grupe", {
+        fetch("./api/grupe", {
             credentials:'include',
             method:'GET'
         })

@@ -15,7 +15,7 @@ function Register(props) {
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
         console.log(objekt)
-        fetch("./register", {
+        fetch("./api/register", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt

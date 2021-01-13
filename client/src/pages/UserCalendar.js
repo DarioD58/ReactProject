@@ -21,7 +21,7 @@ function UserCalendar(){
 
   React.useEffect(() => {
     // GET request using fetch inside useEffect React hook
-    fetch('./aktivnost/raspored', {
+    fetch('./api/aktivnost/raspored', {
         credentials: 'include',
         method: 'GET'
     })

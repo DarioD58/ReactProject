@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 const pgSession = require('connect-pg-simple');
 const path = require('path');
 
+
 // middleware - ruteri
 const HomeController = require('./routes/HomeController');
 const LoginController = require('./routes/LoginController');
@@ -20,12 +21,12 @@ const AktivnostController = require('./routes/AktivnostController');
 const KorisnikController = require('./routes/KorisnikController');
 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+//app.use(express.static(path.join(__dirname, 'client/build')));
 // middleware
-/* app.use(cors({
+app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
-  })); */
+  }));
 
 app.use(express.json());
 

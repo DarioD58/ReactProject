@@ -21,7 +21,7 @@ const AktivnostController = require('./routes/AktivnostController');
 const KorisnikController = require('./routes/KorisnikController');
 
 
-//app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 // middleware
 app.use(cors({
     credentials: true,

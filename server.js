@@ -22,6 +22,7 @@ const KorisnikController = require('./routes/KorisnikController');
 
 
 app.use(express.static(path.join(__dirname, 'client/build')));
+
 // middleware
 app.use(cors({
     credentials: true,
@@ -45,8 +46,8 @@ app.use('/api/kamp', KampController);
 app.use('/api/aktivnost', AktivnostController);
 app.use('/api/korisnik', KorisnikController);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 // pokreni server

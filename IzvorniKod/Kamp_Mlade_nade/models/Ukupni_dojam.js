@@ -17,7 +17,7 @@ module.exports = class Ukupni_dojam {
 
     static async fetchUkupniDojamKorisnik(korisnicko_ime, datum_odrzavanja_kamp, ime_kamp){
         let results = await dbGetUkupniDojamKorisnik(korisnicko_ime, datum_odrzavanja_kamp, ime_kamp);
-        let ukupni_dojam = new Ukupni_dojam();
+        let ukupni_dojam;
 
         if(results.length > 0 ){
             ukupni_dojam = new Ukupni_dojam(results[0].ocjena, results[0].dojam, results[0].korisnicko_ime, 

@@ -24,7 +24,7 @@ module.exports = class Aktivnost {
 
         static async fetchAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp){
             let results = await dbGetAktivnostByName(ime_aktivnost, ime_kamp, datum_odrzavanja_kamp);
-            let aktivnost = undefined;
+            let aktivnost;
     
             if( results.length > 0 ) {
                 aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,
@@ -37,7 +37,7 @@ module.exports = class Aktivnost {
         
         static async fetchAktivnostById(id_aktivnost){
             let results = await dbGetAktivnostById(id_aktivnost);
-            let aktivnost = undefined;
+            let aktivnost;
     
             if( results.length > 0 ) {
                 aktivnost = new Aktivnost(results[0].ime_aktivnost, results[0].opis_aktivnost,

@@ -38,7 +38,7 @@ class AktivnostController extends Controller {
 
                 let aktivnost = new Aktivnost(ime_aktivnost, opis_aktivnost,
                     trajanje_aktivnost_h, tip_aktivnost, kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
-                let id_akt = await aktivnost.addNewAktivnost();
+                await aktivnost.addNewAktivnost();
                 
                 return JSON.stringify({
                 poruka : `Uspješno stvorena nova aktivnost ${ime_aktivnost}!`

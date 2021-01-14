@@ -39,8 +39,12 @@ function UserCalendar(props){
     });
   }, []);
 
-  if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'animator'
-  || Cookies.getJSON('korisnik').statusKorisnik !== 'sudionik'){
+  if(Cookies.get('korisnik') === undefined){
+      return <Redirect to='/' />
+  }
+
+  if(Cookies.getJSON('korisnik').statusKorisnik !== 'animator'
+  && Cookies.getJSON('korisnik').statusKorisnik !== 'sudionik'){
       return <Redirect to='/' />
   }
 

@@ -89,7 +89,11 @@ const ViewGrades = () => {
         }))
     }
 
-    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
+    if(Cookies.get('korisnik') === undefined){
+        return <Redirect to='/' />
+    }
+
+    if(Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
         return <Redirect to='/' />
     }
 

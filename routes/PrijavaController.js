@@ -76,7 +76,10 @@ class PrijavaController extends Controller {
             },
         }); */
 
-        var transporter = nodemailer.createTransport({
+        const sgMail = require('@sendgrid/mail')
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+/*         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
@@ -84,7 +87,7 @@ class PrijavaController extends Controller {
               user: kamp.email,
               pass: kamp.lozinka
             }
-          });
+          }); */
 
         let msg = {
             from:`"Kamp Mlade nade" <${kamp.email}>`, // sender address
@@ -106,17 +109,29 @@ class PrijavaController extends Controller {
 
                 //https://${req.hostname}/register`;
 
-
+                await sgMail.send(msg).then(() => {
+                    console.log('Email sent')
+                  })
+                  .catch((error) => {
+                    console.error(error)
+                  });
                 /* console.log(req.hostname);
                 console.log(msg); */
-                await transporter.sendMail(msg).catch(console.log("Email za prihvaćanje prijave poslan..."));
+               // await transporter.sendMail(msg).catch(console.log("Email za prihvaćanje prijave poslan..."));
                 
             } else if(status_prijava == "odbijena"){
                 msg.text = `Pozdrav ${prijava.ime}, \n 
                 Vaša prijava je nažalost ${status_prijava}. 
                 Pokušajte se prijaviti na sljedeći kamp. \n
                 Vaš Kamp Mlade nade`;
-                await transporter.sendMail(msg).then(console.log("Email za odbijanje prijave poslan..."));
+
+                await sgMail.send(msg).then(() => {
+                    console.log('Email sent')
+                  })
+                  .catch((error) => {
+                    console.error(error)
+                  });
+                //await transporter.sendMail(msg).then(console.log("Email za odbijanje prijave poslan..."));
             } else {
                 throw new Error("Neispravan status prijave.");
             }

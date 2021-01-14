@@ -15,6 +15,7 @@
   "author": "FantasticFourPlusTwo",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
     "connect-pg-simple": "^6.2.1",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",

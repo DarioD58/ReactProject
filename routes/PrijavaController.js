@@ -124,7 +124,7 @@ class PrijavaController extends Controller {
 
                 //https://${req.hostname}/register`;
 
-                sgMail.send(msg).then(() => {
+                transporter.send(msg).then(() => {
                     console.log('Email sent')
                   })
                   .catch((error) => {
@@ -139,7 +139,7 @@ class PrijavaController extends Controller {
                 Pokušajte se prijaviti na sljedeći kamp. \n
                 Vaš Kamp Mlade nade`;
 
-                sgMail.send(msg).then(() => {
+                transporter.send(msg).then(() => {
                     console.log('Email sent')
                   })
                   .catch((error) => {

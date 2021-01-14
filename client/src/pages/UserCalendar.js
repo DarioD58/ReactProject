@@ -20,7 +20,6 @@ function UserCalendar(props){
 
 
   React.useEffect(() => {
-    console.log(props)
     // GET request using fetch inside useEffect React hook
     fetch('/api/aktivnost/raspored', {
         credentials: 'include',
@@ -38,7 +37,10 @@ function UserCalendar(props){
     });
   }, []);
 
-  console.log(events)
+  if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'animator'
+  || Cookies.getJSON('korisnik').statusKorisnik !== 'sudionik'){
+      return <Redirect to='/' />
+  }
 
     return (
         <div className='everything'>

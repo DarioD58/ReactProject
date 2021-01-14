@@ -127,6 +127,10 @@ function RearangeGroups(){
         }))
     }
 
+    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
+        return <Redirect to='/' />
+    }
+
 
     if(rearrange.select1 === true && rearrange.select2 === true){
         return (

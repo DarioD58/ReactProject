@@ -4,7 +4,8 @@ const Controller = require('./Controller');
 const cookie = require('cookie');
 const Organizator = require('../models/Organizator');
 const Prijava = require('../models/Prijava');
-const nodemailer = require("nodemailer"), sgTransport = require('nodemailer-sendgrid-transport');
+const nodemailer = require("nodemailer"), 
+const mailerMaligun = require('nodemailer-mailgun-transport')
 const Korisnik = require('../models/Korisnik');
 const Sudionik = require('../models/Sudionik');
 const Animator = require('../models/Animator');
@@ -65,23 +66,15 @@ class PrijavaController extends Controller {
         let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
         await prijava.changeStatusPrijava(status_prijava);
 
-/*         let sender = 'chadrick3@ethereal.email';
-        let senderPas = 'k9S74W7ffEvGcwFF7k';
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, // true for 465, false for other ports
+        const auth = {
             auth: {
-                user: sender, // generated ethereal user
-                pass: senderPas, // generated ethereal password
-            },
-        }); */
+                api_key: 'cca935ae1900743f4ab37e0888a2b6b0-28d78af2-211e26df',
+                domain: 'https://app.mailgun.com/app/sending/domains/sandboxc45d7e9f2c11429f8a8b179a56fd92de.mailgun.org'
+            }
+        };
 
-        const sgMail = require('@sendgrid/mail')
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
  
-
+        var transporter = nodemailer.createTransport(mailerMaligun(auth));
 /*         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,

@@ -87,6 +87,10 @@ const ViewGrades = () => {
         }))
     }
 
+    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
+        return <Redirect to='/' />
+    }
+
 
     return (
         <div className='everything-start'>

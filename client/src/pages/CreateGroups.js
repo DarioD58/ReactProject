@@ -67,6 +67,9 @@ function CreateGroup() {
         setNumberOfGroups(value)
     }
 
+    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
+        return <Redirect to='/' />
+    }
 
     if(groups === undefined || groups.length > 0){
         return (

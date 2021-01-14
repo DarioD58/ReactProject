@@ -30,6 +30,11 @@ function GradeActivity(){
         setIsGraded(!isGraded)
     }
 
+    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'animator'
+    || Cookies.getJSON('korisnik').statusKorisnik !== 'sudionik'){
+        return <Redirect to='/' />
+    }
+
     if(aktivnosti === undefined){
         return(
             <div className='application-section'>

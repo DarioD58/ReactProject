@@ -75,6 +75,11 @@ function OverallExperience(){
         }))
     }
 
+    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'animator'
+    || Cookies.getJSON('korisnik').statusKorisnik !== 'sudionik'){
+        return <Redirect to='/' />
+    }
+
     if(wrong !== ""){
         return (
             <div className='everything'>

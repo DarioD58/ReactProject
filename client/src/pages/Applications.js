@@ -32,6 +32,10 @@ function Applications() {
         setRefresh(!refresh)
     }
 
+    if(Cookies.get('korisnik') === undefined || Cookies.getJSON('korisnik').statusKorisnik !== 'organizator'){
+        return <Redirect to='/' />
+    }
+
 
     if(applications ===undefined || applications.length === 0){
         return (

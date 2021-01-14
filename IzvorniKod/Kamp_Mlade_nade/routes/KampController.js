@@ -55,10 +55,14 @@ class KampController extends Controller {
         
         try {
             let kamp = await Kamp.fetchCompleted();
-            let ukupni_dojam = new Ukupni_dojam(req.body.ocjena, req.body.dojam, korisnik.korisnickoIme,
-                                    kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
-            await ukupni_dojam.addNewUkupniDojam();
-            return JSON.stringify({poruka : "Ocjena i dojam kampa uspješno uneseni!"});
+            if(kamp != undefined) {
+                let ukupni_dojam = new Ukupni_dojam(req.body.ocjena, req.body.dojam, korisnik.korisnickoIme,
+                                        kamp.datum_odrzavanja_kamp, kamp.ime_kamp);
+                await ukupni_dojam.addNewUkupniDojam();
+                return JSON.stringify({poruka : "Ocjena i dojam kampa uspješno uneseni!"});
+            } else {
+                return JSON.stringify({error : "Ne postoji kamp za ocjenjivanje."});
+            }
         } catch (error) {
             return JSON.stringify({error: "Greška pri unosu ocjene aktivnosti!"});
         }

@@ -26,8 +26,8 @@ function Register(props) {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            history.push('/');
             props.setSession('true')
+            history.push('/');
         }).catch((response) => {
             console.log("Error")
             setState(prevState => ({

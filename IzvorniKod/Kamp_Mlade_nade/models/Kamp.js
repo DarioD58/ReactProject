@@ -43,9 +43,8 @@ module.exports = class Kamp {
 
         // vraca Kamp
         static async fetchActive(){
-
             let results = await dbGetActiveCamp();
-            let kamp = new Kamp();
+            let kamp;
 
             if( results.length > 0 ) {
                 kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
@@ -59,7 +58,7 @@ module.exports = class Kamp {
         // vraca Kamp
         static async fetchUpcoming(){
             let results = await dbGetUpcomingCamp();
-            let kamp = new Kamp();
+            let kamp;
 
             if(results.length > 0 ){
                 kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
@@ -73,7 +72,7 @@ module.exports = class Kamp {
 
         static async fetchCompleted(){
             let results = await dbGetCompletedCamp();
-            let kamp = new Kamp();
+            let kamp;
 
             if(results.length > 0 ){
                 kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
@@ -88,7 +87,7 @@ module.exports = class Kamp {
         // vraca Kamp
         static async checkForActiveCamp(){
             let results = await dbCheckForActiveCamp();
-            let kamp = new Kamp();
+            let kamp;
 
             if(results.length > 0 ){
                 kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
@@ -103,7 +102,7 @@ module.exports = class Kamp {
         // vraca Kamp[]
         static async checkForPastActiveCamp(){
             let results = await dbCheckForPastActiveCamp();
-            let kamp = new Kamp();
+            let kamp;
 
             if(results.length > 0 ){
                 kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 
@@ -118,7 +117,7 @@ module.exports = class Kamp {
         //vraca Kamp
         static async fetchByNameAndDate(){
             let results = await dbFetchByNameAndDate();
-            let kamp = new Kamp();
+            let kamp;
 
             if(results.length > 0){
                 kamp = new Kamp(results[0].ime_kamp, results[0].datum_odrzavanja_kamp, 

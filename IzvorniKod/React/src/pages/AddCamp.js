@@ -30,8 +30,8 @@ function AddCamp(props) {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            history.push('/');
             props.update()
+            history.push('/');
         })
         .catch((response) => {
             console.log(response)

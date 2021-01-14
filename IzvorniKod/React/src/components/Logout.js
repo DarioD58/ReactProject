@@ -7,8 +7,8 @@ function Logout(props){
     const handleLogout = () => {
         fetch('./logout')
         .then((response) => {
-            history.push('/');
             props.setSession('false')
+            history.push('/');
         }).catch((error) => {
             console.log(error);
         })

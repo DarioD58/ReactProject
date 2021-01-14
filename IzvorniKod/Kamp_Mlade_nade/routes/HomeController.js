@@ -13,12 +13,12 @@ class HomeController extends Controller {
     async get(req, res, next) {
         try{
             let aktivniKamp = await Kamp.checkForActiveCamp();
-            if(aktivniKamp.status != undefined && aktivniKamp.status != 1){
+            if(aktivniKamp != undefined && aktivniKamp.status != 1){
                 await aktivniKamp.updateStatusKamp(1);
             }
 
             let prosliKamp = await Kamp.checkForPastActiveCamp();
-            if(prosliKamp.status == 1){
+            if(prosliKamp != undefined && prosliKamp.status == 1){
                 await prosliKamp.updateStatusKamp(0);
             }
 
@@ -31,7 +31,7 @@ class HomeController extends Controller {
             if(korisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
                 
                 const prijaveZaSudionike = await kamp.checkForSudionikPrijave();
@@ -56,33 +56,39 @@ class HomeController extends Controller {
             } else if(korisnik.statusKorisnik == "sudionik" || korisnik.statusKorisnik == "animator"
                         || korisnik.statusKorisnik == "organizator"){
                     let kamp = await Kamp.fetchCompleted();
-                    if(kamp.status == 0) {
+                    if(kamp != undefined && kamp.status == 0) {
                         let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options);
     
                         return JSON.stringify({
                             status_kamp : kamp.status,
                             kamp : kamp.ime_kamp,
                             email : kamp.email_kamp,
-                            aktivnosti : aktivnosti 
+                            aktivnosti : aktivnosti,
+                            pocetak_kamp : timer 
                         });
                     }
     
                     kamp = await Kamp.fetchActive();
-                    if(kamp.status == 1) {
+                    if(kamp != undefined && kamp.status == 1) {
                         let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options);
     
                         return JSON.stringify({
                             status_kamp : kamp.status,
                             kamp : kamp.ime_kamp,
                             email : kamp.email_kamp,
-                            aktivnosti : aktivnosti 
+                            aktivnosti : aktivnosti,
+                            pocetak_kamp : timer  
                         });
                     }
     
                     kamp = await Kamp.fetchUpcoming();
-                    if(kamp.status == 0) {
+                    if(kamp != undefined && kamp.status == 0) {
                         let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                         let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
                         
                         const prijaveZaSudionike = await kamp.checkForSudionikPrijave();
@@ -103,16 +109,7 @@ class HomeController extends Controller {
                             prijave_anim_otvorene: prijaveZaAnimatore,
                             aktivnosti : aktivnosti
                         });
-                } else {
-                    let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                    return JSON.stringify({
-                        status_kamp : 1,
-                        kamp : kamp.ime_kamp,
-                        email : kamp.email_kamp,
-                        aktivnosti : aktivnosti 
-                    });
-                }
-           
+                    } 
                 
             }
         

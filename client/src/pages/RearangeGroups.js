@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import DragGroups from '../components/DragGroups';
-import {DndContext} from '@dnd-kit/core';
+import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 
 function RearangeGroups(){
     const [groups, setGroups] = React.useState([])

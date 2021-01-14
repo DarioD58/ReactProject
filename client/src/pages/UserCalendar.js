@@ -1,6 +1,8 @@
 import React from 'react'
 import {Calendar, momentLocalizer, Views} from 'react-big-calendar'
 import moment from 'moment'
+import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 //import events from '../testingData/events'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 

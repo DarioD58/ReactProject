@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import React from 'react';
 import ActivityGrade from '../components/ActivityGrade';
+import {Redirect} from 'react-router-dom'
 
 function GradeActivity(){
     const [aktivnosti, setAktivnosti] = React.useState([])

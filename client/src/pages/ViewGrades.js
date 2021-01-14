@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Grade from '../components/Grade';
+import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 
 const ViewGrades = () => {
     const [grades, setGrades] = React.useState([])

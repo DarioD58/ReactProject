@@ -1,5 +1,7 @@
 import React from 'react'
 import Application from '../components/Application'
+import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 
 function Applications() {
     const [applications, setApplications] = React.useState([])

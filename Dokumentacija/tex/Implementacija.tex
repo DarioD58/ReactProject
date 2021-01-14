@@ -1,0 +1,78 @@
+\chapter{Implementacija i korisničko sučelje}
+		
+		
+		\section{Korištene tehnologije i alati}
+		
+			Komunikaciju u timu realizirana je korištenjem aplikacije WhatsApp(1). Za upravljanje podjele rada korištena je web platforma Asana(2). Za izradu UML dijagrama korišten je alat Astah Professional(3), a kao sustav za upravljanje izvornim kodom Git(4). Udaljeni repozitorij projekta dostupan je na web platformi GitLab(5). 
+			Kao uređivač izvornog koda korišten je Visual Studio Code(6) tvrtke Microsoft. Neke od značajki ovog uređivača su debugiranje, naglašavanje sintakse, snippeti, refaktoriranje koda i ugrađeni git.
+			Aplikacija je napisana koristeći radni okvir Express.js(7) i jezik JavaScript(8) za izradu backenda te React(9) i jezik JavaScript za izradu frontenda. React je biblioteka u JavaScriptu za izgradnju korisničkih sučelja, te se koristi u razvoju web i mobilnih aplikacija. Radni okvir Express se koristi za izgradnju web aplikacija i API-ja, pod licencom MIT-a.
+			Kao sustav za upravljanje bazom podataka korišten je PostgreSQL(10) sustav. Njegove značajke su ACID svojstva. 
+			
+			Poveznice:
+			\begin{packed_enum}	
+				\item https://www.whatsapp.com/
+				\item https://app.asana.com/
+				\item https://astah.net/products/astah-professional/
+				\item https://git-scm.com/
+				\item https://about.gitlab.com/
+				\item https://code.visualstudio.com/
+				\item https://expressjs.com/
+				\item https://www.javascript.com/
+				\item https://reactjs.org/
+				\item https://www.postgresql.org/
+				
+				
+			\end{packed_enum}
+			
+			
+			\eject 
+		
+	
+		\section{Ispitivanje programskog rješenja}
+			
+			\textbf{\textit{dio 2. revizije}}\\
+			
+			 \textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
+	
+			
+			\subsection{Ispitivanje komponenti}
+			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
+			
+			
+			
+			\subsection{Ispitivanje sustava}
+			
+			 \textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
+			 
+			 \textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
+			 \begin{itemize}
+			 	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
+			 	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
+			 \end{itemize}
+		 	\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			
+			\eject 
+		
+		
+		\section{Dijagram razmještaja}
+			
+			Dijagrami razmještaja opisuju topologiju sklopovlja i programsku potporu koja se koristi u implementaciji sustava u njegovom radnom okruženju. Na poslužiteljskom računalu se nalaze web poslužitelj i poslužitelj baze podataka. Klijenti koriste web preglednik za pristupanje web aplikaciji. Komunikacije između računala korisnika i poslužitelja odvija se putem HTTP veze.	
+			\begin{figure}[H]
+				\centerline{\includegraphics[width=\linewidth]{slike/dijagram_razmještaja.png}}
+				\caption{Dijagram razmještaja}
+				\label{fig:dijagram_razmjestaja}
+			\end{figure}
+			
+			\eject 
+		
+		\section{Upute za puštanje u pogon}
+		
+			\textbf{\textit{dio 2. revizije}}\\
+		
+			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
+			
+			
+			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
+			
+			
+			\eject 

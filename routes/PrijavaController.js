@@ -83,19 +83,32 @@ class PrijavaController extends Controller {
         sgMail.setApiKey('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'); */
 /*         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
+            port: 587,
+            secure: false,
             auth: {
               user: kamp.email,
               pass: kamp.lozinka
             }
           }); */
 
-        const transporter = nodemailer.createTransport(sgTransport({
+          var transporter = nodemailer.createTransport({
+            host: 'smtp.mail.yahoo.com',
+            port: 587,
+            service:'yahoo',
+            secure: false,
+                auth: {
+                    user: kamp.email,
+                    pass: kamp.lozinka
+                },
+            debug: false,
+            logger: true       
+            });
+
+/*         const transporter = nodemailer.createTransport(sgTransport({
             auth: {
                 api_key: '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' // your api key here, better hide it in env vars
             }
-        }));
+        })); */
 
         let msg = {
             from:`"Kamp Mlade nade" <${kamp.email}>`, // sender address

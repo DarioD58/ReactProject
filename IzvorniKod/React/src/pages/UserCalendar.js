@@ -15,11 +15,12 @@ const ColoredDateCellWrapper = ({ children }) =>
     },
   })
 
-function UserCalendar(){
+function UserCalendar(props){
   const [events, setEvents] = React.useState([])
 
 
   React.useEffect(() => {
+    console.log(props)
     // GET request using fetch inside useEffect React hook
     fetch('./aktivnost/raspored', {
         credentials: 'include',
@@ -44,8 +45,8 @@ function UserCalendar(){
           <div className='calendar-wrapper'>
             <Calendar 
                 events={events}
-                views={allViews}
-                defaultDate={new Date(2021, 1, 1)}
+                defaultDate={new Date(props.pocetak)}
+                views={['month', 'agenda']}
                 components={{
                     timeSlotWrapper: ColoredDateCellWrapper
                   }}

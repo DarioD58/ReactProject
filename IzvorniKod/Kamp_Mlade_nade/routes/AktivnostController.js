@@ -78,6 +78,7 @@ class AktivnostController extends Controller {
                 let temp = {
                     ocjena: ocjeneAktivnosti[i].ocjena,
                     dojam: ocjeneAktivnosti[i].dojam,
+                    korisnicko_ime: ocjeneAktivnosti[i].korisnicko_ime,
                     korisnik_ime: "",
                     korisnik_prezime: "",
                     grupa: "",

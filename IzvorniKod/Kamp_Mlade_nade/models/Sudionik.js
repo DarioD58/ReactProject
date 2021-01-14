@@ -161,6 +161,7 @@ dbAddNewSudionik = async (sudionik) => {
 dbGetNSudionikWithoutGroup = async(n) =>{
     let sql;
     let result;
+    try {
     if(n == "ALL"){
         sql = `SELECT korisnik.*, br_tel_odg_osobe, id_grupa
         FROM sudionik JOIN korisnik ON korisnicko_ime_sudionik = korisnicko_ime
@@ -174,7 +175,6 @@ dbGetNSudionikWithoutGroup = async(n) =>{
             LIMIT $1`;
         result = await db.query(sql, [n]);
     }
-    try {
         return result.rows;
     } catch (err) {
         console.log(err);

@@ -27,8 +27,8 @@ function Login(props) {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            history.push('/')
             props.setSession('true')
+            history.push('/')
         }).catch((error) => {
             console.log(error);
             setState(prevState => ({

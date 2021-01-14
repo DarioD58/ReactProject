@@ -31,7 +31,7 @@ class HomeController extends Controller {
             if(korisnik == undefined){
                 let kamp = await Kamp.fetchUpcoming();
                 let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
                 
                 const prijaveZaSudionike = await kamp.checkForSudionikPrijave();
@@ -58,31 +58,37 @@ class HomeController extends Controller {
                     let kamp = await Kamp.fetchCompleted();
                     if(kamp != undefined && kamp.status == 0) {
                         let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options);
     
                         return JSON.stringify({
                             status_kamp : kamp.status,
                             kamp : kamp.ime_kamp,
                             email : kamp.email_kamp,
-                            aktivnosti : aktivnosti 
+                            aktivnosti : aktivnosti,
+                            pocetak_kamp : timer 
                         });
                     }
     
                     kamp = await Kamp.fetchActive();
                     if(kamp != undefined && kamp.status == 1) {
                         let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options);
     
                         return JSON.stringify({
                             status_kamp : kamp.status,
                             kamp : kamp.ime_kamp,
                             email : kamp.email_kamp,
-                            aktivnosti : aktivnosti 
+                            aktivnosti : aktivnosti,
+                            pocetak_kamp : timer  
                         });
                     }
     
                     kamp = await Kamp.fetchUpcoming();
                     if(kamp != undefined && kamp.status == 0) {
                         let aktivnosti = await Aktivnost.fetchAllAktivnost(kamp);
-                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                         let timer = new Date(kamp.datum_odrzavanja_kamp).toLocaleDateString(undefined, options); // za sad podržavamo jedan aktivni kamp
                         
                         const prijaveZaSudionike = await kamp.checkForSudionikPrijave();

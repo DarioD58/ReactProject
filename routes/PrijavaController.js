@@ -104,7 +104,7 @@ class PrijavaController extends Controller {
 
                 console.log(req.hostname);
                 console.log(msg);
-                await transporter.sendMail(msg).then(console.log("Email za prihvaćanje prijave poslan..."));
+                await transporter.sendMail(msg).catch(console.log("Email za prihvaćanje prijave poslan..."));
                 
             } else if(status_prijava == "odbijena"){
                 msg.text = `Pozdrav ${prijava.ime}, \n 

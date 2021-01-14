@@ -102,10 +102,13 @@ class PrijavaController extends Controller {
                 Vaše korisničko ime je ${korisnicko_ime}. 
                 Dovršite Vašu registraciju na poveznici.\n
                 Vaš Kamp Mlade nade \n
-                https://${req.hostname}/register`;
+                https://progi-kamp-mlade-nade.herokuapp.com/register`;
 
-                console.log(req.hostname);
-                console.log(msg);
+                //https://${req.hostname}/register`;
+
+
+                /* console.log(req.hostname);
+                console.log(msg); */
                 await transporter.sendMail(msg).catch(console.log("Email za prihvaćanje prijave poslan..."));
                 
             } else if(status_prijava == "odbijena"){

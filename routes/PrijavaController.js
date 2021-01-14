@@ -65,8 +65,10 @@ class PrijavaController extends Controller {
         let kamp = await Korisnik.fetchKorisnikByUsername('kampAdmin');
         await prijava.changeStatusPrijava(status_prijava);
 
+        let sender = 'chadrick3@ethereal.email';
+        let senderPas = 'k9S74W7ffEvGcwFF7k';
         // create reusable transporter object using the default SMTP transport
-/*         let transporter = nodemailer.createTransport({
+        let transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             secure: false, // true for 465, false for other ports
@@ -74,11 +76,11 @@ class PrijavaController extends Controller {
                 user: sender, // generated ethereal user
                 pass: senderPas, // generated ethereal password
             },
-        }); */
+        });
 
-        const sgMail = require('@sendgrid/mail')
+/*         const sgMail = require('@sendgrid/mail')
         //sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-        sgMail.setApiKey('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');
+        sgMail.setApiKey('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'); */
 /*         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -109,29 +111,28 @@ class PrijavaController extends Controller {
 
                 //https://${req.hostname}/register`;
 
-                await sgMail.send(msg).then(() => {
+/*                 sgMail.send(msg).then(() => {
                     console.log('Email sent')
                   })
                   .catch((error) => {
                     console.error(error)
-                  });
-                /* console.log(req.hostname);
-                console.log(msg); */
-               // await transporter.sendMail(msg).catch(console.log("Email za prihvaćanje prijave poslan..."));
+                  }); */
+    
+                await transporter.sendMail(msg).catch(console.log("Email za prihvaćanje prijave poslan..."));
                 
             } else if(status_prijava == "odbijena"){
                 msg.text = `Pozdrav ${prijava.ime}, \n 
                 Vaša prijava je nažalost ${status_prijava}. 
                 Pokušajte se prijaviti na sljedeći kamp. \n
                 Vaš Kamp Mlade nade`;
-
-                await sgMail.send(msg).then(() => {
+/* 
+                sgMail.send(msg).then(() => {
                     console.log('Email sent')
                   })
                   .catch((error) => {
                     console.error(error)
-                  });
-                //await transporter.sendMail(msg).then(console.log("Email za odbijanje prijave poslan..."));
+                  }); */
+                await transporter.sendMail(msg).then(console.log("Email za odbijanje prijave poslan..."));
             } else {
                 throw new Error("Neispravan status prijave.");
             }

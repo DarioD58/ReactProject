@@ -8,7 +8,7 @@ function Application(props){
             status: e.target.id
         }
         // GET request using fetch inside useEffect React hook
-        fetch("./api/prijave", {
+        fetch("/api/prijave", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

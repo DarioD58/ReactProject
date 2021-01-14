@@ -19,7 +19,7 @@ function AddCamp(props) {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./api/kamp/create", {
+        fetch("/api/kamp/create", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
@@ -30,8 +30,8 @@ function AddCamp(props) {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            history.push('/');
             props.update()
+            history.push('/');
         })
         .catch((response) => {
             console.log(response)

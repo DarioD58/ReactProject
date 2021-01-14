@@ -5,10 +5,10 @@ function Logout(props){
     let history = useHistory();
 
     const handleLogout = () => {
-        fetch('./api/logout')
+        fetch('/api/logout')
         .then((response) => {
-            history.push('/');
             props.setSession('false')
+            history.push('/');
         }).catch((error) => {
             console.log(error);
         })

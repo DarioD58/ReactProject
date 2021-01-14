@@ -14,7 +14,7 @@ function OverallExperience(){
     const [wrong, setWrong] = React.useState("")
 
     React.useEffect(() =>{
-        fetch("./api/kamp/ocjena", {
+        fetch("/api/kamp/ocjena", {
             credentials: 'include',
             method: 'GET'
         })

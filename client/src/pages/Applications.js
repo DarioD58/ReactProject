@@ -10,7 +10,7 @@ function Applications() {
 
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
-        fetch("./api/prijave", {
+        fetch("/api/prijave", {
             credentials: 'include',
             method: 'GET',
         })

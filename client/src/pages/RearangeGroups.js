@@ -21,7 +21,7 @@ function RearangeGroups(){
     const [isSwapped, setIsSwapped] = React.useState(false)
 
     React.useEffect(() => {
-        fetch("./api/grupe", {
+        fetch("/api/grupe", {
             credentials:'include',
             method:'GET'
         })
@@ -81,7 +81,7 @@ function RearangeGroups(){
                 id_grupa1: rearrange.select2_id,
                 id_grupa2: rearrange.select1_id
             }
-            fetch("./grupe/promjeni", {
+            fetch("/api/grupe/promjeni", {
                 credentials:'include',
                 method:'POST',
                 headers: {"Content-type": "application/json"},
@@ -130,6 +130,7 @@ function RearangeGroups(){
 
     if(rearrange.select1 === true && rearrange.select2 === true){
         return (
+            <div className='everything-start'>
             <div className='triple-groups'>
                 < div className='groups-container'>
                     {groups.map((grupa) => {
@@ -148,26 +149,29 @@ function RearangeGroups(){
                     })}
                 </div>
             </div>
+            </div>
         );
     } else if(rearrange.select1 === true && rearrange.select2 === false){
         return (
-            <div className='double-groups'>
-                < div className='groups-container'>
-                    {groups.map((grupa) => {
-                            if((grupa.id_grupa) == rearrange.select1_id)
-                                return <DragGroups key={grupa.id_grupa} isSwapped={osobaSetSwap} id_grupa={grupa.id_grupa} ime_grupa={grupa.ime_grupa} cijelaGrupa={clanovi}/>
-                    })}
-                </div>
-                < div className='groups-container'>
-                    {groups.map((grupa) => {
-                        if(grupa.id_grupa != rearrange.select1_id){
-                            return (
-                                <div className='groups-box other-text' id={grupa.id_grupa} key={grupa.id_grupa} onClick={onClick2}>
-                                    {grupa.ime_grupa}
-                                </div>
-                            )
-                        }
-                    })}
+            <div className='everything-start'>
+                <div className='double-groups'>
+                    < div className='groups-container'>
+                        {groups.map((grupa) => {
+                                if((grupa.id_grupa) == rearrange.select1_id)
+                                    return <DragGroups key={grupa.id_grupa} isSwapped={osobaSetSwap} id_grupa={grupa.id_grupa} ime_grupa={grupa.ime_grupa} cijelaGrupa={clanovi}/>
+                        })}
+                    </div>
+                    < div className='groups-container'>
+                        {groups.map((grupa) => {
+                            if(grupa.id_grupa != rearrange.select1_id){
+                                return (
+                                    <div className='groups-box other-text' id={grupa.id_grupa} key={grupa.id_grupa} onClick={onClick2}>
+                                        {grupa.ime_grupa}
+                                    </div>
+                                )
+                            }
+                        })}
+                    </div>
                 </div>
             </div>
         );
@@ -175,14 +179,16 @@ function RearangeGroups(){
 
 
     return (
-        < div className='groups-container'>
-            {groups.map((grupa) => {
-                return (
-                    <div className='groups-box other-text' id={grupa.id_grupa} key={grupa.id_grupa} onClick={onClick1}>
-                        {grupa.ime_grupa}
-                    </div>
-                )
-            })}
+        <div className='everything-start'>
+            < div className='groups-container'>
+                {groups.map((grupa) => {
+                    return (
+                        <div className='groups-box other-text' id={grupa.id_grupa} key={grupa.id_grupa} onClick={onClick1}>
+                            {grupa.ime_grupa}
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     );
 }

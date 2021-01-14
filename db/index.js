@@ -1,13 +1,3 @@
-/* const {Pool} = require('pg');
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'kampAdmin',
-    password: 'bazepodataka', //svatko svoju sifru za sada
-    port: 5432,
-}); */
-
 const { Client } = require('pg');
 
 const client = new Client({

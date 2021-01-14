@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-function Apply() {
+function Apply(props) {
 
     const [state, setState] = React.useState({
         ime: "",
@@ -16,36 +16,43 @@ function Apply() {
 
     const [sudionik, setSudionik] = React.useState(true)
 
+    const [message, setMessage] = React.useState("")
+
     let history = useHistory();
 
     const onSubmit = (e) => {
-        let objekt = JSON.stringify(state);
-        fetch("./api/apply", {
-            method: 'POST',
-            headers: {"Content-type": "application/json"},
-            body: objekt
-        })
-        .then((response) => response.json()
-        ).then((res) => {
-            if(res.error !== undefined){
-                throw new Error(res.error);
-            }
-            history.push('/');
-        })
-        .catch((response) => {
-            console.log(response)
-            setState(prevState => ({
-                ...prevState,
-                ime: "",
-                prezime: "",
-                email: "",
-                brtel: "",
-                br_tel_odg_osobe: "",
-                dob: "",
-                pismo: "", 
-                status: "sudionik"
-            }))
-        });
+        if((props.kamp.aktivne_prijave_sud === "1" && state.status === "sudionik")  || 
+        (props.kamp.aktivne_prijave_anim === "1" && state.status === "animator")){
+            let objekt = JSON.stringify(state);
+            fetch("/api/apply", {
+                method: 'POST',
+                headers: {"Content-type": "application/json"},
+                body: objekt
+            })
+            .then((response) => response.json()
+            ).then((res) => {
+                if(res.error !== undefined){
+                    throw new Error(res.error);
+                }
+                history.push('/');
+            })
+            .catch((response) => {
+                console.log(response)
+                setState(prevState => ({
+                    ...prevState,
+                    ime: "",
+                    prezime: "",
+                    email: "",
+                    brtel: "",
+                    br_tel_odg_osobe: "",
+                    dob: "",
+                    pismo: "", 
+                    status: "sudionik"
+                }))
+            });
+        } else {
+            setMessage(`Trenutno nisu aktivne prijave za ${state.status}a`)
+        }
         e.preventDefault();
     }
 
@@ -108,6 +115,7 @@ function Apply() {
 
     return (
         <div className='everything'>
+            <h3 className='text-danger text-center' >{message}</h3>
             <form  onSubmit={onSubmit}>
                 <label className="general-text" htmlFor="ime">Ime: </label>
                 <input className="bg-dark pt-3 pb-3 text-white" onChange={onChange}

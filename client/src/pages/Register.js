@@ -15,7 +15,7 @@ function Register(props) {
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
         console.log(objekt)
-        fetch("./api/register", {
+        fetch("/api/register", {
             method: 'POST',
             headers: {"Content-type": "application/json"},
             body: objekt
@@ -26,8 +26,8 @@ function Register(props) {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            history.push('/');
             props.setSession('true')
+            history.push('/');
         }).catch((response) => {
             console.log("Error")
             setState(prevState => ({

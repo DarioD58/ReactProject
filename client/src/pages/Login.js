@@ -14,7 +14,7 @@ function Login(props) {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./api/login", {
+        fetch("/api/login", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},
@@ -27,8 +27,8 @@ function Login(props) {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            history.push('/')
             props.setSession('true')
+            history.push('/')
         }).catch((error) => {
             console.log(error);
             setState(prevState => ({

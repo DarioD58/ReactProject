@@ -29,37 +29,154 @@ export default props => {
     }))
   }
 
-  if(props.logged == 'true' && Cookies.getJSON('korisnik').statusKorisnik == 'organizator'){
+  console.log(props)
+
+  if(props.kamp.ime === undefined && props.logged === "false"){
     return (
       <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
-        <Link to='/home' onClick={handleClick}>
+        <Link to='/' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
           </p>
         </Link>
-        <Link to='/makecamp' onClick={handleClick}>
-          <p className="menu-item">
-            Stvori novi kamp
+        <Link to='/login'>
+          <p className="menu-item" onClick={handleClick}>
+            Prijavi se
           </p>
         </Link>
-        <Link to='/makeactivity' onClick={handleClick}>
-          <p className="menu-item">
-            Stvori novu aktivnost
+      </Menu>
+    );
+  } else if(props.logged === "false" && (props.kamp.aktivne_prijave_sud === "1" || props.kamp.aktivne_prijave_anim === "1")){
+    return (
+      <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+        <Link to='/'>
+          <p className="menu-item" onClick={handleClick}>
+            Početna stranica
           </p>
         </Link>
-        <Link to='/addactivity' onClick={handleClick}>
-          <p className="menu-item">
-            Dodaj aktivnosti u raspored
+        <Link to='/application'>
+          <p className="menu-item" onClick={handleClick}>
+            Registriraj se
           </p>
         </Link>
-        <Link to='/applications' onClick={handleClick}>
-          <p className="menu-item">
-            Prijave za kamp
+        <Link to='/login'>
+          <p className="menu-item" onClick={handleClick}>
+            Prijavi se
           </p>
         </Link>
-        <Link to='/creategroups' onClick={handleClick}>
+      </Menu>
+    );
+    }else if(props.logged === "false"){
+      return (
+      <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+        <Link to='/' onClick={handleClick}>
           <p className="menu-item">
-            Stvori grupe
+            Početna stranica
+          </p>
+        </Link>
+        <Link to='/login'>
+          <p className="menu-item" onClick={handleClick}>
+            Prijavi se
+          </p>
+        </Link>
+      </Menu>
+      );
+    } else if(props.logged === 'true' && props.kamp.ime === undefined && Cookies.getJSON('korisnik').statusKorisnik === 'organizator'){
+      return (
+        <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+          <Link to='/' onClick={handleClick}>
+            <p className="menu-item">
+              Početna stranica
+            </p>
+          </Link>
+          <Link to='/makecamp' onClick={handleClick}>
+            <p className="menu-item">
+              Stvori kamp
+            </p>
+          </Link>
+        </Menu>
+        );
+    } else if(props.logged === 'true' && props.kamp.status === 0 &&
+    (props.kamp.aktivne_prijave_sud === "1" || props.kamp.aktivne_prijave_anim === "1")
+     && Cookies.getJSON('korisnik').statusKorisnik === 'organizator'){
+      return (
+        <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+          <Link to='/' onClick={handleClick}>
+            <p className="menu-item">
+              Početna stranica
+            </p>
+          </Link>
+          <Link to='/makeactivity' onClick={handleClick}>
+            <p className="menu-item">
+              Stvori aktivnosti
+            </p>
+          </Link>
+          <Link to='/applications' onClick={handleClick}>
+            <p className="menu-item">
+              Pregledaj prijave
+            </p>
+          </Link>
+        </Menu>
+        );
+    } else if(props.logged == 'true' && props.kamp.status === 0 
+    && props.kamp.pocetak_prijava_sud !== undefined && Cookies.getJSON('korisnik').statusKorisnik === 'organizator'){
+      return (
+        <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+          <Link to='/' onClick={handleClick}>
+            <p className="menu-item">
+              Početna stranica
+            </p>
+          </Link>
+          <Link to='/makeactivity' onClick={handleClick}>
+            <p className="menu-item">
+              Stvori aktivnosti
+            </p>
+          </Link>
+          <Link to='/addactivity' onClick={handleClick}>
+            <p className="menu-item">
+              Dodaj aktivnosti u raspored
+            </p>
+          </Link>
+          <Link to='/creategroups' onClick={handleClick}>
+            <p className="menu-item">
+              Stvori grupe
+            </p>
+          </Link>
+          <Link to='/applications' onClick={handleClick}>
+            <p className="menu-item">
+              Pregledaj prijave
+            </p>
+          </Link>
+        </Menu>
+        );
+    } else if(props.logged == 'true' && props.kamp.status === 0 
+             && Cookies.getJSON('korisnik').statusKorisnik === 'organizator'){
+      return (
+        <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+          <Link to='/' onClick={handleClick}>
+            <p className="menu-item">
+              Početna stranica
+            </p>
+          </Link>
+          <Link to='/makecamp' onClick={handleClick}>
+            <p className="menu-item">
+              Stvori kamp
+            </p>
+          </Link>
+          <Link to='/viewgrades' onClick={handleClick}>
+            <p className="menu-item">
+              Pregledaj ocjene aktivnosti
+            </p>
+          </Link>
+        </Menu>
+      );
+  } else if(props.logged == 'true' && props.kamp.status === 1 
+   && Cookies.getJSON('korisnik').statusKorisnik === 'organizator'){
+    return (
+      <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+        <Link to='/' onClick={handleClick}>
+          <p className="menu-item">
+            Početna stranica
           </p>
         </Link>
         <Link to='/viewgroups' onClick={handleClick}>
@@ -69,15 +186,25 @@ export default props => {
         </Link>
         <Link to='/viewgrades' onClick={handleClick}>
           <p className="menu-item">
-            Pregledaj ocjene
+            Pregledaj ocjene aktivnosti
           </p>
         </Link>
       </Menu>
     );
-  } else if(props.logged == 'true'){
-    return (
+  } else if(props.logged == 'true' && props.kamp.status === 0 && props.kamp.pocetak_prijava_sud !== undefined){
+    return ( 
       <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
-        <Link to='/home' onClick={handleClick}>
+        <Link to='/' onClick={handleClick}>
+          <p className="menu-item">
+            Početna stranica
+          </p>
+        </Link>
+      </Menu>
+      );
+  } else if(props.logged == 'true'){
+    return ( 
+      <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
+        <Link to='/' onClick={handleClick}>
           <p className="menu-item">
             Početna stranica
           </p>
@@ -89,7 +216,7 @@ export default props => {
         </Link>
         <Link to='/mygroups' onClick={handleClick}>
           <p className="menu-item">
-            Moja grupa
+            Moje grupe
           </p>
         </Link>
         <Link to='/activitygrade' onClick={handleClick}>
@@ -97,24 +224,14 @@ export default props => {
             Moje aktivnosti
           </p>
         </Link>
-        <Link to='/overallexperience' onClick={handleClick}>
-          <p className="menu-item">
-            Ocjenite Kamp
-          </p>
-        </Link>
       </Menu>
-    );
-  }
+      );
+  } 
   return (
     <Menu right isOpen={isOpen.open} onOpen={handleOpen} onClose={handleClose}>
-      <Link to='/home'>
+      <Link to='/'>
         <p className="menu-item" onClick={handleClick}>
           Početna stranica
-        </p>
-      </Link>
-      <Link to='/application'>
-        <p className="menu-item" onClick={handleClick}>
-          Registriraj se
         </p>
       </Link>
       <Link to='/login'>

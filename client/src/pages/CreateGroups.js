@@ -13,7 +13,7 @@ function CreateGroup() {
     const [message, setMessage] = React.useState("")
 
     React.useEffect(() => {
-        fetch("./api/grupe", {
+        fetch("/api/grupe", {
             credentials:'include',
             method:'GET'
         })
@@ -22,7 +22,6 @@ function CreateGroup() {
             if(res.error !== undefined){
                 throw new Error(res.error);
             }
-            console.log(res)
             if(res.grupe === undefined){
                 setNumberOfParticipants(res.brojSudionika)
             } else {

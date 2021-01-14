@@ -24,7 +24,7 @@ function AddSchedule(props) {
 
     React.useEffect(() => {
         // GET request using fetch inside useEffect React hook
-        fetch('./api/aktivnost/add', {
+        fetch('/api/aktivnost/add', {
             credentials: 'include',
             method: 'GET'
         })
@@ -64,7 +64,7 @@ function AddSchedule(props) {
 
     const onSubmit = (e) => {
         let objekt = JSON.stringify(state);
-        fetch("./api/aktivnost/add", {
+        fetch("/api/aktivnost/add", {
             credentials: 'include',
             method: 'POST',
             headers: {"Content-type": "application/json"},

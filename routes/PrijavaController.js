@@ -77,8 +77,8 @@ class PrijavaController extends Controller {
         }); */
 
         const sgMail = require('@sendgrid/mail')
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
+        //sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+        sgMail.setApiKey('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');
 /*         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,

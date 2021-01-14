@@ -85,7 +85,7 @@ class PrijavaController extends Controller {
           });
 
         let msg = {
-            from: '"Kamp Mlade nade" <mladenade.kamp@gmail.com>', // sender address
+            from:`"Kamp Mlade nade" <${kamp.email}>`, // sender address
             to: `${prijava.ime} ${prijava.prezime} ${prijava.email}`, // list of receivers
             //to: email,
             subject: "Kamp Mlade nade - prijava", // Subject line

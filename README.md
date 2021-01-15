@@ -18,3 +18,21 @@ Backend funkcionalnosti vezane za prijave funkcioniraju bez obzira na nemogućno
 
 U mailu se šalje sljedeći link za dovršetak prijave: 
 https://progi-kamp-mlade-nade.herokuapp.com/register
+
+Radi lakšeg testiranja najbolje je spojiti se na bazu podataka preko pgAdmin,
+kako bi se u bazi izmijenili podaci o kampu zbog vremenskih ograničenja aplikacije.
+Potrebno je stvoriti novi server u pgAdminu.
+
+Za stvaranje novog servera, najjednostavnije je pogledati na ovom link kako se to radi:
+https://medium.com/analytics-vidhya/how-to-use-pgadmin-to-connect-to-a-heroku-database-c69b7cbfccd8
+
+Ukratko, potrebno je stvoriti novi server i filtrirati našu bazu podataka (bez toga se zbog Herokua prikazuju i neke druge baze).
+
+Potrebni podaci baze koje generira Heroku navedeni su ispod.
+Host: ec2-54-78-127-245.eu-west-1.compute.amazonaws.com
+Database: d7o5kmr00s49tn
+User: btjjgaufdoghnw
+Port: 5432
+Password: e5cdfe71231ab7bc350a46106b1de991b12a3676cb77d0da8d802f142b48c92c
+URI: postgres://btjjgaufdoghnw:e5cdfe71231ab7bc350a46106b1de991b12a3676cb77d0da8d802f142b48c92c@ec2-54-78-127-245.eu-west-1.compute.amazonaws.com:5432/d7o5kmr00s49tn
+Heroku CLI: heroku pg:psql postgresql-rigid-05748 --app progi-kamp-mlade-nade

@@ -36,3 +36,12 @@ Port: 5432
 Password: e5cdfe71231ab7bc350a46106b1de991b12a3676cb77d0da8d802f142b48c92c
 URI: postgres://btjjgaufdoghnw:e5cdfe71231ab7bc350a46106b1de991b12a3676cb77d0da8d802f142b48c92c@ec2-54-78-127-245.eu-west-1.compute.amazonaws.com:5432/d7o5kmr00s49tn
 Heroku CLI: heroku pg:psql postgresql-rigid-05748 --app progi-kamp-mlade-nade
+
+Informacije za testiranje:
+Dodani su kamp, sudionici i animatori.
+Sudionike je potrebno rasporediti u grupe.
+Aktivnosti postoje te ih je potrebno dodati u raspored.
+Za testiranje vremenskih ograničenja preporučamo:
+    - izmjenene datuma početka i kraja prijava za sudionike i animatore - pregled stranice kada su prijave otvorene i zatvorene
+    - izmjene datuma početka kampa - za pregled stranice prije početka kampa, tijekom trajanja kampa te nakon kampa; za otvaranje mogućnosti       ocjenjivanja kampa
+    - postavljanje datuma izvršavanja aktivnosti u rasporedu na datum koji je prošao kako bi se korisniku otvorila mogućnost ocjene obavljene aktivnosti

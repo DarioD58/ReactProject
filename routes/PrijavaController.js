@@ -67,10 +67,6 @@ class PrijavaController extends Controller {
         await prijava.changeStatusPrijava(status_prijava);
 
         const auth = {
-            auth: {
-                api_key: 'cca935ae1900743f4ab37e0888a2b6b0-28d78af2-211e26df',
-                domain: 'https://app.mailgun.com/app/sending/domains/sandboxc45d7e9f2c11429f8a8b179a56fd92de.mailgun.org'
-            }
         };
 
  
